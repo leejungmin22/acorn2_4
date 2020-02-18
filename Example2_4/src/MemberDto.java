@@ -4,4 +4,5 @@ public class MemberDto {
   ¤·¤·¤·¤·¤·
   private String name;
   ¤±¤±¤¤¤·¤±¤¤¤·
+ ¤¡¤¡¤¡¤¡¤¡¤¡
 }
