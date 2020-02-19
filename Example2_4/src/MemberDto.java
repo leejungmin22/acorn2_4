@@ -1,5 +1,6 @@
 
 public class MemberDto {
+<<<<<<< HEAD
   private int num;
 
   
@@ -7,5 +8,7 @@ public class MemberDto {
   
 
   private String name;
+=======
+>>>>>>> refs/heads/hyeonkyung
 
 }
