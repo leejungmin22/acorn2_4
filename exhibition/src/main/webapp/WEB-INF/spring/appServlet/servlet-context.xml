@@ -23,6 +23,16 @@
 	
 	<context:component-scan base-package="com.acorn.exhibition" />
 	
-	
+	<!-- MyBatis -->
+	<beans:bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
+        <beans:property name="jndiName" value="java:comp/env/jdbc/myoracle"/>
+    </beans:bean>
+    <beans:bean id="sessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <beans:property name="dataSource" ref="dataSource"/>
+        <beans:property name="configLocation" value="classpath:com/acorn/exhibition/mybatis/configuration.xml"/>
+    </beans:bean>
+    <beans:bean class="org.mybatis.spring.SqlSessionTemplate">
+        <beans:constructor-arg name="sqlSessionFactory" ref="sessionFactory"/>
+    </beans:bean>
 	
 </beans:beans>
