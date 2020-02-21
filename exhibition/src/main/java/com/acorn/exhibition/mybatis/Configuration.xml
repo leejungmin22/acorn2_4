@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+  <configuration>
+  <!-- 자주사용하는 type의 별칭 지정하기 -->
+  <typeAliases>
+  	<typeAlias type="com.acorn.exhibition.users.dto.UsersDto" alias="usersDto"/>
+  </typeAliases>
+  <!-- Mapper 설정 -->
+  <mappers>
+  	<mapper resource="com/acorn/exhibition/mybatis/UsersMapper.xml"/>
+  </mappers>
+  </configuration>
