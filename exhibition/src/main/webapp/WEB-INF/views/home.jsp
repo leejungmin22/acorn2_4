@@ -95,25 +95,32 @@ $(document).ready(function(){
   $('.owl-carousel').owlCarousel({
 		loop:true,
 		margin:10,
+		autoplay:true,
+		autoplayTimeout:1000,
+	    autoplayHoverPause:true,
 		responsiveClass:true,
 		responsive:{
 		    0:{
-		        items:1,
-		        nav:true
+		        items:3,
 		    },
 		    600:{
 		        items:3,
-		        nav:false
 		    },
 		    1000:{
 		        items:5,
-		        nav:true,
-		        loop:false
+		        loop:false //Infinity loop. Duplicate last and first items to get loop illusion.
 		    }
 		}
   })
 });
 </script>
+<style>
+	.owl-carousel .item {
+    height: 10rem;
+    background: #4DC7A0;
+    padding: 1rem;
+    }
+</style>
 </head>
 <body>
 <jsp:include page="include/navbar.jsp" />
@@ -121,6 +128,7 @@ $(document).ready(function(){
 	<h3>공연 일정</h3>
 	<div id='calendar'></div>
 	
+	<!-- owl.carousel 샘플 data-->
 	<h3>인기 공연</h3>
 	<div class="row">
 		<div class="large-12 columns">
