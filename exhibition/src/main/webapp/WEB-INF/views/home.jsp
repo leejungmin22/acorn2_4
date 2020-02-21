@@ -15,8 +15,8 @@
     var calendarEl = document.getElementById('calendar');
 
     var calendar = new FullCalendar.Calendar(calendarEl, {
+    	height: 600,
 		plugins: [ 'dayGrid' ],
-		contentHeight: 600,
 		defaultView: 'dayGridMonth',
 		defaultDate: new Date(),
 		header: {
@@ -129,6 +129,18 @@ $(document).ready(function(){
 
 <jsp:include page="include/navbar.jsp" />
 <div class="container">
+	<form class="form-inline" action="list.do" method="get"> 
+		<div class="form-group">
+			<label for="condition">검색조건</label>
+			<select class="form-control" name="condition" id="condition">
+				<option value="titleName" <c:if test="${condition eq 'titleName' }">selected</c:if>>제목+파일명</option>
+				<option value="title" <c:if test="${condition eq 'title' }">selected</c:if>>제목</option>
+				<option value="writer" <c:if test="${condition eq 'writer' }">selected</c:if>>작성자</option>
+			</select>
+			<input class="form-control" type="text" name="keyword" id="keyword" value="${keyword }" placeholder="검색어를 입력하세요" />
+			<button class="btn btn-primary type="submit">검색</button>
+		</div>
+	</form>
 	<h3>공연 일정</h3>
 	<div id='calendar'></div>
 	
@@ -141,7 +153,7 @@ $(document).ready(function(){
 			      <h4>1</h4>
 			    </div>
 			    <div class="item">
-			      <h4>2</h4>
+			      <h4><a href="${pageContext.request.contextPath }/detail.do?seq=${seq}">2</a></h4>
 			    </div>
 			    <div class="item">
 			      <h4>3</h4>

@@ -15,7 +15,7 @@
 	<div class="container">
 		<!-- 홈페이지 링크와 버튼을 넣어둘 div -->
 		<div class="navbar-header">
-			<a class="navbar-brand" href="${pageContext.request.contextPath }/home.do">Acorn</a>
+			<a class="navbar-brand" href="${pageContext.request.contextPath }/home.do">Home</a>
 			<button class="navbar-toggle" 
 				data-toggle="collapse" 
 				data-target="#one">
@@ -29,9 +29,8 @@
 		<div class="collapse navbar-collapse" id="one">
 			<ul class="nav navbar-nav">
 				<%-- el은 출력할 데이터가 없으면 null 대신 아무것도 출력하지 않으므로 nullpointexception을 발생시키지 않는다 --%>
-				<li <c:if test="${param.category eq 'home' }">class="active"</c:if>><a href="${pageContext.request.contextPath }/cafe/list.do">Cafe</a></li>
-				<li <c:if test="${param.category eq 'file' }">class="active"</c:if>><a href="${pageContext.request.contextPath }/file/list.do">자료실</a></li>
-				<li <c:if test="${param.category eq 'shop' }">class="active"</c:if>><a href="${pageContext.request.contextPath }/shop/list.do">Shop</a></li>
+				<li <c:if test="${param.category eq 'ranking' }">class="active"</c:if>><a href="${pageContext.request.contextPath }/ranking.do">Ranking</a></li>
+				<li <c:if test="${param.category eq 'map' }">class="active"</c:if>><a href="${pageContext.request.contextPath }/map.do">지도</a></li>
 			</ul>
 			
 			<c:choose>
