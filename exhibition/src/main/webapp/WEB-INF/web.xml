@@ -30,11 +30,9 @@
 		<url-pattern>*.do</url-pattern>
 	</servlet-mapping>
 	
-	<!-- 최상위 경로 요청이 왔을때 home.do 요청이 자동으로 되도록 설정 -->
 	<welcome-file-list>
 		<welcome-file>home.do</welcome-file>
 	</welcome-file-list>
-	
 	<!-- post 방식 전송될때  한글 깨지지 않도록 Spring 인코딩 필터 정의하기  -->
 	<filter>
 		<filter-name>EncodingFilter</filter-name>
