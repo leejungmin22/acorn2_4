@@ -9,6 +9,6 @@
   </typeAliases>
   <!-- Mapper 설정 -->
   <mappers>
-  	<mapper resource="com/acorn/exhibition/users/UsersMapper.xml"/>
+  	<mapper resource="com/acorn/exhibition/mybatis/UsersMapper.xml"/>
   </mappers>
   </configuration>
