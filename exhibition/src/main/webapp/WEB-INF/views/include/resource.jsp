@@ -9,11 +9,8 @@
 <!-- fullcalendar -->
 <link rel='stylesheet' type='text/css' href='${pageContext.request.contextPath }/resources/css/fullcalendar/main.css'/>
 <link rel='stylesheet' type='text/css' href='${pageContext.request.contextPath }/resources/css/fullcalendar/daygrid.min.css'/>
-<link rel='stylesheet' type='text/css' href='${pageContext.request.contextPath }/resources/css/fullcalendar/timegrid.min.css'/>
 <script type="text/javascript" src="${pageContext.request.contextPath }/resources/js/fullcalendar/main.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath }/resources/js/fullcalendar/interaction.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath }/resources/js/fullcalendar/daygrid.min.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath }/resources/js/fullcalendar/timegrid.min.js"></script>
 <!-- owl.carousel -->
 <link rel="stylesheet" type='text/css' href="${pageContext.request.contextPath }/resources/css/owl.carousel/owl.carousel.min.css" />
 <link rel="stylesheet" type='text/css' href="${pageContext.request.contextPath }/resources/css/owl.carousel/owl.theme.default.min.css" />
