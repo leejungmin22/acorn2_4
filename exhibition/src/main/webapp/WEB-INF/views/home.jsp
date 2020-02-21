@@ -7,6 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+
 <jsp:include page="include/resource.jsp" />
 
 <!-- fullcalendar -->
@@ -88,6 +89,7 @@
 </script>
 </head>
 <body>
+
 <jsp:include page="include/navbar.jsp" />
 <div class="container">
 	<h3>공연 일정</h3>
@@ -99,15 +101,4 @@
 	</div>
 </div>
 <jsp:include page="include/footer.jsp" />
->>>>>>> refs/heads/hyeonkyung
 </body>
-<<<<<<< HEAD
-</html>
-
-
-
-
-
-=======
-</html>
->>>>>>> refs/heads/hyeonkyung
