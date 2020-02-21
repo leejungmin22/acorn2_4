@@ -47,5 +47,9 @@ public class MemberDto {
 	        conn.disconnect();
 	        System.out.println(sb.toString());
 	    }
+<<<<<<< HEAD
 >>>>>>> refs/heads/hyeonkyung
+=======
+>>>>>>> refs/remotes/origin/hyeonkyung
+>>>>>>> refs/heads/jungmin
 }

@@ -9,84 +9,121 @@
 <title>Insert title here</title>
 
 <jsp:include page="include/resource.jsp" />
-
 <!-- fullcalendar -->
-<link rel='stylesheet' type='text/css' href='${pageContext.request.contextPath }/resources/css/fullcalendar/main.css'/>
-<link rel='stylesheet' type='text/css' href='${pageContext.request.contextPath }/resources/css/fullcalendar/daygrid.min.css'/>
-<link rel='stylesheet' type='text/css' href='${pageContext.request.contextPath }/resources/css/fullcalendar/timegrid.min.css'/>
-<script type="text/javascript" src="<c:url value='/resources/js/fullcalendar/main.js'/>"></script>
-<script type="text/javascript" src="<c:url value='/resources/js/fullcalendar/interaction.min.js'/>"></script>
-<script type="text/javascript" src="<c:url value='/resources/js/fullcalendar/daygrid.min.js'/>"></script>
-<script type="text/javascript" src="<c:url value='/resources/js/fullcalendar/timegrid.min.js'/>"></script>
 <script>
-
   document.addEventListener('DOMContentLoaded', function() {
     var calendarEl = document.getElementById('calendar');
 
     var calendar = new FullCalendar.Calendar(calendarEl, {
-      plugins: [ 'interaction', 'dayGrid', 'timeGrid' ],
-      defaultView: 'dayGridMonth',
-      defaultDate: new Date(),
-      header: {
-          left: 'prev,next today',
-          center: 'title',
-          right: 'dayGridMonth,timeGridWeek,timeGridDay'
-        },
-        events: [
-          {
-            title: 'All Day Event',
-            start: '2020-02-01'
-          },
-          {
-            title: 'Long Event',
-            start: '2020-02-07',
-            end: '2020-02-10'
-          },
-          {
-            groupId: '999',
-            title: 'Repeating Event',
-            start: '2020-02-09T16:00:00'
-          },
-          {
-            groupId: '999',
-            title: 'Repeating Event',
-            start: '2020-02-16T16:00:00'
-          },
-          {
-            title: 'Conference',
-            start: '2020-02-11',
-            end: '2020-02-13'
-          },
-          {
-            title: 'Meeting',
-            start: '2020-02-12T10:30:00',
-            end: '2020-02-12T12:30:00'
-          },
-          {
-            title: 'Lunch',
-            start: '2020-02-12T12:00:00'
-          },
-          {
-            title: 'Meeting',
-            start: '2020-02-12T14:30:00'
-          },
-          {
-            title: 'Birthday Party',
-            start: '2020-02-13T07:00:00'
-          },
-          {
-            title: 'Click for Google',
-            url: 'http://google.com/',
-            start: '2020-02-28'
-          }
-        ] 
-    });
+		plugins: [ 'dayGrid' ],
+		contentHeight: 600,
+		defaultView: 'dayGridMonth',
+		defaultDate: new Date(),
+		header: {
+		    left: '',
+		    center: 'title',
+		    right: 'prev,next today'
+		  },
+		eventLimit: true,
+		eventLimitText: "more",
+		eventLimitClick: "popover",
+		editable: false,
+		droppable: false,
+		dayPopoverFormat: { year: 'numeric', month: 'long', day: 'numeric' },
+        
+		//샘플 data
+		events: [
+		  {
+		    title: 'All Day Event',
+		    start: '2020-02-01'
+		  },
+		  {
+		    title: 'Long Event',
+		    start: '2020-02-07',
+		    end: '2020-02-10'
+		  },
+		  {
+		    groupId: '999',
+		    title: 'Repeating Event',
+		    start: '2020-02-09T16:00:00'
+		  },
+		  {
+		    groupId: '999',
+		    title: 'Repeating Event',
+		    start: '2020-02-16T16:00:00'
+		  },
+		  {
+		    title: 'Conference',
+		    start: '2020-02-11',
+		    url: 'http://google.com/',
+		    end: '2020-02-13'
+		  },
+		  {
+		    title: 'Meeting',
+		    start: '2020-02-12T10:30:00',
+		    end: '2020-02-12T12:30:00'
+		  },
+		  {
+		    title: 'Lunch',
+		    start: '2020-02-12T12:00:00'
+		  },
+		  {
+		    title: 'Meeting',
+		    start: '2020-02-12T14:30:00'
+		  },
+		  {
+		    title: 'Birthday Party',
+		    start: '2020-02-13T07:00:00'
+		  },
+		  {
+		    title: 'Click for Google',
+		    url: 'http://google.com/',
+		    start: '2020-02-28'
+		  },
+		  {
+		      title: 'hi',
+		      url: 'http://google.com/',
+		      start: '2020-02-28'
+		    }
+		] 
+   });
 
     calendar.render();
   });
 
-
 </script>
+<!-- owl.carousel -->
+<script>
+$(document).ready(function(){
+  $('.owl-carousel').owlCarousel({
+		loop:true,
+		margin:10,
+		autoplay:true,
+		autoplayTimeout:1000,
+	    autoplayHoverPause:true,
+		responsiveClass:true,
+		responsive:{
+		    0:{
+		        items:3,
+		    },
+		    600:{
+		        items:3,
+		    },
+		    1000:{
+		        items:5,
+		        loop:false //Infinity loop. Duplicate last and first items to get loop illusion.
+		    }
+		}
+  })
+});
+</script>
+<style>
+	.owl-carousel .item {
+    height: 10rem;
+    background: #4DC7A0;
+    padding: 1rem;
+    }
+</style>
 </head>
 <body>
 
@@ -95,9 +132,43 @@
 	<h3>공연 일정</h3>
 	<div id='calendar'></div>
 	
+	<!-- owl.carousel 샘플 data-->
 	<h3>인기 공연</h3>
-	<div class="popular_wrap">
-	
+	<div class="row">
+		<div class="large-12 columns">
+			<div class="owl-carousel owl-theme">
+				<div class="item">
+			      <h4>1</h4>
+			    </div>
+			    <div class="item">
+			      <h4>2</h4>
+			    </div>
+			    <div class="item">
+			      <h4>3</h4>
+			    </div>
+			    <div class="item">
+			      <h4>4</h4>
+			    </div>
+			    <div class="item">
+			      <h4>5</h4>
+			    </div>
+			    <div class="item">
+			      <h4>6</h4>
+			    </div>
+			    <div class="item">
+			      <h4>7</h4>
+			    </div>
+			    <div class="item">
+			      <h4>8</h4>
+			    </div>
+			    <div class="item">
+			      <h4>9</h4>
+			    </div>
+			    <div class="item">
+			      <h4>10</h4>
+			    </div>	
+			</div>
+		</div>
 	</div>
 </div>
 <jsp:include page="include/footer.jsp" />
