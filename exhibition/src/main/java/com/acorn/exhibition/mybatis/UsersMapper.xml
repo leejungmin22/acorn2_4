@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="users">
+	<select id="isExist" parameterType="String" resultType="String">
+		select id
+		from users
+		where id=#{inputId}
+	</select>
+	
+	<insert id="insert" parameterType="usersDto" >
+		insert into users
+		(id,name,pwd,email,gender,birth,regdate)
+		values(#{id},#{name},#{pwd},#{email},#{gender},#{birth},SYSDATE)
+	</insert>
+	
+	<select id="getPwdHash" parameterType="String" resultType="String">
+		select pwd
+		from users
+		where id=#{inputId}
+	</select>
+	
+	<select id="getData" parameterType="String" resultType="usersDto">
+		select id,pwd,email,regdate,profile,name,gender,birth
+		from users
+		where id=#{id}
+	
+	</select>
+	<update id="updateProfile" parameterType="usersDto">
+		update users
+		set profile=#{profile}
+		where id=#{id}
+	</update>
+	
+	<update id="updatePwd" parameterType="usersDto">
+		update users
+		set pwd=#{pwd}
+		where id=#{id}
+	</update>
+	
+	<update id="updateUser" parameterType="usersDto">
+		update users
+		set email=#{email},name=#{name},gender=#{gender},birth=#{birth}
+		where id=#{id}
+	</update>
+	
+	<delete id="delete" parameterType="String">
+		delete from users
+		where id=#{id}
+	</delete>
+</mapper>
