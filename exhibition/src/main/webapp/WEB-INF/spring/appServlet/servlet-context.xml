@@ -76,5 +76,5 @@
 	</beans:bean>
 	<view-controller path="/error/404.do" view-name="error/404"/>
 	<view-controller path="/error/505.do" view-name="error/505"/>
-	
+	<annotation-driven/>
 </beans:beans>
