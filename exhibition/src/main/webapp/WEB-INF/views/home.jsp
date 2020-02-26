@@ -28,65 +28,41 @@
 		editable: false,
 		droppable: false,
 		dayPopoverFormat: { year: 'numeric', month: 'long', day: 'numeric' },
-        
-		//샘플 data
-		events: [
-		  {
-		    title: 'All Day Event',
-		    start: '2020-02-01'
-		  },
-		  {
-		    title: 'Long Event',
-		    start: '2020-02-07',
-		    end: '2020-02-10'
-		  },
-		  {
-		    groupId: '999',
-		    title: 'Repeating Event',
-		    start: '2020-02-09T16:00:00'
-		  },
-		  {
-		    groupId: '999',
-		    title: 'Repeating Event',
-		    start: '2020-02-16T16:00:00'
-		  },
-		  {
-		    title: 'Conference',
-		    start: '2020-02-11',
-		    url: 'http://google.com/',
-		    end: '2020-02-13'
-		  },
-		  {
-		    title: 'Meeting',
-		    start: '2020-02-12T10:30:00',
-		    end: '2020-02-12T12:30:00'
-		  },
-		  {
-		    title: 'Lunch',
-		    start: '2020-02-12T12:00:00'
-		  },
-		  {
-		    title: 'Meeting',
-		    start: '2020-02-12T14:30:00'
-		  },
-		  {
-		    title: 'Birthday Party',
-		    start: '2020-02-13T07:00:00'
-		  },
-		  {
-		    title: 'Click for Google',
-		    url: 'http://google.com/',
-		    start: '2020-02-28'
-		  },
-		  {
-		      title: 'hi',
-		      url: 'http://google.com/',
-		      start: '2020-02-28'
-		    }
-		] 
-   });
+		events:function(start, end, timezone, callback){
+			$.ajax({
+		           url: '${pageContext.request.contextPath}/getEvents.do',
+		           dataType: 'json',
+		           success: function(result) {
+		               var events = [];
+		               if(result!=null){
+		            	   console.log(result);
+		            	   $.each(result, function(index, element) {
+		            		   console.log(element['title']);
+		            		   console.log(element['startdate']);
+		            		   console.log(element['enddate']);
+		            		   console.log(element['url']);
+			                   events.push({
+			                       title: element['title'],
+			                       start: element['startdate'],
+			                       end: element['enddate'],
+			           			    url: element['url']
 
-    calendar.render();
+			                   });
+			                   
+			               });
+		               }//if
+		               console.log("events:"+events);
+		               callback(events);
+		           }//success: function
+		          
+		       }); //ajax
+	      
+		},//events:function
+		
+   });//new FullCalendar
+
+   calendar.render();
+   
   });
 </script>
 <!-- owl.carousel -->
@@ -145,6 +121,7 @@ $(document).ready(function(){
 	<div class="row">
 		<div class="large-12 columns">
 			<div class="owl-carousel owl-theme">
+				
 				<div class="item">
 			      <h4>1</h4>
 			    </div>
