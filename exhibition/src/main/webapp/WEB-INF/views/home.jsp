@@ -28,42 +28,43 @@
 		editable: false,
 		droppable: false,
 		dayPopoverFormat: { year: 'numeric', month: 'long', day: 'numeric' },
-		events:function(start, end, timezone, callback){
+		events:function(info, successCallback, failureCallback){
 			$.ajax({
 		           url: '${pageContext.request.contextPath}/getEvents.do',
 		           dataType: 'json',
-		           success: function(result) {
-		               var events = [];
-		               if(result!=null){
-		            	   console.log(result);
-		            	   $.each(result, function(index, element) {
-		            		   console.log(element['title']);
-		            		   console.log(element['startdate']);
-		            		   console.log(element['enddate']);
-		            		   console.log(element['url']);
-			                   events.push({
-			                       title: element['title'],
-			                       start: element['startdate'],
-			                       end: element['enddate'],
-			           			    url: element['url']
-
-			                   });
-			                   
-			               });
-		               }//if
-		               console.log("events:"+events);
-		               callback(events);
-		           }//success: function
+		           success: 
+		        	   function(result) {
+			               var events = [];
+			               if(result!=null){
+				            	   $.each(result, function(index, element) {
+			            		   var enddate=element.enddate;
+									if(enddate==null){
+										enddate=element.startdate;
+									}
+									events.push({
+				                       title: element.title,
+				                       start: element.startdate,
+				                       end: enddate,
+				           			   url: element.url
+				                    }); //.push()
+									
+				               }); //.each()
+			            	   console.log(events);
+			               }//if end
+			               
+			               successCallback(events);	
+			           }//success: function end
 		          
-		       }); //ajax
-	      
-		},//events:function
+		       }); //ajax end
+
+		}//events:function end
 		
-   });//new FullCalendar
+   });//new FullCalendar end
 
    calendar.render();
    
   });
+  
 </script>
 <!-- owl.carousel -->
 <script>
