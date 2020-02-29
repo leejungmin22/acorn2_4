@@ -93,35 +93,35 @@ $(document).ready(function(){
 </script>
 <style>
 	.owl-carousel .item {
-    height: 10rem;
-    /* background: #4DC7A0; */
-    padding: 1rem;
+	    padding: 1rem;
     }
-    
-    img {
-    
+    .condition{
+    	margin: 10px 0 20px 0;
     }
 </style>
 </head>
 <body>
 <jsp:include page="include/navbar.jsp" />
 <div class="container">
-	<form class="form-inline" action="list.do" method="get"> 
-		<div class="form-group">
-			<label for="condition">검색조건</label>
-			<select class="form-control" name="condition" id="condition">
-				<option value="titleName" <c:if test="${condition eq 'titleName' }">selected</c:if>>제목+파일명</option>
-				<option value="title" <c:if test="${condition eq 'title' }">selected</c:if>>제목</option>
-				<option value="writer" <c:if test="${condition eq 'writer' }">selected</c:if>>작성자</option>
-			</select>
-			<input class="form-control" type="text" name="keyword" id="keyword" value="${keyword }" placeholder="검색어를 입력하세요" />
-			<button class="btn btn-primary type="submit">검색</button>
-		</div>
-	</form>
-	<h3>공연 일정</h3>
+	<div class="condition" align="right">
+		<form class="form-inline" action="list.do" method="get"> 
+			<div class="form-group">
+				<label for="condition">검색조건</label>
+				<select class="form-control" name="condition" id="condition">
+					<option value="titleName" <c:if test="${condition eq 'titleName' }">selected</c:if>>제목+파일명</option>
+					<option value="title" <c:if test="${condition eq 'title' }">selected</c:if>>제목</option>
+					<option value="writer" <c:if test="${condition eq 'writer' }">selected</c:if>>작성자</option>
+				</select>
+				<input class="form-control" type="text" name="keyword" id="keyword" value="${keyword }" placeholder="검색어를 입력하세요" />
+				<button class="btn btn-primary type="submit">검색</button>
+			</div>
+		</form>
+	</div>
+
+	<!-- fullcalendar 출력 -->
 	<div id='calendar'></div>
 	
-	<!-- owl.carousel 샘플 data-->
+	<!-- owl.carousel data-->
 	<h3>인기 공연</h3>
 	<div class="row">
 		<div class="large-12 columns">
@@ -130,23 +130,9 @@ $(document).ready(function(){
 					<div class="item">
 						<a href="${pageContext.request.contextPath }/detail.do?seq=${tmp.seq}">
 							<img alt="${tmp.title }" src="${tmp.thumbnail }">
-							<p>${tmp.thumbnail }</p>
 						</a>
 				    </div>
 				</c:forEach>
-				<!-- 
-				<div class="item">
-			      <h4>1</h4>
-			    </div>
-			    <div class="item">
-			      <h4>8</h4>
-			    </div>
-			    <div class="item">
-			      <h4>9</h4>
-			    </div>
-			    <div class="item">
-			      <h4>10</h4>
-			    </div>	 -->
 			</div>
 		</div>
 	</div>
