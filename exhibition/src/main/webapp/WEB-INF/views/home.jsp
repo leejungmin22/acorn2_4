@@ -45,7 +45,7 @@
 				                       title: element.title,
 				                       start: element.startdate,
 				                       end: enddate,
-				           			   url: element.url
+				           			   url: "detail.do?seq="+element.seq
 				                    }); //.push()
 									
 				               }); //.each()
