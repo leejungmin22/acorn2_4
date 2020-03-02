@@ -3,6 +3,11 @@
 <mapper namespace="event">
 	<select id="getevent" resultType="fullCalendarDto">
 		select seq, title, startdate, enddate, thumbnail
-		from tb_api_date
+		from tb_api_data
+	</select>
+	<select id="getdata" parameterType="int" resultType="fullCalendarDto">
+		SELECT seq, title, startdate, enddate, place, thumbnail, gpsx, gpsy
+		FROM tb_api_data
+		WHERE seq=#{seq}
 	</select>
 </mapper>

@@ -8,6 +8,16 @@
 <title>Insert title here</title>
 <jsp:include page="include/resource.jsp" />
 <!-- fullcalendar -->
+<link rel='stylesheet' type='text/css' href='${pageContext.request.contextPath }/resources/css/fullcalendar/main.css'/>
+<link rel='stylesheet' type='text/css' href='${pageContext.request.contextPath }/resources/css/fullcalendar/daygrid.min.css'/>
+<script type="text/javascript" src="${pageContext.request.contextPath }/resources/js/fullcalendar/main.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath }/resources/js/fullcalendar/daygrid.min.js"></script>
+<!-- owl.carousel -->
+<link rel="stylesheet" type='text/css' href="${pageContext.request.contextPath }/resources/css/owl.carousel/owl.carousel.min.css" />
+<link rel="stylesheet" type='text/css' href="${pageContext.request.contextPath }/resources/css/owl.carousel/owl.theme.default.min.css" />
+<script type="text/javascript" src="${pageContext.request.contextPath }/resources/js/owl.carousel/owl.carousel.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+<!-- fullcalendar -->
 <script>
   document.addEventListener('DOMContentLoaded', function() {
     var calendarEl = document.getElementById('calendar');
@@ -41,11 +51,15 @@
 									if(enddate==null){
 										enddate=element.startdate;
 									}
+									
+									var startdate=moment(element.startdate).format('YYYY-MM-DD');
+									var enddate=moment(enddate).format('YYYY-MM-DD');
+									   
 									events.push({
 				                       title: element.title,
-				                       start: element.startdate,
+				                       start: startdate,
 				                       end: enddate,
-				           			   url: "detail.do?seq="+element.seq
+				           			   url: "${pageContext.request.contextPath }/exhibition/detail.do?seq="+element.seq
 				                    }); //.push()
 									
 				               }); //.each()

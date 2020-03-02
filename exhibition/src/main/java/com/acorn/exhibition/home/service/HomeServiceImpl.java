@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.acorn.exhibition.home.dao.HomeDao;
 import com.acorn.exhibition.home.dto.FullCalendarDto;
@@ -35,5 +36,11 @@ public class HomeServiceImpl implements HomeService{
 	public void getPopularEvents(HttpServletRequest request) {
 		List<FullCalendarDto> list=dao.getEvent();
 		request.setAttribute("list", list);
+	}
+
+	@Override
+	public void getData(ModelAndView mView, int seq) {
+		FullCalendarDto dto=dao.getData(seq);
+		mView.addObject("dto", dto);
 	}
 }
