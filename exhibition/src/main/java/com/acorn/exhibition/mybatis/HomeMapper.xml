@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="event">
+	<select id="getevent" resultType="fullCalendarDto">
+		select seq, title, startdate, enddate, thumbnail
+		from tb_api_data
+	</select>
+	<select id="getdata" parameterType="int" resultType="fullCalendarDto">
+		SELECT seq, title, startdate, enddate, place, thumbnail, gpsx, gpsy
+		FROM tb_api_data
+		WHERE seq=#{seq}
+	</select>
+</mapper>
