@@ -44,3 +44,13 @@ seq_seq.NEXTVAL,
 '127.001766249',
 '37.5869849674'
 )
+
+CREATE TABLE users
+   (id VARCHAR2(30) PRIMARY KEY, --아이디
+   name VARCHAR2(30) NOT NULL, --이름
+   pwd CLOB NOT NULL, --비밀번호
+   email VARCHAR2(100), --이메일
+   birth DATE, --생년월일
+   gender char(1), --성별 'F' ,'m' 으로 관리
+   profile VARCHAR2(100), --프로필
+   regdate DATE); --가입날짜

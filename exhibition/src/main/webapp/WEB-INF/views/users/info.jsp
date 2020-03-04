@@ -63,24 +63,15 @@
 			<th>성별</th>
 			<td>${dto.gender }</td>
 		</tr>
-		<tr>
-			<th>전화번호</th>
-			<td>${dto.phone }</td>
-		</tr>
-		<tr>
-			<th>가입일</th>
-			<td>${dto.regdate }</td>
-		</tr>
+
 	</table>
 	<a href="updateform.do">개인 정보 수정하기</a>
 	<a href="javascript:deleteConfirm()">회원 탈퇴</a>
 </div>
 
-<form action="profile_upload.do" method="post"
-	enctype="multipart/form-data" id="profileForm">
+<form action="profile_upload.do" method="post" enctype="multipart/form-data" id="profileForm">
 	<label for="profileImage">프로필 이미지 선택</label>
-	<input type="file" name="profileImage" id="profileImage"
-		accept=".jpg, .jpeg, .png, .JPG, .JPEG"/>
+	<input type="file" name="profileImage" id="profileImage" accept=".jpg, .jpeg, .png, .JPG, .JPEG"/>
 </form>
 <%-- jquery form  플러그인 javascript 로딩 --%>
 <script src="${pageContext.request.contextPath }/resources/js/jquery.form.min.js"></script>
@@ -102,8 +93,7 @@
 		//{savedPath:"/upload/저장된이미지파일명"}
 		//savedPath 라는 방에 저장된 이미지의 경로가 들어 있다.
 		console.log(responseData);
-		var src="${pageContext.request.contextPath }"
-							+responseData.savedPath;
+		var src="${pageContext.request.contextPath }"+responseData.savedPath;
 		// img 의 src 속성에 반영함으로써 이미지가 업데이트 되도록 한다.
 		$("#profileLink img").attr("src", src);
 	});

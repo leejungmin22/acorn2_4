@@ -11,11 +11,13 @@ public class FullCalendarDto {
 	private String thumbnail;
 	private String gpsx;
 	private String gpsy;
+	private int startRowNum;
+	private int endRowNum;
 	
 	public FullCalendarDto() {}
 
 	public FullCalendarDto(int seq, String title, String startdate, String enddate, String place, String realmname,
-			String area, String thumbnail, String gpsx, String gpsy) {
+			String area, String thumbnail, String gpsx, String gpsy, int startRowNum, int endRowNum) {
 		super();
 		this.seq = seq;
 		this.title = title;
@@ -27,6 +29,8 @@ public class FullCalendarDto {
 		this.thumbnail = thumbnail;
 		this.gpsx = gpsx;
 		this.gpsy = gpsy;
+		this.startRowNum = startRowNum;
+		this.endRowNum = endRowNum;
 	}
 
 	public int getSeq() {
@@ -107,6 +111,22 @@ public class FullCalendarDto {
 
 	public void setGpsy(String gpsy) {
 		this.gpsy = gpsy;
+	}
+
+	public int getStartRowNum() {
+		return startRowNum;
+	}
+
+	public void setStartRowNum(int startRowNum) {
+		this.startRowNum = startRowNum;
+	}
+
+	public int getEndRowNum() {
+		return endRowNum;
+	}
+
+	public void setEndRowNum(int endRowNum) {
+		this.endRowNum = endRowNum;
 	}
 
 	

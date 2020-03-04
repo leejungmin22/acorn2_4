@@ -59,7 +59,7 @@
 				                       title: element.title,
 				                       start: startdate,
 				                       end: enddate,
-				           			   url: "${pageContext.request.contextPath }/exhibition/detail.do?seq="+element.seq
+				           			   url: "${pageContext.request.contextPath }/detail.do?seq="+element.seq
 				                    }); //.push()
 									
 				               }); //.each()

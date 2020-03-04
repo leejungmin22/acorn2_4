@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="comment">
+	<select id="getList" parameterType="fullCalendarDto" resultType="commentDto">
+		SELECT *
+		 FROM (SELECT result1.*, ROWNUM AS rnum
+				FROM (SELECT num, writer, content, target_id, ref_group, comment_group, deleted, board_cafe_comment.regdate, profile
+						FROM board_cafe_comment
+						INNER JOIN users ON board_cafe_comment.writer=users.id
+						ORDER BY comment_group ASC, num ASC) result1)
+		WHERE rnum BETWEEN #{startRowNum} AND #{endRowNum} <!-- 같은 그룹에 대해 어떤 것을 먼저 출력할지 정함. -->
+	</select>
+	<delete id="delete" parameterType="int">
+		UPDATE board_cafe_comment
+		SET deleted='yes'
+		WHERE num=#{num}
+	</delete>
+	<insert id="insert" parameterType="commentDto">
+	<!-- 댓글 NUM을 sequence를 통해 먼저 얻어낸 다음에 저장한다.  -->
+		INSERT INTO board_cafe_comment
+		(num, writer, content, target_id, ref_group, comment_group, regdate)
+		VALUES(#{num}, #{writer}, #{content}, #{target_id,jdbcType=VARCHAR}, #{ref_group}, #{comment_group}, SYSDATE)
+	</insert>
+	<select id="getSequence" resultType="int">
+		SELECT board_cafe_comment_seq.NEXTVAL
+		FROM DUAL
+	</select>
+	<update id="update" parameterType="fullCalendarDto">
+		UPDATE board_cafe_comment
+		SET content=#{content}
+		WHERE num=#{num}
+	</update>
+	<select id="getCount" resultType="int">
+		SELECT NVL(MAX(ROWNUM), 0)
+		FROM board_cafe_comment
+	</select>
+</mapper>

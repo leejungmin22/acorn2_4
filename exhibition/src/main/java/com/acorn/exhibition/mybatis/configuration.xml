@@ -7,10 +7,12 @@
   <typeAliases>
   	<typeAlias type="com.acorn.exhibition.users.dto.UsersDto" alias="usersDto"/>
   	<typeAlias type="com.acorn.exhibition.home.dto.FullCalendarDto" alias="fullCalendarDto"/>
+  	<typeAlias type="com.acorn.exhibition.home.dto.CommentDto" alias="commentDto"/>
   </typeAliases>
   <!-- Mapper 설정 -->
   <mappers>
   	<mapper resource="com/acorn/exhibition/mybatis/UsersMapper.xml"/>
   	<mapper resource="com/acorn/exhibition/mybatis/HomeMapper.xml"/>
+  	<mapper resource="com/acorn/exhibition/mybatis/CommentMapper.xml"/>
   </mappers>
   </configuration>

@@ -61,10 +61,6 @@
 				<option value="m">남</option>
 			</select>
 		</div>
-		<div class="form-group has-feedback">
-			<label class="control-label" for="phone">전화번호</label>
-			<input class="form-control" type="text" id="phone" name="phone"/>
-		</div>
 		<button disabled="disabled" class="btn btn-primary" type="submit">가입</button>
 		<button class="btn btn-warning" type="reset">취소</button>
 	</form>
