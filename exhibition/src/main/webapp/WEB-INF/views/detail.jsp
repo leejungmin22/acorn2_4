@@ -8,17 +8,17 @@
 <title>Insert title here</title>
 <jsp:include page="include/resource.jsp" />
 <!--네이버지도-->
-<script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=J9pKcIA6C6zcJbrEq4BOe4ThezO1rQry20s67foq&callback=initMap"></script>
+<!-- <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=J9pKcIA6C6zcJbrEq4BOe4ThezO1rQry20s67foq&callback=initMap"></script>
 <script type="text/javascript">
   var map = null;
 
   function initMap() {
       map = new naver.maps.Map('map', {
-          center: new naver.maps.LatLng(${dto.gpsx}, ${dto.gpsy}),
+          center: new naver.maps.LatLng(${exhibitionDto.gpsX}, ${exhibitionDto.gpsY}),
           zoom: 10
       });
   }
-</script>
+</script> -->
 <style>
 	div{
 		border: 1px solid red;
@@ -31,10 +31,8 @@
 	}
 	img{
 		max-width: 100%;
+		height: 560px;
 	}
-    .col-sm-1{
-        height: 100px;
-    }
     
     /* 댓글 css */
     	/* 글 내용을 출력할 div 에 적용할 css */
@@ -96,18 +94,21 @@
 <body>
 <jsp:include page="include/navbar.jsp"></jsp:include>
 <div class="container">
-	<h3>${dto.title }</h3>
+	<h3>${exhibitionDto.title }</h3>
 	<div class="row">
 		<div class="col-sm-4">
-            <img src="${dto.thumbnail }" alt="${dto.title } 포스터">
+            <img src="${exhibitionDto.imgUrl }" alt="${exhibitionDto.title } 포스터">
         </div>
 
         <div class="col-sm-8">
             <div>
-                <h4>제목 : ${dto.title }</h4>
-                <h4>분류 : ${dto.realmname }</h4>
-                <h4>일시 : ${dto.startdate } ~ ${dto.enddate }</h4>
-                <h4>장소 : ${dto.place }</h4>
+                <h6>공연 장소 : <a href="${exhibitionDto.placeUrl }">${exhibitionDto.place }</a></h6>
+                <h6>분류 : ${exhibitionDto.realmName }</h6>
+                <h6>공연 기간 : ${exhibitionDto.startDate } ~ ${exhibitionDto.endDate }</h6>
+                <h6>장소 : ${exhibitionDto.place }</h6>
+                <h6>요금 : ${exhibitionDto.price }</h6>
+                <h6>문의 : ${exhibitionDto.phone }</h6>
+                <a class="btn btn-success" href="${exhibitionDto.url }">결제</a>
             </div>
             <div>
                 <div id="map" style="width:100%;height:380px;"></div>
@@ -115,8 +116,10 @@
         </div>
 	</div>
     <div class="row">
-        <div class="col-sm-1">
-            
+        <div class="col-sm-12">
+        	<h3>줄거리</h3>
+            ${exhibitionDto.contents1 }
+            <c:if test="${exhibitionDto.contents2 ne null }">${exhibitionDto.contents2 }</c:if>
         </div>
     </div>
     <div class="row">
@@ -213,7 +216,7 @@
 				<div class="clearfix"></div>	
 				<div class="comment_form">
 					<!-- 원글에 댓글을 작성할 수 있는 폼 : 누가 쓴 어떤글에 댓글을 작성하는지 파라미터로 담아서 폼 제출시 post 방식으로 전달 -->
-					<form action="comment_insert.do" method="post">
+					<form class="comment-insert-form" action="comment_insert.do" method="post">
 						<input type="hidden" name="ref_group" value="${dto.seq }" /> <!-- 몇번 글의 글번호인지(댓글의 그룹번호) -->
 						<%-- <input type="hidden" name="target_id" value="${tmp.writer }" />--%><!-- 원글의 작성자 id(댓글의 대상자) -->
 						<textarea name="content"><c:if test="${empty id }">로그인이 필요합니다.</c:if></textarea> <!-- 로그인을 하지않았을 때 '로그인이 필요합니다' 출력 -->
