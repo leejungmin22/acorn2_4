@@ -36,10 +36,9 @@ public class HomeController {
 	}
 	
 	@RequestMapping(value = "/detail")
-	public ModelAndView detail(ModelAndView mView, @RequestParam int seq) {
-		service.getData(mView, seq);
-		mView.setViewName("detail");
-		return mView;
+	public String detail(HttpServletRequest request, @RequestParam int seq) {
+		service.getData(request);
+		return "detail";
 	}
 	
 	//댓글 저장 요청 처리
@@ -69,7 +68,6 @@ public class HomeController {
 	
 	@RequestMapping(value = "/more_comment")
 	public ModelAndView getComment(HttpServletRequest request, ModelAndView mView) {
-		System.out.println("실행순서");
 		service.commentList(request);
 		mView.addObject("id", request.getSession().getAttribute("id"));
 		mView.setViewName("commentprint");
