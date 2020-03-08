@@ -8,6 +8,7 @@
   	<typeAlias type="com.acorn.exhibition.users.dto.UsersDto" alias="usersDto"/>
   	<typeAlias type="com.acorn.exhibition.home.dto.FullCalendarDto" alias="fullCalendarDto"/>
   	<typeAlias type="com.acorn.exhibition.home.dto.CommentDto" alias="commentDto"/>
+  	<typeAlias type="com.acorn.exhibition.home.dto.ApiDto" alias="apiDto"/>
   </typeAliases>
   <!-- Mapper 설정 -->
   <mappers>

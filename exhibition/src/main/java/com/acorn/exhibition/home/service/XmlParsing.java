@@ -1,7 +1,9 @@
 package com.acorn.exhibition.home.service;
 
+
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -12,6 +14,7 @@ import com.acorn.exhibition.home.dto.ExhibitionDto;
 
 
 public class XmlParsing {
+	
     // tag값의 정보를 가져오는 메소드
 	public static String getTagValue(String tag, Element eElement) {
 	    NodeList nlList =  eElement.getElementsByTagName(tag).item(0).getChildNodes();
@@ -21,7 +24,7 @@ public class XmlParsing {
 	    }    
 	    return nValue.getNodeValue();
 	}
-
+	
 	public static ExhibitionDto getData(int seq) {
 		ExhibitionDto dto=new ExhibitionDto();
 		try{

@@ -1,7 +1,5 @@
 package com.acorn.exhibition.home.dto;
 
-import java.util.Map;
-
 public class ExhibitionDto {
 	private int seq;
 	private String title;

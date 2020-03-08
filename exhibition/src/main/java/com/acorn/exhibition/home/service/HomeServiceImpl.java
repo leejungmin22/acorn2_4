@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.acorn.exhibition.home.dao.CommentDao;
 import com.acorn.exhibition.home.dao.HomeDao;
+import com.acorn.exhibition.home.dto.ApiDto;
 import com.acorn.exhibition.home.dto.CommentDto;
 import com.acorn.exhibition.home.dto.ExhibitionDto;
 import com.acorn.exhibition.home.dto.FullCalendarDto;
@@ -196,6 +197,12 @@ public class HomeServiceImpl implements HomeService{
 		//EL, JSTL 을 활용하기 위해 필요한 모델을 request 에 담는다.
 		request.setAttribute("commentList", commentList);
 		request.setAttribute("dto", dto);
+	}
+
+	@Override
+	public void addExhibition(ApiDto dto) {
+		dao.insert(dto);
+		
 	}
 	
 }
