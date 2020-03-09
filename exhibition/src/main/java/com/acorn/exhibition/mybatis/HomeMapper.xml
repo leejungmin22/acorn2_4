@@ -40,7 +40,7 @@
 	<select id="getList" resultType="fullCalendarDto">
 		SELECT *
 		 FROM (SELECT result1.*, ROWNUM AS rnum
-				FROM (SELECT seq, title, startdate, enddate, place, thumbnail
+				FROM (SELECT seq, title, TO_CHAR(startdate,'YYYY/MM/DD') AS startdate, TO_CHAR(enddate,'YYYY/MM/DD') AS enddate, place, thumbnail
 						FROM tb_api_date
 						<choose>
 							<when test="seq != 0">
