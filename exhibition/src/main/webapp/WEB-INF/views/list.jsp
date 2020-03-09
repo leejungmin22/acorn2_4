@@ -49,15 +49,15 @@
 	</div>
 	<table class="table table-striped table-condensed">
 		<colgroup>
-			<col class="col-xs-1"/>
 			<col class="col-xs-6"/>
+			<col class="col-xs-1"/>
 			<col class="col-xs-2"/>
 			<col class="col-xs-3"/>
 		</colgroup>
 		<thead>
 			<tr>
-				<th>공연번호</th>
 				<th>공연명</th>
+				<th>좋아요</th>
 				<th>장소</th>
 				<th>공연기간</th>
 			</tr>
@@ -65,11 +65,14 @@
 		<tbody>
 			<c:forEach var="tmp" items="${requestScope.list }">
 				<tr>
-					<td>${tmp.seq }</td>
 					<td>
 						<a href="detail.do?seq=${tmp.seq }">
 							${tmp.title }
 						</a>				
+					</td>
+					<td>
+						<img src="${pageContext.request.contextPath }/resources/images/red-heart.png" alt="" />
+						${tmp.like }
 					</td>
 					<td>${tmp.place }</td>
 					<td>${tmp.startdate } ~ ${tmp.enddate }</td>

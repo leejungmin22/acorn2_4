@@ -54,3 +54,8 @@ CREATE TABLE exhibition_users
    gender char(1), --성별 'F' ,'m' 으로 관리
    profile VARCHAR2(100), --프로필
    regdate DATE); --가입날짜
+
+CREATE TABLE exhibition_like(
+	seq NUMBER PRIMARY KEY,
+	count_like NUMBER DEFAULT 0
+)

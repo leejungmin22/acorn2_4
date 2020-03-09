@@ -179,5 +179,9 @@ public class HomeController {
 		mView.setViewName("list");
 		return mView;
 	}
-
+	
+	public void name() {
+		
+	}
+	
 }

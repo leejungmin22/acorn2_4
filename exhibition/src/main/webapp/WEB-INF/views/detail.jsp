@@ -309,6 +309,12 @@ div {
 					<h6>요금 : ${exhibitionDto.price }</h6>
 					<h6>문의 : ${exhibitionDto.phone }</h6>
 					<a class="btn btn-success" href="${exhibitionDto.url }">결제</a>
+					<button class="btn btn-default like" type="button">
+						<img src="${pageContext.request.contextPath }/resources/images/empty-heart.png" alt="좋아요 취소" />
+						<img src="${pageContext.request.contextPath }/resources/images/red-heart.png" alt="좋아요" />
+						좋아요
+						${dto.like }
+					</button>
 				</div>
 				<div>
 					<h6>지도</h6>
@@ -650,6 +656,32 @@ div {
 		</div>
 	</div>
 	<script>
+	
+	//좋아요 수 올리기
+	$(".like").on("submit", function(){
+		//좋아요 클릭 여부 판단
+		var likeClicked=false;
+		
+		$.ajax({
+			url:"addLikeCount.do",
+			method:"post",
+			data:{"seq":${dto.seq}}, //data : 파라미터로 전달할 문자열 
+			success:function(responseData){
+				if(responseData.isSuccess){
+					//폼을 안보이게 한다 
+					$this.slideUp(200);
+					//폼에 입력한 내용 읽어오기
+					var content=$this.find("textarea").val();
+					//pre 요소에 수정 반영하기 
+					$this.parent().find("pre").text(content);
+				}
+			}
+		});
+		//폼 제출 막기 
+		return false; 
+	});
+	
+	
 	var pageNum=1;
 	//댓글 스크롤로 보이기
 	$(window).scroll(function() {
