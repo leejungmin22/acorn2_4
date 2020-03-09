@@ -214,7 +214,7 @@ div {
 	border: 1px dotted green;
 }
 
-img {
+.poster {
 	max-width: 100%;
 	height: 560px;
 }
@@ -293,7 +293,7 @@ img {
 		<h3>${exhibitionDto.title }</h3>
 		<div class="row">
 			<div class="col-sm-4">
-				<img src="${exhibitionDto.imgUrl }"
+				<img class="poster" src="${exhibitionDto.imgUrl }"
 					alt="${exhibitionDto.title } 포스터">
 			</div>
 
@@ -599,7 +599,7 @@ img {
 											<dt>
 												<c:choose>
 													<c:when test="${empty tmp.profile }">
-														<img class="user-img"
+														< class="user-img"
 															src="${pageContext.request.contextPath}/resources/images/default_user.jpeg" />
 													</c:when>
 													<c:otherwise>
