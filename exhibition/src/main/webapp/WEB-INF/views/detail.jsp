@@ -517,8 +517,17 @@ div {
 		<div class="row">
 			<div class="col-sm-12">
 				<h3>줄거리</h3>
-				${exhibitionDto.contents1 }
-				<c:if test="${exhibitionDto.contents2 ne null }">${exhibitionDto.contents2 }</c:if>
+				<c:choose>
+					<c:when test="${exhibitionDto.contents1 ne null }">
+						${exhibitionDto.contents1 }
+					</c:when>
+					<c:when test="${exhibitionDto.contents2 ne null }">
+						${exhibitionDto.contents2 }
+					</c:when>
+					<c:when test="${exhibitionDto.contents1 eq null and exhibitionDto.contents2 eq null }">
+						<p>상세내용이 없습니다 예매 페이지에서 상세내용을 확인해주세요.</p>
+					</c:when>
+				</c:choose>
 			</div>
 		</div>
 		<div class="row">
