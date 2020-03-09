@@ -22,9 +22,8 @@ import org.w3c.dom.NodeList;
 
 import com.acorn.exhibition.home.dto.ApiDto;
 import com.acorn.exhibition.home.dto.CommentDto;
-import com.acorn.exhibition.home.dto.ExhibitionDto;
 import com.acorn.exhibition.home.service.HomeService;
-import com.acorn.exhibition.home.service.XmlParsing;
+
 
 
 @Controller
@@ -164,6 +163,10 @@ public class HomeController {
 		mView.addObject("id", request.getSession().getAttribute("id"));
 		mView.setViewName("commentprint");
 		return mView;
+	}
+	@RequestMapping("/map") 
+	public String map() {
+		return "map";
 	}
 	
 	

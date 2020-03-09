@@ -66,6 +66,7 @@ public class HomeServiceImpl implements HomeService{
 		int pageNum=1;
 		//보여줄 페이지의 번호가 파라미터로 전달되는지 읽어와 본다.	
 		String strPageNum=request.getParameter("pageNum");
+		
 		if(strPageNum != null){//페이지 번호가 파라미터로 넘어온다면
 		//페이지 번호를 설정한다.
 			pageNum=Integer.parseInt(strPageNum);
