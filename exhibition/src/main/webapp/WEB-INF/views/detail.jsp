@@ -507,8 +507,7 @@ img {
 									el.removeChild(el.lastChild);
 								}
 							}
-				
-							
+
 					</script>
 				</div>
 			</div>

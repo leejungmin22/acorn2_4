@@ -41,8 +41,8 @@ public class HomeController {
 			
 			String url = "http://www.culture.go.kr/openapi/rest/publicperformancedisplays/period?serviceKey" // API URL
 					+ "=Gz2ltmko3fuxZQxk8hBjvYFNlR9DqV9a2SSG80HzdcKMvY99yDDYxCV5H%2Fl0mJtEmDimd9LEm5T5TgX%2BOH9IHA%3D%3D"
-					+ "&from=20140101"
-	                + "&to=20201201"
+					+ "&from=20200101"
+	                + "&to=20201231"
 	                +page;
 			
 			DocumentBuilderFactory dbFactoty = DocumentBuilderFactory.newInstance();
@@ -142,7 +142,7 @@ public class HomeController {
 	}
 	
 	//댓글 저장 요청 처리
-	@RequestMapping(value = "/comment_insert", method = RequestMethod.POST)
+	@RequestMapping(value = "/comment_insert")
 	public ModelAndView authCommentInsert(HttpServletRequest request, @RequestParam int ref_group) {
 		service.saveComment(request);
 		return new ModelAndView("redirect:/detail.do?seq="+ref_group);

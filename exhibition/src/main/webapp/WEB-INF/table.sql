@@ -17,7 +17,7 @@ CREATE TABLE fullcalendar
    url VARCHAR2(30) --이메일
    );
 
-CREATE TABLE tb_api_data(
+CREATE TABLE tb_api_date(
 	seq NUMBER PRIMARY KEY,
 	title VARCHAR2(200),
 	startdate VARCHAR2(50),
@@ -30,7 +30,7 @@ CREATE TABLE tb_api_data(
 	gpsy VARCHAR(20)
 );
 
-INSERT INTO tb_api_data
+INSERT INTO tb_api_date
 (seq, title, startdate, enddate, place, realmname, area, thumbnail, gpsx, gpsy)
 VALUES(
 seq_seq.NEXTVAL, 
@@ -45,7 +45,7 @@ seq_seq.NEXTVAL,
 '37.5869849674'
 )
 
-CREATE TABLE users
+CREATE TABLE exhibition_users
    (id VARCHAR2(30) PRIMARY KEY, --아이디
    name VARCHAR2(30) NOT NULL, --이름
    pwd CLOB NOT NULL, --비밀번호
