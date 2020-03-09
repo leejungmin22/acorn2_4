@@ -32,5 +32,17 @@ public class HomeDaoImpl implements HomeDao{
 	public void insert(ApiDto dto) {
 		session.insert("event.insert", dto);
 	}
+
+	@Override
+	public int getCount(FullCalendarDto dto) {
+		int count=session.selectOne("event.getCount", dto);
+		return count;
+	}
+
+	@Override
+	public List<FullCalendarDto> getList(FullCalendarDto dto) {
+		List<FullCalendarDto> list=session.selectList("event.getList", dto);
+		return list;
+	}
 	
 }

@@ -22,19 +22,17 @@ import org.w3c.dom.NodeList;
 
 import com.acorn.exhibition.home.dto.ApiDto;
 import com.acorn.exhibition.home.dto.CommentDto;
-import com.acorn.exhibition.home.dto.ExhibitionDto;
 import com.acorn.exhibition.home.service.HomeService;
-import com.acorn.exhibition.home.service.XmlParsing;
-
 
 @Controller
 public class HomeController {
 	@Autowired
 	private HomeService service;
-	
+
 	@RequestMapping(value = "/home")
-	public ModelAndView home(HttpServletRequest request, @ModelAttribute("dto") ApiDto dto,ModelAndView mView) {
-		service.getPopularEvents(request);	
+	public ModelAndView home(HttpServletRequest request, @ModelAttribute("dto") ApiDto dto, ModelAndView mView) {
+		service.getPopularEvents(request);
+		
 		int page = 1; 
 		try{
 		while(true){
@@ -114,58 +112,59 @@ public class HomeController {
 		} catch (Exception e){	
 			e.printStackTrace();
 		}	// try~catch end
-		mView.setViewName("home");
 		
+		mView.setViewName("home");
+
 		return mView;
 	}
-	
+
 	public static String getTagValue(String tag, Element eElement) {
-	    NodeList nlList =  eElement.getElementsByTagName(tag).item(0).getChildNodes();
-	    Node nValue = (Node) nlList.item(0);
-	    if(nValue == null) {
-	        return null;
-	    }    
-	    return nValue.getNodeValue();
+		NodeList nlList = eElement.getElementsByTagName(tag).item(0).getChildNodes();
+		Node nValue = (Node) nlList.item(0);
+		if (nValue == null) {
+			return null;
+		}
+		return nValue.getNodeValue();
 	}
-	
+
 	@ResponseBody
 	@RequestMapping(value = "/getEvents")
 	public String getEvents() {
-		String jsonStr=service.getEvent();
+		String jsonStr = service.getEvent();
 		return jsonStr;
 	}
-	
+
 	@RequestMapping(value = "/detail")
 	public String detail(HttpServletRequest request, @RequestParam int seq) {
 		service.getData(request);
 		return "detail";
 	}
-	
-	//댓글 저장 요청 처리
-	@RequestMapping(value = "/comment_insert", method = RequestMethod.POST)
+
+	// 댓글 저장 요청 처리
+	@RequestMapping(value = "/comment_insert")
 	public ModelAndView authCommentInsert(HttpServletRequest request, @RequestParam int ref_group) {
 		service.saveComment(request);
-		return new ModelAndView("redirect:/detail.do?seq="+ref_group);
+		return new ModelAndView("redirect:/detail.do?seq=" + ref_group);
 	}
-	
+
 	@ResponseBody
 	@RequestMapping(value = "/comment_delete", method = RequestMethod.POST)
 	public Map<String, Object> authCommentDelete(HttpServletRequest request, @RequestParam int num) {
 		service.deleteComment(num);
-		Map<String, Object> map=new HashMap<String, Object>();
+		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("isSuccess", true);
 		return map;
 	}
-	
+
 	@ResponseBody
 	@RequestMapping(value = "/comment_update", method = RequestMethod.POST)
 	public Map<String, Object> authCommentUpdate(HttpServletRequest request, @ModelAttribute CommentDto dto) {
 		service.updateComment(dto);
-		Map<String, Object> map=new HashMap<String, Object>();
+		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("isSuccess", true);
 		return map;
 	}
-	
+
 	@RequestMapping(value = "/more_comment")
 	public ModelAndView getComment(HttpServletRequest request, ModelAndView mView) {
 		service.commentList(request);
@@ -173,6 +172,12 @@ public class HomeController {
 		mView.setViewName("commentprint");
 		return mView;
 	}
-	
-	
+
+	@RequestMapping("/list")
+	public ModelAndView list(ModelAndView mView, HttpServletRequest request) {
+		service.list(request);
+		mView.setViewName("list");
+		return mView;
+	}
+
 }
