@@ -78,13 +78,6 @@
    });//new FullCalendar end
 
    calendar.render();
-   
-  });
-<<<<<<< HEAD
-
-=======
-  
->>>>>>> refs/remotes/origin/hyeonkyung
 </script>
 <!-- owl.carousel -->
 <script>
