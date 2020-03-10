@@ -18,4 +18,6 @@ public interface HomeService {
 	public void commentList(HttpServletRequest request);
 	//전체 공연 list
 	public void list(HttpServletRequest request);
+	public void updateLikeCount(HttpServletRequest request);
+	
 }

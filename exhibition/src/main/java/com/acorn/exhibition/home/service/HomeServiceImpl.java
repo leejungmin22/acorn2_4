@@ -294,4 +294,34 @@ public class HomeServiceImpl implements HomeService{
 		
 	}
 	
+	//좋아요
+	@Override
+	public void updateLikeCount(HttpServletRequest request) {
+		
+		int seq=Integer.parseInt(request.getParameter("seq"));
+		String id=(String)request.getSession().getAttribute("id");
+		
+		FullCalendarDto dto=new FullCalendarDto();
+		dto.setSeq(seq);
+		dto.setId(id);
+
+		int num=dao.findLike(dto);
+		
+		if(num==1) {
+			int likeCount=dao.getLikeCount(seq);
+			dto.setLikeCount(likeCount);
+			dao.addLikeCount(dto);
+		}else {
+			int likeCount=dao.getLikeCount(seq);
+			dto.setLikeCount(likeCount);
+			if(likeCount==0) {
+				return;
+			}else {
+				dao.minusLikeCount(dto);
+			}
+			
+		}//if end
+		
+	}//updateLikeCount() end
+	
 }

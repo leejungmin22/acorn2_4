@@ -20,7 +20,7 @@
 		#{thumbnail,jdbcType=VARCHAR}, #{gpsx,jdbcType=VARCHAR}, #{gpsy,jdbcType=VARCHAR})
 	</insert>
 	
-	<!-- list -->
+	<!-- 전체 공연 list -->
 	<select id="getCount" parameterType="fullCalendarDto" resultType="int">
 		SELECT NVL(MAX(ROWNUM), 0)
 		FROM tb_api_date
@@ -56,4 +56,30 @@
 						ORDER BY startdate DESC) result1)
 		WHERE rnum BETWEEN #{startRowNum} AND #{endRowNum}
 	</select>
+	
+	<!-- 좋아요 -->
+	<select id="findLike" parameterType="fullCalendarDto" resultType="int">
+		SELECT NVL(MAX(ROWNUM), 0)
+		FROM exhibition_like
+		WHERE seq=${seq} AND id=${id}
+	</select>
+	
+	<select id="getLikeCount" parameterType="int" resultType="int">
+		SELECT likecount
+		FROM tb_api_date
+		WHERE seq=#{seq}
+	</select>
+	
+	<update id="addLikeCount" parameterType="fullCalendarDto">
+		UPDATE exhibition_like
+		SET likecount=#{likeCount}+1
+		WHERE seq=#{seq}
+	</update>
+	
+	<update id="minusLikeCount" parameterType="fullCalendarDto">
+		UPDATE exhibition_like
+		SET likecount=#{likeCount}-1
+		WHERE seq=#{seq}
+	</update>
+	
 </mapper>
