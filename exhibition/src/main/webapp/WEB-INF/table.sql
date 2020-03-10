@@ -9,7 +9,7 @@ CREATE TABLE exhibition_users
    profile VARCHAR2(50), --프로필
    regdate DATE); --가입날짜
 
-   
+
 CREATE TABLE fullcalendar
    (title VARCHAR2(30), --아이디
    startdate VARCHAR2(30), --이름
@@ -44,6 +44,7 @@ seq_seq.NEXTVAL,
 '127.001766249',
 '37.5869849674'
 )
+
 
 CREATE TABLE users
    (id VARCHAR2(30) PRIMARY KEY, --아이디

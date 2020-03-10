@@ -68,7 +68,7 @@
 				<input type="checkbox" name="isSave" value="yes"/>아이디, 비밀번호 저장
 			</label>
 		</div>
-		<button class="btn btn-lg btn-primary btn-block" type="submit">로그인</button>
+		<button type="submit"><img src="${pageContext.request.contextPath }/resources/css/fullcalendar/로그인.png"></button>
 	</form>	
 </div>
 </body>
