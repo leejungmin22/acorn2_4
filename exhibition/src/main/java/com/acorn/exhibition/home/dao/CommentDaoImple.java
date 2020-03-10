@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.acorn.exhibition.com.dto.ComDto;
 import com.acorn.exhibition.home.dto.CommentDto;
 import com.acorn.exhibition.home.dto.FullCalendarDto;
 
@@ -52,6 +53,11 @@ public class CommentDaoImple implements CommentDao{
 	public int getCount() {
 		int count=session.selectOne("comment.getCount");
 		return count;
+	}
+
+	@Override
+	public List<CommentDto> getList(ComDto dto) {
+		return session.selectList("comment.getList", dto);
 	}
 	
 	
