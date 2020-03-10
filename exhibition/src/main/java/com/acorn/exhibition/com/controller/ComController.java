@@ -17,7 +17,6 @@ import com.acorn.exhibition.com.service.ComService;
 public class ComController {
 	@Autowired
 	private ComService service;
-	
 	//글목록 요청처리
 	@RequestMapping("/community/comList")
 	public ModelAndView list(HttpServletRequest request) {
