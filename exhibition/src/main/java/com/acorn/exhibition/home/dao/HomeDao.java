@@ -10,4 +10,7 @@ public interface HomeDao {
 	public List<FullCalendarDto> getEvent();
 	public FullCalendarDto getData(int seq);
 	public void insert(ApiDto dto);
+	//list
+	public int getCount(FullCalendarDto dto);
+	public List<FullCalendarDto> getList(FullCalendarDto dto);
 }

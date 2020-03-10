@@ -16,4 +16,6 @@ public interface HomeService {
 	public void deleteComment(int num);
 	public void updateComment(CommentDto dto);
 	public void commentList(HttpServletRequest request);
+	//전체 공연 list
+	public void list(HttpServletRequest request);
 }
