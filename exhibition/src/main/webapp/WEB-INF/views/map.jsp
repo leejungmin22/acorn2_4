@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<jsp:include page="include/resource.jsp" />
 <style>
 btn-group.food {
 	display: flex;
@@ -145,7 +146,10 @@ btn-group.food {
 </style>
 </head>
 <body>
+<jsp:include page="include/navbar.jsp" />
+	<div class="container">
 	<h3>지역별 공연 정보</h3>
+	<div class = "container">
 	<div class="map_wrap">
 		<div id="map"
 			style="width: 740px; height: 400px; position: relative; overflow: hidden;"></div>
@@ -153,7 +157,7 @@ btn-group.food {
 			<div class="option">
 				<div>
 					<form onsubmit="searchPlaces(); return false;">
-						키워드 : <input type="text" value="서울"
+						키워드 : <input type="text" value="${keywword }"
 							id="keyword" size="15">
 						<button type="submit">검색하기</button>
 					</form>
@@ -163,6 +167,8 @@ btn-group.food {
 			<ul id="placesList"></ul>
 			<div id="pagination"></div>
 		</div>
+	</div>
+	</div>
 	</div>
 </body>
 <script type="text/javascript"
