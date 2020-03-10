@@ -56,8 +56,11 @@
 		</colgroup>
 		<thead>
 			<tr>
-				<th>공연명</th>
-				<th>좋아요</th>
+				<th>공연명 </th>
+				<th>좋아요
+						 <a class="glyphicon glyphicon-chevron-up"></a>
+						 <a class="glyphicon glyphicon-chevron-down"></a>
+				</th>
 				<th>장소</th>
 				<th>공연기간</th>
 			</tr>

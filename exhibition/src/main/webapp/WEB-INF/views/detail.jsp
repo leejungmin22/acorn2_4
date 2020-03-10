@@ -457,14 +457,6 @@ img {
 
 					</script>
 				</div>
->>>>>>> refs/remotes/origin/hyeonkyung
-			</div>
-		</div>
-		<div class="row">
-			<h6>지도</h6>
-			<div class="map_wrap">
-				<div id="map"
-					style="width: 740px; height: 400px; position: relative; overflow: hidden;"></div>
 			</div>
 		</div>
 	<div class="row">
@@ -600,6 +592,7 @@ img {
 					</div>
 				</div>
 			</div>
+		</div>
 		</div>
 		</div>
 	
@@ -746,37 +739,7 @@ img {
 		}
 	});
 </script>
-<script type="text/javascript"
-		src="//dapi.kakao.com/v2/maps/sdk.js?appkey=9493bea6d98de2e126bef936b4f25a8d&libraries=services"></script>
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=9493bea6d98de2e126bef936b4f25a8d&libraries=services"></script>
-	<script>
-	var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
-	mapOption = { 
-	    center: new kakao.maps.LatLng(127.00105516179048,37.58390075162678), // 지도의 중심좌표
-	    level: 3 // 지도의 확대 레벨
-	};
-	
-	var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
-	
-	function setCenter() {            
-	    // 이동할 위도 경도 위치를 생성합니다 
-	    var moveLatLon = new kakao.maps.LatLng(${exhibitionDto.gpsX} ,${exhibitionDto.gpsY});
-	    
-	    // 지도 중심을 이동 시킵니다
-	    map.setCenter(moveLatLon);
-	}
-	
-	//마커가 표시될 위치입니다 
-	var markerPosition  = new kakao.maps.LatLng(${exhibitionDto.gpsX} ,${exhibitionDto.gpsY}); 
-	
-	//마커를 생성합니다
-	var marker = new kakao.maps.Marker({
-	position: markerPosition
-	});
-	
-	
-	//마커가 지도 위에 표시되도록 설정합니다
-	marker.setMap(map);
-</script>
+
+
 </body>
 </html>
