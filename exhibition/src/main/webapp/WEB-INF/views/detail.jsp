@@ -310,10 +310,16 @@ div {
 					<h6>문의 : ${exhibitionDto.phone }</h6>
 					<a class="btn btn-success" href="${exhibitionDto.url }">결제</a>
 					<button class="btn btn-default like" type="button">
-						<img src="${pageContext.request.contextPath }/resources/images/empty-heart.png" alt="좋아요 안함" />
-						<img src="${pageContext.request.contextPath }/resources/images/red-heart.png" alt="좋아요 함" />
+						<c:choose>
+							<c:when test="${id eq ExhibitionLikeId }">
+								<img src="${pageContext.request.contextPath }/resources/images/red-heart.png" alt="" />
+							</c:when>
+							<c:otherwise>
+								<img src="${pageContext.request.contextPath }/resources/images/empty-heart.png" alt="" />
+							</c:otherwise>
+						</c:choose>
 						좋아요
-						${dto.like }
+						${dto.likeCount }
 					</button>
 				</div>
 				<div>
@@ -658,7 +664,7 @@ div {
 	<script>
 	
 	//좋아요 수 올리기
-	$(".like").on("submit", function(){
+	$(".like").on("click", function(){
 		var isLogin=${not empty id};
 		if(isLogin==true){
 			$.ajax({
@@ -666,17 +672,13 @@ div {
 				method:"post",
 				data:{"seq":${dto.seq}}, //data : 파라미터로 전달할 문자열 
 				success:function(responseData){
-					/* if(responseData.isSuccess){
-						//폼을 안보이게 한다 
-						$this.slideUp(200);
-						//폼에 입력한 내용 읽어오기
-						var content=$this.find("textarea").val();
-						//pre 요소에 수정 반영하기 
-						$this.parent().find("pre").text(content);
-						
-					} */
-					
-					
+					//var imgTag=$('.like').children('img');
+					if(responseData==true){
+						location.href="${pageContext.request.contextPath}/detail.do?seq=${dto.seq}";
+						//imgTag.attr('src', '${pageContext.request.contextPath }/resources/images/red-heart.png');
+					}else{
+						//imgTag.attr('src', '${pageContext.request.contextPath }/resources/images/empty-heart.png');
+					}
 					
 				}
 			});

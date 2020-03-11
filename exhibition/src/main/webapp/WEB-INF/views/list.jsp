@@ -72,7 +72,7 @@
 					</td>
 					<td>
 						<img src="${pageContext.request.contextPath }/resources/images/red-heart.png" alt="" />
-						${tmp.like }
+						${tmp.likeCount }
 					</td>
 					<td>${tmp.place }</td>
 					<td>${tmp.startdate } ~ ${tmp.enddate }</td>

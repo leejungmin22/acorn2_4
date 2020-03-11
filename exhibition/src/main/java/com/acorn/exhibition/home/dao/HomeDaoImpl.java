@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import com.acorn.exhibition.home.dto.ApiDto;
 
 import com.acorn.exhibition.home.dto.FullCalendarDto;
+import com.acorn.exhibition.home.dto.LikeDto;
 
 @Repository
 public class HomeDaoImpl implements HomeDao{
@@ -57,17 +58,52 @@ public class HomeDaoImpl implements HomeDao{
 		int getLikeCount=session.selectOne("event.getLikeCount", seq);
 		return getLikeCount;
 	}
+	
 
 	@Override
-	public void addLikeCount(FullCalendarDto dto) {
-		session.update("event.addLikeCount", dto);
-		
+	public boolean removeOnExhibitionLike(FullCalendarDto dto) {
+		int result=session.delete("event.remove", dto);
+		if(result>0) {
+			return true;
+		}else {
+			return false;
+		}
 	}
 
 	@Override
-	public void minusLikeCount(FullCalendarDto dto) {
-		session.update("event.minusLikeCount", dto);
-		
+	public boolean addOnExhibitionLike(FullCalendarDto dto) {
+		int result=session.insert("event.add", dto);
+		if(result>0) {
+			return true;
+		}else {
+			return false;
+		}
+	}
+	
+	@Override
+	public boolean addLikeCount(FullCalendarDto dto) {
+		int result=session.update("event.addLikeCount", dto);
+		if(result>0) {
+			return true;
+		}else {
+			return false;
+		}
+	}
+
+	@Override
+	public boolean minusLikeCount(FullCalendarDto dto) {
+		int result=session.update("event.minusLikeCount", dto);
+		if(result>0) {
+			return true;
+		}else {
+			return false;
+		}
+	}
+
+	@Override
+	public String getExhibitionLikeId(LikeDto likeDto) {
+		String id=session.selectOne("event.getid", likeDto);
+		return id;
 	}
 
 	

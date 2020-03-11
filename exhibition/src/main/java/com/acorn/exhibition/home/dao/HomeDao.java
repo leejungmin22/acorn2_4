@@ -5,6 +5,7 @@ import java.util.List;
 import com.acorn.exhibition.home.dto.ApiDto;
 
 import com.acorn.exhibition.home.dto.FullCalendarDto;
+import com.acorn.exhibition.home.dto.LikeDto;
 
 public interface HomeDao {
 	public List<FullCalendarDto> getEvent();
@@ -16,7 +17,10 @@ public interface HomeDao {
 	// 좋아요
 	public int findLike(FullCalendarDto dto);
 	public int getLikeCount(int seq);
-	public void addLikeCount(FullCalendarDto dto);
- 	public void minusLikeCount(FullCalendarDto dto);
-	
+	public boolean removeOnExhibitionLike(FullCalendarDto dto);
+	public boolean addOnExhibitionLike(FullCalendarDto dto);
+	public boolean addLikeCount(FullCalendarDto dto);
+ 	public boolean minusLikeCount(FullCalendarDto dto);
+ 	public String getExhibitionLikeId(LikeDto likeDto);
+ 	
 }
