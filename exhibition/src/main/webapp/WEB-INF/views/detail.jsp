@@ -250,8 +250,8 @@ img {
 					<h6>문의 : ${exhibitionDto.phone }</h6>
 					<a class="btn btn-success" href="${exhibitionDto.url }">결제</a>
 					<button class="btn btn-default like" type="button">
-						<img src="${pageContext.request.contextPath }/resources/images/empty-heart.png" alt="좋아요 취소" />
-						<img src="${pageContext.request.contextPath }/resources/images/red-heart.png" alt="좋아요" />
+						<img src="${pageContext.request.contextPath }/resources/images/empty-heart.png" alt="좋아요 안함" />
+						<img src="${pageContext.request.contextPath }/resources/images/red-heart.png" alt="좋아요 함" />
 						좋아요
 						${dto.like }
 					</button>
@@ -600,29 +600,42 @@ img {
 	
 	//좋아요 수 올리기
 	$(".like").on("submit", function(){
-		//좋아요 클릭 여부 판단
-		var likeClicked=false;
-		
-		$.ajax({
-			url:"addLikeCount.do",
-			method:"post",
-			data:{"seq":${dto.seq}}, //data : 파라미터로 전달할 문자열 
-			success:function(responseData){
-				if(responseData.isSuccess){
-					//폼을 안보이게 한다 
-					$this.slideUp(200);
-					//폼에 입력한 내용 읽어오기
-					var content=$this.find("textarea").val();
-					//pre 요소에 수정 반영하기 
-					$this.parent().find("pre").text(content);
+		var isLogin=${not empty id};
+		if(isLogin==true){
+			$.ajax({
+				url:"updateLikeCount.do",
+				method:"post",
+				data:{"seq":${dto.seq}}, //data : 파라미터로 전달할 문자열 
+				success:function(responseData){
+					/* if(responseData.isSuccess){
+						//폼을 안보이게 한다 
+						$this.slideUp(200);
+						//폼에 입력한 내용 읽어오기
+						var content=$this.find("textarea").val();
+						//pre 요소에 수정 반영하기 
+						$this.parent().find("pre").text(content);
+						
+					} */
+					
+					
+					
 				}
+			});
+			//폼 제출 막기 
+			return false; 
+		}
+		
+		if(isLogin==false){
+			var goLoginPage=confirm("로그인이 필요합니다. 로그인 하시겠습니까?");
+			if(goLoginPage==true){
+				location.href="${pageContext.request.contextPath}/users/loginform.do?url=${pageContext.request.contextPath}/detail.do?seq=${dto.seq}";
 			}
-		});
-		//폼 제출 막기 
-		return false; 
+			return false;//폼 전송 막기 
+		}
+
 	});
-	
-	
+
+
 	var pageNum=1;
 	//댓글 스크롤로 보이기
 	$(window).scroll(function() {
@@ -739,7 +752,6 @@ img {
 		}
 	});
 </script>
-
 
 </body>
 </html>

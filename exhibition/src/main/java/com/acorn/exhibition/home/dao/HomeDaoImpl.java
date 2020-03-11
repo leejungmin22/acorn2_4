@@ -45,4 +45,30 @@ public class HomeDaoImpl implements HomeDao{
 		return list;
 	}
 	
+	// 좋아요
+	@Override
+	public int findLike(FullCalendarDto dto) {
+		int check=session.selectOne("event.findLike", dto);
+		return check;
+	}
+	
+	@Override
+	public int getLikeCount(int seq) {
+		int getLikeCount=session.selectOne("event.getLikeCount", seq);
+		return getLikeCount;
+	}
+
+	@Override
+	public void addLikeCount(FullCalendarDto dto) {
+		session.update("event.addLikeCount", dto);
+		
+	}
+
+	@Override
+	public void minusLikeCount(FullCalendarDto dto) {
+		session.update("event.minusLikeCount", dto);
+		
+	}
+
+	
 }

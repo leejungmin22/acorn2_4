@@ -179,8 +179,9 @@ public class HomeController {
 
 	}
 	
-	public void name() {
-		
+	@RequestMapping("/updateLikeCount")
+	public void updateLikeCount(HttpServletRequest request, ModelAndView mView) {
+		service.updateLikeCount(request);
 	}
 	
 }
