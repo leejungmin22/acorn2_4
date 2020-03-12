@@ -22,6 +22,7 @@ import org.w3c.dom.NodeList;
 
 import com.acorn.exhibition.home.dto.ApiDto;
 import com.acorn.exhibition.home.dto.CommentDto;
+import com.acorn.exhibition.home.dto.FullCalendarDto;
 import com.acorn.exhibition.home.service.HomeService;
 
 
@@ -180,8 +181,12 @@ public class HomeController {
 	}
 	
 	@RequestMapping("/updateLikeCount")
-	public void updateLikeCount(HttpServletRequest request, ModelAndView mView) {
+
+	public ModelAndView updateLikeCount(HttpServletRequest request, ModelAndView mView,@ModelAttribute FullCalendarDto dto) {
 		service.updateLikeCount(request);
+		mView.setViewName("updateLikeCount");
+		return mView;
+
 	}
 	
 }
