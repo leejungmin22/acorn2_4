@@ -61,7 +61,7 @@
 	<select id="findLike" parameterType="fullCalendarDto" resultType="int">
 		SELECT NVL(MAX(ROWNUM), 0)
 		FROM exhibition_like
-		WHERE seq=${seq} AND id=${id}
+		WHERE seq=#{seq} AND id=#{id}
 	</select>
 	
 	<select id="getLikeCount" parameterType="int" resultType="int">
@@ -70,16 +70,32 @@
 		WHERE seq=#{seq}
 	</select>
 	
+	<delete id="remove" parameterType="fullCalendarDto">
+		DELETE FROM exhibition_like 
+		WHERE seq=#{seq} AND id=#{id}
+	</delete>
+	
+	<insert id="add" parameterType="fullCalendarDto">
+		 INSERT INTO exhibition_like 
+		 (seq,id) 
+		 VALUES(#{seq}, #{id})
+	</insert>
+	
 	<update id="addLikeCount" parameterType="fullCalendarDto">
-		UPDATE exhibition_like
-		SET likecount=#{likeCount}+1
+		UPDATE tb_api_date
+		SET likecount=likecount+1
 		WHERE seq=#{seq}
 	</update>
 	
 	<update id="minusLikeCount" parameterType="fullCalendarDto">
-		UPDATE exhibition_like
-		SET likecount=#{likeCount}-1
+		UPDATE tb_api_date
+		SET likecount=likeCount-1
 		WHERE seq=#{seq}
 	</update>
 	
+	<select id="getid" parameterType="com.acorn.exhibition.home.dto.LikeDto" resultType="String">
+		SELECT id
+		FROM exhibition_like
+		WHERE seq=#{seq} AND id=#{id,jdbcType=VARCHAR}
+	</select>
 </mapper>

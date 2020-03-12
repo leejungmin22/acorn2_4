@@ -15,7 +15,11 @@ import com.acorn.exhibition.home.dto.ApiDto;
 import com.acorn.exhibition.home.dto.CommentDto;
 import com.acorn.exhibition.home.dto.ExhibitionDto;
 import com.acorn.exhibition.home.dto.FullCalendarDto;
+<<<<<<< HEAD
 
+=======
+import com.acorn.exhibition.home.dto.LikeDto;
+>>>>>>> refs/heads/hyeonkyung
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -98,6 +102,7 @@ public class HomeServiceImpl implements HomeService{
 		//1. DB 에서 댓글 목록을 얻어온다.
 		List<CommentDto> commentList=commentDao.getList(dto);
 		
+<<<<<<< HEAD
 //		//좋아요 view 페이지 출력
 //		int isLike=dao.findLike(dto);
 //		LikeDto likeDto=new LikeDto(seq, id);
@@ -105,6 +110,15 @@ public class HomeServiceImpl implements HomeService{
 //			String ExhibitionLikeId=dao.getExhibitionLikeId(likeDto);
 //			request.setAttribute("ExhibitionLikeId", ExhibitionLikeId);
 //		}
+=======
+		//좋아요 view 페이지 출력
+		int isLike=dao.findLike(dto);
+		LikeDto likeDto=new LikeDto(seq, id);
+		if(isLike>0) {
+			String ExhibitionLikeId=dao.getExhibitionLikeId(likeDto);
+			request.setAttribute("ExhibitionLikeId", ExhibitionLikeId);
+		}
+>>>>>>> refs/heads/hyeonkyung
 		
 		//EL, JSTL 을 활용하기 위해 필요한 모델을 request 에 담는다.
 		request.setAttribute("commentList", commentList);
@@ -305,6 +319,7 @@ public class HomeServiceImpl implements HomeService{
 	
 	//좋아요
 	@Override
+
 	public void updateLikeCount(HttpServletRequest request) {
 		boolean isLikeCount=false;
 		int seq=Integer.parseInt(request.getParameter("seq"));
@@ -313,36 +328,36 @@ public class HomeServiceImpl implements HomeService{
 		FullCalendarDto dto=new FullCalendarDto();
 		dto.setSeq(seq);
 		dto.setId(id);
-		
 		//exhibition_like 테이블에서 로그인된 id가 like를 클릭한적 있는지 찾아보기
 		int num=dao.findLike(dto);
-//		
-//		if(num==1) { //클릭한적 있다면
-//			
-//			//exhibition_like 테이블에서 정보를 제거하고
-//			boolean result1=dao.removeOnExhibitionLike(dto);
-//			//tb_api_date 테이블에서 like 개수를 하나 빼준다.
-//			boolean result2=dao.minusLikeCount(dto);
-//			if(result1 && result2) {
-//				return true;
-//			}else {
-//				return false;
-//			}
-//			
-//			
-//		}else { //클릭한적 없다면
-//			
-//			//exhibition_like 테이블에 id와 seq번호를 저장하고
-//			boolean result1=dao.addOnExhibitionLike(dto);
-//			//tb_api_date 테이블에서 like 개수를 하나 더해준다.
-//			boolean result2=dao.addLikeCount(dto);
-//			if(result1 && result2) {
-//				return true;
-//			}else {
-//				return false;
-//			}
-//		}//if end
-		
+		//exhibition_like 테이블에서 로그인된 id가 like를 클릭한적 있는지 찾아보기
+		int num=dao.findLike(dto);
+		if(num==1) { //클릭한적 있다면
+			
+			//exhibition_like 테이블에서 정보를 제거하고
+			boolean result1=dao.removeOnExhibitionLike(dto);
+			//tb_api_date 테이블에서 like 개수를 하나 빼준다.
+			boolean result2=dao.minusLikeCount(dto);
+			if(result1 && result2) {
+				return true;
+			}else {
+				return false;
+			}
+			
+			
+		}else { //클릭한적 없다면
+			
+			//exhibition_like 테이블에 id와 seq번호를 저장하고
+			boolean result1=dao.addOnExhibitionLike(dto);
+			//tb_api_date 테이블에서 like 개수를 하나 더해준다.
+			boolean result2=dao.addLikeCount(dto);
+			if(result1 && result2) {
+				return true;
+			}else {
+				return false;
+			}
+		}//if end
+
 	}//updateLikeCount() end
 	
 }
