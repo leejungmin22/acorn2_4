@@ -19,7 +19,41 @@
 		#{enddate,jdbcType=VARCHAR}, #{place,jdbcType=VARCHAR}, #{realmname,jdbcType=VARCHAR},
 		#{thumbnail,jdbcType=VARCHAR}, #{gpsx,jdbcType=VARCHAR}, #{gpsy,jdbcType=VARCHAR})
 	</insert>
-
-
 	
+	<!-- list -->
+	<select id="getCount" parameterType="fullCalendarDto" resultType="int">
+		SELECT NVL(MAX(ROWNUM), 0)
+		FROM tb_api_date
+		<choose>
+			<when test="seq != 0">
+				WHERE seq LIKE '%${seq}%'
+			</when>
+			<when test="title != null">
+				WHERE title LIKE '%${title}%'
+			</when>
+			<when test="place != null">
+				WHERE place LIKE '%${place}%'
+			</when>
+		</choose>
+	</select>
+	
+	<select id="getList" resultType="fullCalendarDto">
+		SELECT *
+		 FROM (SELECT result1.*, ROWNUM AS rnum
+				FROM (SELECT seq, title, TO_CHAR(startdate,'YYYY/MM/DD') AS startdate, TO_CHAR(enddate,'YYYY/MM/DD') AS enddate, place, thumbnail
+						FROM tb_api_date
+						<choose>
+							<when test="seq != 0">
+								WHERE seq LIKE '%${seq}%'
+							</when>
+							<when test="title != null">
+								WHERE title LIKE '%${title}%'
+							</when>
+							<when test="place != null">
+								WHERE place LIKE '%${place}%'
+							</when>
+						</choose>
+						ORDER BY startdate DESC) result1)
+		WHERE rnum BETWEEN #{startRowNum} AND #{endRowNum}
+	</select>
 </mapper>

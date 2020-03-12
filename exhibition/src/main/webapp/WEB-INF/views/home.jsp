@@ -122,9 +122,9 @@ $(document).ready(function(){
 			<div class="form-group">
 				<label for="condition">검색조건</label>
 				<select class="form-control" name="condition" id="condition">
-					<option value="titleName" <c:if test="${condition eq 'titleName' }">selected</c:if>>제목+파일명</option>
+					<option value="seq" <c:if test="${condition eq 'seq' }">selected</c:if>>공연번호</option>
 					<option value="title" <c:if test="${condition eq 'title' }">selected</c:if>>제목</option>
-					<option value="writer" <c:if test="${condition eq 'writer' }">selected</c:if>>작성자</option>
+					<option value="place" <c:if test="${condition eq 'place' }">selected</c:if>>장소</option>
 				</select>
 				<input class="form-control" type="text" name="keyword" id="keyword" value="${keyword }" placeholder="검색어를 입력하세요" />
 				<button class="btn btn-primary type="submit">검색</button>

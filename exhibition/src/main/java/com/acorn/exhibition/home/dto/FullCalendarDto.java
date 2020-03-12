@@ -13,11 +13,12 @@ public class FullCalendarDto {
 	private String gpsy;
 	private int startRowNum;
 	private int endRowNum;
+	private int like;
 	
 	public FullCalendarDto() {}
 
 	public FullCalendarDto(int seq, String title, String startdate, String enddate, String place, String realmname,
-			String area, String thumbnail, String gpsx, String gpsy, int startRowNum, int endRowNum) {
+			String area, String thumbnail, String gpsx, String gpsy, int startRowNum, int endRowNum, int like) {
 		super();
 		this.seq = seq;
 		this.title = title;
@@ -31,6 +32,7 @@ public class FullCalendarDto {
 		this.gpsy = gpsy;
 		this.startRowNum = startRowNum;
 		this.endRowNum = endRowNum;
+		this.like = like;
 	}
 
 	public int getSeq() {
@@ -127,6 +129,14 @@ public class FullCalendarDto {
 
 	public void setEndRowNum(int endRowNum) {
 		this.endRowNum = endRowNum;
+	}
+
+	public int getLike() {
+		return like;
+	}
+
+	public void setLike(int like) {
+		this.like = like;
 	}
 
 	
