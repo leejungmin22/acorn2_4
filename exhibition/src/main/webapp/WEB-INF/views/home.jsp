@@ -1,11 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+
 <jsp:include page="include/resource.jsp" />
 <!-- fullcalendar -->
 <link rel='stylesheet' type='text/css' href='${pageContext.request.contextPath }/resources/css/fullcalendar/main.css'/>
@@ -76,9 +78,6 @@
    });//new FullCalendar end
 
    calendar.render();
-   
-  });
-  
 </script>
 <!-- owl.carousel -->
 <script>
@@ -115,6 +114,7 @@ $(document).ready(function(){
 </style>
 </head>
 <body>
+
 <jsp:include page="include/navbar.jsp" />
 <div class="container">
 	<div class="condition" align="right">
@@ -153,4 +153,3 @@ $(document).ready(function(){
 </div>
 <jsp:include page="include/footer.jsp" />
 </body>
-</html>
