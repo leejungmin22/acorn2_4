@@ -164,8 +164,8 @@ public class HomeController {
 	
 	@ResponseBody
 	@RequestMapping("/updateLikeCount")
-	public boolean updateLikeCount(HttpServletRequest request, ModelAndView mView) {
-		boolean result=service.updateLikeCount(request);
+	public Map<String, Object> updateLikeCount(HttpServletRequest request, ModelAndView mView) {
+		Map<String, Object> result=service.updateLikeCount(request);
 		return result;
 	}
 	

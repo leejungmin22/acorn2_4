@@ -93,10 +93,11 @@ public class HomeDaoImpl implements HomeDao{
 	@Override
 	public boolean minusLikeCount(FullCalendarDto dto) {
 		int result=session.update("event.minusLikeCount", dto);
+		System.out.println(result);
 		if(result>0) {
-			return true;
-		}else {
 			return false;
+		}else {
+			return true;
 		}
 	}
 
