@@ -76,9 +76,15 @@ public class HomeDaoImpl implements HomeDao{
 	}
 
 	@Override
-	public void minusLikeCount(FullCalendarDto dto) {
-		session.update("event.minusLikeCount", dto);
-	
+	public boolean minusLikeCount(FullCalendarDto dto) {
+		int result=session.update("event.minusLikeCount", dto);
+		System.out.println(result);
+		if(result>0) {
+			return false;
+		}else {
+			return true;
+		}
+
 	}
 
 	@Override

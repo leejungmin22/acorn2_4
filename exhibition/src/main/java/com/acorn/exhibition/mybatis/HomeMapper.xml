@@ -7,7 +7,7 @@
 	</select>
 	
 	<select id="getdata" parameterType="int" resultType="fullCalendarDto">
-		SELECT seq, title, startdate, enddate, place, realmname, thumbnail, gpsx, gpsy
+		SELECT seq, title, startdate, enddate, place, realmname, thumbnail, gpsx, gpsy, likecount
 		FROM tb_api_date
 		WHERE seq=#{seq}
 	</select>
@@ -40,7 +40,7 @@
 	<select id="getList" resultType="fullCalendarDto">
 		SELECT *
 		 FROM (SELECT result1.*, ROWNUM AS rnum
-				FROM (SELECT seq, title, TO_CHAR(startdate,'YYYY/MM/DD') AS startdate, TO_CHAR(enddate,'YYYY/MM/DD') AS enddate, place, thumbnail
+				FROM (SELECT seq, title, TO_CHAR(startdate,'YYYY/MM/DD') AS startdate, TO_CHAR(enddate,'YYYY/MM/DD') AS enddate, place, thumbnail, likecount
 						FROM tb_api_date
 						<choose>
 							<when test="seq != 0">
@@ -93,9 +93,10 @@
 		WHERE seq=#{seq}
 	</update>
 	
-	<select id="getid" parameterType="com.acorn.exhibition.home.dto.LikeDto" resultType="String">
+	<select id="getid" parameterType="com.acorn.exhibition.home.dto.LikeDto" resultType="java.lang.String">
 		SELECT id
 		FROM exhibition_like
-		WHERE seq=#{seq} AND id=#{id,jdbcType=VARCHAR}
+		WHERE seq=#{seq} AND id=#{id}
 	</select>
+	
 </mapper>

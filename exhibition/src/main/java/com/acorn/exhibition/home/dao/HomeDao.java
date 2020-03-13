@@ -20,7 +20,7 @@ public interface HomeDao {
 	public void removeOnExhibitionLike(FullCalendarDto dto);
 	public void addOnExhibitionLike(FullCalendarDto dto);
 	public void addLikeCount(FullCalendarDto dto);
- 	public void minusLikeCount(FullCalendarDto dto);
+ 	public boolean minusLikeCount(FullCalendarDto dto);
  	public String getExhibitionLikeId(LikeDto likeDto);
  	
 }
