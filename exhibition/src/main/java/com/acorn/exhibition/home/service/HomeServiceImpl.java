@@ -364,6 +364,4 @@ public class HomeServiceImpl implements HomeService{
 		}//if end
 		
 	}//updateLikeCount() end
-	
->>>>>>> refs/remotes/origin/hyeonkyung
 }

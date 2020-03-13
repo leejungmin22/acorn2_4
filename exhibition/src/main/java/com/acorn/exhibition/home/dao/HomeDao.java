@@ -17,7 +17,7 @@ public interface HomeDao {
 	// 좋아요
 	public int findLike(FullCalendarDto dto);
 	public int getLikeCount(int seq);
-	public void removeOnExhibitionLike(FullCalendarDto dto);
+	public boolean removeOnExhibitionLike(FullCalendarDto dto);
 	public void addOnExhibitionLike(FullCalendarDto dto);
 	public void addLikeCount(FullCalendarDto dto);
  	public boolean minusLikeCount(FullCalendarDto dto);
