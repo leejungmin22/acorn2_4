@@ -61,43 +61,24 @@ public class HomeDaoImpl implements HomeDao{
 	
 
 	@Override
-	public boolean removeOnExhibitionLike(FullCalendarDto dto) {
-		int result=session.delete("event.remove", dto);
-		if(result>0) {
-			return true;
-		}else {
-			return false;
-		}
+	public void removeOnExhibitionLike(FullCalendarDto dto) {
+		session.delete("event.remove", dto);
 	}
 
 	@Override
-	public boolean addOnExhibitionLike(FullCalendarDto dto) {
-		int result=session.insert("event.add", dto);
-		if(result>0) {
-			return true;
-		}else {
-			return false;
-		}
+	public void addOnExhibitionLike(FullCalendarDto dto) {
+		session.insert("event.add", dto);
 	}
 	
 	@Override
-	public boolean addLikeCount(FullCalendarDto dto) {
-		int result=session.update("event.addLikeCount", dto);
-		if(result>0) {
-			return true;
-		}else {
-			return false;
-		}
+	public void addLikeCount(FullCalendarDto dto) {
+		session.update("event.addLikeCount", dto);
 	}
 
 	@Override
-	public boolean minusLikeCount(FullCalendarDto dto) {
-		int result=session.update("event.minusLikeCount", dto);
-		if(result>0) {
-			return true;
-		}else {
-			return false;
-		}
+	public void minusLikeCount(FullCalendarDto dto) {
+		session.update("event.minusLikeCount", dto);
+	
 	}
 
 	@Override

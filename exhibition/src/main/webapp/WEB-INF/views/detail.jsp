@@ -249,27 +249,14 @@ img {
 					<h6>문의 : ${exhibitionDto.phone }</h6>
 					<a class="btn btn-success" href="${exhibitionDto.url }">결제</a>
 					<button class="btn btn-default like" type="button">
-						<c:choose>
-							<c:when test="${not empty id}">
-								<c:choose>
-									<c:when test="${id eq ExhibitionLikeId }">
-									<img
-									src="${pageContext.request.contextPath }/resources/images/red-heart.png"
-									alt="" />
-								</c:when>
-							<c:otherwise>
-								<img
-									src="${pageContext.request.contextPath }/resources/images/empty-heart.png"
-									alt="" />
-								</c:otherwise>
-							</c:choose>
-							</c:when>
-							<c:otherwise>
-								<img
-									src="${pageContext.request.contextPath }/resources/images/empty-heart.png"
-									alt="" />
-							</c:otherwise>
-						</c:choose>
+					<c:choose>
+						<c:when test="${isLike eq ture} ">
+							<img src="${pageContext.request.contextPath }/resources/images/red-heart.png" alt="" />
+						</c:when>
+						<c:otherwise>
+							<img src="${pageContext.request.contextPath }/resources/images/empty-heart.png" alt="" />
+						</c:otherwise>
+					</c:choose>
 						좋아요 ${dto.likeCount }
 					</button>
 				</div>
@@ -436,39 +423,47 @@ img {
 		</div><!-- class="container" -->
 <script>
 	
-	//좋아요 수 올리기
-	$(".like").on("click", function(){
-		var isLogin=${ not empty id};
-		if(isLogin==true){
-			$.ajax({
-				url:"updateLikeCount.do",
-				method:"post",
-				data:{"seq":${dto.seq}}, //data : 파라미터로 전달할 문자열 
-				success:function(responseData){
-					//var imgTag=$('.like').children('img');
-					if(responseData==true){
-						location.href="${pageContext.request.contextPath}/detail.do?seq=${dto.seq}";
-						//imgTag.attr('src', '${pageContext.request.contextPath }/resources/images/red-heart.png');
-					}else{
-						//imgTag.attr('src', '${pageContext.request.contextPath }/resources/images/empty-heart.png');
-					}
+//좋아요 수 올리기
+$(".like").on("click", function(){
+	var isLogin=${not empty id};
+	if(isLogin==true){
+		$.ajax({
+			url:"updateLikeCount.do",
+			method:"post",
+			data:{"seq":${dto.seq}}, //data : 파라미터로 전달할 문자열 
+			success:function(responseData){
+				if(responseData==true){
+					location.href="${pageContext.request.contextPath}/detail.do?seq=${dto.seq}";
+			
+				}else
+				{
 					
 				}
-			});
-			//폼 제출 막기 
-			return false; 
-		}
-		
-		if(isLogin==false){
-			var goLoginPage=confirm("로그인이 필요합니다. 로그인 하시겠습니까?");
-			if(goLoginPage==true){
-				location.href="${pageContext.request.contextPath}/users/loginform.do?url=${pageContext.request.contextPath}/detail.do?seq=${dto.seq}";
+				
 			}
-			return false;//폼 전송 막기 
+		});
+		//폼 제출 막기 
+		return false; 
+	}
+	
+	if(isLogin==false){
+		var goLoginPage=confirm("로그인이 필요합니다. 로그인 하시겠습니까?");
+		if(goLoginPage==true){
+			location.href="${pageContext.request.contextPath}/users/loginform.do?url=${pageContext.request.contextPath}/detail.do?seq=${dto.seq}";
+			imgLike=false;
 		}
+		return false;//폼 전송 막기 
+	}
 
-	});
-
+});
+function setState(sel,isLike){
+	//입력란의 색상과 아이콘을 바꿔주는 작업 
+	if(isLike){
+		$("img").Attr("src","${pageContext.request.contextPath }/resources/images/red-heart.png");
+	}else{
+		
+	}
+}
 
 	var pageNum=1;
 	//댓글 스크롤로 보이기
