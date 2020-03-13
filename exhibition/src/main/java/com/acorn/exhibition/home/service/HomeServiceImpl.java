@@ -324,6 +324,7 @@ public class HomeServiceImpl implements HomeService{
 
 		//exhibition_like 테이블에서 로그인된 id가 like를 클릭한적 있는지 찾아보기
 		int num=dao.findLike(dto);
+		int likeCount=dao.getData(seq).getLikeCount();
 		
 		if(num==1) { //클릭한적 있다면
 			
@@ -333,11 +334,11 @@ public class HomeServiceImpl implements HomeService{
 			boolean result2=dao.minusLikeCount(dto);
 			if(result1 && result2) {
 				map.put("isSuccess", true);
-				map.put("likecount", dao.getData(seq).getLikeCount());
+				map.put("likecount", likeCount);
 				return map;
 			}else {
 				map.put("isSuccess", false);
-				map.put("likecount", dao.getData(seq).getLikeCount());
+				map.put("likecount", likeCount);
 				return map;
 			}
 			
@@ -351,11 +352,11 @@ public class HomeServiceImpl implements HomeService{
 			
 			if(result1 && result2) {
 				map.put("isSuccess", true);
-				map.put("likecount", dao.getData(seq).getLikeCount());
+				map.put("likecount", likeCount);
 				return map;
 			}else {
 				map.put("isSuccess", false);
-				map.put("likecount", dao.getData(seq).getLikeCount());
+				map.put("likecount", likeCount);
 				return map;
 			}
 		}//if end
