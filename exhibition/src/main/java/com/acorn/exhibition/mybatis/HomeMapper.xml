@@ -7,7 +7,7 @@
 	</select>
 	
 	<select id="getdata" parameterType="int" resultType="fullCalendarDto">
-		SELECT seq, title, startdate, enddate, place, realmname, thumbnail, gpsx, gpsy
+		SELECT seq, title, startdate, enddate, place, realmname, thumbnail, gpsx, gpsy, likecount
 		FROM tb_api_date
 		WHERE seq=#{seq}
 	</select>
@@ -19,7 +19,84 @@
 		#{enddate,jdbcType=VARCHAR}, #{place,jdbcType=VARCHAR}, #{realmname,jdbcType=VARCHAR},#{area,jdbcType=VARCHAR}
 		,#{thumbnail,jdbcType=VARCHAR}, #{gpsx,jdbcType=VARCHAR}, #{gpsy,jdbcType=VARCHAR})
 	</insert>
-
-
+	
+	<!-- 전체 공연 list -->
+	<select id="getCount" parameterType="fullCalendarDto" resultType="int">
+		SELECT NVL(MAX(ROWNUM), 0)
+		FROM tb_api_date
+		<choose>
+			<when test="seq != 0">
+				WHERE seq LIKE '%${seq}%'
+			</when>
+			<when test="title != null">
+				WHERE title LIKE '%${title}%'
+			</when>
+			<when test="place != null">
+				WHERE place LIKE '%${place}%'
+			</when>
+		</choose>
+	</select>
+	
+	<select id="getList" resultType="fullCalendarDto">
+		SELECT *
+		 FROM (SELECT result1.*, ROWNUM AS rnum
+				FROM (SELECT seq, title, TO_CHAR(startdate,'YYYY/MM/DD') AS startdate, TO_CHAR(enddate,'YYYY/MM/DD') AS enddate, place, thumbnail, likecount
+						FROM tb_api_date
+						<choose>
+							<when test="seq != 0">
+								WHERE seq LIKE '%${seq}%'
+							</when>
+							<when test="title != null">
+								WHERE title LIKE '%${title}%'
+							</when>
+							<when test="place != null">
+								WHERE place LIKE '%${place}%'
+							</when>
+						</choose>
+						ORDER BY startdate DESC) result1)
+		WHERE rnum BETWEEN #{startRowNum} AND #{endRowNum}
+	</select>
+	
+	<!-- 좋아요 -->
+	<select id="findLike" parameterType="fullCalendarDto" resultType="int">
+		SELECT NVL(MAX(ROWNUM), 0)
+		FROM exhibition_like
+		WHERE seq=#{seq} AND id=#{id}
+	</select>
+	
+	<select id="getLikeCount" parameterType="int" resultType="int">
+		SELECT likecount
+		FROM tb_api_date
+		WHERE seq=#{seq}
+	</select>
+	
+	<delete id="remove" parameterType="fullCalendarDto">
+		DELETE FROM exhibition_like 
+		WHERE seq=#{seq} AND id=#{id}
+	</delete>
+	
+	<insert id="add" parameterType="fullCalendarDto">
+		 INSERT INTO exhibition_like 
+		 (seq,id) 
+		 VALUES(#{seq}, #{id})
+	</insert>
+	
+	<update id="addLikeCount" parameterType="fullCalendarDto">
+		UPDATE tb_api_date
+		SET likecount=likecount+1
+		WHERE seq=#{seq}
+	</update>
+	
+	<update id="minusLikeCount" parameterType="fullCalendarDto">
+		UPDATE tb_api_date
+		SET likecount=likeCount-1
+		WHERE seq=#{seq}
+	</update>
+	
+	<select id="getid" parameterType="com.acorn.exhibition.home.dto.LikeDto" resultType="java.lang.String">
+		SELECT id
+		FROM exhibition_like
+		WHERE seq=#{seq} AND id=#{id}
+	</select>
 	
 </mapper>
