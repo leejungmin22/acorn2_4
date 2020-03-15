@@ -355,8 +355,13 @@ img {
 												<c:if test="${tmp.num ne tmp.comment_group }">
 												to <strong>${tmp.target_id }</strong>
 												</c:if>
-												<span>${tmp.regdate }</span> <a href="javascript:"
-													class="reply_link">답글</a> |
+											</dt>
+											<dd>
+												<pre>${tmp.content }</pre>
+											</dd>
+											<dd>
+												<span>${tmp.regdate }</span> 
+												<a href="javascript:" class="reply_link">답글</a> 
 												<c:choose>
 													<%-- 로그인된 아이디와 댓글의 작성자가 같으면 --%>
 													<c:when test="${id eq tmp.writer }">
@@ -367,9 +372,18 @@ img {
 														<a href="javascript:">신고</a>
 													</c:otherwise>
 												</c:choose>
-											</dt>
-											<dd>
-												<pre>${tmp.content }</pre>
+												<button class="btn btn-default comlike" type="button">
+												<c:choose>
+													<c:when test="${id eq CommentLikeId and id ne null }">
+														<img src="${pageContext.request.contextPath }/resources/images/comment_red-heart.png" alt="" />
+													</c:when>
+													<c:otherwise>
+														<img src="${pageContext.request.contextPath }/resources/images/comment_empty-heart.png" alt="" />
+													</c:otherwise>
+												</c:choose>
+												좋아요
+												<span>${tmp.com_likeCount }</span>
+											</button>
 											</dd>
 										</dl>
 										<form class="comment-insert-form" action="comment_insert.do"
@@ -404,7 +418,7 @@ img {
 											<dt>
 												<c:choose>
 													<c:when test="${empty tmp.profile }">
-														< class="user-img"
+														<img class="user-img"
 															src="${pageContext.request.contextPath}/resources/images/default_user.jpeg" />
 													</c:when>
 													<c:otherwise>
@@ -485,7 +499,43 @@ img {
 
 	});
 
+	//좋아요 수 올리기
+	$(".comlike").on("click", function(){
+		var isLogin=${not empty id};
+		if(isLogin==true){
+			$.ajax({
+				url:"com_updateLikeCount.do",
+				method:"post",
+				data:{"seq":${dto.seq}}, //data : 파라미터로 전달할 문자열 
+				dataType:"json",
+				success:function(responseData){
+					console.log(responseData);
+					var imgTag=$('.comlike').children('img');
+					var span=$('.comlike').children('span');
+					if(responseData.isSuccess==true){
+						//location.href="${pageContext.request.contextPath}/detail.do?seq=${dto.seq}";
+						imgTag.attr('src', '${pageContext.request.contextPath }/resources/images/red-heart.png');
+						span.text(responseData.likecount);
+					}else if(responseData.isSuccess==false){
+						imgTag.attr('src', '${pageContext.request.contextPath }/resources/images/empty-heart.png');
+						span.text(responseData.likecount);
+					}
+					
+				}
+			});
+			//폼 제출 막기 
+			return false; 
+		}
+		
+		if(isLogin==false){
+			var goLoginPage=confirm("로그인이 필요합니다. 로그인 하시겠습니까?");
+			if(goLoginPage==true){
+				location.href="${pageContext.request.contextPath}/users/loginform.do?url=${pageContext.request.contextPath}/detail.do?seq=${dto.seq}";
+			}
+			return false;//폼 전송 막기 
+		}
 
+	});
 	var pageNum=1;
 	//댓글 스크롤로 보이기
 	$(window).scroll(function() {

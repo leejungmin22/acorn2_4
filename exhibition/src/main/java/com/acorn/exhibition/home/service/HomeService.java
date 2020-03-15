@@ -13,13 +13,8 @@ public interface HomeService {
 	public void getPopularEvents(HttpServletRequest request);
 	public void getData(HttpServletRequest request);
 	public void addExhibition(ApiDto dto);
-	//댓글 저장하는 메소드
-	public void saveComment(HttpServletRequest request);
-	public void deleteComment(int num);
-	public void updateComment(CommentDto dto);
-	public void commentList(HttpServletRequest request);
 	//전체 공연 list
 	public void list(HttpServletRequest request);
 	public Map<String, Object> updateLikeCount(HttpServletRequest request);
-	
+
 }

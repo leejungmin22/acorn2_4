@@ -4,7 +4,7 @@
 	<select id="getList" parameterType="fullCalendarDto" resultType="commentDto">
 		SELECT *
 		 FROM (SELECT result1.*, ROWNUM AS rnum
-				FROM (SELECT num, writer, content, target_id, ref_group, comment_group, deleted, board_cafe_comment.regdate, profile
+				FROM (SELECT num, writer, content, target_id, ref_group, comment_group, deleted, board_cafe_comment.regdate, profile,com_likecount
 						FROM board_cafe_comment
 						INNER JOIN exhibition_users ON board_cafe_comment.writer=exhibition_users.id
 						WHERE ref_group=#{seq}
@@ -35,4 +35,46 @@
 		SELECT NVL(MAX(ROWNUM), 0)
 		FROM board_cafe_comment
 	</select>
+		<!-- 좋아요 -->
+	<select id="findLike" parameterType="CommentDto" resultType="int">
+		SELECT NVL(MAX(ROWNUM), 0)
+		FROM comment_like
+		WHERE num=#{num} AND id=#{id} AND seq=#{ref_group}
+	</select>
+>
+	<select id="getLikeCount" parameterType="int" resultType="int">
+		SELECT com_likeCount
+		FROM board_cafe_comment
+		WHERE seq=#{seq} AND num=#{num} 
+	</select>
+	
+	<delete id="remove" parameterType="CommentDto">
+		DELETE FROM comment_like 
+		WHERE seq=#{seq} AND id=#{id} AND num=#{num}
+	</delete>
+	
+	<insert id="add" parameterType="CommentDto">
+		 INSERT INTO comment_like 
+		 (seq,id,num) 
+		 VALUES(#{seq}, #{id},#{num})
+	</insert>
+	
+	<update id="addLikeCount" parameterType="CommentDto">
+		UPDATE board_cafe_comment
+		SET com_likeCount=com_likeCount+1
+		WHERE seq=#{seq} AND num=#{num}
+	</update>
+	
+	<update id="minusLikeCount" parameterType="CommentDto">
+		UPDATE board_cafe_comment
+		SET com_likeCount=com_likeCount-1
+		WHERE seq=#{seq} AND num=#{num}
+	</update>
+	
+	<select id="getid" parameterType="com.acorn.exhibition.home.dto.Com_LikeDto" resultType="java.lang.String">
+		SELECT id
+		FROM comment_like
+		WHERE seq=#{seq} AND id=#{id} And num=#{num}
+	</select>
+	
 </mapper>
