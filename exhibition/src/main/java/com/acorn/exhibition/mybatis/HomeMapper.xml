@@ -26,9 +26,6 @@
 		SELECT NVL(MAX(ROWNUM), 0)
 		FROM tb_api_date
 		<choose>
-			<when test="seq != 0">
-				WHERE seq LIKE '%${seq}%'
-			</when>
 			<when test="title != null">
 				WHERE title LIKE '%${title}%'
 			</when>
@@ -44,9 +41,6 @@
 				FROM (SELECT seq, title, TO_CHAR(startdate,'YYYY/MM/DD') AS startdate, TO_CHAR(enddate,'YYYY/MM/DD') AS enddate, place, thumbnail, likecount
 						FROM tb_api_date
 						<choose>
-							<when test="seq != 0">
-								WHERE seq LIKE '%${seq}%'
-							</when>
 							<when test="title != null">
 								WHERE title LIKE '%${title}%'
 							</when>
