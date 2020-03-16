@@ -49,15 +49,15 @@
 	</div>
 	<table class="table table-striped table-condensed">
 		<colgroup>
-			<col class="col-xs-1"/>
 			<col class="col-xs-6"/>
+			<col class="col-xs-1"/>
 			<col class="col-xs-2"/>
 			<col class="col-xs-3"/>
 		</colgroup>
 		<thead>
 			<tr>
-				<th>공연번호</th>
 				<th>공연명</th>
+				<th>좋아요</th>
 				<th>장소</th>
 				<th>공연기간</th>
 			</tr>
@@ -65,11 +65,14 @@
 		<tbody>
 			<c:forEach var="tmp" items="${requestScope.list }">
 				<tr>
-					<td>${tmp.seq }</td>
 					<td>
 						<a href="detail.do?seq=${tmp.seq }">
 							${tmp.title }
 						</a>				
+					</td>
+					<td>
+						<img src="${pageContext.request.contextPath }/resources/images/red-heart.png" alt="" />
+						${tmp.likeCount }
 					</td>
 					<td>${tmp.place }</td>
 					<td>${tmp.startdate } ~ ${tmp.enddate }</td>
@@ -123,16 +126,6 @@
 			</c:choose>
 		</ul>
 	</div>
-<%-- 	<form action="list.do" method="get"> 
-		<label for="condition">검색조건</label>
-		<select name="condition" id="condition">
-			<option value="seq" <c:if test="${condition eq 'seq' }">selected</c:if>>공연번호</option>
-			<option value="title" <c:if test="${condition eq 'title' }">selected</c:if>>제목</option>
-			<option value="place" <c:if test="${condition eq 'place' }">selected</c:if>>장소</option>
-		</select>
-		<input type="text" name="keyword" id="keyword" value="${keyword }" placeholder="검색어를 입력하세요" />
-		<button type="submit">검색</button>
-	</form> --%>
 </div>
 </body>
 </html>

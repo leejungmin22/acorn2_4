@@ -1,5 +1,7 @@
 package com.acorn.exhibition.home.service;
 
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 
 import com.acorn.exhibition.home.dto.ApiDto;
@@ -18,4 +20,6 @@ public interface HomeService {
 	public void commentList(HttpServletRequest request);
 	//전체 공연 list
 	public void list(HttpServletRequest request);
+	public Map<String, Object> updateLikeCount(HttpServletRequest request);
+	
 }

@@ -2,7 +2,9 @@ package com.acorn.exhibition.home.service;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -14,6 +16,7 @@ import com.acorn.exhibition.home.dao.HomeDao;
 import com.acorn.exhibition.home.dto.ApiDto;
 import com.acorn.exhibition.home.dto.CommentDto;
 import com.acorn.exhibition.home.dto.FullCalendarDto;
+import com.acorn.exhibition.home.dto.LikeDto;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -50,6 +53,7 @@ public class HomeServiceImpl implements HomeService{
 		
 		//파라미터로 전달되는 글번호
 		int seq=Integer.parseInt(request.getParameter("seq"));
+		String id=(String)request.getSession().getAttribute("id");
 		
 		FullCalendarDto dto=new FullCalendarDto();
 		dto.setSeq(seq);
@@ -95,11 +99,22 @@ public class HomeServiceImpl implements HomeService{
 		
 		//1. DB 에서 댓글 목록을 얻어온다.
 		List<CommentDto> commentList=commentDao.getList(dto);
-		//2. 글 목록을 응답한다.
+		
+		//좋아요
+		String ExhibitionLikeId=null;
+		
+		if(id!=null) {
+			LikeDto likeDto=new LikeDto(seq, id);
+			ExhibitionLikeId=dao.getExhibitionLikeId(likeDto);
+		}
+		request.setAttribute("ExhibitionLikeId", ExhibitionLikeId);
+		
+		FullCalendarDto tmp=dao.getData(seq);
+		dto.setLikeCount(tmp.getLikeCount());
 		
 		//EL, JSTL 을 활용하기 위해 필요한 모델을 request 에 담는다.
 		request.setAttribute("commentList", commentList);
-		request.setAttribute("id", request.getSession().getAttribute("id"));
+		request.setAttribute("id", id);
 		request.setAttribute("dto", dto);
 		request.setAttribute("exhibitionDto", apiDto);
 	}
@@ -282,7 +297,6 @@ public class HomeServiceImpl implements HomeService{
 		
 		//1. DB 에서 글 목록을 얻어온다.
 		List<FullCalendarDto> list=dao.getList(dto);
-		//2. 글 목록을 응답한다.
 		
 		//EL, JSTL 을 활용하기 위해 필요한 모델을 request 에 담는다.
 		request.setAttribute("list", list);
@@ -293,5 +307,60 @@ public class HomeServiceImpl implements HomeService{
 		request.setAttribute("totalRow", totalRow);
 		
 	}
+	
+	//좋아요
+	@Override
+	public Map<String, Object> updateLikeCount(HttpServletRequest request) {
+		
+		int seq=Integer.parseInt(request.getParameter("seq"));
+		String id=(String)request.getSession().getAttribute("id");
+		
+		FullCalendarDto dto=new FullCalendarDto();
+		dto.setSeq(seq);
+		dto.setId(id);
+		
+		//[{"isSuccess":boolean, "likecount":number}]
+		Map<String, Object> map=new HashMap<String, Object>();
+
+		//exhibition_like 테이블에서 로그인된 id가 like를 클릭한적 있는지 찾아보기
+		int num=dao.findLike(dto);
+		int likeCount=dao.getData(seq).getLikeCount();
+		
+		if(num==1) { //클릭한적 있다면
+			
+			//exhibition_like 테이블에서 정보를 제거하고
+			boolean result1=dao.removeOnExhibitionLike(dto);
+			//tb_api_date 테이블에서 like 개수를 하나 빼준다.
+			boolean result2=dao.minusLikeCount(dto);
+			if(result1 && result2) {
+				map.put("isSuccess", true);
+				map.put("likecount", likeCount);
+				return map;
+			}else {
+				map.put("isSuccess", false);
+				map.put("likecount", likeCount);
+				return map;
+			}
+			
+			
+		}else { //클릭한적 없다면
+			
+			//exhibition_like 테이블에 id와 seq번호를 저장하고
+			boolean result1=dao.addOnExhibitionLike(dto);
+			//tb_api_date 테이블에서 like 개수를 하나 더해준다.
+			boolean result2=dao.addLikeCount(dto);
+			
+			if(result1 && result2) {
+				map.put("isSuccess", true);
+				map.put("likecount", likeCount);
+				return map;
+			}else {
+				map.put("isSuccess", false);
+				map.put("likecount", likeCount);
+				return map;
+			}
+		}//if end
+		
+	}//updateLikeCount() end
 	
 }
