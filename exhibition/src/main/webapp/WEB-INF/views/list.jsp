@@ -38,7 +38,6 @@
 			<div class="form-group">
 				<label for="condition">검색조건</label>
 				<select class="form-control" name="condition" id="condition">
-					<option value="seq" <c:if test="${condition eq 'seq' }">selected</c:if>>공연번호</option>
 					<option value="title" <c:if test="${condition eq 'title' }">selected</c:if>>제목</option>
 					<option value="place" <c:if test="${condition eq 'place' }">selected</c:if>>장소</option>
 				</select>
