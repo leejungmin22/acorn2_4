@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>전시일정</title>
 <jsp:include page="include/resource.jsp" />
 <!-- fullcalendar -->
 <link rel='stylesheet' type='text/css' href='${pageContext.request.contextPath }/resources/css/fullcalendar/main.css'/>
@@ -18,7 +18,12 @@
 <script type="text/javascript" src="${pageContext.request.contextPath }/resources/js/owl.carousel/owl.carousel.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
 <!-- fullcalendar -->
+<style type="text/css">
+	.fc-sat {color:#0000FF;} /*토요일*/
+	.fc-sun {color:#FF0000;} /*일요일*/
+</style>
 <script>
+
   document.addEventListener('DOMContentLoaded', function() {
     var calendarEl = document.getElementById('calendar');
 
