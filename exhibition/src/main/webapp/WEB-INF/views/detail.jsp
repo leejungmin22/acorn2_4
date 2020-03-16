@@ -446,7 +446,7 @@ div {
 											<dt>
 												<c:choose>
 													<c:when test="${empty tmp.profile }">
-														< class="user-img"
+														<img class="user-img"
 															src="${pageContext.request.contextPath}/resources/images/default_user.jpeg" />
 													</c:when>
 													<c:otherwise>
@@ -645,6 +645,7 @@ div {
 		}
 	});
 </script>
+<!-- kakao map -->
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=9493bea6d98de2e126bef936b4f25a8d&libraries=services"></script>
 <script>
 	// 마커를 담을 배열입니다
