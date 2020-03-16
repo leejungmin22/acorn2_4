@@ -284,6 +284,11 @@ div {
 	height: 20px;
 	border-radius: 50%;
 }
+
+.heart{
+	width: 20px;
+	height: auto;
+}
 </style>
 
 </head>
@@ -312,10 +317,10 @@ div {
 					<button class="btn btn-default like" type="button">
 						<c:choose>
 							<c:when test="${id eq ExhibitionLikeId and id ne null }">
-								<img src="${pageContext.request.contextPath }/resources/images/red-heart.png" alt="" />
+								<img class="heart" src="${pageContext.request.contextPath }/resources/images/red-heart.png" alt="" />
 							</c:when>
 							<c:otherwise>
-								<img src="${pageContext.request.contextPath }/resources/images/empty-heart.png" alt="" />
+								<img class="heart" src="${pageContext.request.contextPath }/resources/images/empty-heart.png" alt="" />
 							</c:otherwise>
 						</c:choose>
 						좋아요
@@ -501,6 +506,7 @@ div {
 						//location.href="${pageContext.request.contextPath}/detail.do?seq=${dto.seq}";
 						imgTag.attr('src', '${pageContext.request.contextPath }/resources/images/red-heart.png');
 						span.text(responseData.likecount);
+						console.log(responseData.likecount);
 					}else if(responseData.isSuccess==false){
 						imgTag.attr('src', '${pageContext.request.contextPath }/resources/images/empty-heart.png');
 						span.text(responseData.likecount);
