@@ -324,7 +324,6 @@ public class HomeServiceImpl implements HomeService{
 
 		//exhibition_like 테이블에서 로그인된 id가 like를 클릭한적 있는지 찾아보기
 		int num=dao.findLike(dto);
-		System.out.println(num);
 		int likeCount=0;
 		
 		if(num==1) { //클릭한적 있다면
