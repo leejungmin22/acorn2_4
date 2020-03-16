@@ -19,10 +19,9 @@
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
 <!-- fullcalendar -->
 <style type="text/css">
-	.fc-sat {color:#1F618D;} /*토요일*/
-	.fc-sat {background-color:#A9CCE3;}/*토요일 배경색*/
-	.fc-sun {color:#B03A2E;} /*일요일*/
-	.fc-sun {background-color:#F2D7D5;}/*일요일 배경색*/
+	.fc-sat {color:#1F618D; background-color:#A9CCE3;} /*토요일*/	
+	.fc-sun {color:#B03A2E; background-color:#F2D7D5;} /*일요일*/
+	
 </style>
 <style>
 	button{
