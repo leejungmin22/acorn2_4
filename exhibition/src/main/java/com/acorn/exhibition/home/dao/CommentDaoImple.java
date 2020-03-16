@@ -54,7 +54,7 @@ public class CommentDaoImple implements CommentDao{
 		int count=session.selectOne("comment.getCount");
 		return count;
 	}
-
+	//게시판 댓글
 	@Override
 	public List<CommentDto> getList(ComDto dto) {
 		return session.selectList("comment.getList", dto);

@@ -13,5 +13,5 @@ public interface CommentDao {
 	public int getSequence();
 	public void update(CommentDto dto);
 	public int getCount();
-	public List<CommentDto> getList(ComDto dto);
+	public List<CommentDto> getList(ComDto dto); //게시판 댓글
 }

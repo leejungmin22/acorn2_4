@@ -39,7 +39,7 @@
 			<textarea class="form-control" name="content" id="content" cols="30" rows="10"></textarea>
 		</div>
 		<button class="btn btn-primary" type="submit" onclick="submitContents(this);">저장</button>
-		<button class="btn btn-warning" type="reset">취소</button>
+		<button class="btn btn-warning" type="reset"><a href="${pageContext.request.contextPath }/community/comList.do">취소</a></button>
 	</form>
 </div>
 <%--

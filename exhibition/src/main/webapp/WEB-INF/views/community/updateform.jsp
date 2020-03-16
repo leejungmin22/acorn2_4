@@ -34,7 +34,7 @@
 			</textarea>
 		</div>
 		<button class="btn btn-primary" type="submit" onclick="submitContents(this);">수정확인</button>
-		<button class="btn btn-warning" type="reset">취소</button>
+		<button class="btn btn-warning" type="reset"><a href="${pageContext.request.contextPath }/community/comDetail.do?num=${dto.num }">취소</a></button>
 	</form>
 </div>
 <!-- SmartEditor 에서 필요한 javascript 로딩  -->
