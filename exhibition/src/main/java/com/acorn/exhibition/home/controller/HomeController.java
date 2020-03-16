@@ -36,36 +36,38 @@ public class HomeController {
 	public ModelAndView home(HttpServletRequest request, @ModelAttribute("dto") ApiDto dto, ModelAndView mView) {
 		service.getPopularEvents(request);
 		
+		// 데이터 검색 기간( 현재시간 ~ 현재시간 +1년 ) 검색하기 위한 부분
 		Date todate = new Date();
-		
-		SimpleDateFormat format1 = new SimpleDateFormat ( "yyyyMMdd");
-		
+		SimpleDateFormat format1 = new SimpleDateFormat ( "yyyyMMdd"); // 시간 포맷 YYYYMMDD 
 		Calendar cal = Calendar.getInstance();
-		cal.setTime(todate);
+		cal.setTime(todate); 
 		cal.add(Calendar.YEAR, 1); // 현재시간 + 1년
 		
-		String fromTime = format1.format(todate);				
-		String toTime = format1.format(cal.getTime());
-				
-		System.out.println("from : "+fromTime);
-		System.out.println("to : "+toTime);
+		String fromTime = format1.format(todate); // fromTime : 컴퓨터의 현재 시간
+		String toTime = format1.format(cal.getTime()); // toTime : fromTime + 1년
+		
+		// 중요
+		// 전체 공연 시간(from~to)이 현재시간에 걸리는 공연 모두 삭제
+		// 항상 공연 데이터를 최신화를 위해서 삭제 후 현재시간~현재시간+1년의 데이터를 조회 후 DB Parsing 실시
+		service.deleteFromDate(fromTime); 
 
-		// 필드
-		int page = 1;
+		int page = 1; // 읽어올 첫 페이지
+		
 		String apiUrl;
 		String url = "http://www.culture.go.kr/openapi/rest/publicperformancedisplays/period?serviceKey" // API URL
 				+ "=Gz2ltmko3fuxZQxk8hBjvYFNlR9DqV9a2SSG80HzdcKMvY99yDDYxCV5H%2Fl0mJtEmDimd9LEm5T5TgX%2BOH9IHA%3D%3D"
 				+ "&sortStdr=1" 
-				+ "&from="+fromTime 
-				+ "&to="+toTime 
-				+ "&rows=1" 
+				+ "&from="+fromTime // 현재시간
+				+ "&to="+toTime  // 현재시간 +1년
+				+ "&rows=1" // 페이지당 1개 조회
 				+ "&place=1" 
-				+ "&cPage=";
+				+ "&cPage="; // 중요!
+							 //apiUrl = url + Integer.toString(i);
+							 // TotalCount 만큼 cPage를 증가시켜서 Data를 얻어오기 위함.
 		
-		
-
 		try {
-			apiUrl = url + Integer.toString(page);
+			apiUrl = url + Integer.toString(page); // 처음 Parsing할 Data의 페이지는 항상 1이다. cPage=1
+			// ex) "http://www.culture.----&place=1&cPage=1"
 
 			System.out.println("----- Parsing URL -----");
 			System.out.println(apiUrl);
@@ -78,27 +80,29 @@ public class HomeController {
 			doc.getDocumentElement().normalize();
 			System.out.println("Root element :" + doc.getDocumentElement().getNodeName());
 
-			// totalCount 값 출력
+			// msgBody의 0번 node가 totalCount 값
 			NodeList msgBodyTag = doc.getElementsByTagName("msgBody");
 			Node msgNode = msgBodyTag.item(0).getFirstChild();
-
+			
 			if (msgNode != null && msgNode.getNodeName().equals("totalCount")) {
 				System.out.println("totalCount=" + msgNode.getFirstChild().getNodeValue());
 			} else {
 				System.out.println("뽑아올 데이터가 없습니다.");
 			}
-
+			
+			// totalCount 값 얻어오기 ("msgBody"의 첫번째 자식 요소의 값을 얻어온다.)
 			int TotalCount = Integer.parseInt(msgNode.getFirstChild().getNodeValue());
-
+			
+			// From~ToDate에서 조회된 Data Parsing을 하기위해서 TotalCount 만큼 반복
 			for (int i = 1; i <= TotalCount; i++) {
 				
 				dto = new ApiDto();				
 
 				apiUrl = url + Integer.toString(i);
-				System.out.println(i+"번째 URL : "+apiUrl);
+				System.out.println(i+"번째 URL : "+apiUrl); // 데이터를 얻어올 XML URL 출력 (필요 없음)
 				Document parseDoc = dBuilder.parse(apiUrl);
 
-				// 파싱할 tag
+				// 파싱할 tag "perforList" 하위 노드에 데이터가 존재
 				NodeList nList = parseDoc.getElementsByTagName("perforList");
 				Node nNode = nList.item(0);
 				Element eElement = (Element) nNode;		
@@ -125,16 +129,15 @@ public class HomeController {
 				dto.setGpsX(gpsX);
 				dto.setGpsY(gpsY);
 
-				try {								
+				try {						
+					// 중복 데이터가 없으면 INSERT
 					service.addExhibition(dto);
 				} catch (Exception e) {
+					// 중복 데이터가 있으면 break
 					System.out.println("일련번호  : " + getTagValue("seq", eElement) + "는 이미 추가되있습니당.");
 					break;
-				}
-				
-
+				}				
 			}
-
 		}
 
 		catch (Exception e) {

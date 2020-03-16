@@ -293,5 +293,10 @@ public class HomeServiceImpl implements HomeService{
 		request.setAttribute("totalRow", totalRow);
 		
 	}
+
+	@Override
+	public void deleteFromDate(String fromTime) {
+		dao.deleteFromDate(fromTime);
+	}
 	
 }
