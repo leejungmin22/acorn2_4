@@ -32,6 +32,7 @@
 				<li <c:if test="${param.category eq 'list' }">class="active"</c:if>><a href="${pageContext.request.contextPath }/list.do">전체공연</a></li>
 				<li <c:if test="${param.category eq 'ranking' }">class="active"</c:if>><a href="${pageContext.request.contextPath }/ranking.do">Ranking</a></li>
 				<li <c:if test="${param.category eq 'map' }">class="active"</c:if>><a href="${pageContext.request.contextPath }/map.do">지도</a></li>
+				<li <c:if test="${param.category eq 'community' }">class="active"</c:if>><a href="${pageContext.request.contextPath }/community/comList.do">자유게시판</a></li>
 			</ul>
 			
 			<c:choose>

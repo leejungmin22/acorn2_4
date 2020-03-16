@@ -97,8 +97,5 @@ public class CommentDto {
 
 	public void setProfile(String profile) {
 		this.profile = profile;
-	}
-
-	
-	
+	}	
 }
