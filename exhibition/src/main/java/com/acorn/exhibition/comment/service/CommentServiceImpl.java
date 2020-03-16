@@ -118,12 +118,12 @@ public class CommentServiceImpl implements CommentService{
 
 	@Override
 	public Map<String, Object> com_updateLikeCount(HttpServletRequest request) {
-
+		CommentDto dto=new CommentDto();
 		int seq=Integer.parseInt(request.getParameter("seq"));
 		String id=(String)request.getSession().getAttribute("id");
-		int num = commentDao.getSequence(); 
+		int num = dto.getNum();
 		
-		CommentDto dto=new CommentDto();
+		
 		dto.setRef_group(seq);
 		dto.setId(id);
 		dto.setNum(num);
@@ -146,12 +146,12 @@ public class CommentServiceImpl implements CommentService{
 			//tb_api_date 테이블에서 like 개수를 하나 빼준다.
 			boolean result2=commentDao.minuscommentLikeCount(dto);
 			if(result1 && result2) {
-				map.put("isSuccess", true);
-				map.put("likecount", likeCount);
+				map.put("comisSuccess", true);
+				map.put("comlikecount", likeCount);
 				return map;
 			}else {
-				map.put("isSuccess", false);
-				map.put("likecount", likeCount);
+				map.put("comisSuccess", false);
+				map.put("comlikecount", likeCount);
 				return map;
 			}
 			

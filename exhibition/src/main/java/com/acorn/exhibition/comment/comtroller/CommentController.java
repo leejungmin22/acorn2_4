@@ -16,6 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.acorn.exhibition.comment.service.CommentService;
 import com.acorn.exhibition.home.dto.CommentDto;
+import com.acorn.exhibition.home.dto.FullCalendarDto;
 
 @Controller
 public class CommentController {

@@ -406,7 +406,7 @@ img {
 													</c:choose>
 													<span>${tmp.writer }</span>
 													<c:if test="${tmp.num ne tmp.comment_group }">
-												to <strong>${tmp.target_id }</strong>
+												 	<strong>${tmp.target_id }</strong>
 													</c:if>
 													<span>${tmp.regdate }</span>
 												</dt>
@@ -459,11 +459,47 @@ img {
 						imgTag.attr('src', '${pageContext.request.contextPath }/resources/images/empty-heart.png');
 						span.text(responseData.likecount);
 					}
+				}
+		});
+		//폼 제출 막기 
+		return false; 
+	}
+
+	if(isLogin==false){
+		var goLoginPage=confirm("로그인이 필요합니다. 로그인 하시겠습니까?");
+		if(goLoginPage==true){
+			location.href="${pageContext.request.contextPath}/users/loginform.do?url=${pageContext.request.contextPath}/detail.do?seq=${dto.seq}";
+			imgLike=false;
+		}
+		return false;//폼 전송 막기 
+	}
+	});
+	//댓글좋아요 수 올리기
+	$(".comlike").on("click", function(){
+		var isLogin=${not empty id};
+		if(isLogin==true){
+			$.ajax({
+				url:"com_updateLikeCount.do",
+				method:"post",
+				data:{"seq":${dto.seq}}, //data : 파라미터로 전달할 문자열 
+				dataType:"json",
+				success:function(responseData){
+					console.log(responseData);
+					var imgTag=$('.comlike').children('img');
+					var span=$('.comlike').children('span');
+					if(responseData.comisSuccess==true){
+						//location.href="${pageContext.request.contextPath}/detail.do?seq=${dto.seq}";
+						imgTag.attr('src', '${pageContext.request.contextPath }/resources/images/comment_red-heart.png');
+						span.text(responseData.comlikeCount);
+					}else if(responseData.comisSuccess==false){
+						imgTag.attr('src', '${pageContext.request.contextPath }/resources/images/comment_empty-heart.png');
+						span.text(responseData.comlikeCount);
+					}
 
 					
 				}
 				
-			}
+			
 		});
 		//폼 제출 막기 
 		return false; 
@@ -479,43 +515,6 @@ img {
 	}
 	});
 
-	//좋아요 수 올리기
-	$(".comlike").on("click", function(){
-		var isLogin=${not empty id};
-		if(isLogin==true){
-			$.ajax({
-				url:"com_updateLikeCount.do",
-				method:"post",
-				data:{"seq":${dto.seq}}, //data : 파라미터로 전달할 문자열 
-				dataType:"json",
-				success:function(responseData){
-					console.log(responseData);
-					var imgTag=$('.comlike').children('img');
-					var span=$('.comlike').children('span');
-					if(responseData.isSuccess==true){
-						//location.href="${pageContext.request.contextPath}/detail.do?seq=${dto.seq}";
-						imgTag.attr('src', '${pageContext.request.contextPath }/resources/images/red-heart.png');
-						span.text(responseData.likecount);
-					}else if(responseData.isSuccess==false){
-						imgTag.attr('src', '${pageContext.request.contextPath }/resources/images/empty-heart.png');
-						span.text(responseData.likecount);
-					}
-					
-				}
-			});
-			//폼 제출 막기 
-			return false; 
-		}
-		
-		if(isLogin==false){
-			var goLoginPage=confirm("로그인이 필요합니다. 로그인 하시겠습니까?");
-			if(goLoginPage==true){
-				location.href="${pageContext.request.contextPath}/users/loginform.do?url=${pageContext.request.contextPath}/detail.do?seq=${dto.seq}";
-			}
-			return false;//폼 전송 막기 
-		}
-
-	});
 	var pageNum=1;
 	//댓글 스크롤로 보이기
 	$(window).scroll(function() {
@@ -638,7 +637,7 @@ img {
 	var markers = [];
 	var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
 	mapOption = {
-		center : new kakao.maps.LatLng(37.566826, 126.9786567), // 지도의 중심좌표
+		center : new kakao.maps.LatLng(dto.gpsX, dto.gpsY), // 지도의 중심좌표
 		level : 3
 	// 지도의 확대 레벨
 	};

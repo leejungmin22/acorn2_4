@@ -11,6 +11,7 @@
 						ORDER BY comment_group ASC, num ASC) result1)
 		WHERE rnum BETWEEN #{startRowNum} AND #{endRowNum} <!-- 같은 그룹에 대해 어떤 것을 먼저 출력할지 정함. -->
 	</select>
+
 	<delete id="delete" parameterType="int">
 		UPDATE board_cafe_comment
 		SET deleted='yes'
@@ -41,34 +42,33 @@
 		FROM comment_like
 		WHERE num=#{num} AND id=#{id} AND seq=#{ref_group}
 	</select>
->
 	<select id="getLikeCount" parameterType="int" resultType="int">
 		SELECT com_likeCount
 		FROM board_cafe_comment
-		WHERE seq=#{seq} AND num=#{num} 
+		WHERE seq=#{ref_group} AND num=#{num} 
 	</select>
 	
 	<delete id="remove" parameterType="CommentDto">
 		DELETE FROM comment_like 
-		WHERE seq=#{seq} AND id=#{id} AND num=#{num}
+		WHERE seq=#{ref_group} AND id=#{id} AND num=#{num}
 	</delete>
 	
 	<insert id="add" parameterType="CommentDto">
 		 INSERT INTO comment_like 
 		 (seq,id,num) 
-		 VALUES(#{seq}, #{id},#{num})
+		 VALUES(#{ref_group}, #{id},#{num})
 	</insert>
 	
 	<update id="addLikeCount" parameterType="CommentDto">
 		UPDATE board_cafe_comment
 		SET com_likeCount=com_likeCount+1
-		WHERE seq=#{seq} AND num=#{num}
+		WHERE ref_group=#{ref_group} AND num=#{num}
 	</update>
 	
 	<update id="minusLikeCount" parameterType="CommentDto">
 		UPDATE board_cafe_comment
 		SET com_likeCount=com_likeCount-1
-		WHERE seq=#{seq} AND num=#{num}
+		WHERE ref_group=#{ref_group} AND num=#{num}
 	</update>
 	
 	<select id="getid" parameterType="com.acorn.exhibition.home.dto.Com_LikeDto" resultType="java.lang.String">
@@ -76,5 +76,4 @@
 		FROM comment_like
 		WHERE seq=#{seq} AND id=#{id} And num=#{num}
 	</select>
-	
 </mapper>

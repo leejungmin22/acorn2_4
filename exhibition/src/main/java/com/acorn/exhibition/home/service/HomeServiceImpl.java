@@ -226,6 +226,7 @@ public class HomeServiceImpl implements HomeService{
 		FullCalendarDto dto=new FullCalendarDto();
 		dto.setSeq(seq);
 		dto.setId(id);
+		
 		//[{"isSuccess":boolean, "likecount":number}]
 		Map<String, Object> map=new HashMap<String, Object>();
 
@@ -238,6 +239,7 @@ public class HomeServiceImpl implements HomeService{
 			boolean result1=dao.removeOnExhibitionLike(dto);
 			//tb_api_date 테이블에서 like 개수를 하나 빼준다.
 			boolean result2=dao.minusLikeCount(dto);
+			dao.getData(seq).getLikeCount();
 			if(result1 && result2) {
 				map.put("isSuccess", true);
 				map.put("likecount", likeCount);
@@ -255,7 +257,7 @@ public class HomeServiceImpl implements HomeService{
 			boolean result1=dao.addOnExhibitionLike(dto);
 			//tb_api_date 테이블에서 like 개수를 하나 더해준다.
 			boolean result2=dao.addLikeCount(dto);
-			
+			dao.getData(seq).getLikeCount();
 			if(result1 && result2) {
 				map.put("isSuccess", true);
 				map.put("likecount", likeCount);

@@ -32,8 +32,7 @@ import com.acorn.exhibition.home.service.HomeService;
 public class HomeController {
 	@Autowired
 	private HomeService service;
-	@Autowired
-	private CommentService commentservice;
+	
 
 	@RequestMapping(value = "/home")
 	public ModelAndView home(HttpServletRequest request, @ModelAttribute("dto") ApiDto dto, ModelAndView mView) {
@@ -136,12 +135,9 @@ public class HomeController {
 	
 	@ResponseBody
 	@RequestMapping("/updateLikeCount")
-
 	public Map<String, Object> updateLikeCount(HttpServletRequest request) {
 		Map<String, Object> result= service.updateLikeCount(request);
 		return result;
-
 	}
 
-	
 }
