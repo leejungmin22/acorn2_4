@@ -19,18 +19,20 @@
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
 <!-- fullcalendar -->
 <style type="text/css">
-	.fc-sat {color:#0000FF;} /*토요일*/
-	.fc-sun {color:#FF0000;} /*일요일*/
+	.fc-sat {color:#1F618D;} /*토요일*/
+	.fc-sat {background-color:#A9CCE3;}/*토요일 배경색*/
+	.fc-sun {color:#B03A2E;} /*일요일*/
+	.fc-sun {background-color:#F2D7D5;}/*일요일 배경색*/
 </style>
 <style>
-	input{
+	button{
 		vertical-align:middle;
 	}
-	input.form-text{
+	button.form-text{
 		border: 1px solid #bcbcbc;
 		height: 25px;
 	}
-	input.img-button{
+	button.img-button{
 		background:url("resources/images/button_search.png") no-repeat;
 		border:none;
 		width:38px;
@@ -147,7 +149,7 @@ $(document).ready(function(){
 					<option value="place" <c:if test="${condition eq 'place' }">selected</c:if>>장소</option>
 				</select>
 				<input class="form-control" type="text" name="keyword" id="keyword" value="${keyword }" placeholder="검색어를 입력하세요" />
-				<input type="button" class="img-button" />
+				<button type="submit" class="img-button" />
 			</div>
 		</form>
 	</div>
