@@ -15,10 +15,18 @@
 	
 	<insert id="insert" parameterType="apiDto">
 		INSERT INTO tb_api_date
-		(seq, title, startdate, enddate, place, realmname, area,thumbnail, gpsx, gpsy)
-		VALUES(#{seq}, #{title,jdbcType=VARCHAR}, #{startdate,jdbcType=VARCHAR}, 
-		#{enddate,jdbcType=VARCHAR}, #{place,jdbcType=VARCHAR}, #{realmname,jdbcType=VARCHAR},#{area,jdbcType=VARCHAR}
-		,#{thumbnail,jdbcType=VARCHAR}, #{gpsx,jdbcType=VARCHAR}, #{gpsy,jdbcType=VARCHAR})
+		(seq, title, startdate, enddate, place, realmname, thumbnail, gpsx, gpsy)
+		VALUES(
+		#{seq}, 
+		#{title,jdbcType=VARCHAR}, 
+		#{startDate,jdbcType=VARCHAR}, 
+		#{endDate,jdbcType=VARCHAR}, 
+		#{place,jdbcType=VARCHAR}, 
+		#{realmName,jdbcType=VARCHAR},
+		#{thumbNail,jdbcType=VARCHAR}, 
+		#{gpsX,jdbcType=VARCHAR}, 
+		#{gpsY,jdbcType=VARCHAR})
+
 	</insert>
 	
 	<!-- 전체 공연 list -->

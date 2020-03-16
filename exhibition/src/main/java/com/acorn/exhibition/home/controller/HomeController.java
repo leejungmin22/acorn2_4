@@ -36,7 +36,8 @@ public class HomeController {
 
 	@RequestMapping(value = "/home")
 	public ModelAndView home(HttpServletRequest request, @ModelAttribute("dto") ApiDto dto, ModelAndView mView) {
-		service.getPopularEvents(request);	
+		service.getPopularEvents(request);
+		
 		/*
 		 * int page = 1; try{ while(true){
 		 * 

@@ -4,13 +4,12 @@ package com.acorn.exhibition.home.service;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
-
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import com.acorn.exhibition.home.dto.ExhibitionDto;
+import com.acorn.exhibition.home.dto.ApiDto;
 
 
 public class XmlParsing {
@@ -25,8 +24,10 @@ public class XmlParsing {
 	    return nValue.getNodeValue();
 	}
 	
-	public static ExhibitionDto getData(int seq) {
-		ExhibitionDto dto=new ExhibitionDto();
+	public static ApiDto getData(int seq) {
+		
+		ApiDto dto=new ApiDto();
+		
 		try{
 			String url = "http://www.culture.go.kr/openapi/rest/publicperformancedisplays/d/"
 					+ "?ServiceKey=ePfX3pu9m%2BajEWgHGiwfbd%2BNSNIpVJ58g9N%2Fp%2B%2F996n%2FnwagNeyc52WUEYYlE34jKS00Eg3EOlVVVu4g0OTkSQ%3D%3D"

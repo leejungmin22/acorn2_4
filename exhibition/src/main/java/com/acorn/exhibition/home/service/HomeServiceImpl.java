@@ -15,7 +15,6 @@ import com.acorn.exhibition.comment.dao.CommentDao;
 import com.acorn.exhibition.home.dao.HomeDao;
 import com.acorn.exhibition.home.dto.ApiDto;
 import com.acorn.exhibition.home.dto.CommentDto;
-import com.acorn.exhibition.home.dto.ExhibitionDto;
 import com.acorn.exhibition.home.dto.FullCalendarDto;
 
 import com.acorn.exhibition.home.dto.LikeDto;
@@ -61,7 +60,8 @@ public class HomeServiceImpl implements HomeService{
 		dto.setSeq(seq);
 		
 		////////////////DB에 있는 데이터 갖고 오기/////////////////////////
-		ExhibitionDto exhibitionDto=XmlParsing.getData(seq);
+		//ExhibitionDto exhibitionDto=XmlParsing.getData(seq);
+		ApiDto apiDto = XmlParsing.getData(seq);
 
 		////////////////댓글 페이징 처리/////////////////////////
 		//한 페이지에 나타낼 row 의 갯수
@@ -121,7 +121,7 @@ public class HomeServiceImpl implements HomeService{
 		request.setAttribute("commentList", commentList);
 		request.setAttribute("id", id);
 		request.setAttribute("dto", dto);
-		request.setAttribute("exhibitionDto", exhibitionDto);
+		request.setAttribute("exhibitionDto", apiDto);
 	}
 	
 	@Override
