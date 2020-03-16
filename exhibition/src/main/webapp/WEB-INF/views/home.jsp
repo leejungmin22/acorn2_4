@@ -122,7 +122,6 @@ $(document).ready(function(){
 			<div class="form-group">
 				<label for="condition">검색조건</label>
 				<select class="form-control" name="condition" id="condition">
-					<option value="seq" <c:if test="${condition eq 'seq' }">selected</c:if>>공연번호</option>
 					<option value="title" <c:if test="${condition eq 'title' }">selected</c:if>>제목</option>
 					<option value="place" <c:if test="${condition eq 'place' }">selected</c:if>>장소</option>
 				</select>
@@ -140,7 +139,7 @@ $(document).ready(function(){
 	<div class="row">
 		<div class="large-12 columns">
 			<div class="owl-carousel owl-theme">
-				<c:forEach var="tmp" items="${list }">
+				<c:forEach var="tmp" items="${list }" begin="1" end="10">
 					<div class="item">
 						<a href="${pageContext.request.contextPath }/detail.do?seq=${tmp.seq}">
 							<img alt="${tmp.title }" src="${tmp.thumbnail }">
