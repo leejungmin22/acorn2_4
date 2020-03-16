@@ -56,6 +56,6 @@ CREATE TABLE exhibition_users
    regdate DATE); --가입날짜
 
 CREATE TABLE exhibition_like(
-	seq NUMBER PRIMARY KEY,
-	count_like NUMBER DEFAULT 0
+	seq NUMBER,
+	id VARCHAR(100)
 )

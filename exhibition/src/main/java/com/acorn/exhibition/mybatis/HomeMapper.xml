@@ -2,8 +2,9 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="event">
 	<select id="getevent" resultType="fullCalendarDto">
-		SELECT seq, title, startdate, enddate, thumbnail
-		FROM tb_api_date
+		select seq, title, startdate, enddate, thumbnail
+		from tb_api_date
+		ORDER BY likecount DESC, startdate DESC
 	</select>
 	
 	<select id="getdata" parameterType="int" resultType="fullCalendarDto">
@@ -32,9 +33,6 @@
 		SELECT NVL(MAX(ROWNUM), 0)
 		FROM tb_api_date
 		<choose>
-			<when test="seq != 0">
-				WHERE seq LIKE '%${seq}%'
-			</when>
 			<when test="title != null">
 				WHERE title LIKE '%${title}%'
 			</when>
@@ -50,9 +48,6 @@
 				FROM (SELECT seq, title, TO_CHAR(startdate,'YYYY/MM/DD') AS startdate, TO_CHAR(enddate,'YYYY/MM/DD') AS enddate, place, thumbnail, likecount
 						FROM tb_api_date
 						<choose>
-							<when test="seq != 0">
-								WHERE seq LIKE '%${seq}%'
-							</when>
 							<when test="title != null">
 								WHERE title LIKE '%${title}%'
 							</when>
