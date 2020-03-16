@@ -22,6 +22,22 @@
 	.fc-sat {color:#0000FF;} /*토요일*/
 	.fc-sun {color:#FF0000;} /*일요일*/
 </style>
+<style>
+	input{
+		vertical-align:middle;
+	}
+	input.form-text{
+		border: 1px solid #bcbcbc;
+		height: 25px;
+	}
+	input.img-button{
+		background:url("resources/images/button_search.png") no-repeat;
+		border:none;
+		width:38px;
+		height:38px;
+		cursor:pointer
+	}
+</style>
 <script>
 
   document.addEventListener('DOMContentLoaded', function() {
@@ -131,7 +147,7 @@ $(document).ready(function(){
 					<option value="place" <c:if test="${condition eq 'place' }">selected</c:if>>장소</option>
 				</select>
 				<input class="form-control" type="text" name="keyword" id="keyword" value="${keyword }" placeholder="검색어를 입력하세요" />
-				<button class="btn btn-primary type="submit">검색</button>
+				<input type="button" class="img-button" />
 			</div>
 		</form>
 	</div>
