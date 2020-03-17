@@ -8,18 +8,13 @@
 	</delete>
 
 	<select id="getevent" resultType="fullCalendarDto">
-		<!-- select exhibition.seq, title, startdate, enddate, thumbnail, likecount.likecount
-		from tb_api_date exhibition
+		SELECT exhibition.seq, title, startdate, enddate, thumbnail, likecount.likecount
+		FROM tb_api_date exhibition
 		INNER JOIN exhibition_likecount likecount ON exhibition.seq=likecount.seq
-		ORDER BY likecount.likecount DESC, exhibition.startdate DESC -->
-		SELECT seq, title, startdate, enddate, thumbnail
-		FROM tb_api_date
+		ORDER BY likecount.likecount DESC, exhibition.startdate DESC
 	</select>
 	
 	<select id="getdata" parameterType="int" resultType="fullCalendarDto">
-<!-- 		SELECT seq, title, startdate, enddate, place, realmname, thumbnail, gpsx, gpsy, likecount
-		FROM tb_api_date
-		WHERE seq=#{seq} -->
 		SELECT exhibition.seq, title, startdate, enddate, place, realmname, thumbnail, gpsx, gpsy, likecount.likecount
 		FROM tb_api_date exhibition
 		INNER JOIN exhibition_likecount likecount ON exhibition.seq=likecount.seq
