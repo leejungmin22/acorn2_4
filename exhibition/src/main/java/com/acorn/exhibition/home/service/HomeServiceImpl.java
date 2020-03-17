@@ -215,6 +215,11 @@ public class HomeServiceImpl implements HomeService{
 		request.setAttribute("totalRow", totalRow);
 		
 	}
+
+	@Override
+	public void deleteFromDate(String fromTime) {
+		dao.deleteFromDate(fromTime);
+	}
 	
 	// 좋아요수 올리거나 줄이기
 	@Override
@@ -231,14 +236,14 @@ public class HomeServiceImpl implements HomeService{
 		Map<String, Object> map=new HashMap<String, Object>();
 
 		//exhibition_like 테이블에서 로그인된 id가 like를 클릭한적 있는지 찾아보기
-		int num=dao.findLike(dto);
-		System.out.println(num);
+		int isClicked=dao.findLike(dto);
 		int likeCount=0;
 		
-		if(num==1) { //클릭한적 있다면
+		if(isClicked==1) { //클릭한적 있다면
+
 			//exhibition_like 테이블에서 정보를 제거하고
 			boolean result1=dao.removeOnExhibitionLike(dto);
-			//tb_api_date 테이블에서 like 개수를 하나 빼준다.
+			//exhibition_likecount 테이블에서 like 개수를 하나 빼준다.
 			boolean result2=dao.minusLikeCount(dto);
 			likeCount=dao.getData(seq).getLikeCount();
 
@@ -259,7 +264,7 @@ public class HomeServiceImpl implements HomeService{
 			
 			//exhibition_like 테이블에 id와 seq번호를 저장하고
 			boolean result1=dao.addOnExhibitionLike(dto);
-			//tb_api_date 테이블에서 like 개수를 하나 더해준다.
+			//exhibition_likecount 테이블에서 like 개수를 하나 더해준다.
 			boolean result2=dao.addLikeCount(dto);
 			likeCount=dao.getData(seq).getLikeCount();
 			if(result1 && result2) {

@@ -1,5 +1,8 @@
 package com.acorn.exhibition.home.controller;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -38,67 +41,114 @@ public class HomeController {
 	public ModelAndView home(HttpServletRequest request, @ModelAttribute("dto") ApiDto dto, ModelAndView mView) {
 		service.getPopularEvents(request);
 		
-		/*
-		 * int page = 1; try{ while(true){
-		 * 
-		 * String url =
-		 * "http://www.culture.go.kr/openapi/rest/publicperformancedisplays/period?serviceKey"
-		 * // API URL +
-		 * "=Gz2ltmko3fuxZQxk8hBjvYFNlR9DqV9a2SSG80HzdcKMvY99yDDYxCV5H%2Fl0mJtEmDimd9LEm5T5TgX%2BOH9IHA%3D%3D"
-		 * + "&from=20140101" + "&to=20201201" +page;
-		 * 
-		 * DocumentBuilderFactory dbFactoty = DocumentBuilderFactory.newInstance();
-		 * DocumentBuilder dBuilder = dbFactoty.newDocumentBuilder(); Document doc =
-		 * dBuilder.parse(url);
-		 * 
-		 * // root tag doc.getDocumentElement().normalize();
-		 * System.out.println("Root element :" +
-		 * doc.getDocumentElement().getNodeName());
-		 * 
-		 * // 파싱할 tag NodeList nList = doc.getElementsByTagName("perforList");
-		 * System.out.println("파싱할 리스트 수 : "+ nList.getLength());
-		 * 
-		 * 
-		 * for(int temp = 0; temp < nList.getLength(); temp++){ Node nNode =
-		 * nList.item(temp); if(nNode.getNodeType() == Node.ELEMENT_NODE){ dto=new
-		 * ApiDto(); Element eElement = (Element)nNode;
-		 * 
-		 * int seq = Integer.parseInt(getTagValue("seq", eElement)); String title =
-		 * getTagValue("title", eElement); String startDate = getTagValue("startDate",
-		 * eElement); String endDate = getTagValue("endDate", eElement); String place =
-		 * getTagValue("place", eElement); String realmName = getTagValue("realmName",
-		 * eElement); String area = getTagValue("area", eElement); String thumbnail =
-		 * getTagValue("thumbnail", eElement); String gpsX = getTagValue("gpsX",
-		 * eElement); String gpsY = getTagValue("gpsY", eElement);
-		 * 
-		 * dto.setSeq(seq); dto.setTitle(title); dto.setStartdate(startDate);
-		 * dto.setEnddate(endDate); dto.setPlace(place); dto.setRealmname(realmName);
-		 * dto.setArea(area); dto.setThumbnail(thumbnail); dto.setGpsx(gpsX);
-		 * dto.setGpsy(gpsY);
-		 * 
-		 * service.addExhibition(dto);
-		 * 
-		 * System.out.
-		 * println("------------------------------------------기간별 공연/전시목록------------------------------------------"
-		 * ); //System.out.println(eElement.getTextContent());
-		 * System.out.println("일련번호  : " + getTagValue("seq", eElement));
-		 * System.out.println("제목  : " + getTagValue("title", eElement));
-		 * System.out.println("시작일 : " + getTagValue("startDate", eElement));
-		 * System.out.println("마감일  : " + getTagValue("endDate", eElement));
-		 * System.out.println("장소  : " + getTagValue("place", eElement));
-		 * System.out.println("분류명  : " + getTagValue("realmName", eElement));
-		 * System.out.println("지역  : " + getTagValue("area", eElement));
-		 * System.out.println("썸네일   : " + getTagValue("thumbnail", eElement));
-		 * System.out.println("gps-X좌표  : " + getTagValue("gpsX", eElement));
-		 * System.out.println("gps-Y좌표  : " + getTagValue("gpsY", eElement));
-		 * 
-		 * } // for end } // if end
-		 * 
-		 * page += 1; System.out.println("page number : "+page);
-		 * 
-		 * if(page > 30){ break; } } // while end } catch (Exception e){
-		 * e.printStackTrace(); } // try~catch end
-		 */
+		// 데이터 검색 기간( 현재시간 ~ 현재시간 +1년 ) 검색하기 위한 부분
+		Date todate = new Date();
+		SimpleDateFormat format1 = new SimpleDateFormat ( "yyyyMMdd"); // 시간 포맷 YYYYMMDD 
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(todate); 
+		cal.add(Calendar.YEAR, 1); // 현재시간 + 1년
+		
+		String fromTime = format1.format(todate); // fromTime : 컴퓨터의 현재 시간
+		String toTime = format1.format(cal.getTime()); // toTime : fromTime + 1년
+		
+		// 중요
+		// 전체 공연 시간(from~to)이 현재시간에 걸리는 공연 모두 삭제
+		// 항상 공연 데이터를 최신화를 위해서 삭제 후 현재시간~현재시간+1년의 데이터를 조회 후 DB Parsing 실시
+		service.deleteFromDate(fromTime); 
+
+		int page = 1; // 읽어올 첫 페이지
+		
+		String apiUrl;
+		String url = "http://www.culture.go.kr/openapi/rest/publicperformancedisplays/period?serviceKey" // API URL
+				+ "=Gz2ltmko3fuxZQxk8hBjvYFNlR9DqV9a2SSG80HzdcKMvY99yDDYxCV5H%2Fl0mJtEmDimd9LEm5T5TgX%2BOH9IHA%3D%3D"
+				+ "&sortStdr=1" 
+				+ "&from="+fromTime // 현재시간
+				+ "&to="+toTime  // 현재시간 +1년
+				+ "&rows=1" // 페이지당 1개 조회
+				+ "&place=1" 
+				+ "&cPage="; // 중요!
+							 //apiUrl = url + Integer.toString(i);
+							 // TotalCount 만큼 cPage를 증가시켜서 Data를 얻어오기 위함.
+		
+		try {
+			apiUrl = url + Integer.toString(page); // 처음 Parsing할 Data의 페이지는 항상 1이다. cPage=1
+			// ex) "http://www.culture.----&place=1&cPage=1"
+
+			System.out.println("----- Parsing URL -----");
+			System.out.println(apiUrl);
+
+			DocumentBuilderFactory dbFactoty = DocumentBuilderFactory.newInstance();
+			DocumentBuilder dBuilder = dbFactoty.newDocumentBuilder();
+			Document doc = dBuilder.parse(apiUrl);
+
+			// root tag
+			doc.getDocumentElement().normalize();
+			System.out.println("Root element :" + doc.getDocumentElement().getNodeName());
+
+			// msgBody의 0번 node가 totalCount 값
+			NodeList msgBodyTag = doc.getElementsByTagName("msgBody");
+			Node msgNode = msgBodyTag.item(0).getFirstChild();
+			
+			if (msgNode != null && msgNode.getNodeName().equals("totalCount")) {
+				System.out.println("totalCount=" + msgNode.getFirstChild().getNodeValue());
+			} else {
+				System.out.println("뽑아올 데이터가 없습니다.");
+			}
+			
+			// totalCount 값 얻어오기 ("msgBody"의 첫번째 자식 요소의 값을 얻어온다.)
+			int TotalCount = Integer.parseInt(msgNode.getFirstChild().getNodeValue());
+			
+			// From~ToDate에서 조회된 Data Parsing을 하기위해서 TotalCount 만큼 반복
+			for (int i = 1; i <= TotalCount; i++) {
+				
+				dto = new ApiDto();				
+
+				apiUrl = url + Integer.toString(i);
+				System.out.println(i+"번째 URL : "+apiUrl); // 데이터를 얻어올 XML URL 출력 (필요 없음)
+				Document parseDoc = dBuilder.parse(apiUrl);
+
+				// 파싱할 tag "perforList" 하위 노드에 데이터가 존재
+				NodeList nList = parseDoc.getElementsByTagName("perforList");
+				Node nNode = nList.item(0);
+				Element eElement = (Element) nNode;		
+				
+				int seq = Integer.parseInt(getTagValue("seq", eElement));
+				String title = getTagValue("title", eElement);
+				String startDate = getTagValue("startDate", eElement);
+				String endDate = getTagValue("endDate", eElement);
+				String place = getTagValue("place", eElement);
+				String realmName = getTagValue("realmName", eElement);
+				String area = getTagValue("area", eElement);
+				String thumbNail = getTagValue("thumbnail", eElement);
+				String gpsX = getTagValue("gpsX", eElement);
+				String gpsY = getTagValue("gpsY", eElement);
+
+				dto.setSeq(seq);
+				dto.setTitle(title);
+				dto.setStartDate(startDate);
+				dto.setEndDate(endDate);
+				dto.setPlace(place);
+				dto.setRealmName(realmName);
+				dto.setArea(area);
+				dto.setThumbNail(thumbNail);
+				dto.setGpsX(gpsX);
+				dto.setGpsY(gpsY);
+
+				try {						
+					// 중복 데이터가 없으면 INSERT
+					service.addExhibition(dto);
+				} catch (Exception e) {
+					// 중복 데이터가 있으면 break
+					System.out.println("일련번호  : " + getTagValue("seq", eElement) + "는 이미 추가되있습니당.");
+					break;
+				}				
+			}
+		}
+
+		catch (Exception e) {
+			e.printStackTrace();
+		} // try~catch end
+
 
 		mView.setViewName("home");
 

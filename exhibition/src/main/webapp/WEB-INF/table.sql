@@ -59,3 +59,8 @@ CREATE TABLE exhibition_like(
 	seq NUMBER,
 	id VARCHAR(100)
 )
+
+SELECT exhibition.seq, title, startdate, enddate, place, realmname, thumbnail, gpsx, gpsy, likecount.likecount
+FROM tb_api_date exhibition
+INNER JOIN exhibition_likecount likecount ON exhibition.seq=likecount.seq
+WHERE exhibition.seq=158929
