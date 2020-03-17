@@ -7,6 +7,22 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <jsp:include page="include/resource.jsp" />
+<style>
+	button{
+		vertical-align:middle;
+	}
+	button.form-text{
+		border: 1px solid #bcbcbc;
+		height: 25px;
+	}
+	button.img-button{
+		background:url("resources/images/button_search.png") no-repeat;
+		border:none;
+		width:38px;
+		height:38px;
+		cursor:pointer
+	}
+</style>
 <style type="text/css">
     .condition{
    		margin: 10px 0 20px 0;
@@ -43,7 +59,7 @@
 					<option value="place" <c:if test="${condition eq 'place' }">selected</c:if>>장소</option>
 				</select>
 				<input class="form-control" type="text" name="keyword" id="keyword" value="${keyword }" placeholder="검색어를 입력하세요" />
-				<button class="btn btn-primary type="submit">검색</button>
+				<button type="submit" class="img-button"></button>
 			</div>
 		</form>
 	</div>
