@@ -13,7 +13,6 @@ public interface HomeService {
 	public void getPopularEvents(HttpServletRequest request);
 	public void getData(HttpServletRequest request);
 	public void addExhibition(ApiDto dto);
-	public void deleteFromDate(String fromTime); // 시스템 시간을 입력받아서 기존 DB제거
 	//댓글 저장하는 메소드
 	public void saveComment(HttpServletRequest request);
 	public void deleteComment(int num);
