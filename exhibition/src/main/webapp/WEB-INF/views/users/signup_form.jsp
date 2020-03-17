@@ -95,6 +95,8 @@
 	var isIdUsable=false;
 	//아이디를 입력 했는지 여부 
 	var isIdInput=false;
+	//아이디 형식에 맞게 입력했는지 여부
+	var isIdMatch=false;
 	
 	//비밀번호를 확인란과 같게 입력 했는지 여부 
 	var isPwdEqual=false;
@@ -111,13 +113,15 @@
 	//비밀 번호 입력란에 한번이라도 입력한 적이 있는지 여부
 	var isPwdDirty=false;
 	
-	var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+	// id 체크 정규식 : 숫자, 영문(대문자, 소문자)만 1개이상 15개이하 입력 가능
+	var idCheck = /^[0-9a-zA-Z]{1,15}$/
+	var emailCheck = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,3}))$/;
 	
 	//이메일을 입력할때 실행할 함수 등록
 	$("#email").on("input", function(){
 		var email=$("#email").val();
 		
-		if(email.match(re)){//이메일 형식에 맞게 입력 했다면
+		if(email.match(emailCheck)){//이메일 형식에 맞게 입력 했다면
 			isEmailMatch=true;
 		}else{//형식에 맞지 않게 입력했다면 
 			isEmailMatch=false;
@@ -176,6 +180,7 @@
 				}else{
 					isIdUsable=true;
 				}
+				
 				//아이디 에러 여부 
 				var isError= !isIdUsable || !isIdInput ;
 				//아이디 상태 바꾸기 
@@ -188,8 +193,20 @@
 		}else{
 			isIdInput=true;
 		}
+		
+		//아이디 형식에 맞게 입력 했는지 검증
+		if(inputId.match(idCheck)){//아이디 형식에 맞게 입력 했다면
+			isIdMatch=true;
+		}else{//형식에 맞지 않게 입력했다면 
+			isIdMatch=false;
+		}
+		
 		//아이디 에러 여부 
 		var isError= !isIdUsable || !isIdInput ;
+		console.log("isIdUsable : "+!isIdUsable);
+		console.log("isIdInput : "+!isIdInput);
+		console.log("isError : "+isError);
+		console.log(isError?(!isIdUsable || !isIdInput):(!isIdInput&&false));
 		//아이디 상태 바꾸기 
 		setState("#id", isError );
 	});
