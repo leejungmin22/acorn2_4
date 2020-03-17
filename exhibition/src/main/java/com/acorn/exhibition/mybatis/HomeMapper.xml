@@ -8,17 +8,15 @@
 	</delete>
 
 	<select id="getevent" resultType="fullCalendarDto">
-		SELECT exhibition.seq, title, startdate, enddate, thumbnail, likecount.likecount
-		FROM tb_api_date exhibition
-		INNER JOIN exhibition_likecount likecount ON exhibition.seq=likecount.seq
-		ORDER BY likecount.likecount DESC, exhibition.startdate DESC
+		SELECT seq, title, startdate, enddate, thumbnail, likecount
+		FROM tb_api_date
+		ORDER BY likecount DESC, startdate DESC
 	</select>
 	
 	<select id="getdata" parameterType="int" resultType="fullCalendarDto">
-		SELECT exhibition.seq, title, startdate, enddate, place, realmname, thumbnail, gpsx, gpsy, likecount.likecount
-		FROM tb_api_date exhibition
-		INNER JOIN exhibition_likecount likecount ON exhibition.seq=likecount.seq
-		WHERE exhibition.seq=#{seq}
+		SELECT seq, title, startdate, enddate, place, realmname, thumbnail, gpsx, gpsy, likecount
+		FROM tb_api_date
+		WHERE seq=#{seq}
 	</select>
 	
 	<insert id="insert" parameterType="apiDto">
@@ -53,9 +51,8 @@
 	<select id="getList" resultType="fullCalendarDto">
 		SELECT *
 		 FROM (SELECT result1.*, ROWNUM AS rnum
-				FROM (SELECT exhibition.seq, title, TO_CHAR(startdate,'YYYY/MM/DD') AS startdate, TO_CHAR(enddate,'YYYY/MM/DD') AS enddate, place, thumbnail, likecount.likecount
-						FROM tb_api_date exhibition
-						INNER JOIN exhibition_likecount likecount ON exhibition.seq=likecount.seq
+				FROM (SELECT seq, title, TO_CHAR(startdate,'YYYY/MM/DD') AS startdate, TO_CHAR(enddate,'YYYY/MM/DD') AS enddate, place, thumbnail, likecount
+						FROM tb_api_date
 						<choose>
 							<when test="title != null">
 								WHERE title LIKE '%${title}%'
@@ -77,7 +74,7 @@
 	
 	<select id="getLikeCount" parameterType="int" resultType="int">
 		SELECT likecount
-		FROM exhibition_likecount
+		FROM tb_api_date
 		WHERE seq=#{seq}
 	</select>
 	
@@ -93,13 +90,13 @@
 	</insert>
 	
 	<update id="addLikeCount" parameterType="fullCalendarDto">
-		UPDATE exhibition_likecount
+		UPDATE tb_api_date
 		SET likecount=likecount+1
 		WHERE seq=#{seq}
 	</update>
 	
 	<update id="minusLikeCount" parameterType="fullCalendarDto">
-		UPDATE exhibition_likecount
+		UPDATE tb_api_date
 		SET likecount=likeCount-1
 		WHERE seq=#{seq}
 	</update>
