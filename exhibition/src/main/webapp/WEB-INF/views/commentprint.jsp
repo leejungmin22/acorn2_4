@@ -89,4 +89,5 @@
 			</li>			
 		</c:otherwise>
 	</c:choose>
+>>>>>>> refs/remotes/origin/jungmin
 </c:forEach>

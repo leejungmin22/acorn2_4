@@ -1,0 +1,116 @@
+package com.acorn.exhibition.home.dto;
+
+public class ApiDto {
+	private int seq;
+	private String title;
+	private String startdate;
+	private String enddate;
+	private String place;
+	private String realmname;
+	private String area;
+	private String thumbnail;
+	private String gpsx;
+	private String gpsy;
+
+	//디폴트 생성자
+	public ApiDto() {}
+
+	public ApiDto(int seq, String title, String startdate, String enddate, String place, String realmname, String area,
+			String thumbnail, String gpsx, String gpsy) {
+		super();
+		this.seq = seq;
+		this.title = title;
+		this.startdate = startdate;
+		this.enddate = enddate;
+		this.place = place;
+		this.realmname = realmname;
+		this.area = area;
+		this.thumbnail = thumbnail;
+		this.gpsx = gpsx;
+		this.gpsy = gpsy;
+	}
+
+	public int getSeq() {
+		return seq;
+	}
+
+	public void setSeq(int seq) {
+		this.seq = seq;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public String getStartdate() {
+		return startdate;
+	}
+
+	public void setStartdate(String startdate) {
+		this.startdate = startdate;
+	}
+
+	public String getEnddate() {
+		return enddate;
+	}
+
+	public void setEnddate(String enddate) {
+		this.enddate = enddate;
+	}
+
+	public String getPlace() {
+		return place;
+	}
+
+	public void setPlace(String place) {
+		this.place = place;
+	}
+
+	public String getRealmname() {
+		return realmname;
+	}
+
+	public void setRealmname(String realmname) {
+		this.realmname = realmname;
+	}
+
+	public String getArea() {
+		return area;
+	}
+
+	public void setArea(String area) {
+		this.area = area;
+	}
+
+	public String getThumbnail() {
+		return thumbnail;
+	}
+
+	public void setThumbnail(String thumbnail) {
+		this.thumbnail = thumbnail;
+	}
+
+	public String getGpsx() {
+		return gpsx;
+	}
+
+	public void setGpsx(String gpsx) {
+		this.gpsx = gpsx;
+	}
+
+	public String getGpsy() {
+		return gpsy;
+	}
+
+	public void setGpsy(String gpsy) {
+		this.gpsy = gpsy;
+	}
+
+	
+
+	
+}
