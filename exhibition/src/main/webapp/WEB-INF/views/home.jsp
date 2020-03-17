@@ -112,6 +112,11 @@ $(document).ready(function(){
     .condition{
     	margin: 10px 0 20px 0;
     }
+    
+    /* 썸네일 최대 크기 300px로 */
+    .item{
+    	max-height:300px;
+    }
 </style>
 </head>
 <body>
