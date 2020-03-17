@@ -1,4 +1,4 @@
-package com.acorn.exhibition.home.dao;
+package com.acorn.exhibition.comment.dao;
 
 import java.util.List;
 
@@ -6,11 +6,14 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.acorn.exhibition.home.dto.Com_LikeDto;
 import com.acorn.exhibition.home.dto.CommentDto;
 import com.acorn.exhibition.home.dto.FullCalendarDto;
 
+
 @Repository
-public class CommentDaoImple implements CommentDao{
+public class CommentDaoImpl implements CommentDao{
+	
 	@Autowired
 	private SqlSession session;
 	
@@ -35,7 +38,7 @@ public class CommentDaoImple implements CommentDao{
 	}
 	
 	//댓글의 시퀀스 값 얻기
-	//대댓글의 그룹번호를 댓글의 그룹번호로 한다. 따라서 먼저 댓글의 시퀀스 값을 얻어내서 ㅕㅔ
+	//대댓글의 그룹번호를 댓글의 그룹번호로 한다. 따라서 먼저 댓글의 시퀀스 값을 얻어내서 
 	@Override
 	public int getSequence() {
 		int seq=session.selectOne("comment.getSequence");
@@ -53,6 +56,57 @@ public class CommentDaoImple implements CommentDao{
 		int count=session.selectOne("comment.getCount");
 		return count;
 	}
+
+	@Override
+	public int findLike(CommentDto dto) {
+		int check=session.selectOne("comment.findLike", dto);
+		return check;
+	}
 	
+	@Override
+	public boolean removeOncommentLike(CommentDto dto) {
+		int result=session.delete("comment.remove", dto);
+		if(result>0) {
+			return true;
+		}else {
+			return false;
+		}
+	}
+
+	@Override
+	public boolean addOnCommentLike(CommentDto dto) {
+		int result=session.insert("comment.add", dto);
+		if(result>0) {
+			return true;
+		}else {
+			return false;
+		}
+	}
+
+	@Override
+	public boolean addcommentLikeCount(CommentDto dto) {
+		int result=session.update("comment.addLikeCount", dto);
+		if(result>0) {
+			return true;
+		}else {
+			return false;
+		}
+	}
+
+	@Override
+	public boolean minuscommentLikeCount(CommentDto dto) {
+		int result=session.update("comment.minusLikeCount", dto);
+		System.out.println(result);
+		if(result>0) {
+			return false;
+		}else {
+			return true;
+		}
+	}
+	@Override
+	public String getCommentLikeId(Com_LikeDto comlikeDto) {
+		String id=session.selectOne("comment.getid", comlikeDto);
+		return id;
+	}
 	
 }

@@ -27,6 +27,7 @@
 		#{thumbNail,jdbcType=VARCHAR}, 
 		#{gpsX,jdbcType=VARCHAR}, 
 		#{gpsY,jdbcType=VARCHAR})
+
 	</insert>
 	
 	<!-- 전체 공연 list -->
@@ -64,7 +65,7 @@
 	<select id="findLike" parameterType="fullCalendarDto" resultType="int">
 		SELECT NVL(MAX(ROWNUM), 0)
 		FROM exhibition_like
-		WHERE seq=#{seq} AND id=#{id}
+		WHERE seq=#{seq} AND id=#{id,jdbcType=VARCHAR}
 	</select>
 	
 	<select id="getLikeCount" parameterType="int" resultType="int">

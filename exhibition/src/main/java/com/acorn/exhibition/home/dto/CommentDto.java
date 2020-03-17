@@ -10,11 +10,14 @@ public class CommentDto {
 	private String deleted; //삭제한 댓글인지 여부 "no" | "yes"
 	private String regdate; 
 	private String profile; // 댓글 작성자의 프로필 이미지 경로를 담을 필드
+	private int com_likeCount;
+	private String id;
 	
 	public CommentDto() {}
+	
 
 	public CommentDto(int num, String writer, String content, String target_id, int ref_group, int comment_group,
-			String deleted, String regdate, String profile) {
+			String deleted, String regdate, String profile, int com_likeCount, String id) {
 		super();
 		this.num = num;
 		this.writer = writer;
@@ -25,7 +28,10 @@ public class CommentDto {
 		this.deleted = deleted;
 		this.regdate = regdate;
 		this.profile = profile;
+		this.com_likeCount = com_likeCount;
+		this.id = id;
 	}
+
 
 	public int getNum() {
 		return num;
@@ -99,6 +105,25 @@ public class CommentDto {
 		this.profile = profile;
 	}
 
+	public int getCom_likeCount() {
+		return com_likeCount;
+	}
+
+	public void setCom_likeCount(int com_likeCount) {
+		this.com_likeCount = com_likeCount;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+	
+	
+
+	
 	
 	
 }

@@ -63,20 +63,11 @@
 		</colgroup>
 		<thead>
 			<tr>
-				<th> 공연명
-					<%-- <a class="sort sort_up" href="${pageContext.request.contextPath }/list.do">
-						공연명
-						<c:choose>
-							<c:when test="">
-								<img class="arrow" alt="" src="${pageContext.request.contextPath }/resources/images/down-arrow.png">
-							</c:when>
-							<c:otherwise>
-								<img class="arrow" alt="" src="${pageContext.request.contextPath }/resources/images/up-arrow.png">
-							</c:otherwise>
-						</c:choose>
-					</a> --%>
+				<th>공연명 </th>
+				<th>좋아요
+						 <a class="glyphicon glyphicon-chevron-up"></a>
+						 <a class="glyphicon glyphicon-chevron-down"></a>
 				</th>
-				<th>좋아요</th>
 				<th>장소</th>
 				<th>공연기간</th>
 			</tr>

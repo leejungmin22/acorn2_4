@@ -17,9 +17,18 @@
 			<label for="id">아이디</label>
 			<input class="form-control" type="text" id="id" value="${id }" disabled/>
 		</div>
+		<input type="hidden" name="name" value="${dto.name }"/>
+		<div class="form-group">
+			<label for="name">이름</label>
+			<input class="form-control" type="text" id="name" value="${dto.name }" disabled/>
+		</div>
 		<div class="form-group">
 			<label for="email">이메일</label>
 			<input class="form-control" type="text" id="email" name="email" value="${dto.email }"/>
+		</div>
+		<div class="form-group">
+			<label for="birth">생년월일</label>
+			<input class="form-control" type="text" id="birth" name="birth" value="${dto.birth }"/>
 		</div>
 		<div class="form-group">
 			<label for="gender">성별</label>
@@ -28,11 +37,8 @@
 				<option value="m" <c:if test="${gender eq 'm' }">selected</c:if>>남</option>
 			</select>
 		</div>
-		<div class="form-group">
-			<label for="phone">전화번호</label>
-			<input class="form-control" type="text" id="phone" value="${dto.phone }" />
-		</div>
 		
+	
 		<button class="btn btn-primary" type="submit">수정확인</button>
 		<button class="btn btn-warning" type="reset">취소</button>
 	</form>

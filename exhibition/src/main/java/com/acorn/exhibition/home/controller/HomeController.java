@@ -23,17 +23,22 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+import com.acorn.exhibition.comment.service.CommentService;
 import com.acorn.exhibition.home.dto.ApiDto;
 import com.acorn.exhibition.home.dto.CommentDto;
+import com.acorn.exhibition.home.dto.FullCalendarDto;
 import com.acorn.exhibition.home.service.HomeService;
+
 
 @Controller
 public class HomeController {
 	@Autowired
 	private HomeService service;
+	
 
 	@RequestMapping(value = "/home")
 	public ModelAndView home(HttpServletRequest request, @ModelAttribute("dto") ApiDto dto, ModelAndView mView) {
+<<<<<<< HEAD
 		service.getPopularEvents(request);
 		
 		// 데이터 검색 기간( 현재시간 ~ 현재시간 +1년 ) 검색하기 위한 부분
@@ -164,42 +169,9 @@ public class HomeController {
 	@RequestMapping(value = "/detail")
 	public String detail(HttpServletRequest request, @RequestParam int seq) {
 		service.getData(request);
+		
 		return "detail";
 	}
-
-	// 댓글 저장 요청 처리
-	@RequestMapping(value = "/comment_insert")
-	public ModelAndView authCommentInsert(HttpServletRequest request, @RequestParam int ref_group) {
-		service.saveComment(request);
-		return new ModelAndView("redirect:/detail.do?seq=" + ref_group);
-	}
-
-	@ResponseBody
-	@RequestMapping(value = "/comment_delete", method = RequestMethod.POST)
-	public Map<String, Object> authCommentDelete(HttpServletRequest request, @RequestParam int num) {
-		service.deleteComment(num);
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("isSuccess", true);
-		return map;
-	}
-
-	@ResponseBody
-	@RequestMapping(value = "/comment_update", method = RequestMethod.POST)
-	public Map<String, Object> authCommentUpdate(HttpServletRequest request, @ModelAttribute CommentDto dto) {
-		service.updateComment(dto);
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("isSuccess", true);
-		return map;
-	}
-
-	@RequestMapping(value = "/more_comment")
-	public ModelAndView getComment(HttpServletRequest request, ModelAndView mView) {
-		service.commentList(request);
-		mView.addObject("id", request.getSession().getAttribute("id"));
-		mView.setViewName("commentprint");
-		return mView;
-	}
-
 	@RequestMapping("/list")
 	public ModelAndView list(ModelAndView mView, HttpServletRequest request) {
 		service.list(request);
@@ -210,8 +182,8 @@ public class HomeController {
 	@ResponseBody
 	@RequestMapping("/updateLikeCount")
 	public Map<String, Object> updateLikeCount(HttpServletRequest request) {
-		Map<String, Object> result=service.updateLikeCount(request);
+		Map<String, Object> result= service.updateLikeCount(request);
 		return result;
 	}
-	
+
 }
