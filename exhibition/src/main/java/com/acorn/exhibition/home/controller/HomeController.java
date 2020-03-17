@@ -35,7 +35,7 @@ import com.acorn.exhibition.home.service.HomeService;
 public class HomeController {
 	@Autowired
 	private HomeService service;
-	
+	  
 
 	@RequestMapping(value = "/home")
 	public ModelAndView home(HttpServletRequest request, @ModelAttribute("dto") ApiDto dto, ModelAndView mView) {
