@@ -63,19 +63,7 @@
 		</colgroup>
 		<thead>
 			<tr>
-				<th> 공연명
-					<%-- <a class="sort sort_up" href="${pageContext.request.contextPath }/list.do">
-						공연명
-						<c:choose>
-							<c:when test="">
-								<img class="arrow" alt="" src="${pageContext.request.contextPath }/resources/images/down-arrow.png">
-							</c:when>
-							<c:otherwise>
-								<img class="arrow" alt="" src="${pageContext.request.contextPath }/resources/images/up-arrow.png">
-							</c:otherwise>
-						</c:choose>
-					</a> --%>
-				</th>
+				<th>공연명 </th>
 				<th>좋아요</th>
 				<th>장소</th>
 				<th>공연기간</th>
@@ -146,37 +134,5 @@
 		</ul>
 	</div>
 </div>
-<script>
-	//오름차순, 내림차순 정렬
-	/* var titleSort="sort_up";
-	var likeCountSort="sort_up";
-	var placeSort="sort_up";
-	var startdateSort="sort_down";
-	
-	$(".sort").on("click", function(a){
-		console.log(a);
-		
-		
-		$.ajax({
-			url:"list.do",
-			method:"post",
-			data:{"seq":${dto.seq}}, //data : 파라미터로 전달할 문자열 
-			dataType:"json",
-			success:function(responseData){
-				console.log(responseData);
-				var imgTag=$('.like').children('img');
-				var span=$('.like').children('span');
-				if(responseData.isSuccess==true){
-				
-				}else if(responseData.isSuccess==false){
-					imgTag.attr('src', '${pageContext.request.contextPath }/resources/images/empty-heart.png');
-					span.text(responseData.likecount);
-				}
-				
-			}
-		});
-	
-	}); */
-</script>
 </body>
 </html>

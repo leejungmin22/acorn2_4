@@ -3,19 +3,14 @@ package com.acorn.exhibition.home.controller;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
-import javax.swing.text.StyledEditorKit.BoldAction;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
@@ -23,11 +18,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-
-import com.acorn.exhibition.comment.service.CommentService;
 import com.acorn.exhibition.home.dto.ApiDto;
-import com.acorn.exhibition.home.dto.CommentDto;
-import com.acorn.exhibition.home.dto.FullCalendarDto;
 import com.acorn.exhibition.home.service.HomeService;
 
 
@@ -43,18 +34,13 @@ public class HomeController {
 		
 		// 데이터 검색 기간( 현재시간 ~ 현재시간 +1년 ) 검색하기 위한 부분
 		Date todate = new Date();
-		SimpleDateFormat format1 = new SimpleDateFormat ( "yyyyMMdd"); // 시간 포맷 YYYYMMDD 
+		SimpleDateFormat format1 = new SimpleDateFormat ("yyyyMMdd"); // 시간 포맷 YYYYMMDD 
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(todate); 
 		cal.add(Calendar.YEAR, 1); // 현재시간 + 1년
 		
 		String fromTime = format1.format(todate); // fromTime : 컴퓨터의 현재 시간
 		String toTime = format1.format(cal.getTime()); // toTime : fromTime + 1년
-		
-		// 중요
-		// 전체 공연 시간(from~to)이 현재시간에 걸리는 공연 모두 삭제
-		// 항상 공연 데이터를 최신화를 위해서 삭제 후 현재시간~현재시간+1년의 데이터를 조회 후 DB Parsing 실시
-		service.deleteFromDate(fromTime); 
 
 		int page = 1; // 읽어올 첫 페이지
 		
@@ -90,7 +76,7 @@ public class HomeController {
 			Node msgNode = msgBodyTag.item(0).getFirstChild();
 			
 			if (msgNode != null && msgNode.getNodeName().equals("totalCount")) {
-				System.out.println("totalCount=" + msgNode.getFirstChild().getNodeValue());
+				System.out.println("뽑아올 공연 데이터 갯수 : " + msgNode.getFirstChild().getNodeValue());
 			} else {
 				System.out.println("뽑아올 데이터가 없습니다.");
 			}
@@ -136,19 +122,19 @@ public class HomeController {
 
 				try {						
 					// 중복 데이터가 없으면 INSERT
+					System.out.println("일련번호  : " + getTagValue("seq", eElement) + "공연 추가 완료.");
 					service.addExhibition(dto);
 				} catch (Exception e) {
-					// 중복 데이터가 있으면 break
-					System.out.println("일련번호  : " + getTagValue("seq", eElement) + "는 이미 추가되있습니당.");
-					break;
-				}				
+					System.out.println("일련번호  : " + getTagValue("seq", eElement) + "공연 이미 추가돼있습니다.");
+				}
+							
 			}
+			
 		}
 
 		catch (Exception e) {
 			e.printStackTrace();
 		} // try~catch end
-
 
 		mView.setViewName("home");
 
