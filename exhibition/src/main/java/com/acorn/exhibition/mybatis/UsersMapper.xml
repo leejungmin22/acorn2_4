@@ -39,7 +39,7 @@
 	
 	<update id="updateUser" parameterType="usersDto">
 		update exhibition_users
-		set email=#{email},name=#{name},gender=#{gender},birth=#{birth}
+		set email=#{email,jdbcType=VARCHAR},name=#{name,jdbcType=VARCHAR},gender=#{gender,jdbcType=VARCHAR},birth=#{birth,jdbcType=VARCHAR}
 		where id=#{id}
 	</update>
 	

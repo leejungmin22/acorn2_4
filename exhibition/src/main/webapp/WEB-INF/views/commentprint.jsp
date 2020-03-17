@@ -23,8 +23,14 @@
 						<c:if test="${tmp.num ne tmp.comment_group }">
 							to <strong>${tmp.target_id }</strong>
 						</c:if>
+					</dt>
+					<dd>
+						<pre>${tmp.content }</pre>
+					</dd>
+					<dd>
 						<span>${tmp.regdate }</span>
 						<a href="javascript:" class="reply_link">답글</a>
+
 						<c:choose>
 							<%-- 로그인된 아이디와 댓글의 작성자가 같으면 --%>
 							<c:when test="${id eq tmp.writer }">
@@ -35,9 +41,6 @@
 								<a href="javascript:">신고</a>
 							</c:otherwise>
 						</c:choose>
-					</dt>
-					<dd>
-						<pre>${tmp.content }</pre>
 					</dd>
 				</dl>
 				<form class="comment-insert-form" action="comment_insert.do" method="post">
