@@ -73,7 +73,7 @@ public class HomeDaoImpl implements HomeDao{
 	@Override
 	public boolean addOnExhibitionLike(FullCalendarDto dto) {
 		int result = session.insert("event.add", dto);
-		if(result>1) {
+		if(result>0) {
 			return true;
 		}
 		else {
@@ -84,7 +84,7 @@ public class HomeDaoImpl implements HomeDao{
 	@Override
 	public boolean addLikeCount(FullCalendarDto dto) {
 		int result =session.update("event.addLikeCount", dto);
-		if(result>1) {
+		if(result>0) {
 			return true;
 		}
 		else {
@@ -95,7 +95,6 @@ public class HomeDaoImpl implements HomeDao{
 	@Override
 	public boolean minusLikeCount(FullCalendarDto dto) {
 		int result=session.update("event.minusLikeCount", dto);
-		System.out.println(result);
 		if(result>0) {
 			return false;
 		}else {

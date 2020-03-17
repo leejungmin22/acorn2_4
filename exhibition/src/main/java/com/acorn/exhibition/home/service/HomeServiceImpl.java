@@ -259,7 +259,7 @@ public class HomeServiceImpl implements HomeService{
 			//exhibition_likecount 테이블에서 like 개수를 하나 더해준다.
 			boolean result2=dao.addLikeCount(dto);
 			likeCount=dao.getData(seq).getLikeCount();
-
+			
 			if(result1 && result2) {
 				
 				map.put("isSuccess", true);
