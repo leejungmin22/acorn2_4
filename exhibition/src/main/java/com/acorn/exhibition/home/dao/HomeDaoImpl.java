@@ -45,6 +45,11 @@ public class HomeDaoImpl implements HomeDao{
 		List<FullCalendarDto> list=session.selectList("event.getList", dto);
 		return list;
 	}
+
+	@Override
+	public void deleteFromDate(String fromTime) {
+		session.delete("event.deleteFromDate", fromTime);
+	}
 	
 	// 좋아요
 	@Override

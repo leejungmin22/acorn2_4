@@ -11,7 +11,8 @@ public interface HomeDao {
 	public List<FullCalendarDto> getEvent();
 	public FullCalendarDto getData(int seq);
 	public void insert(ApiDto dto);
-	// 전체 공연 list
+	public void deleteFromDate(String fromTime);
+	//list
 	public int getCount(FullCalendarDto dto);
 	public List<FullCalendarDto> getList(FullCalendarDto dto);
 	// 좋아요
