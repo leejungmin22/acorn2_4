@@ -2,11 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="event">
 
-	<delete id="deleteFromDate" parameterType="String">
-		DELETE FROM tb_api_date
-		WHERE startdate >= #{fromTime} OR enddate >= #{fromTime} 
-	</delete>
-
 	<select id="getevent" resultType="fullCalendarDto">
 		SELECT exhibition.seq, title, startdate, enddate, thumbnail, likecount.likecount
 		FROM tb_api_date exhibition

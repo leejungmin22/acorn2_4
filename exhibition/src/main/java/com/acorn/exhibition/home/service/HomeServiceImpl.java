@@ -308,11 +308,6 @@ public class HomeServiceImpl implements HomeService{
 		
 	}
 
-	@Override
-	public void deleteFromDate(String fromTime) {
-		dao.deleteFromDate(fromTime);
-	}
-	
 	//좋아요
 	@Override
 	public Map<String, Object> updateLikeCount(HttpServletRequest request) {
