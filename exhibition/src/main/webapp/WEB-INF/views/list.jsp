@@ -64,10 +64,7 @@
 		<thead>
 			<tr>
 				<th>공연명 </th>
-				<th>좋아요
-						 <a class="glyphicon glyphicon-chevron-up"></a>
-						 <a class="glyphicon glyphicon-chevron-down"></a>
-				</th>
+				<th>좋아요</th>
 				<th>장소</th>
 				<th>공연기간</th>
 			</tr>
@@ -137,37 +134,5 @@
 		</ul>
 	</div>
 </div>
-<script>
-	//오름차순, 내림차순 정렬
-	/* var titleSort="sort_up";
-	var likeCountSort="sort_up";
-	var placeSort="sort_up";
-	var startdateSort="sort_down";
-	
-	$(".sort").on("click", function(a){
-		console.log(a);
-		
-		
-		$.ajax({
-			url:"list.do",
-			method:"post",
-			data:{"seq":${dto.seq}}, //data : 파라미터로 전달할 문자열 
-			dataType:"json",
-			success:function(responseData){
-				console.log(responseData);
-				var imgTag=$('.like').children('img');
-				var span=$('.like').children('span');
-				if(responseData.isSuccess==true){
-				
-				}else if(responseData.isSuccess==false){
-					imgTag.attr('src', '${pageContext.request.contextPath }/resources/images/empty-heart.png');
-					span.text(responseData.likecount);
-				}
-				
-			}
-		});
-	
-	}); */
-</script>
 </body>
 </html>
