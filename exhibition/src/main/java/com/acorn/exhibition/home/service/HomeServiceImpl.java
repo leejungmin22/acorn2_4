@@ -216,12 +216,7 @@ public class HomeServiceImpl implements HomeService{
 		
 	}
 
-	@Override
-	public void deleteFromDate(String fromTime) {
-		dao.deleteFromDate(fromTime);
-	}
-	
-	// 좋아요수 올리거나 줄이기
+	//좋아요
 	@Override
 	public Map<String, Object> updateLikeCount(HttpServletRequest request) {
 		
@@ -240,7 +235,6 @@ public class HomeServiceImpl implements HomeService{
 		int likeCount=0;
 		
 		if(isClicked==1) { //클릭한적 있다면
-
 			//exhibition_like 테이블에서 정보를 제거하고
 			boolean result1=dao.removeOnExhibitionLike(dto);
 			//exhibition_likecount 테이블에서 like 개수를 하나 빼준다.
@@ -248,12 +242,10 @@ public class HomeServiceImpl implements HomeService{
 			likeCount=dao.getData(seq).getLikeCount();
 
 			if(result1 && result2) {
-				
 				map.put("isSuccess", true);
 				map.put("likecount", likeCount);
 				return map;
 			}else {
-				
 				map.put("isSuccess", false);
 				map.put("likecount", likeCount);
 				return map;
@@ -267,6 +259,7 @@ public class HomeServiceImpl implements HomeService{
 			//exhibition_likecount 테이블에서 like 개수를 하나 더해준다.
 			boolean result2=dao.addLikeCount(dto);
 			likeCount=dao.getData(seq).getLikeCount();
+
 			if(result1 && result2) {
 				
 				map.put("isSuccess", true);
