@@ -53,6 +53,7 @@
 			<input class="form-control" type="text" id="id" name="id"/>
 			<p class="help-block" id="id_notusable">사용 불가능한 아이디 입니다.</p>
 			<p class="help-block" id="id_required">반드시 입력 하세요</p>
+			<p class="help-block" id="id_notmatch">아이디는 숫자,영문 만 입력 할 수 있습니다.</p>
 			<span class="glyphicon glyphicon-remove form-control-feedback"></span>
 			<span class="glyphicon glyphicon-ok form-control-feedback"></span>
 		</div>
@@ -114,13 +115,12 @@
 	var isPwdDirty=false;
 	
 	// id 체크 정규식 : 숫자, 영문(대문자, 소문자)만 1개이상 15개이하 입력 가능
-	var idCheck = /^[0-9a-zA-Z]{1,15}$/
+	var idCheck = /^[0-9a-zA-Z]{1,15}$/gi
 	var emailCheck = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,3}))$/;
 	
 	//이메일을 입력할때 실행할 함수 등록
 	$("#email").on("input", function(){
-		var email=$("#email").val();
-		
+		var email=$("#email").val();		
 		if(email.match(emailCheck)){//이메일 형식에 맞게 입력 했다면
 			isEmailMatch=true;
 		}else{//형식에 맞지 않게 입력했다면 
@@ -166,49 +166,50 @@
 	//아이디를 입력할때 실행할 함수 등록 
 	$("#id").on("input", function(){
 		isIdDirty=true;
-		
+		var isError=false;
 		//1. 입력한 아이디를 읽어온다.
 		var inputId=$("#id").val();
-		//2. 서버에 보내서 사용가능 여부를 응답 받는다.
-		$.ajax({
-			url:"${pageContext.request.contextPath }/users/checkid.do",
-			method:"GET",
-			data:{inputId:inputId},
-			success:function(responseData){
-				if(responseData.isExist){//이미 존재하는 아이디라면 
-					isIdUsable=false;
-				}else{
-					isIdUsable=true;
-				}
-				
-				//아이디 에러 여부 
-				var isError= !isIdUsable || !isIdInput ;
-				//아이디 상태 바꾸기 
-				setState("#id", isError );
-			}
-		});
+		//띄어쓰기 불가
+		var a=inputId.replace(/ /gi, '');
+		$("#id").val(a);
+
 		//아이디를 입력했는지 검증
 		if(inputId.length == 0){//만일 입력하지 않았다면 
 			isIdInput=false;
+			isError=true;
+			setState("#id", isError );
 		}else{
 			isIdInput=true;
+			$.ajax({
+				url:"${pageContext.request.contextPath }/users/checkid.do",
+				method:"GET",
+				data:{inputId:inputId},
+				success:function(responseData){
+					if(responseData.isExist){//이미 존재하는 아이디라면 
+						isIdUsable=false;
+					}else{
+						isIdUsable=true;
+					}
+					
+					//아이디 에러 여부 
+					var isError= !isIdUsable || !isIdMatch ;
+					//아이디 상태 바꾸기 
+					setState("#id", isError );
+				}
+			});
+			
+			//아이디 형식에 맞게 입력 했는지 검증
+			if(inputId.match(idCheck)){//아이디 형식에 맞게 입력 했다면
+				isIdMatch=true;
+			}else{//형식에 맞지 않게 입력했다면 
+				isIdMatch=false;
+			}
+			//아이디 에러 여부 
+			var isError= !isIdUsable || !isIdMatch ;
+			//아이디 상태 바꾸기 
+			setState("#id", isError );
+			
 		}
-		
-		//아이디 형식에 맞게 입력 했는지 검증
-		if(inputId.match(idCheck)){//아이디 형식에 맞게 입력 했다면
-			isIdMatch=true;
-		}else{//형식에 맞지 않게 입력했다면 
-			isIdMatch=false;
-		}
-		
-		//아이디 에러 여부 
-		var isError= !isIdUsable || !isIdInput ;
-		console.log("isIdUsable : "+!isIdUsable);
-		console.log("isIdInput : "+!isIdInput);
-		console.log("isError : "+isError);
-		console.log(isError?(!isIdUsable || !isIdInput):(!isIdInput&&false));
-		//아이디 상태 바꾸기 
-		setState("#id", isError );
 	});
 	
 	//입력란의 상태를 바꾸는 함수 
@@ -247,6 +248,10 @@
 		if(!isPwdInput && isPwdDirty){
 			$("#pwd_required").show();
 		}
+
+		if(!isIdMatch && isIdDirty && isIdInput){
+			$("#id_notmatch").show();
+		}
 		//에러가 있다면 에러 메세지 띄우기
 		if(!isIdUsable && isIdDirty){
 			$("#id_notusable").show();
@@ -254,6 +259,8 @@
 		if(!isIdInput && isIdDirty){
 			$("#id_required").show();
 		}
+
+
 		
 		//버튼의 상태 바꾸기 
 		if(isIdUsable && isIdInput && isPwdEqual && 
