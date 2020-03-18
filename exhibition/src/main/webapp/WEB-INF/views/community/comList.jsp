@@ -7,6 +7,22 @@
 <meta charset="UTF-8">
 <title>/community/comList.jsp</title>
 <jsp:include page="../include/resource.jsp"></jsp:include>
+<style>
+	button{
+		vertical-align:middle;
+	}
+	button.form-text{
+		border: 1px solid #bcbcbc;
+		height: 25px;
+	}
+	button.img-button{
+		background:url("../resources/images/button_search.png") no-repeat;
+		border:none;
+		width:38px;
+		height:38px;
+		cursor:pointer
+	}
+</style>
 </head>
 <body>
 <jsp:include page="../include/navbar.jsp">
@@ -23,6 +39,22 @@
 			되었습니다.
 		</p>
 	</c:if>
+	<%-- 글 검색 기능 폼 --%>	
+	<div class="condition" align="right">
+		<form class="form-inline" action="comList.do" method="get"> 
+			<div class="form-group">
+				<label for="condition">검색조건</label>
+				<select class="form-control" name="condition" id="condition">
+					<option value="titlecontent" <c:if test="${condition eq 'titlecontent' }">selected</c:if> >제목+내용</option>
+					<option value="title" <c:if test="${condition eq 'title' }">selected</c:if> >제목</option>
+					<option value="writer" <c:if test="${condition eq 'writer' }">selected</c:if> >작성자</option>
+				</select>
+				<input class="form-control" type="text" name="keyword" placeholder="검색어를 입력하세요" value="${keyword }"/>
+				<button class="img-button" type="submit"></button>
+			</div>
+		</form>
+	</div>
+	
 	<h1>글 목록 입니다.</h1>
 	<table class="table table-striped table-condensed">
 		<colgroup>
@@ -60,7 +92,7 @@
 	
 	<a href="insertform.do">새글 작성</a>
 	
-	<div class="page-display">
+	<div class="page-display"  style="text-align: center;">
 		<ul class="pagination">
 		<c:choose>
 			<c:when test="${startPageNum ne 1 }">
@@ -103,20 +135,7 @@
 			</c:otherwise>
 		</c:choose>
 		</ul>		
-	</div>
-	<%-- 글 검색 기능 폼 --%>
-	
-	<form action="comList.do" method="get">
-		<label for="condition">검색조건</label>
-		<select name="condition" id="condition">
-			<option value="titlecontent" <c:if test="${condition eq 'titlecontent' }">selected</c:if> >제목+내용</option>
-			<option value="title" <c:if test="${condition eq 'title' }">selected</c:if> >제목</option>
-			<option value="writer" <c:if test="${condition eq 'writer' }">selected</c:if> >작성자</option>
-		</select>
-		<input type="text" name="keyword" 
-			placeholder="검색어 입력..." value="${keyword }"/>
-		<button type="submit">검색</button>
-	</form>
+	</div>	
 </div>
 </body>
 </html>

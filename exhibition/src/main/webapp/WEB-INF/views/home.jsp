@@ -148,7 +148,7 @@ $(document).ready(function(){
 					<option value="place" <c:if test="${condition eq 'place' }">selected</c:if>>장소</option>
 				</select>
 				<input class="form-control" type="text" name="keyword" id="keyword" value="${keyword }" placeholder="검색어를 입력하세요" />
-				<button class="btn btn-primary" type="submit">검색</button>
+				<button class="img-button" type="submit"></button>
 
 			</div>
 		</form>
