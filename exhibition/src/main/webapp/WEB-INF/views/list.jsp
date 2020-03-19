@@ -46,14 +46,39 @@
 			<div class="form-group">
 				<label for="condition">검색조건</label>
 				<select class="form-control" name="condition" id="condition">
+					<option value="none">선택하세요</option>
 					<option value="title" <c:if test="${condition eq 'title' }">selected</c:if>>제목</option>
 					<option value="place" <c:if test="${condition eq 'place' }">selected</c:if>>장소</option>
+					<option value="date" <c:if test="${condition eq 'date' }">selected</c:if>>기간</option>
 				</select>
 				<input class="form-control" type="text" name="keyword" id="keyword" value="${keyword }" placeholder="검색어를 입력하세요" />
+				<input class="form-control" type="text" name="startDate" class="date" disabled="disabled"/>
+				<input class="form-control" type="text" name="endDate"  class="date" disabled="disabled"/>
 				<button class="btn btn-primary type="submit">검색</button>
 			</div>
 		</form>
 	</div>
+	<script>
+		$(document).ready(function(){
+			
+
+		});
+		$("#condition").change(function(){
+			var value=$(this).val();
+			if(value=="none"){
+				$("#keyword").attr("disabled", "disabled").show();
+				$(".date").attr("disabled", "disabled").hide();
+			}
+			if(value=="date"){
+				$("#keyword").attr("disabled", "disabled").hide();
+				$(".date").removeAttr("disabled").show();
+			}
+			if(value=="title" || value=="place"){
+				$("#keyword").removeAttr("disabled").show();
+				$(".date").attr("disabled", "disabled").hide();
+			}
+		});
+	</script>
 	<table class="table table-striped table-condensed">
 		<colgroup>
 			<col class="col-xs-6"/>
@@ -134,5 +159,8 @@
 		</ul>
 	</div>
 </div>
+<script type="text/javascript">
+	$("#condition").on("change")
+</script>
 </body>
 </html>

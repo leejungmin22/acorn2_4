@@ -108,7 +108,7 @@ public class HomeServiceImpl implements HomeService{
 		if(id!=null) {
 			LikeDto likeDto=new LikeDto(seq, id);
 			ExhibitionLikeId=dao.getExhibitionLikeId(likeDto);
-
+			
 		}
 		request.setAttribute("ExhibitionLikeId", ExhibitionLikeId);
 		request.setAttribute("CommentLikeId", CommentLikeId);
