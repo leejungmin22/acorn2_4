@@ -62,6 +62,7 @@
 			<input class="form-control" type="password" id="pwd" name="pwd"/>
 			<p class="help-block" id="pwd_required">반드시 입력하세요</p>
 			<p class="help-block" id="pwd_notequal">아래의 확인란과 동일하게 입력하세요</p>
+			<p class="help-block" id="pwd_notmatch">비밀번호는 영어, 특수문자를 포함하여 8~15자리로 입력해야합니다.</p>
 			<span class="glyphicon glyphicon-remove form-control-feedback"></span>
 			<span class="glyphicon glyphicon-ok form-control-feedback"></span>
 		</div>
@@ -103,6 +104,8 @@
 	var isPwdEqual=false;
 	//비밀번호를 입력했는지 여부 
 	var isPwdInput=false;
+	//비밀번호 형식에 맞게 입력했는지 여부
+	var isPwdMatch=false;
 	
 	//이메일을 형식에 맞게 입력했는지 여부 
 	var isEmailMatch=false;
@@ -116,7 +119,10 @@
 	
 	// id 체크 정규식 : 숫자, 영문(대문자, 소문자)만 1개이상 15개이하 입력 가능
 	var idCheck = /^[0-9a-zA-Z]{1,15}$/gi
+	// email 체크 정규식 
 	var emailCheck = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,3}))$/;
+	// pwd 체크 정규식 : 영어(대,소)와 특수문자를 포함한 8자리 이상 15자리 이하로 입력할것.
+	var pwdCheck=/^.*(?=^.{8,15}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=.]).*$/g
 	
 	//이메일을 입력할때 실행할 함수 등록
 	$("#email").on("input", function(){
@@ -146,23 +152,40 @@
 		//입력한 비밀번호를 읽어온다.
 		var pwd=$("#pwd").val();
 		var pwd2=$("#pwd2").val();
+
+		//띄어쓰기 불가
+		var a=pwd.replace(/ /gi, '');
+		var b=pwd2.replace(/ /gi, '');
+		$("#pwd").val(a);
+		$("#pwd2").val(b);
 		
-		if(pwd != pwd2){//두 비밀번호를 동일하게 입력하지 않았다면
-			isPwdEqual=false;
-		}else{
-			isPwdEqual=true;
-		}
 		//isPwdEqual = pwd != pwd2 ? false : true;
 		if(pwd.length == 0){
 			isPwdInput=false;
+			var isError=true;
+			//비밀번호 상태 바꾸기 
+			setState("#pwd", isError);
 		}else{
 			isPwdInput=true;
+			//비밀번호 형식에 맞게 입력 했는지 검증
+			if(pwd.match(pwdCheck)){ //비밀번호 형식에 맞게 입력했다면
+				isPwdMatch=true;
+			}else{//형식에 맞지 않다면
+				isPwdMatch=false;
+			}
+			
+			if(pwd != pwd2){//두 비밀번호를 동일하게 입력하지 않았다면
+				isPwdEqual=false;
+			}else{
+				isPwdEqual=true;
+			}
+			var isError=!isPwdEqual || !isPwdMatch;
+			//비밀번호 상태 바꾸기 
+			setState("#pwd", isError);
 		}
-		//비밀번호 에러 여부 
-		var isError=!isPwdEqual || !isPwdInput;
-		//비밀번호 상태 바꾸기 
-		setState("#pwd", isError);
+		
 	});
+	
 	//아이디를 입력할때 실행할 함수 등록 
 	$("#id").on("input", function(){
 		isIdDirty=true;
@@ -242,6 +265,9 @@
 			$("#email_notmatch").show();
 		}
 		//에러가 있다면 에러 메세지 띄우기
+		if(!isPwdMatch && isPwdDirty && isPwdInput){
+			$("#pwd_notmatch").show();
+		}
 		if(!isPwdEqual && isPwdDirty){
 			$("#pwd_notequal").show();
 		}
