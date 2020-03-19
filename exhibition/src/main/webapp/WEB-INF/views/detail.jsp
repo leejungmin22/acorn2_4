@@ -125,7 +125,6 @@ img {
 					<h6>문의 : ${exhibitionDto.phone }</h6>
 					<a class="btn btn-success" href="${exhibitionDto.url }">결제</a>
 					<button class="btn btn-default like" type="button">
-
 						<c:choose>
 							<c:when test="${id eq ExhibitionLikeId and id ne null }">
 								<img class="heart" src="${pageContext.request.contextPath }/resources/images/red-heart.png" alt="" />
@@ -210,9 +209,9 @@ img {
 														<a href="javascript:">신고</a>
 													</c:otherwise>
 												</c:choose>
-												<button class="btn btn-default comlike" type="button">
+												<button class="btn btn-default" id="comlike" type="button" value=${tmp.num }>
 												<c:choose>
-													<c:when test="${id eq CommentLikeId and id ne null }">
+													<c:when test="${isCommentLikeId eq true and id ne null }">
 														<img src="${pageContext.request.contextPath }/resources/images/comment_red-heart.png" alt="" />
 													</c:when>
 													<c:otherwise>
@@ -336,31 +335,27 @@ img {
 	}
 	});
 	//댓글좋아요 수 올리기
-	$(".comlike").on("click", function(){
+	$("#comlike").on("click", function(){
+		var num = $(this).attr('value');
 		var isLogin=${not empty id};
 		if(isLogin==true){
 			$.ajax({
 				url:"com_updateLikeCount.do",
 				method:"post",
-				data:{"seq":${dto.seq}}, //data : 파라미터로 전달할 문자열 
+				data:{"num":num}, //data : 파라미터로 전달할 문자열 
 				dataType:"json",
 				success:function(responseData){
 					console.log(responseData);
-					var imgTag=$('.comlike').children('img');
-					var span=$('.comlike').children('span');
+					var imgTag=$('#comlike').children('img');
+					var span=$('#comlike').children('span');
 					if(responseData.comisSuccess==true){
-						//location.href="${pageContext.request.contextPath}/detail.do?seq=${dto.seq}";
 						imgTag.attr('src', '${pageContext.request.contextPath }/resources/images/comment_red-heart.png');
 						span.text(responseData.comlikeCount);
 					}else if(responseData.comisSuccess==false){
 						imgTag.attr('src', '${pageContext.request.contextPath }/resources/images/comment_empty-heart.png');
 						span.text(responseData.comlikeCount);
 					}
-
-					
 				}
-				
-			
 		});
 		//폼 제출 막기 
 		return false; 
@@ -535,7 +530,7 @@ infowindow.open(map, marker);
     // 크기를 변경한 이후에는 반드시  map.relayout 함수를 호출해야 합니다 
     // window의 resize 이벤트에 의한 크기변경은 map.relayout 함수가 자동으로 호출됩니다
     map.relayout();
-	}
+	};
 </script>
 </body>
 </html>

@@ -84,8 +84,8 @@ public class CommentDaoImpl implements CommentDao{
 	}
 
 	@Override
-	public boolean addcommentLikeCount(CommentDto dto) {
-		int result=session.update("comment.addLikeCount", dto);
+	public boolean addcommentLikeCount(int num) {
+		int result=session.update("comment.addLikeCount", num);
 		if(result>0) {
 			return true;
 		}else {
@@ -94,8 +94,8 @@ public class CommentDaoImpl implements CommentDao{
 	}
 
 	@Override
-	public boolean minuscommentLikeCount(CommentDto dto) {
-		int result=session.update("comment.minusLikeCount", dto);
+	public boolean minuscommentLikeCount(int num) {
+		int result=session.update("comment.minusLikeCount", num);
 		System.out.println(result);
 		if(result>0) {
 			return false;
@@ -106,7 +106,15 @@ public class CommentDaoImpl implements CommentDao{
 	@Override
 	public String getCommentLikeId(Com_LikeDto comlikeDto) {
 		String id=session.selectOne("comment.getid", comlikeDto);
+		System.out.println("getid"+id);
 		return id;
+	}
+
+	@Override
+	public CommentDto getlikeCount(int num) {
+		CommentDto dto=session.selectOne("comment.getlikeCount", num);
+		return dto;
+		
 	}
 	
 }
