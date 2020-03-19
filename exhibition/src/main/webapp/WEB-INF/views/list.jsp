@@ -8,12 +8,14 @@
 <title>Insert title here</title>
 <jsp:include page="include/resource.jsp" />
 <style>
+@import url(//fonts.googleapis.com/earlyaccess/nanumpenscript.css);
+	p, .form-group{
+		font-size:20px;
+		font-family: 'Nanum Pen Script', cursive;
+	}
+	
 	button{
 		vertical-align:middle;
-	}
-	button.form-text{
-		border: 1px solid #bcbcbc;
-		height: 25px;
 	}
 	button.img-button{
 		background:url("resources/images/button_search.png") no-repeat;
@@ -56,7 +58,7 @@
 			<p><strong>${totalRow }</strong> 개의 파일이 있습니다.</p>
 		</c:otherwise>
 	</c:choose>
-	<h1>글 목록 입니다.</h1>
+	<p>글 목록 입니다.</p>
 	<div class="condition" align="right">
 		<form class="form-inline" action="list.do" method="get"> 
 			<div class="form-group">

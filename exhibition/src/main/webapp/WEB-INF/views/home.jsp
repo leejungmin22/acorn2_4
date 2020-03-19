@@ -24,13 +24,19 @@
 	
 </style>
 <style>
+@import url(//fonts.googleapis.com/earlyaccess/nanumpenscript.css);
+	.form-group{
+		font-size:25px;
+		font-family: 'Nanum Pen Script', cursive;
+	}
+	h3{
+		font-size:25px;
+		font-family: 'Nanum Pen Script', cursive;
+	}
+	
 	button{
 		vertical-align:middle;
-	}
-	button.form-text{
-		border: 1px solid #bcbcbc;
-		height: 25px;
-	}
+	}		
 	button.img-button{
 		background:url("resources/images/button_search.png") no-repeat;
 		border:none;

@@ -10,7 +10,8 @@
 
 	//로그인된 아이디 읽어와 보기
 	String id=(String)session.getAttribute("id");
-%>    
+%>   
+ 
 <div class="navbar navbar-default navbar-fixed-top">
 	<div class="container">
 		<!-- 홈페이지 링크와 버튼을 넣어둘 div -->
