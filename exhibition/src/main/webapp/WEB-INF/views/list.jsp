@@ -91,7 +91,9 @@
 			<c:forEach var="tmp" items="${requestScope.list }">
 				<tr>
 					<td>
-						<a href="detail.do?seq=${tmp.seq }">
+						<a href="detail.do?seq=${tmp.
+						
+						seq }">
 							${tmp.title }
 						</a>				
 					</td>
@@ -106,7 +108,7 @@
 		</tbody>	
 	</table>
 	
-	<div class="page-display">
+	<div class="page-display" style="text-align: center;">
 		<ul class="pagination pagination-sm">
 			<c:choose>
 				<c:when test="${startPageNum ne 1 }">

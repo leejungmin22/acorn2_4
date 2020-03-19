@@ -96,7 +96,7 @@
 	<a href="insertform.do">새글 작성</a>
 	
 	<div class="page-display"  style="text-align: center;">
-		<ul class="pagination">
+		<ul class="pagination pagination-sm">
 		<c:choose>
 			<c:when test="${startPageNum ne 1 }">
 				<li>
