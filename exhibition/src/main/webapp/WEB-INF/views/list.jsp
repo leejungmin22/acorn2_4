@@ -23,6 +23,50 @@
 		height: auto;
 	}
 </style>
+<!-- jQuery UI Datepicker -->
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script type="text/javascript">
+	$(function() {
+        //시작일.
+        $('#startDate').datepicker({
+            prevText: '이전달', //prev 아이콘의 툴팁.
+			nextText: '다음달', //next 아이콘의 툴팁.
+            buttonText: "날짜선택",             // 버튼의 대체 텍스트
+            dateFormat: "yy-mm-dd",             // 날짜의 형식
+            changeMonth: true,                  // 월을 이동하기 위한 선택상자 표시여부
+            changeYear: true,
+            showMonthAfterYear: true,
+            //minDate: 0,                       // 선택할수있는 최소날짜, ( 0 : 오늘 이전 날짜 선택 불가)
+            onClose: function( selectedDate ) {    
+                // 시작일(fromDate) datepicker가 닫힐때
+                // 종료일(toDate)의 선택할수있는 최소 날짜(minDate)를 선택한 시작일로 지정
+                $("#endDate").datepicker( "option", "minDate", selectedDate );
+            }                
+        });
+
+        //종료일
+        $('#endDate').datepicker({
+            buttonText: "날짜선택",
+            dateFormat: "yy-mm-dd",
+            changeMonth: true,
+            //minDate: 0, // 오늘 이전 날짜 선택 불가
+            onClose: function( selectedDate ) {
+                // 종료일(toDate) datepicker가 닫힐때
+                // 시작일(fromDate)의 선택할수있는 최대 날짜(maxDate)를 선택한 종료일로 지정 
+                $("#startDate").datepicker( "option", "maxDate", selectedDate );
+            }                
+        });
+
+	});
+</script>
+<style type="text/css">
+	.ui-datepicker{font-size: 12px; width: 200px;}
+	.ui-datepicker select.ui-datepicker-month{width: 50%; font-size: 11px;}
+	.ui-datepicker select.ui-datepicker-year{width: 50%; font-size: 11px;}
+	.ui-datepicker-calendar > tbody td.ui-datepicker-week-end:first-child a {color:#f00;}
+	.ui-datepicker-calendar > tbody td.ui-datepicker-week-end:last-child a {color:#00f;}
+</style>
 </head>
 <body>
 <jsp:include page="include/navbar.jsp">
@@ -52,33 +96,13 @@
 					<option value="date" <c:if test="${condition eq 'date' }">selected</c:if>>기간</option>
 				</select>
 				<input class="form-control" type="text" name="keyword" id="keyword" value="${keyword }" placeholder="검색어를 입력하세요" />
-				<input class="form-control" type="text" name="startDate" class="date" disabled="disabled"/>
-				<input class="form-control" type="text" name="endDate"  class="date" disabled="disabled"/>
-				<button class="btn btn-primary type="submit">검색</button>
+				<input class="form-control date" type="text" name="startDate" class="date" id="startDate" value="${startdate }" autocomplete="off"/>
+				<span class="date">~</span>
+				<input class="form-control date" type="text" name="endDate" class="date" id="endDate" value="${enddate }" autocomplete="off"/>
+				<button class="btn btn-primary" type="submit">검색</button>
 			</div>
 		</form>
 	</div>
-	<script>
-		$(document).ready(function(){
-			
-
-		});
-		$("#condition").change(function(){
-			var value=$(this).val();
-			if(value=="none"){
-				$("#keyword").attr("disabled", "disabled").show();
-				$(".date").attr("disabled", "disabled").hide();
-			}
-			if(value=="date"){
-				$("#keyword").attr("disabled", "disabled").hide();
-				$(".date").removeAttr("disabled").show();
-			}
-			if(value=="title" || value=="place"){
-				$("#keyword").removeAttr("disabled").show();
-				$(".date").attr("disabled", "disabled").hide();
-			}
-		});
-	</script>
 	<table class="table table-striped table-condensed">
 		<colgroup>
 			<col class="col-xs-6"/>
@@ -159,8 +183,35 @@
 		</ul>
 	</div>
 </div>
-<script type="text/javascript">
-	$("#condition").on("change")
+<script>
+	//select 된 정보를 담을 변수
+	var value=$("#condition").val();
+	//페이지가 로딩되는 시점에 어떤 값이 선택되었는지 확인 후 그에 맞는 input tag를 보여준다.
+	checkeSelectBox(value);
+	//select 옵션이 변경된 경우 그에 맞는 input tag를 보여준다.
+	$("#condition").change(function(){
+		value=$(this).val();
+		checkeSelectBox(value);
+	});
+	//어떤 옵션이 선택되었는지 확인할 함수
+	function checkeSelectBox(value){
+		if(value=="none"){
+			$("#keyword").attr("disabled", "disabled").hide();
+			$(".date").attr("disabled", "disabled").hide();
+			$("button[type=submit]").attr("disabled","disabled");
+		}
+		if(value=="date"){
+			$("#keyword").attr("disabled", "disabled").hide();
+			$(".date").removeAttr("disabled").show();
+			$("button[type=submit]").removeAttr("disabled");
+		}
+		if(value=="title" || value=="place"){
+			$("#keyword").removeAttr("disabled").show();
+			$(".date").attr("disabled", "disabled").hide();
+			$("button[type=submit]").removeAttr("disabled");
+		}
+	}	
+
 </script>
 </body>
 </html>

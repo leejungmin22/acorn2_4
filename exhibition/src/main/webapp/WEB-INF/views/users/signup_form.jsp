@@ -23,8 +23,6 @@
 			dateFormat: 'yymmdd', //input에 입력되는 날짜 형식.
 			prevText: '이전달', //prev 아이콘의 툴팁.
 			nextText: '다음달', //next 아이콘의 툴팁.
-			monthNamessShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'], //월의 한글 형식
-			dayNamessMin: ['일','월','화','수','목','금','토'], //요일의 한글 형식
 			changeMonth: true, //월을 바꿀 수 있는 셀렉트 박스를 표시한다.
 			changeYear: true, //년을 바꿀 수 있는 셀렉트 박스를 표시한다.
 			showMonthAfterYear: true, //월, 년순의 셀렉트 박스를 년,월 순으로 바꿔준다.

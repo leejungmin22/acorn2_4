@@ -140,8 +140,9 @@ public class HomeServiceImpl implements HomeService{
 		 */
 		//검색과 관련된 파라미터를 읽어와 본다.
 		String keyword=request.getParameter("keyword");
+		String startdate=request.getParameter("startDate");
+		String enddate=request.getParameter("endDate");
 		String condition=request.getParameter("condition");
-		
 		FullCalendarDto dto=new FullCalendarDto();
 		if(keyword!=null) {
 			if(condition.equals("seq")) {//공연번호
@@ -150,6 +151,9 @@ public class HomeServiceImpl implements HomeService{
 				dto.setTitle(keyword);
 			}else if (condition.equals("place")) {//장소 검색
 				dto.setPlace(keyword);
+			}else if (condition.equals("date")) {//기간 검색
+				dto.setStartdate(startdate);
+				dto.setEnddate(enddate);
 			}
 			
 			/*
@@ -168,7 +172,10 @@ public class HomeServiceImpl implements HomeService{
 			request.setAttribute("keyword", keyword);
 			request.setAttribute("encodedKeyword", encodedKeyword);
 			request.setAttribute("condition", condition);
-		}
+			request.setAttribute("startdate", startdate);
+			request.setAttribute("enddate", enddate);
+		}//if end
+		
 		//한 페이지에 나타낼 row 의 갯수
 		final int PAGE_ROW_COUNT=5;
 		//하단 디스플레이 페이지 갯수
