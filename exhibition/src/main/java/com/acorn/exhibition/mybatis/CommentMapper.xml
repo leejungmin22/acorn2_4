@@ -11,6 +11,17 @@
 						ORDER BY comment_group ASC, num ASC) result1)
 		WHERE rnum BETWEEN #{startRowNum} AND #{endRowNum} <!-- 같은 그룹에 대해 어떤 것을 먼저 출력할지 정함. -->
 	</select>
+	<!-- 게시판 댓글 -->
+	<select id="getList2" parameterType="comDto" resultType="commentDto">
+		SELECT *
+		 FROM (SELECT result1.*, ROWNUM AS rnum
+				FROM (SELECT num, writer, content, target_id, ref_group, comment_group, deleted, board_cafe_comment.regdate, profile
+						FROM board_cafe_comment
+						INNER JOIN exhibition_users ON board_cafe_comment.writer=exhibition_users.id
+						WHERE ref_group=#{seq}
+						ORDER BY comment_group ASC, num ASC) result1)
+		WHERE rnum BETWEEN #{startRowNum} AND #{endRowNum}
+	</select>
 
 	<delete id="delete" parameterType="int">
 		UPDATE board_cafe_comment

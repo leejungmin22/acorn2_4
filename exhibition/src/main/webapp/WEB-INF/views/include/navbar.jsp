@@ -31,6 +31,7 @@
 				<%-- el은 출력할 데이터가 없으면 null 대신 아무것도 출력하지 않으므로 nullpointexception을 발생시키지 않는다 --%>
 				<li <c:if test="${param.category eq 'list' }">class="active"</c:if>><a href="${pageContext.request.contextPath }/list.do">전체공연</a></li>
 				<li <c:if test="${param.category eq 'map' }">class="active"</c:if>><a href="${pageContext.request.contextPath }/map.do">지도</a></li>
+				<li <c:if test="${param.category eq 'community' }">class="active"</c:if>><a href="${pageContext.request.contextPath }/community/comList.do">자유게시판</a></li>
 			</ul>
 			
 			<c:choose>
