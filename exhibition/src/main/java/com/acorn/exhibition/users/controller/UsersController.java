@@ -1,7 +1,5 @@
 package com.acorn.exhibition.users.controller;
 
-
-
 import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
@@ -24,38 +22,91 @@ import org.springframework.web.servlet.ModelAndView;
 import com.acorn.exhibition.users.dto.UsersDto;
 import com.acorn.exhibition.users.service.UsersService;
 
-
-
 @Controller
 public class UsersController {
 	@Autowired
 	private UsersService service;
-	
-	//회원가입 폼 요청 처리
+
+	// 회원가입 폼 요청 처리
 	@RequestMapping("/users/signup_form")
 	public String sign_up_form() {
 		return "users/signup_form";
-	} 
+	}
+
 	/*
-	 * 	[JSON 문자열 응답하는 방법]
-	 * 	1. pom.xml 에 jackson-databind dependency 명시
-	 *  2. controller 의 메소드에 @ResponseBody 어노테이션 붙이기
-	 *  3. List, Map, Dto 중에 하나를 리턴한다.
+	 * [JSON 문자열 응답하는 방법] 1. pom.xml 에 jackson-databind dependency 명시 2. controller
+	 * 의 메소드에 @ResponseBody 어노테이션 붙이기 3. List, Map, Dto 중에 하나를 리턴한다.
 	 */
 	@ResponseBody
 	@RequestMapping("/users/checkid")
-	public Map<String ,Object> checkid(@RequestParam String inputId){
-		Map<String,Object> map = service.isExistId(inputId);
+	public Map<String, Object> checkid(@RequestParam String inputId) {
+		Map<String, Object> map = service.isExistId(inputId);
 		return map;
 	}
+
 	@RequestMapping(value = "/users/signup",method = RequestMethod.POST) //get방식 요청을 하면 처리 하지 않는다
-	public ModelAndView signup(@ModelAttribute("dto") UsersDto dto, ModelAndView mView) {
-		service.addUser(dto);
-		mView.setViewName("users/insert");
-		return mView;
+	public ModelAndView signup(@ModelAttribute("dto") UsersDto dto, ModelAndView mView, HttpServletRequest request, @RequestParam MultipartFile mFile) {
+		
+		MultipartFile uploadfile = dto.getUploadProfile();
+		
+		if (uploadfile != null) {
+		      String fileName = uploadfile.getOriginalFilename();
+		      dto.setUploadProfile(fileName);
+		      try {
+		        // 1. FileOutputStream 사용
+		        // byte[] fileData = file.getBytes();
+		        // FileOutputStream output = new FileOutputStream("C:/images/" + fileName);
+		        // output.write(fileData);
+		         
+		        // 2. File 사용
+		        File file = new File("C:/images/" + fileName);
+		        uploadfile.transferTo(file);
+		      } catch (IOException e) {
+		        e.printStackTrace();
+		      } // try - catch
+		    } // if
+		    // 데이터 베이스 처리를 현재 위치에서 처리
+		    return "redirect:getBoardList.do"; // 리스트 요청으로 보내야하는데 일단 제외하고 구현
+		  }
+
+	//////////////
+	if(request!=null&&mFile!=null)
+
+	{
+		service.addUser(dto, request, mFile);
+	}else
+	{
+		service.addUser(dto, null, null);
 	}
-	//로그인 폼 요청 처리
-		@RequestMapping("/users/loginform")
+	///////////
+	service.saveProfileImage(request,mFile);
+
+	mView.setViewName("users/insert");
+	return mView;
+	}
+
+	/*
+	 * [ 파일 업로드 설정 ]
+	 * 
+	 * 1.pom.xml 에 commons-fileupload , commons-io dependency 명시하기
+	 * 2.servlet-context.xml 에 CommonsMultipartResolver bean 설정 3.MultipartFile 객체
+	 * 활용 4.upload 폴더 만들기
+	 */
+	@ResponseBody
+	@RequestMapping(value="/users/profile_upload",method=RequestMethod.POST)
+	public Map<String,Object> profileUpload(HttpServletRequest request,	@RequestParam MultipartFile profileImage){
+		String path= service.saveProfileImage(request, profileImage);
+		/*
+		 * {"savedPath":"/upload/xxxx.jpg"}형식의 JSON 문자열을 리턴해 주도록
+		 * Map 객체를 구성해서 리턴해준다.
+		 */
+		Map<String,Object> map = new HashMap<>();
+		map.put("savePath", path);
+		return map;
+	}
+
+	// 로그인 폼 요청 처리
+	@RequestMapping("/users/loginform")
 		public String loginform(HttpServletRequest request) {
 			// "url" 이라는 파라미터가 넘어오는지 읽어와 본다.  
 			String url=request.getParameter("url");
@@ -83,9 +134,9 @@ public class UsersController {
 			request.setAttribute("savedPwd", savedPwd);
 			return "users/loginform";
 		}
-	
-	//로그인 요청 처리 
-		@RequestMapping(value = "/users/login", method = RequestMethod.POST)
+
+	// 로그인 요청 처리
+	@RequestMapping(value = "/users/login", method = RequestMethod.POST)
 		public ModelAndView login(@ModelAttribute UsersDto dto,
 				ModelAndView mView, 
 				HttpServletRequest request,
@@ -125,14 +176,15 @@ public class UsersController {
 			return mView;
 		}
 
-		//로그아웃 처리
-		@RequestMapping("/users/logout")
+	// 로그아웃 처리
+	@RequestMapping("/users/logout")
 		public String logout(HttpSession session) {
 			session.invalidate();
 			return "redirect:/home.do";
 		}
-		//개인정보 보기 요청 처리
-		@RequestMapping("/users/info")
+
+	// 개인정보 보기 요청 처리
+	@RequestMapping("/users/info")
 		public ModelAndView authinfo(HttpServletRequest request, ModelAndView mView ) {
 			String id=(String)request.getSession().getAttribute("id");
 			//UsersService 객체를 이용해서 개인정보를 ModelAndView 객체에 담기도록 한다.
@@ -140,34 +192,15 @@ public class UsersController {
 			mView.setViewName("users/info");	
 			return mView;
 		}
-		/*
-		 * [ 파일 업로드 설정 ]
-		 * 
-		 * 1.pom.xml 에 commons-fileupload , commons-io dependency 명시하기
-		 * 2.servlet-context.xml 에 CommonsMultipartResolver bean 설정
-		 * 3.MultipartFile  객체 활용
-		 * 4.upload 폴더 만들기
-		 */
-		@ResponseBody
-		@RequestMapping(value="/users/profile_upload",method=RequestMethod.POST)
-		public Map<String,Object> profileUpload(HttpServletRequest request,
-						@RequestParam MultipartFile profileImage){
-			String path= service.saveProfileImage(request, profileImage);
-			/*
-			 * {"savedPath":"/upload/xxxx.jpg"}형식의 JSON 문자열을 리턴해 주도록
-			 * Map 객체를 구성해서 리턴해준다.
-			 */
-			Map<String,Object> map = new HashMap<>();
-			map.put("savePath", path);
-			return map;
-		}
-		@RequestMapping("/users/pwd_updateform")
+
+	@RequestMapping("/users/pwd_updateform")
 		public ModelAndView authPwdForm(HttpServletRequest request, ModelAndView mView) {
 			mView.setViewName("users/pwd_updateform");
 			return mView;
 		}
-		//비밀번호 수정반영 요청처리
-		@RequestMapping("/users/pwd_update")
+
+	// 비밀번호 수정반영 요청처리
+	@RequestMapping("/users/pwd_update")
 		public ModelAndView authPwdUpdate(HttpServletRequest request, ModelAndView mView) {
 			//기존비밀번호
 			String pwd=request.getParameter("pwd");
@@ -184,7 +217,8 @@ public class UsersController {
 			mView.setViewName("users/pwd_update");
 			return mView;
 		}
-		@RequestMapping("/users/updateform")
+
+	@RequestMapping("/users/updateform")
 		public ModelAndView UserupdateForm(HttpServletRequest request,ModelAndView mView) {
 			String id=(String)request.getSession().getAttribute("id");
 			//UsersService 객체를 이용해서 개인정보를 ModelAndView 객체에 담기도록 한다.
@@ -192,14 +226,16 @@ public class UsersController {
 			mView.setViewName("users/updateform");
 			return mView;
 		}
-		@RequestMapping(value="/users/update", method=RequestMethod.POST)
+
+	@RequestMapping(value="/users/update", method=RequestMethod.POST)
 		public ModelAndView authUserUpdate(@ModelAttribute UsersDto dto, HttpServletRequest request) {
 		
 			service.updateUser(dto);
 			
 			return new ModelAndView("redirect:/users/info.do");
 		}
-		@RequestMapping("/users/delete")
+
+	@RequestMapping("/users/delete")
 		public ModelAndView authDelete(HttpServletRequest request, ModelAndView mView) {
 			HttpSession session = request.getSession();
 			String id =(String)session.getAttribute("id");
@@ -211,4 +247,4 @@ public class UsersController {
 			mView.setViewName("users/delete");
 			return mView;
 		}
-	}
+}

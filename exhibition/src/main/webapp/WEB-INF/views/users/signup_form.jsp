@@ -24,6 +24,21 @@
 			<input class="form-control" type="text" id="name" name="name"/>
 		</div>
 		<div class="form-group has-feedback">
+			
+			<label class="control-label" for="profileLink">프로필 이미지</label>
+			<!-- <button type="button" class="btn btn-default" id="profileLink" >업로드</button> -->	
+			<input type="file" name="profileImage" id="profileImage" accept=".jpg, .jpeg, .png, .JPG, .JPEG"> 
+			<input type="file" name="uploadfile" required="required" accept=".jpg, .jpeg, .png, .JPG, .JPEG">
+
+			 <!--  
+			<form action ="profile_upload.do" method="post" enctype="multipart/form-data" id="profileForm">
+				<label for="profileImage">프로필 이미지 선택</label>
+				<input type="file" name="profileImage" id="profileImage" accept=".jpg, .jpeg, .png, .JPG, .JPEG"/>
+			</form>
+			
+			<!-- *onclick="uploadImage()" -->
+		</div>
+		<div class="form-group has-feedback">
 			<label class="control-label" for="id">아이디</label>
 			<input class="form-control" type="text" id="id" name="id"/>
 			<p class="help-block" id="id_notusable">사용 불가능한 아이디 입니다.</p>
@@ -61,11 +76,18 @@
 				<option value="m">남</option>
 			</select>
 		</div>
+		<br/>
 		<button disabled="disabled" class="btn btn-primary" type="submit">가입</button>
 		<button class="btn btn-warning" type="reset">취소</button>
 	</form>
+	
+	
 </div>
-<script>
+
+	
+	<%-- jquery form  플러그인 javascript 로딩 --%>
+	<script src="${pageContext.request.contextPath }/resources/js/jquery.form.min.js"></script>
+	<script>
 	//아이디를 사용할수 있는지 여부 
 	var isIdUsable=false;
 	//아이디를 입력 했는지 여부 
@@ -221,6 +243,28 @@
 			$("button[type=submit]").attr("disabled","disabled");
 		}
 	}
+	
+ 	//프로파일 이미지를 클릭하면 
+	$("#profileLink").click(function(){
+		//강제로 <input type="file" /> 을 클릭해서 파일 선택창을 띄우고
+		$("#profileImage").click();
+	});
+	//input type="file" 에 파일이 선택되면 
+	$("#profileImage").on("change", function(){
+		//폼을 강제 제출하고 
+		/* $("#profileForm").submit(); */
+	});
+	
+	// jquery form 플러그인의 동작을 이용해서 폼이 ajax 로 제출되도록 한다. 
+	$("#profileImage").ajaxForm(function(responseData){
+		//responseData 는 plain object 이다.
+		//{savedPath:"/upload/저장된이미지파일명"}
+		//savedPath 라는 방에 저장된 이미지의 경로가 들어 있다.
+		console.log(responseData);
+		var src="${pageContext.request.contextPath }"+responseData.savedPath;
+		// img 의 src 속성에 반영함으로써 이미지가 업데이트 되도록 한다.
+		$("#profileLink img").attr("src", src);
+	});
 	
 </script>
 </body>

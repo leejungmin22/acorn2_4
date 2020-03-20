@@ -84,7 +84,7 @@
 	//input type="file" 에 파일이 선택되면 
 	$("#profileImage").on("change", function(){
 		//폼을 강제 제출하고 
-		$("#profileForm").submit();
+		$("#").submit();
 	});
 	
 	// jquery form 플러그인의 동작을 이용해서 폼이 ajax 로 제출되도록 한다. 
