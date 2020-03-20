@@ -102,10 +102,10 @@ public class HomeServiceImpl implements HomeService{
 		//1. DB 에서 댓글 목록을 얻어온다.
 		List<CommentDto> commentList=commentDao.getList(dto);
 		
-
 		//좋아요
 		String ExhibitionLikeId=null;
 		String CommentLikeId=null;
+		
 		boolean isCommentLikeId=false;
 		if(id!=null) {
 			LikeDto likeDto=new LikeDto(seq, id);
@@ -117,6 +117,7 @@ public class HomeServiceImpl implements HomeService{
 				int num = commentDto.getNum();
 				Com_LikeDto comLikeDto = new Com_LikeDto(id,num);
 				CommentLikeId=commentDao.getCommentLikeId(comLikeDto);
+			
 				if(id.equals(CommentLikeId)) {
 					isCommentLikeId = true;
 					request.setAttribute("isCommentLikeId", isCommentLikeId);
@@ -124,7 +125,7 @@ public class HomeServiceImpl implements HomeService{
 					isCommentLikeId = false;
 					request.setAttribute("isCommentLikeId", isCommentLikeId);
 				}
-				System.out.println("댓글 넘버:"+num+"CommentLikeId"+CommentLikeId);
+				System.out.println("댓글 넘버:"+num+"CommentLikeId"+isCommentLikeId);
 			}
 		}
 		request.setAttribute("ExhibitionLikeId", ExhibitionLikeId);

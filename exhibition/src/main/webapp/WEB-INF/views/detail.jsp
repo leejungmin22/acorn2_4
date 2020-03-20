@@ -209,9 +209,10 @@ img {
 														<a href="javascript:">신고</a>
 													</c:otherwise>
 												</c:choose>
-												<button class="btn btn-default" id="comlike" type="button" value=${tmp.num }>
+												<button class="btn btn-default comlike" id="comlike" type="button" value=${tmp.num }>
 												<c:choose>
-													<c:when test="${isCommentLikeId eq true and id ne null }">
+													<c:when test="${tmp.isCommentLikeId eq '1'}" >
+													
 														<img src="${pageContext.request.contextPath }/resources/images/comment_red-heart.png" alt="" />
 													</c:when>
 													<c:otherwise>
@@ -334,33 +335,34 @@ img {
 		return false;//폼 전송 막기 
 	}
 	});
+	
 	//댓글좋아요 수 올리기
-	$("#comlike").on("click", function(){
+	$(".comlike").on("click",function(){
 		var num = $(this).attr('value');
 		var isLogin=${not empty id};
 		if(isLogin==true){
-			$.ajax({
+			 $.ajax({
 				url:"com_updateLikeCount.do",
 				method:"post",
 				data:{"num":num}, //data : 파라미터로 전달할 문자열 
 				dataType:"json",
 				success:function(responseData){
 					console.log(responseData);
-					var imgTag=$('#comlike').children('img');
-					var span=$('#comlike').children('span');
-					if(responseData.comisSuccess==true){
+					var imgTag=$('.comlike').children('img');
+					var span=$('.comlike').children('span');
+					if(responseData.comisSuccess==true ){
 						imgTag.attr('src', '${pageContext.request.contextPath }/resources/images/comment_red-heart.png');
 						span.text(responseData.comlikeCount);
+						console.log(responseData.comlikecount);
 					}else if(responseData.comisSuccess==false){
 						imgTag.attr('src', '${pageContext.request.contextPath }/resources/images/comment_empty-heart.png');
 						span.text(responseData.comlikeCount);
 					}
-				}
+				} 
 		});
 		//폼 제출 막기 
 		return false; 
 	}
-	
 	if(isLogin==false){
 		var goLoginPage=confirm("로그인이 필요합니다. 로그인 하시겠습니까?");
 		if(goLoginPage==true){

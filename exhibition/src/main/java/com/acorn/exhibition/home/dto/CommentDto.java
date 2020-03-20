@@ -12,12 +12,12 @@ public class CommentDto {
 	private String profile; // 댓글 작성자의 프로필 이미지 경로를 담을 필드
 	private int com_likeCount;
 	private String id;
+	private String isCommentLikeId;
 	
 	public CommentDto() {}
-	
 
 	public CommentDto(int num, String writer, String content, String target_id, int ref_group, int comment_group,
-			String deleted, String regdate, String profile, int com_likeCount, String id) {
+			String deleted, String regdate, String profile, int com_likeCount, String id, String isCommentLikeId) {
 		super();
 		this.num = num;
 		this.writer = writer;
@@ -30,8 +30,8 @@ public class CommentDto {
 		this.profile = profile;
 		this.com_likeCount = com_likeCount;
 		this.id = id;
+		this.isCommentLikeId = isCommentLikeId;
 	}
-
 
 	public int getNum() {
 		return num;
@@ -120,5 +120,16 @@ public class CommentDto {
 	public void setId(String id) {
 		this.id = id;
 	}
+
+	public String getIsCommentLikeId() {
+		return isCommentLikeId;
+	}
+
+	public void setIsCommentLikeId(String isCommentLikeId) {
+		this.isCommentLikeId = isCommentLikeId;
+	}
+	
+	
+
 	
 }

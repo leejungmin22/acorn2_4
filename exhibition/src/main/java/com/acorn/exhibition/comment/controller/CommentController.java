@@ -17,11 +17,14 @@ import org.springframework.web.servlet.ModelAndView;
 import com.acorn.exhibition.comment.service.CommentService;
 import com.acorn.exhibition.home.dto.CommentDto;
 import com.acorn.exhibition.home.dto.FullCalendarDto;
+import com.acorn.exhibition.home.service.HomeService;
 
 @Controller
 public class CommentController {
 	@Autowired
 	private CommentService commentservice;
+	@Autowired
+	private HomeService service;
 	
 	// 댓글 저장 요청 처리
 		@RequestMapping(value = "/comment_insert")

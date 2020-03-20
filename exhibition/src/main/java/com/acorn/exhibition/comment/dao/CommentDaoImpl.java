@@ -96,7 +96,6 @@ public class CommentDaoImpl implements CommentDao{
 	@Override
 	public boolean minuscommentLikeCount(int num) {
 		int result=session.update("comment.minusLikeCount", num);
-		System.out.println(result);
 		if(result>0) {
 			return false;
 		}else {

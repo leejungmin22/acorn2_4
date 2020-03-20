@@ -107,6 +107,7 @@ public class CommentServiceImpl implements CommentService{
 		dto.setStartRowNum(startRowNum);
 		dto.setEndRowNum(endRowNum);
 		
+		
 		//1. DB 에서 댓글 목록을 얻어온다.
 		List<CommentDto> commentList=commentDao.getList(dto);
 		//2. 글 목록을 응답한다.
@@ -141,6 +142,9 @@ public class CommentServiceImpl implements CommentService{
 			boolean result1=commentDao.removeOncommentLike(dto);
 			//tb_api_date 테이블에서 like 개수를 하나 빼준다.
 			boolean result2=commentDao.minuscommentLikeCount(num);
+			dto.setIsCommentLikeId("0");
+			likecount = commentDao.getlikeCount(num).getCom_likeCount();
+			System.out.println("!!++++"+likecount);
 			if(result1 && result2) {
 				map.put("comisSuccess", true);
 				map.put("comlikecount", likecount);
@@ -157,16 +161,20 @@ public class CommentServiceImpl implements CommentService{
 			//tb_api_date 테이블에서 like 개수를 하나 더해준다.
 			boolean result2=commentDao.addcommentLikeCount(num);
 			
+			int likecountplus = commentDao.getlikeCount(num).getCom_likeCount();
+			System.out.println("!!!---"+likecountplus);
+			dto.setIsCommentLikeId("1");
 			if(result1 && result2) {
 				map.put("comisSuccess", true);
-				map.put("comlikecount", likecount);
+				map.put("comlikecount", likecountplus);
 				return map;
 			}else {
 				map.put("comisSuccess", false);
-				map.put("comlikecount", likecount);
+				map.put("comlikecount", likecountplus);
 				return map;
 			}
 		}//if e
+		
 	}
 	
 }
