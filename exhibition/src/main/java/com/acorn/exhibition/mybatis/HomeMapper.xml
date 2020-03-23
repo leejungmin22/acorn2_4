@@ -33,7 +33,18 @@
 	<!-- 전체 공연 list -->
 	<select id="getCount" parameterType="fullCalendarDto" resultType="int">
 		SELECT NVL(MAX(ROWNUM), 0)
-		FROM tb_api_date
+		<choose>
+			<when test="startdate != null and enddate != null">
+				FROM (SELECT seq, title, startdate, enddate, place, thumbnail, likecount
+						FROM tb_api_date
+						<![CDATA[
+						WHERE startdate>=to_date(${startdate},'yyyymmdd') AND startdate<=to_date(${enddate},'yyyymmdd')) result2
+						]]>
+			</when>
+			<otherwise>
+				FROM tb_api_date
+			</otherwise>
+		</choose>
 		<choose>
 			<when test="title != null">
 				WHERE title LIKE '%${title}%'
@@ -48,8 +59,19 @@
 		SELECT *
 		 FROM (SELECT result1.*, ROWNUM AS rnum
 				FROM (SELECT seq, title, TO_CHAR(startdate,'YYYY/MM/DD') AS startdate, TO_CHAR(enddate,'YYYY/MM/DD') AS enddate, place, thumbnail, likecount
-						
-						FROM tb_api_date
+						<choose>
+							<when test="startdate != null and enddate != null">
+								FROM (SELECT seq, title, startdate, enddate, place, thumbnail, likecount
+										FROM tb_api_date
+										<![CDATA[
+										WHERE startdate>=to_date(${startdate},'yyyymmdd') AND startdate<=to_date(${enddate},'yyyymmdd')) result2
+										]]>
+										
+							</when>
+							<otherwise>
+								FROM tb_api_date
+							</otherwise>
+						</choose>
 						<choose>
 							<when test="title != null">
 								WHERE title LIKE '%${title}%'
@@ -57,22 +79,9 @@
 							<when test="place != null">
 								WHERE place LIKE '%${place}%'
 							</when>
-							<when test="startdate != null and enddate != null">
-								FROM (SELECT seq, title, startdate, enddate
-										FROM tb_api_date
-										WHERE startdate>=to_date(20170401,'yyyymmdd') AND startdate<=to_date(20170531,'yyyymmdd')) result2
-							</when>
 						</choose>
-						<when test="startdate != null and enddate != null">
-						WHERE enddate>=to_date(20170401,'yyyymmdd') AND enddate<=to_date(20170531,'yyyymmdd')
-						</when>
 						ORDER BY startdate DESC) result1)
  		WHERE rnum BETWEEN #{startRowNum} AND #{endRowNum}
-<!--		SELECT seq, title, startdate, enddate
-			FROM (SELECT seq, title, startdate, enddate
-					FROM tb_api_date
-					WHERE startdate>=to_date(20170401,'yyyymmdd') AND startdate<=to_date(20170531,'yyyymmdd')) result2
-			WHERE enddate>=to_date(20170401,'yyyymmdd') AND enddate<=to_date(20170531,'yyyymmdd') -->
 	</select>
 	
 	<!-- 좋아요 -->

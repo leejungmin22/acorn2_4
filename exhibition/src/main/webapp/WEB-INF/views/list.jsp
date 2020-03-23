@@ -47,9 +47,13 @@
 
         //종료일
         $('#endDate').datepicker({
-            buttonText: "날짜선택",
-            dateFormat: "yy-mm-dd",
-            changeMonth: true,
+        	prevText: '이전달', //prev 아이콘의 툴팁.
+			nextText: '다음달', //next 아이콘의 툴팁.
+            buttonText: "날짜선택",             // 버튼의 대체 텍스트
+            dateFormat: "yy-mm-dd",             // 날짜의 형식
+            changeMonth: true,                  // 월을 이동하기 위한 선택상자 표시여부
+            changeYear: true,
+            showMonthAfterYear: true,
             //minDate: 0, // 오늘 이전 날짜 선택 불가
             onClose: function( selectedDate ) {
                 // 종료일(toDate) datepicker가 닫힐때
@@ -74,14 +78,20 @@
 </jsp:include>
 <div class="container">
 	<c:choose>
-		<c:when test="${not empty keyword }">
+		<c:when test="${not empty keyword or (not empty startdate and not empty enddate)}">
 			<p>
-				<strong>${keyword }</strong> 키워드로 검색된
-				<strong>${totalRow }</strong> 개의 파일이 있습니다.
+				<c:if test="${encodedKeyword ne null }">
+					<strong>${keyword }</strong> 키워드로 검색된
+					<strong>${totalRow }</strong> 개의 공연/전시가 있습니다.
+				</c:if>
+				<c:if test="${startdate ne null and enddate ne null }">
+					<strong>${startdate }</strong>~<strong>${enddate }</strong> 에는
+					<strong>${totalRow }</strong> 개의 공연/전시가 있습니다.
+				</c:if>
 			</p>
 		</c:when>
 		<c:otherwise>
-			<p><strong>${totalRow }</strong> 개의 파일이 있습니다.</p>
+			<p><strong>${totalRow }</strong> 개의 공연/전시가 있습니다.</p>
 		</c:otherwise>
 	</c:choose>
 	<h1>글 목록 입니다.</h1>
@@ -99,7 +109,7 @@
 				<input class="form-control date" type="text" name="startDate" class="date" id="startDate" value="${startdate }" autocomplete="off"/>
 				<span class="date">~</span>
 				<input class="form-control date" type="text" name="endDate" class="date" id="endDate" value="${enddate }" autocomplete="off"/>
-				<button class="btn btn-primary" type="submit">검색</button>
+				<button class="btn btn-primary" type="submit" disabled="disabled">검색</button>
 			</div>
 		</form>
 	</div>
@@ -142,7 +152,17 @@
 			<c:choose>
 				<c:when test="${startPageNum ne 1 }">
 					<li>
-						<a href="list.do?pageNum=${startPageNum-1 }&condition=${condition }&keyword=${encodedKeyword }">&laquo;</a>
+						<c:choose>
+							<c:when test="${encodedKeyword ne null }">
+								<a href="list.do?pageNum=${startPageNum-1 }&condition=${condition }&keyword=${encodedKeyword }">&laquo;</a>
+							</c:when>
+							<c:when test="${startdate ne null and enddate ne null }">
+								<a href="list.do?pageNum=${startPageNum-1 }&condition=${condition }&startDate=${startdateFormat }&endDate=${enddateFormat }">&laquo;</a>
+							</c:when>
+							<c:otherwise>
+								<a href="list.do?pageNum=${startPageNum-1 }">&laquo;</a>
+							</c:otherwise>
+						</c:choose>
 					</li>
 				</c:when>
 				<c:otherwise>
@@ -156,12 +176,32 @@
 				<c:choose>
 					<c:when test="${i eq pageNum }">
 						<li class="active">
-							<a href="list.do?pageNum=${i }&condition=${condition }&keyword=${encodedKeyword }">${i }</a>
+							<c:choose>
+								<c:when test="${encodedKeyword ne null }">
+									<a href="list.do?pageNum=${i }&condition=${condition }&keyword=${encodedKeyword }">${i }</a>
+								</c:when>
+								<c:when test="${startdate ne null and enddate ne null }">
+									<a href="list.do?pageNum=${i }&condition=${condition }&startDate=${startdateFormat }&endDate=${enddateFormat }">${i }</a>
+								</c:when>
+								<c:otherwise>
+									<a href="list.do?pageNum=${i }">${i }</a>
+								</c:otherwise>
+							</c:choose>
 						</li>
 					</c:when>
 					<c:otherwise>
 						<li>
-							<a href="list.do?pageNum=${i }&condition=${condition }&keyword=${encodedKeyword }">${i }</a>
+							<c:choose>
+								<c:when test="${encodedKeyword ne null }">
+									<a href="list.do?pageNum=${i }&condition=${condition }&keyword=${encodedKeyword }">${i }</a>
+								</c:when>
+								<c:when test="${startdate ne null and enddate ne null }">
+									<a href="list.do?pageNum=${i }&condition=${condition }&startDate=${startdateFormat }&endDate=${enddateFormat }">${i }</a>
+								</c:when>
+								<c:otherwise>
+									<a href="list.do?pageNum=${i }">${i }</a>
+								</c:otherwise>
+							</c:choose>
 						</li>
 					</c:otherwise>
 				</c:choose>
@@ -170,10 +210,19 @@
 			<c:choose>
 				<c:when test="${endPageNum < totalPageCount }">
 					<li>
-						<a href="list.do?pageNum=${endPageNum+1 }&condition=${condition }&keyword=${encodedKeyword }">&raquo;</a>
+						<c:choose>
+							<c:when test="${encodedKeyword ne null }">
+								<a href="list.do?pageNum=${endPageNum+1 }&condition=${condition }&keyword=${encodedKeyword }">&raquo;</a>
+							</c:when>
+							<c:when test="${startdate ne null and enddate ne null }">
+								<a href="list.do?pageNum=${endPageNum+1 }&condition=${condition }&startDate=${startdateFormat }&endDate=${enddateFormat }">&raquo;</a>
+							</c:when>
+							<c:otherwise>
+								<a href="list.do?pageNum=${endPageNum+1 }">&raquo;</a>
+							</c:otherwise>
+						</c:choose>
 					</li>
 				</c:when>
-				
 				<c:otherwise>
 					<li class="disabled">
 						<a href="javascript:">&raquo;</a>
@@ -198,20 +247,70 @@
 		if(value=="none"){
 			$("#keyword").attr("disabled", "disabled").hide();
 			$(".date").attr("disabled", "disabled").hide();
-			$("button[type=submit]").attr("disabled","disabled");
+			//$("button[type=submit]").attr("disabled","disabled");
 		}
 		if(value=="date"){
 			$("#keyword").attr("disabled", "disabled").hide();
 			$(".date").removeAttr("disabled").show();
-			$("button[type=submit]").removeAttr("disabled");
+			//$("button[type=submit]").removeAttr("disabled");
+			console.log("기간 선택");
 		}
-		if(value=="title" || value=="place"){
+		if(value=="title"){
 			$("#keyword").removeAttr("disabled").show();
 			$(".date").attr("disabled", "disabled").hide();
-			$("button[type=submit]").removeAttr("disabled");
+			//$("button[type=submit]").removeAttr("disabled");
+			console.log("제목 선택");
 		}
+		
+		if(value=="place"){
+			$("#keyword").removeAttr("disabled").show();
+			$(".date").attr("disabled", "disabled").hide();
+			//$("button[type=submit]").removeAttr("disabled");
+			console.log("장소 선택");
+		}
+		
 	}	
+	
+	//페이지 로딩시 키워드, 시작, 끝 날짜에 입력되어 있는값 갖고오기 
+	var keyword=$("#keyword").val();
+	var startDate=$("#startDate").val();
+	var endDate=$("#endDate").val();
+	
+	//페이지 로딩시 
+	if(!isEmpty(keyword)){//키워드가 입력되어 있다면 disabled 속성 없애기
+		$("button[type=submit]").removeAttr("disabled");
+	}else{ //키워드가 입력되지 않은 경우 disabled 속성 추가하기
+		$("button[type=submit]").attr("disabled","disabled");
+	}
+	
+	//input#keyword 요소가 변경될때마다 확인해서 disabled 속성 추가하기
+ 	$("#keyword").on("input", function(){
+		keyword=$("#keyword").val();
+		if(!isEmpty(keyword)){//키워드가 입력된 경우
+			$("button[type=submit]").removeAttr("disabled");
+		}else{ //키워드가 입력되지 않은 경우
+			$("button[type=submit]").attr("disabled","disabled");
+		}
 
+	});
+	//input#startDate, #endDate 요소가 변경될때마다 확인해서 disabled 속성 추가하기
+	$("#startDate, #endDate").change(function(){
+		startDate=$("#startDate").val();
+		endDate=$("#endDate").val();
+		if(!isEmpty(startDate) && !isEmpty(endDate)){//#startDate, #endDat가 입력된 경우
+			$("button[type=submit]").removeAttr("disabled");
+		}else{ //#startDate, #endDat가 입력되지 않은 경우
+			$("button[type=submit]").attr("disabled","disabled");
+		}
+
+	});
+	
+	//input 요소가 비어있는지 확인할 함수
+	function isEmpty(str){
+		if(str==" " || str=="" || typeof str == "undefined" || str == null){
+			return true;
+		}
+	}
 </script>
 </body>
 </html>

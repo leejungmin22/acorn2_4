@@ -64,3 +64,10 @@ SELECT exhibition.seq, title, startdate, enddate, place, realmname, thumbnail, g
 FROM tb_api_date exhibition
 INNER JOIN exhibition_likecount likecount ON exhibition.seq=likecount.seq
 WHERE exhibition.seq=158929
+
+--기간별 조회 테스트
+SELECT seq, title, startdate, enddate
+FROM (SELECT seq, title, startdate, enddate
+		FROM tb_api_date
+		WHERE startdate>=to_date(20170401,'yyyymmdd') AND startdate<=to_date(20170531,'yyyymmdd')) result2
+WHERE enddate>=to_date(20170401,'yyyymmdd') AND enddate<=to_date(20170531,'yyyymmdd')
