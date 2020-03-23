@@ -94,6 +94,7 @@ public class UsersServiceImpl implements UsersService{
 		if(isValid) {
 			//로그인성공
 			session.setAttribute("id", dto.getId());	
+			session.setAttribute("admin", dto.getAdmin());
 		}
 		
 	}
