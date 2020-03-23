@@ -9,8 +9,8 @@
 <jsp:include page="../include/resource.jsp"></jsp:include>
 <style>
 @import url(//fonts.googleapis.com/earlyaccess/nanumpenscript.css);
-	.form-group{
-		font-size:25px;
+	p, .form-group{
+		font-size:20px;
 		font-family: 'Nanum Pen Script', cursive;
 	}
 
@@ -24,6 +24,11 @@
 		height:38px;
 		cursor:pointer
 	}
+	
+	#bread{
+		background-color: #FAEBD7;
+	}
+	
 </style>
 </head>
 <body>
@@ -31,17 +36,11 @@
 	<jsp:param value="community" name="category"/>
 </jsp:include>
 <div class="container">
-	<ol class="breadcrumb">
+	<ol class="breadcrumb" id="bread">
 		<li><a href="${pageContext.request.contextPath }/community/comList.do">목록</a></li>
 		<li>자유게시판</li>
 	</ol>
-	<c:if test="${not empty keyword }">
-		<p>
-			<strong>${keyword }</strong> 라는 검색어로 
-			<strong>${totalRow }</strong> 개의 글이 검색 
-			되었습니다.
-		</p>
-	</c:if>
+	
 	<%-- 글 검색 기능 폼 --%>	
 	<div class="condition" align="right">
 		<form class="form-inline" action="comList.do" method="get"> 
@@ -57,7 +56,13 @@
 			</div>
 		</form>
 	</div>
-	
+	<c:if test="${not empty keyword }">
+		<p>
+			<strong>${keyword }</strong> 라는 검색어로 
+			<strong>${totalRow }</strong> 개의 글이 검색 
+			되었습니다.
+		</p>
+	</c:if>
 	
 	<table class="table table-striped table-condensed">
 		<colgroup>

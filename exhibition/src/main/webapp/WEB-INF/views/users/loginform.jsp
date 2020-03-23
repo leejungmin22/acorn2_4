@@ -21,15 +21,16 @@
 		-o-background-size: cover;
 		background-size: cover;
 	}
-	
+
 	.img-button{
 		background:url("../resources/images/HomeImg.png");
-		border:none;
+		border:none;		
+		position: absolute;
+		top:50%;
+		left:50%;
 		width:230px;
 		height:230px;
-		position:absolute;
-		left:45%;
-		top:5%;		
+		margin:-380px 0px 200px -70px;			
 	}
 		
 	/*로그인창 크기,가운데 정렬*/
@@ -98,10 +99,9 @@
 <body>
 
 <div class="wrap">
-	<div class="form-wrap">
-		<!-- 차후 이미지 변경(홈페이지명으로) -->
-		<button class="img-button"></button>
-		
+	<div class="form-wrap">		
+			<!-- 차후 이미지 변경(홈페이지명으로) -->
+			<button class="img-button" id="button"></button>		
 		<form class="form-signin" action="login.do" method="post">
 			<%-- 폼 제출할때 목적지 정보도 같이 보내준다. --%>
 			<input type="hidden" name="url" value="${url }" />

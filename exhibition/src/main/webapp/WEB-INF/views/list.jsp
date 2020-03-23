@@ -24,6 +24,10 @@
 		height:38px;
 		cursor:pointer
 	}
+	
+	#bread{
+		background-color: #FAEBD7;
+	}
 </style>
 <style type="text/css">
     .condition{
@@ -44,21 +48,15 @@
 </head>
 <body>
 <jsp:include page="include/navbar.jsp">
-	<jsp:param value="cafe" name="category"/>
+	<jsp:param value="list" name="category"/>
 </jsp:include>
 <div class="container">
-	<c:choose>
-		<c:when test="${not empty keyword }">
-			<p>
-				<strong>${keyword }</strong> 키워드로 검색된
-				<strong>${totalRow }</strong> 개의 파일이 있습니다.
-			</p>
-		</c:when>
-		<c:otherwise>
-			<p><strong>${totalRow }</strong> 개의 파일이 있습니다.</p>
-		</c:otherwise>
-	</c:choose>
-	<p>글 목록 입니다.</p>
+	<ol class="breadcrumb" id="bread">
+		<li><a href="${pageContext.request.contextPath }/community/comList.do">목록</a></li>
+		<li>전체공연 보기</li>
+	</ol>
+	
+	
 	<div class="condition" align="right">
 		<form class="form-inline" action="list.do" method="get"> 
 			<div class="form-group">
@@ -72,6 +70,17 @@
 			</div>
 		</form>
 	</div>
+	<c:choose>
+		<c:when test="${not empty keyword }">
+			<p>
+				<strong>${keyword }</strong> 키워드로 검색된
+				<strong>${totalRow }</strong> 개의 파일이 있습니다.
+			</p>
+		</c:when>
+		<c:otherwise>
+			<p><strong>${totalRow }</strong> 개의 파일이 있습니다.</p>
+		</c:otherwise>
+	</c:choose>
 	<table class="table table-striped table-condensed">
 		<colgroup>
 			<col class="col-xs-6"/>

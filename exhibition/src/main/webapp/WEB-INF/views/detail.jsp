@@ -133,8 +133,7 @@ pre{
 	<ol class="breadcrumb">
 		<li><a href="${pageContext.request.contextPath }/list.do">목록</a></li>
 		<li>${exhibitionDto.title }</li>
-	</ol>
-		
+	</ol>		
 		<div class="row">
 			<div class="col-sm-4">
 				<img class="poster" src="${exhibitionDto.imgUrl }"alt="${exhibitionDto.title } 포스터">
