@@ -277,7 +277,7 @@
 	var endDate=$("#endDate").val();
 	
 	//페이지 로딩시 
-	if(!isEmpty(keyword)){//키워드가 입력되어 있다면 disabled 속성 없애기
+	if(!isEmpty(keyword) || (!isEmpty(startDate) && !isEmpty(endDate))){//키워드가 입력되어 있다면 disabled 속성 없애기
 		$("button[type=submit]").removeAttr("disabled");
 	}else{ //키워드가 입력되지 않은 경우 disabled 속성 추가하기
 		$("button[type=submit]").attr("disabled","disabled");
