@@ -64,7 +64,7 @@
 		</p>
 	</c:if>
 	
-	<table class="table table-striped table-condensed">
+	<table class="table table-hover">
 		<colgroup>
 			<col class="col-xs-1"/>
 			<col class="col-xs-2"/>

@@ -28,6 +28,14 @@
 	#bread{
 		background-color: #FAEBD7;
 	}
+	
+	/*.detail{
+		background-color: #BDB76B;
+	}
+	.title{
+		background-color: #4682B4;
+	}*/
+	
 </style>
 <style type="text/css">
     .condition{
@@ -81,7 +89,7 @@
 			<p><strong>${totalRow }</strong> 개의 파일이 있습니다.</p>
 		</c:otherwise>
 	</c:choose>
-	<table class="table table-striped table-condensed">
+	<table class="table table-hover">
 		<colgroup>
 			<col class="col-xs-6"/>
 			<col class="col-xs-1"/>
@@ -89,7 +97,7 @@
 			<col class="col-xs-3"/>
 		</colgroup>
 		<thead>
-			<tr>
+			<tr class="title">
 				<th>공연명 </th>
 				<th>좋아요</th>
 				<th>장소</th>
@@ -98,21 +106,20 @@
 		</thead>
 		<tbody>
 			<c:forEach var="tmp" items="${requestScope.list }">
-				<tr>
+				<tr class="detail">
 					<td>
-						<a href="detail.do?seq=${tmp.
-						
-						seq }">
+						<a href="detail.do?seq=${tmp.seq }">
 							${tmp.title }
 						</a>				
-					</td>
+					</td>				
 					<td>
 						<img class="heart" src="${pageContext.request.contextPath }/resources/images/red-heart.png" alt="" />
 						${tmp.likeCount }
-					</td>
+					</td>				
 					<td>${tmp.place }</td>
 					<td>${tmp.startdate } ~ ${tmp.enddate }</td>
 				</tr>
+				
 			</c:forEach>
 		</tbody>	
 	</table>
