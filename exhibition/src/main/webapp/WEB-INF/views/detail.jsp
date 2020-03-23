@@ -211,15 +211,14 @@ img {
 												</c:choose>
 												<button class="btn btn-default comlike" id="comlike" type="button" value=${tmp.num }>
 												<c:choose>
-													<c:when test="${tmp.isCommentLikeId eq '1'}" >
-													
+													<c:when test="${isCommentLikeId}" >
 														<img src="${pageContext.request.contextPath }/resources/images/comment_red-heart.png" alt="" />
 													</c:when>
 													<c:otherwise>
 														<img src="${pageContext.request.contextPath }/resources/images/comment_empty-heart.png" alt="" />
 													</c:otherwise>
 												</c:choose>
-												좋아요
+												좋아요${isCommentLikeId}
 												<span>${tmp.com_likeCount }</span>
 											</button>
 											</dd>
@@ -340,6 +339,8 @@ img {
 	$(".comlike").on("click",function(){
 		var num = $(this).attr('value');
 		var isLogin=${not empty id};
+		var imgTag=$(this).children('img');
+		var span=$(this).children('span');
 		if(isLogin==true){
 			 $.ajax({
 				url:"com_updateLikeCount.do",
@@ -348,15 +349,14 @@ img {
 				dataType:"json",
 				success:function(responseData){
 					console.log(responseData);
-					var imgTag=$('.comlike').children('img');
-					var span=$('.comlike').children('span');
+					//var imgTag=$('.num').children('img');
 					if(responseData.comisSuccess==true ){
 						imgTag.attr('src', '${pageContext.request.contextPath }/resources/images/comment_red-heart.png');
-						span.text(responseData.comlikeCount);
+						span.text(responseData.comlikecount);
 						console.log(responseData.comlikecount);
 					}else if(responseData.comisSuccess==false){
 						imgTag.attr('src', '${pageContext.request.contextPath }/resources/images/comment_empty-heart.png');
-						span.text(responseData.comlikeCount);
+						span.text(responseData.comlikecount);
 					}
 				} 
 		});

@@ -1,7 +1,7 @@
 package com.acorn.exhibition.home.dto;
 
 public class Com_LikeDto {
-	private String Id;
+	private String id;
 	private int num;
 
 	public Com_LikeDto(){}
@@ -9,18 +9,18 @@ public class Com_LikeDto {
 
 	public Com_LikeDto(String id, int num) {
 		super();
-		Id = id;
+		this.id = id;
 		this.num = num;
 	
 	}
 
 
 	public String getId() {
-		return Id;
+		return id;
 	}
 
 	public void setId(String id) {
-		Id = id;
+		this.id = id;
 	}
 
 	public int getNum() {

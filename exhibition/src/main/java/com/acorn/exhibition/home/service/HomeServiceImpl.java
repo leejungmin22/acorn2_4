@@ -106,28 +106,30 @@ public class HomeServiceImpl implements HomeService{
 		String ExhibitionLikeId=null;
 		String CommentLikeId=null;
 		
-		boolean isCommentLikeId=false;
-		if(id!=null) {
-			LikeDto likeDto=new LikeDto(seq, id);
-			ExhibitionLikeId=dao.getExhibitionLikeId(likeDto);
-			
-			for(int i=0;i<commentList.size();i++) {
-				CommentDto commentDto = new CommentDto();
-				commentDto = commentList.get(i);
-				int num = commentDto.getNum();
-				Com_LikeDto comLikeDto = new Com_LikeDto(id,num);
-				CommentLikeId=commentDao.getCommentLikeId(comLikeDto);
-			
-				if(id.equals(CommentLikeId)) {
-					isCommentLikeId = true;
-					request.setAttribute("isCommentLikeId", isCommentLikeId);
-				}else {
-					isCommentLikeId = false;
-					request.setAttribute("isCommentLikeId", isCommentLikeId);
-				}
-				System.out.println("댓글 넘버:"+num+"CommentLikeId"+isCommentLikeId);
-			}
-		}
+		   boolean isCommentLikeId=false;
+		      if(id!=null) {
+		         LikeDto likeDto=new LikeDto(seq, id);
+		         ExhibitionLikeId=dao.getExhibitionLikeId(likeDto);
+		         
+		         for(int i=0;i<commentList.size();i++) {
+		            CommentDto commentDto = new CommentDto();
+		            commentDto = commentList.get(i);
+		            int num = commentDto.getNum();
+		            Com_LikeDto comLikeDto = new Com_LikeDto(id,num);
+		            CommentLikeId=commentDao.getCommentLikeId(comLikeDto);
+		         
+		            if(id.equals(CommentLikeId)) {
+		               isCommentLikeId = true;
+		               request.setAttribute("isCommentLikeId", isCommentLikeId);
+		              
+		            }else {
+		               isCommentLikeId = false;
+		               request.setAttribute("isCommentLikeId", isCommentLikeId);
+		            }
+		            System.out.println("댓글 넘버:"+num+"CommentLikeId"+isCommentLikeId);
+		         }
+		      }
+
 		request.setAttribute("ExhibitionLikeId", ExhibitionLikeId);
 		
 		
