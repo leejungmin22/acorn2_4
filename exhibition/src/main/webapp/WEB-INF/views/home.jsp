@@ -182,9 +182,9 @@ $(document).ready(function(){
 					<option value="date" <c:if test="${condition eq 'date' }">selected</c:if>>기간</option>
 				</select>
 				<input class="form-control" type="text" name="keyword" id="keyword" value="${keyword }" placeholder="검색어를 입력하세요" />
-				<input class="form-control date" type="text" name="startDate" class="date" id="startDate" value="${startdate }" autocomplete="off"/>
+				<input class="form-control date" type="text" name="startDate" class="date" id="startDate" value="${startdate }" autocomplete="off" readonly/>
 				<span class="date">~</span>
-				<input class="form-control date" type="text" name="endDate" class="date" id="endDate" value="${enddate }" autocomplete="off"/>
+				<input class="form-control date" type="text" name="endDate" class="date" id="endDate" value="${enddate }" autocomplete="off" readonly/>
 				<button class="btn btn-primary" type="submit" disabled="disabled">검색</button>
 			</div>
 		</form>
