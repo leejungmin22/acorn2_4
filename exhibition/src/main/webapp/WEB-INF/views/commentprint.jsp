@@ -32,7 +32,7 @@
 						<a href="javascript:" class="reply_link">답글</a> 
 						<c:choose>
 							<%-- 로그인된 아이디와 댓글의 작성자가 같으면 --%>
-							<c:when test="${id eq tmp.writer }">
+							<c:when test="${ admin eq 1 || id eq tmp.writer }">
 								<a href="javascript:" class="comment-update-link">수정</a>&nbsp;&nbsp;
 								<a href="javascript:deleteComment(${tmp.num })">삭제</a>
 							</c:when>
@@ -52,7 +52,7 @@
 					<button type="submit">등록</button>
 				</form>	
 				<!-- 로그인한 아이디와 댓글의 작성자와 같으면 수정폼 출력 -->				
-				<c:if test="${id eq tmp.writer }">
+				<c:if test="${ admin eq 1 || id eq tmp.writer }">
 					<form class="comment-update-form" action="comment_update.do" method="post">
 						<input type="hidden" name="num" value="${tmp.num }" />
 						<textarea name="content">${tmp.content }</textarea>

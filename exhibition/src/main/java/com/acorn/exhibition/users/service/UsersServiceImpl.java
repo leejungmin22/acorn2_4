@@ -87,6 +87,7 @@ public class UsersServiceImpl implements UsersService{
 		boolean isValid=false;
 		//아이디를 이용해서 저장된 비밀번호를 읽어온다.
 		String pwdHash=dao.getPwdHash(dto.getId());
+		String getAdminAuth = dao.getAdminAuth(dto.getId());
 		if(pwdHash != null) { //비밀번호가 존재하고
 			//입력한 비밀번호와 일치 하다면 로그인 성공
 			isValid=BCrypt.checkpw(dto.getPwd(), pwdHash);
@@ -94,7 +95,7 @@ public class UsersServiceImpl implements UsersService{
 		if(isValid) {
 			//로그인성공
 			session.setAttribute("id", dto.getId());	
-			session.setAttribute("admin", dto.getAdmin());
+			session.setAttribute("admin", getAdminAuth);
 		}
 		
 	}
