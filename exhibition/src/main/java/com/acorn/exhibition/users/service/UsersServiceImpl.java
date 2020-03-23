@@ -35,7 +35,7 @@ public class UsersServiceImpl implements UsersService{
 	@Override
 	public void addUser(UsersDto dto, HttpServletRequest request, MultipartFile mFile) {
 		
-		if(request!=null && mFile != null) {
+		if(request!=null && mFile != null && mFile.getSize() != 0) { // 업로드된 파일이 있을 경우에만 실행
 			//파일을 저장할 폴더의 절대 경로를 얻어온다.
 			String realPath=request.getServletContext().getRealPath("/upload");
 			//원본 파일명
@@ -61,7 +61,7 @@ public class UsersServiceImpl implements UsersService{
 			//경로를 DB 에 저장하기
 			String path="/upload/"+saveFileName;			
 			//로그인된 아이디
-			String id=(String)request.getSession().getAttribute("id");
+			//String id=(String)request.getSession().getAttribute("id");
 			//아이디와 프로파일 이미지 경로를 dto 에 담고 
 			//UsersDto dto=new UsersDto();
 			//dto.setId(id);
@@ -130,8 +130,7 @@ public class UsersServiceImpl implements UsersService{
 				//경로를 DB 에 저장하기
 				String path="/upload/"+saveFileName;			
 				//로그인된 아이디
-				String id=(String)
-						request.getSession().getAttribute("id");
+				String id=(String)request.getSession().getAttribute("id");
 				//아이디와 프로파일 이미지 경로를 dto 에 담고 
 				UsersDto dto=new UsersDto();
 				dto.setId(id);
