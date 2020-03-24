@@ -210,8 +210,8 @@ img {
 													</c:otherwise>
 												</c:choose>
 												<c:choose>
-													<c:when test="${id eq ExhibitionLikeId and id ne null }" >
-														<c:forEach items="${comLikeList }" var="comList">
+													<c:when test="${id ne null}" >
+														<c:forEach items="${comLikeList}" var="comList">
 															<c:choose>
 																<c:when test="${tmp.num eq comList.num }">
 																	<button class="btn btn-default comlike" id="comlike" type="button" value=${tmp.num }>
@@ -224,18 +224,11 @@ img {
 																				<img src="${pageContext.request.contextPath }/resources/images/comment_empty-heart.png" alt="" />
 																			</c:otherwise>
 																		</c:choose>
-																		<%-- <c:choose>
-																			<c:when test="${isCommentLikeId}" >
-																				<img src="${pageContext.request.contextPath }/resources/images/comment_red-heart.png" alt="" />
-																			</c:when>
-																			<c:otherwise>
-																				<img src="${pageContext.request.contextPath }/resources/images/comment_empty-heart.png" alt="" />
-																			</c:otherwise>
-																		</c:choose> --%>
 																		좋아요
 																		<span>${tmp.com_likeCount }</span>
 																	</button>
-																</c:when>	
+																</c:when>
+																
 															</c:choose>
 														</c:forEach>
 													</c:when>
@@ -402,7 +395,6 @@ img {
 	var pageNum=1;
 	//댓글 스크롤로 보이기
 	$(window).scroll(function() {
-		
 	    if ($(window).scrollTop() == $(document).height() - $(window).height()) {
 	    	pageNum++;
 	    	$.ajax({
@@ -411,16 +403,12 @@ img {
 				data:{"pageNum":pageNum, "seq":${dto.seq}}, //data : 파라미터로 전달할 문자열 
 				dataType:"html",
 				success:function(responseData){
-					
 					$(".comments ul").append(responseData);
-				
 				}
 					
 			})
 	    }
 	});
-     
-
 	//댓글 수정 링크를 눌렀을때 호출되는 함수 등록
 	$(".comment-update-link").click(function(){
 		$(this)

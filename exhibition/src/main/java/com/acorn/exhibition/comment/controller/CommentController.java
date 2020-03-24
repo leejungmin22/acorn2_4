@@ -50,7 +50,8 @@ public class CommentController {
 			map.put("isSuccess", true);
 			return map;
 		}
-
+		
+		@ResponseBody
 		@RequestMapping(value = "/more_comment")
 		public ModelAndView getComment(HttpServletRequest request, ModelAndView mView) {
 			commentservice.commentList(request);

@@ -1,5 +1,6 @@
 package com.acorn.exhibition.comment.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,8 +11,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.acorn.exhibition.comment.dao.CommentDao;
+import com.acorn.exhibition.home.dto.Com_LikeDto;
 import com.acorn.exhibition.home.dto.CommentDto;
 import com.acorn.exhibition.home.dto.FullCalendarDto;
+import com.acorn.exhibition.home.dto.LikeDto;
 
 
 @Service
@@ -70,6 +73,7 @@ public class CommentServiceImpl implements CommentService{
 		
 		//파라미터로 전달되는 글번호
 		int seq=Integer.parseInt(request.getParameter("seq"));
+		String id=(String)request.getSession().getAttribute("id");
 		FullCalendarDto dto=new FullCalendarDto();
 		dto.setSeq(seq);
 		/* 댓글 페이징 처리 */
@@ -112,9 +116,41 @@ public class CommentServiceImpl implements CommentService{
 		List<CommentDto> commentList=commentDao.getList(dto);
 		//2. 글 목록을 응답한다.
 		
+	
+		List<Com_LikeDto> comLikeList=new ArrayList<Com_LikeDto>();
+		
+		String CommentLikeId=null;
+		
+		boolean isCommentLikeId=false;
+		if(id!=null) {	     
+		     for(int i=0;i<commentList.size();i++) {
+		        //CommentDto commentDto = new CommentDto();
+				CommentDto commentDto = commentList.get(i);
+				int num = commentDto.getNum();
+				Com_LikeDto comLikeDto = new Com_LikeDto(id,num);
+				CommentLikeId=commentDao.getCommentLikeId(comLikeDto);
+				if(id.equals(CommentLikeId)) {
+				   isCommentLikeId = true;
+				   comLikeDto.setIsCommentLikeId(isCommentLikeId);
+				   //commentDto.setCommentLikeId(isCommentLikeId);
+				  // request.setAttribute("isCommentLikeId"+i, isCommentLikeId);
+				  
+				}else {
+				   isCommentLikeId = false;
+				   comLikeDto.setIsCommentLikeId(isCommentLikeId);
+				   //commentDto.setCommentLikeId(isCommentLikeId);
+				   //request.setAttribute("isCommentLikeId"+i, isCommentLikeId);
+				}
+				comLikeList.add(comLikeDto);
+			 }//for end
+		}//if end
+		      
+		request.setAttribute("comLikeList", comLikeList);
 		//EL, JSTL 을 활용하기 위해 필요한 모델을 request 에 담는다.
 		request.setAttribute("commentList", commentList);
 		request.setAttribute("dto", dto);
+		
+		
 	}
 
 	@Override
