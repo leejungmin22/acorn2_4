@@ -13,11 +13,12 @@ public interface CommentDao {
 	public int getSequence();
 	public void update(CommentDto dto);
 	public int getCount();
-
+	
+	public CommentDto getlikeCount(int num);
 	public int findLike(CommentDto dto);
 	public boolean removeOncommentLike(CommentDto dto);
 	public boolean addOnCommentLike(CommentDto dto);
-	public boolean addcommentLikeCount(CommentDto dto);
- 	public boolean minuscommentLikeCount(CommentDto dto);
+	public boolean addcommentLikeCount(int num);
+ 	public boolean minuscommentLikeCount(int num);
  	public String getCommentLikeId(Com_LikeDto comlikeDto);
 }

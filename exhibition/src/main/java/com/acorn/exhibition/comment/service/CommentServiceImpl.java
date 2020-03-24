@@ -107,6 +107,7 @@ public class CommentServiceImpl implements CommentService{
 		dto.setStartRowNum(startRowNum);
 		dto.setEndRowNum(endRowNum);
 		
+		
 		//1. DB 에서 댓글 목록을 얻어온다.
 		List<CommentDto> commentList=commentDao.getList(dto);
 		//2. 글 목록을 응답한다.
@@ -117,62 +118,61 @@ public class CommentServiceImpl implements CommentService{
 	}
 
 	@Override
-	public Map<String, Object> com_updateLikeCount(HttpServletRequest request) {
+	public Map<String, Object> com_updateLikeCount(HttpServletRequest request,int num) {
+		
 		CommentDto dto=new CommentDto();
-		int seq=Integer.parseInt(request.getParameter("seq"));
+		
 		String id=(String)request.getSession().getAttribute("id");
-		int num = dto.getNum();
-		
-		
-		dto.setRef_group(seq);
-		dto.setId(id);
 		dto.setNum(num);
+		dto.setId(id);
 		
-		FullCalendarDto fdto=new FullCalendarDto();
-		fdto.setSeq(seq);
-		fdto.setId(id);
 		
 		//[{"isSuccess":boolean, "likecount":number}]
 		Map<String, Object> map=new HashMap<String, Object>();
 
 		//exhibition_like 테이블에서 로그인된 id가 like를 클릭한적 있는지 찾아보기
 		int num_like=commentDao.findLike(dto);
-		List<CommentDto> likeCount=commentDao.getList(fdto);
+		//List<CommentDto> list = commentDao.getlikeCount(dto);
+		int likecount = commentDao.getlikeCount(num).getCom_likeCount();
+		
 		
 		if(num_like==1) { //클릭한적 있다면
-			
 			//exhibition_like 테이블에서 정보를 제거하고
 			boolean result1=commentDao.removeOncommentLike(dto);
 			//tb_api_date 테이블에서 like 개수를 하나 빼준다.
-			boolean result2=commentDao.minuscommentLikeCount(dto);
+			boolean result2=commentDao.minuscommentLikeCount(num);
+			//dto.setIsCommentLikeId("0");
+			likecount = commentDao.getlikeCount(num).getCom_likeCount();
 			if(result1 && result2) {
 				map.put("comisSuccess", true);
-				map.put("comlikecount", likeCount);
+				map.put("comlikecount", likecount);
 				return map;
 			}else {
 				map.put("comisSuccess", false);
-				map.put("comlikecount", likeCount);
+				map.put("comlikecount", likecount);
 				return map;
 			}
-			
-			
-		}else { //클릭한적 없다면
+		}else { //클릭한적 없다면 
 			
 			//exhibition_like 테이블에 id와 seq번호를 저장하고
 			boolean result1=commentDao.addOnCommentLike(dto);
 			//tb_api_date 테이블에서 like 개수를 하나 더해준다.
-			boolean result2=commentDao.addcommentLikeCount(dto);
+			boolean result2=commentDao.addcommentLikeCount(num);
 			
+			int likecountplus = commentDao.getlikeCount(num).getCom_likeCount();
+			System.out.println("!!!---"+likecountplus);
+			//dto.setIsCommentLikeId("1");
 			if(result1 && result2) {
-				map.put("isSuccess", true);
-				map.put("likecount", likeCount);
+				map.put("comisSuccess", true);
+				map.put("comlikecount", likecountplus);
 				return map;
 			}else {
-				map.put("isSuccess", false);
-				map.put("likecount", likeCount);
+				map.put("comisSuccess", false);
+				map.put("comlikecount", likecountplus);
 				return map;
 			}
 		}//if e
+		
 	}
 	
 }

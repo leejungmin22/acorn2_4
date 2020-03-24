@@ -1,27 +1,31 @@
 package com.acorn.exhibition.home.dto;
 
 public class Com_LikeDto {
-	private String Id;
+	private String id;
 	private int num;
-	private int seq;
-	
+	private boolean isCommentLikeId;
+
 	public Com_LikeDto(){}
 	
-
-	public Com_LikeDto(String id, int num, int seq) {
+	public Com_LikeDto(String id, int num) {
 		super();
-		Id = id;
+		this.id = id;
 		this.num = num;
-		this.seq = seq;
+	}
+	
+	public Com_LikeDto(String id, int num, boolean isCommentLikeId) {
+		super();
+		this.id = id;
+		this.num = num;
+		this.isCommentLikeId = isCommentLikeId;
 	}
 
-
 	public String getId() {
-		return Id;
+		return id;
 	}
 
 	public void setId(String id) {
-		Id = id;
+		this.id = id;
 	}
 
 	public int getNum() {
@@ -32,12 +36,12 @@ public class Com_LikeDto {
 		this.num = num;
 	}
 
-	public int getSeq() {
-		return seq;
+	public boolean getIsCommentLikeId() {
+		return isCommentLikeId;
 	}
 
-	public void setSeq(int seq) {
-		this.seq = seq;
+	public void setIsCommentLikeId(boolean isCommentLikeId) {
+		this.isCommentLikeId = isCommentLikeId;
 	}
 
 	

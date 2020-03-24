@@ -2,7 +2,7 @@ package com.acorn.exhibition.home.service;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
-import java.text.DateFormat;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import com.acorn.exhibition.comment.dao.CommentDao;
 import com.acorn.exhibition.home.dao.HomeDao;
 import com.acorn.exhibition.home.dto.ApiDto;
+import com.acorn.exhibition.home.dto.Com_LikeDto;
 import com.acorn.exhibition.home.dto.CommentDto;
 import com.acorn.exhibition.home.dto.FullCalendarDto;
 
@@ -101,18 +102,43 @@ public class HomeServiceImpl implements HomeService{
 		
 		//1. DB 에서 댓글 목록을 얻어온다.
 		List<CommentDto> commentList=commentDao.getList(dto);
-
+		List<Com_LikeDto> comLikeList=new ArrayList<Com_LikeDto>();
+		
 		//좋아요
 		String ExhibitionLikeId=null;
 		String CommentLikeId=null;
 		
+		boolean isCommentLikeId=false;
 		if(id!=null) {
-			LikeDto likeDto=new LikeDto(seq, id);
-			ExhibitionLikeId=dao.getExhibitionLikeId(likeDto);
-			
-		}
+		     LikeDto likeDto=new LikeDto(seq, id);
+		     ExhibitionLikeId=dao.getExhibitionLikeId(likeDto);
+		     
+		     for(int i=0;i<commentList.size();i++) {
+		        //CommentDto commentDto = new CommentDto();
+				CommentDto commentDto = commentList.get(i);
+				int num = commentDto.getNum();
+				Com_LikeDto comLikeDto = new Com_LikeDto(id,num);
+				CommentLikeId=commentDao.getCommentLikeId(comLikeDto);
+				if(id.equals(CommentLikeId)) {
+				   isCommentLikeId = true;
+				   comLikeDto.setIsCommentLikeId(isCommentLikeId);
+				   //commentDto.setCommentLikeId(isCommentLikeId);
+				  // request.setAttribute("isCommentLikeId"+i, isCommentLikeId);
+				  
+				}else {
+				   isCommentLikeId = false;
+				   comLikeDto.setIsCommentLikeId(isCommentLikeId);
+				   //commentDto.setCommentLikeId(isCommentLikeId);
+				   //request.setAttribute("isCommentLikeId"+i, isCommentLikeId);
+				}
+				comLikeList.add(comLikeDto);
+			 }//for end
+		}//if end
+		      
+		
+		request.setAttribute("comLikeList", comLikeList);
 		request.setAttribute("ExhibitionLikeId", ExhibitionLikeId);
-		request.setAttribute("CommentLikeId", CommentLikeId);
+		
 		
 		FullCalendarDto tmp=dao.getData(seq);
 		dto.setLikeCount(tmp.getLikeCount());
@@ -289,7 +315,6 @@ public class HomeServiceImpl implements HomeService{
 			likeCount=dao.getData(seq).getLikeCount();
 			
 			if(result1 && result2) {
-				
 				map.put("isSuccess", true);
 				map.put("likecount", likeCount);
 				return map;
