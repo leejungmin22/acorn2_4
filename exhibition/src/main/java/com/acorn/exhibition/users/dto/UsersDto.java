@@ -1,5 +1,7 @@
 package com.acorn.exhibition.users.dto;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class UsersDto {
 		
 	private String id;
@@ -10,11 +12,13 @@ public class UsersDto {
 	private String profile;
 	private String gender;
 	private String newPwd;
+	private MultipartFile uploadProfile;
+	private String admin;
 
 	public UsersDto() {}
-	
+
 	public UsersDto(String id, String name, String pwd, String email, String birth, String profile, String gender,
-			String newPwd) {
+			String newPwd, MultipartFile uploadProfile, String admin) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -24,6 +28,8 @@ public class UsersDto {
 		this.profile = profile;
 		this.gender = gender;
 		this.newPwd = newPwd;
+		this.uploadProfile = uploadProfile;
+		this.admin = admin;
 	}
 
 	public String getId() {
@@ -89,6 +95,21 @@ public class UsersDto {
 	public void setNewPwd(String newPwd) {
 		this.newPwd = newPwd;
 	}
-	
-	
+
+	public MultipartFile getUploadProfile() {
+		return uploadProfile;
+	}
+
+	public void setUploadProfile(MultipartFile uploadProfile) {
+		this.uploadProfile = uploadProfile;
+	}
+
+	public String getAdmin() {
+		return admin;
+	}
+
+	public void setAdmin(String admin) {
+		this.admin = admin;
+	}
+
 }

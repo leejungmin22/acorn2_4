@@ -41,10 +41,14 @@
 <body>
 <div class="container">
 	<h1>회원 가입 페이지</h1>
-	<form action="signup.do" method="post" id="signupForm">
+	<form action="signup.do" method="post" id="signupForm" enctype="multipart/form-data">
 		<div class="form-group has-feedback">
 			<label class="control-label" for="name">이름</label>
 			<input class="form-control" type="text" id="name" name="name"/>
+		</div>
+		<div class="form-group has-feedback">
+			<label class="control-label" for="profileLink">프로필 이미지</label>
+			<input type="file" id="profileImage" name="profileImage" accept=".jpg, .jpeg, .png, .JPG, .JPEG, .PNG">		
 		</div>
 		<div class="form-group has-feedback">
 			<label class="control-label" for="id">아이디</label>
@@ -89,11 +93,18 @@
 				<option value="m">남</option>
 			</select>
 		</div>
+		<br/>
 		<button disabled="disabled" class="btn btn-primary" type="submit">가입</button>
 		<button class="btn btn-warning" type="reset">취소</button>
 	</form>
+	
+	
 </div>
-<script>
+
+	
+	<%-- jquery form  플러그인 javascript 로딩 --%>
+	<script src="${pageContext.request.contextPath }/resources/js/jquery.form.min.js"></script>
+	<script>	
 	//아이디를 사용할수 있는지 여부 
 	var isIdUsable=false;
 	//아이디를 입력 했는지 여부 
@@ -345,7 +356,7 @@
 			$("button[type=submit]").attr("disabled","disabled");
 		}
 	}
-	
+		
 </script>
 </body>
 </html>

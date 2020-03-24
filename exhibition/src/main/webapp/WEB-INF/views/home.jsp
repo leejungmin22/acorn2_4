@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>전시일정</title>
 <jsp:include page="include/resource.jsp" />
 <!-- fullcalendar -->
 <link rel='stylesheet' type='text/css' href='${pageContext.request.contextPath }/resources/css/fullcalendar/main.css'/>
@@ -21,6 +21,27 @@
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <!-- fullcalendar -->
+<style type="text/css">
+	.fc-sat {color:#1F618D; background-color:#A9CCE3;} /*토요일*/	
+	.fc-sun {color:#B03A2E; background-color:#F2D7D5;} /*일요일*/
+	
+</style>
+<style>
+	button{
+		vertical-align:middle;
+	}
+	button.form-text{
+		border: 1px solid #bcbcbc;
+		height: 25px;
+	}
+	button.img-button{
+		background:url("resources/images/button_search.png") no-repeat;
+		border:none;
+		width:38px;
+		height:38px;
+		cursor:pointer
+	}
+</style>
 <script>
   document.addEventListener('DOMContentLoaded', function() {
     var calendarEl = document.getElementById('calendar');

@@ -121,9 +121,4 @@ public class CommentDto {
 		this.id = id;
 	}
 	
-	
-
-	
-	
-	
 }
