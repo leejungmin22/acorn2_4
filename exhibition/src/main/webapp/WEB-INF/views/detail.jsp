@@ -210,7 +210,7 @@ img {
 													</c:otherwise>
 												</c:choose>
 												<c:choose>
-													<c:when test="${id eq ExhibitionLikeId and id ne null }" >
+													<c:when test="${id ne null }" >
 														<c:forEach items="${comLikeList }" var="comList">
 															<c:choose>
 																<c:when test="${tmp.num eq comList.num }">
@@ -224,14 +224,6 @@ img {
 																				<img src="${pageContext.request.contextPath }/resources/images/comment_empty-heart.png" alt="" />
 																			</c:otherwise>
 																		</c:choose>
-																		<%-- <c:choose>
-																			<c:when test="${isCommentLikeId}" >
-																				<img src="${pageContext.request.contextPath }/resources/images/comment_red-heart.png" alt="" />
-																			</c:when>
-																			<c:otherwise>
-																				<img src="${pageContext.request.contextPath }/resources/images/comment_empty-heart.png" alt="" />
-																			</c:otherwise>
-																		</c:choose> --%>
 																		좋아요
 																		<span>${tmp.com_likeCount }</span>
 																	</button>
