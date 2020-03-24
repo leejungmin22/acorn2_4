@@ -105,7 +105,7 @@ public class CommentDaoImpl implements CommentDao{
 	@Override
 	public String getCommentLikeId(Com_LikeDto comlikeDto) {
 		String id=session.selectOne("comment.getid", comlikeDto);
-		System.out.println("getid"+id);
+		System.out.println("getid : "+id);
 		return id;
 	}
 

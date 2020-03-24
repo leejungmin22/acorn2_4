@@ -123,7 +123,6 @@ public class CommentServiceImpl implements CommentService{
 		CommentDto dto=new CommentDto();
 		
 		String id=(String)request.getSession().getAttribute("id");
-		System.out.println("업데이트 "+num+" id"+id);
 		dto.setNum(num);
 		dto.setId(id);
 		
@@ -142,9 +141,8 @@ public class CommentServiceImpl implements CommentService{
 			boolean result1=commentDao.removeOncommentLike(dto);
 			//tb_api_date 테이블에서 like 개수를 하나 빼준다.
 			boolean result2=commentDao.minuscommentLikeCount(num);
-			dto.setIsCommentLikeId("0");
+			//dto.setIsCommentLikeId("0");
 			likecount = commentDao.getlikeCount(num).getCom_likeCount();
-			System.out.println("!!++++"+likecount);
 			if(result1 && result2) {
 				map.put("comisSuccess", true);
 				map.put("comlikecount", likecount);
@@ -163,7 +161,7 @@ public class CommentServiceImpl implements CommentService{
 			
 			int likecountplus = commentDao.getlikeCount(num).getCom_likeCount();
 			System.out.println("!!!---"+likecountplus);
-			dto.setIsCommentLikeId("1");
+			//dto.setIsCommentLikeId("1");
 			if(result1 && result2) {
 				map.put("comisSuccess", true);
 				map.put("comlikecount", likecountplus);

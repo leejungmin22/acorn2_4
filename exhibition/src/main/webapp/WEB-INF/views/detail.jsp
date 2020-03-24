@@ -167,7 +167,7 @@ img {
 				<div class="col-sm-12">
 					<div class="comments">
 						<ul>
-							<c:forEach items="${commentList }" var="tmp">
+							<c:forEach items="${commentList }" var="tmp" varStatus="status">
 								<c:choose>
 									<c:when test="${tmp.deleted ne 'yes' }">
 										<li class="comment" id="comment${tmp.num }"
@@ -209,22 +209,47 @@ img {
 														<a href="javascript:">신고</a>
 													</c:otherwise>
 												</c:choose>
-												<button class="btn btn-default comlike" id="comlike" type="button" value=${tmp.num }>
 												<c:choose>
-													<c:when test="${isCommentLikeId}" >
-														<img src="${pageContext.request.contextPath }/resources/images/comment_red-heart.png" alt="" />
+													<c:when test="${id eq ExhibitionLikeId and id ne null }" >
+														<c:forEach items="${comLikeList }" var="comList">
+															<c:choose>
+																<c:when test="${tmp.num eq comList.num }">
+																	<button class="btn btn-default comlike" id="comlike" type="button" value=${tmp.num }>
+																		<c:choose>
+																			<c:when test="${comList.isCommentLikeId }">
+																				<img src="${pageContext.request.contextPath }/resources/images/comment_red-heart.png" alt="" />
+																				<%-- <span>${tmp.num }${comList.num }</span> --%>
+																			</c:when>
+																			<c:otherwise>
+																				<img src="${pageContext.request.contextPath }/resources/images/comment_empty-heart.png" alt="" />
+																			</c:otherwise>
+																		</c:choose>
+																		<%-- <c:choose>
+																			<c:when test="${isCommentLikeId}" >
+																				<img src="${pageContext.request.contextPath }/resources/images/comment_red-heart.png" alt="" />
+																			</c:when>
+																			<c:otherwise>
+																				<img src="${pageContext.request.contextPath }/resources/images/comment_empty-heart.png" alt="" />
+																			</c:otherwise>
+																		</c:choose> --%>
+																		좋아요
+																		<span>${tmp.com_likeCount }</span>
+																	</button>
+																</c:when>	
+															</c:choose>
+														</c:forEach>
 													</c:when>
 													<c:otherwise>
-														<img src="${pageContext.request.contextPath }/resources/images/comment_empty-heart.png" alt="" />
+														<button class="btn btn-default comlike" id="comlike" type="button" value=${tmp.num }>
+															<img src="${pageContext.request.contextPath }/resources/images/comment_empty-heart.png" alt="" />
+															좋아요
+															<span>${tmp.com_likeCount }</span>
+														</button>
 													</c:otherwise>
 												</c:choose>
-												좋아요${isCommentLikeId}
-												<span>${tmp.com_likeCount }</span>
-											</button>
 											</dd>
 										</dl>
-										<form class="comment-insert-form" action="comment_insert.do"
-											method="post">
+										<form class="comment-insert-form" action="comment_insert.do" method="post">
 											<!-- 덧글 그룹 -->
 											<input type="hidden" name="ref_group" value="${dto.seq }" />
 											<!-- 덧글 대상 -->
@@ -359,18 +384,19 @@ img {
 						span.text(responseData.comlikecount);
 					}
 				} 
-		});
-		//폼 제출 막기 
-		return false; 
-	}
-	if(isLogin==false){
-		var goLoginPage=confirm("로그인이 필요합니다. 로그인 하시겠습니까?");
-		if(goLoginPage==true){
-			location.href="${pageContext.request.contextPath}/users/loginform.do?url=${pageContext.request.contextPath}/detail.do?seq=${dto.seq}";
-			imgLike=false;
+			});
+			//폼 제출 막기 
+			return false; 
 		}
-		return false;//폼 전송 막기 
-	}
+		
+		if(isLogin==false){
+			var goLoginPage=confirm("로그인이 필요합니다. 로그인 하시겠습니까?");
+			if(goLoginPage==true){
+				location.href="${pageContext.request.contextPath}/users/loginform.do?url=${pageContext.request.contextPath}/detail.do?seq=${dto.seq}";
+				imgLike=false;
+			}
+			return false;//폼 전송 막기 
+		}
 	});
 
 	var pageNum=1;
