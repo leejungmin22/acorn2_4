@@ -450,14 +450,14 @@ img {
 	});
 	
 	//댓글 삭제를 눌렀을때 호출되는 함수
-	function deleteComment(seq){
+	function deleteComment(num){
 		var isDelete=confirm("확인을 누르면 댓글이 삭제 됩니다.");
 		if(isDelete){
 			//페이지 전환 없이 ajax 요청을 통해서 삭제하기
 			$.ajax({
 				url:"comment_delete.do",
 				method:"post",
-				data:{"seq":seq},
+				data:{"num":num},
 				success:function(responseData){
 					if(responseData.isSuccess){
 						location.href="${pageContext.request.contextPath}/detail.do?seq=${dto.seq}";
