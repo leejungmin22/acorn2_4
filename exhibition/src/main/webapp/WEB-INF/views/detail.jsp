@@ -473,7 +473,7 @@ img {
 		var isLogin=${not empty id};
 		if(isLogin==false){
 			alert("로그인 페이지로 이동 합니다.");
-			location.href="${pageContext.request.contextPath}/users/loginform.do?url=${pageContext.request.contextPath}/cafe/detail.do?seq=${dto.seq}";
+			location.href="${pageContext.request.contextPath}/users/loginform.do?url=${pageContext.request.contextPath}/detail.do?seq=${dto.seq}";
 			return false;//폼 전송 막기 
 		}
 	});
@@ -485,7 +485,7 @@ img {
 		if(isLogin==false){
 			var isMove=confirm("로그인 페이지로 이동하시겠습니까?");
 			if(isMove){
-				location.href="${pageContext.request.contextPath }/users/loginform.do?url=${pageContext.request.contextPath}/cafe/detail.do?seq=${dto.seq}";
+				location.href="${pageContext.request.contextPath }/users/loginform.do?url=${pageContext.request.contextPath}/detail.do?seq=${dto.seq}";
 			}
 		}
 	});
