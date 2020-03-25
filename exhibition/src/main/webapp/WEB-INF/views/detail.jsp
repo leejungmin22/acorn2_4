@@ -210,8 +210,8 @@ img {
 													</c:otherwise>
 												</c:choose>
 												<c:choose>
-													<c:when test="${id ne null}" >
-														<c:forEach items="${comLikeList}" var="comList">
+													<c:when test="${id ne null }" >
+														<c:forEach items="${comLikeList }" var="comList">
 															<c:choose>
 																<c:when test="${tmp.num eq comList.num }">
 																	<button class="btn btn-default comlike" id="comlike" type="button" value=${tmp.num }>
@@ -410,7 +410,7 @@ img {
 	    }
 	});
 	//댓글 수정 링크를 눌렀을때 호출되는 함수 등록
-	$(".comment-update-link").click(function(){
+	$(document).on("click", ".comment-update-link", function(){
 		$(this)
 		.parent().parent().parent()
 		.find(".comment-update-form")
@@ -418,7 +418,8 @@ img {
 	});
 	
 	//댓글 수정 폼에 submit 이벤트가 일어났을때 호출되는 함수 등록
-	$(".comment-update-form").on("submit", function(){
+	$(document).on("submit", ".comment-update-form", function(){
+		// "private/comment_update.do"
 		var url=$(this).attr("action"); //action 속성의 value를 읽어온다.
 		//폼에 작성된 내용을 query 문자열로 읽어온다.
 		// num=댓글번호&content=댓글내용
@@ -448,14 +449,14 @@ img {
 	});
 	
 	//댓글 삭제를 눌렀을때 호출되는 함수
-	function deleteComment(num){
+	function deleteComment(seq){
 		var isDelete=confirm("확인을 누르면 댓글이 삭제 됩니다.");
 		if(isDelete){
 			//페이지 전환 없이 ajax 요청을 통해서 삭제하기
 			$.ajax({
 				url:"comment_delete.do",
 				method:"post",
-				data:{"num":num},
+				data:{"seq":seq},
 				success:function(responseData){
 					if(responseData.isSuccess){
 						location.href="${pageContext.request.contextPath}/detail.do?seq=${dto.seq}";
@@ -466,30 +467,30 @@ img {
 	}
 	
 	//폼에 submit 이벤트가 일어 났을때 실행할 함수 등록 
-	$(".comments form").on("submit", function(){
+	$(document).on("submit", ".comments form", function(){
 		//로그인 여부
 		var isLogin=${not empty id};
 		if(isLogin==false){
 			alert("로그인 페이지로 이동 합니다.");
-			location.href="${pageContext.request.contextPath}/users/loginform.do?url=${pageContext.request.contextPath}/detail.do?seq=${dto.seq}";
+			location.href="${pageContext.request.contextPath}/users/loginform.do?url=${pageContext.request.contextPath}/cafe/detail.do?seq=${dto.seq}";
 			return false;//폼 전송 막기 
 		}
 	});
 	
 	//폼에 focus 이벤트가 일어 났을때 실행할 함수 등록 
-	$(".comments form textarea").on("click", function(){
+	$(document).on("click", ".comments form textarea", function(){
 		//로그인 여부
 		var isLogin=${not empty id};
 		if(isLogin==false){
 			var isMove=confirm("로그인 페이지로 이동하시겠습니까?");
 			if(isMove){
-				location.href="${pageContext.request.contextPath }/users/loginform.do?url=${pageContext.request.contextPath}/detail.do?seq=${dto.seq}";
+				location.href="${pageContext.request.contextPath }/users/loginform.do?url=${pageContext.request.contextPath}/cafe/detail.do?seq=${dto.seq}";
 			}
 		}
 	});
 	
 	//답글 달기 링크를 클릭했을때 실행할 함수 등록
-	$(".comment .reply_link").click(function(){
+	$(document).on("click", ".comment .reply_link", function(){
 		$(this)
 		.parent().parent().parent()
 		.find(".comment-insert-form")
