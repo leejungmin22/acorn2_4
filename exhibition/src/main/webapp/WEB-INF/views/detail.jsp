@@ -140,8 +140,7 @@ img {
 				</div> 
 				<div >
 					<h6>지도</h6>
-						<div id="map"
-							style="width: 100%; height: 400px;"></div>
+						<div id="map" style="width: 100%; height: 400px;"></div>
 				</div>
 			</div>
 		</div>	
@@ -212,6 +211,7 @@ img {
 												<c:choose>
 													<c:when test="${id ne null }" >
 														<c:forEach items="${comLikeList }" var="comList">
+
 															<c:choose>
 																<c:when test="${tmp.num eq comList.num }">
 																	<button class="btn btn-default comlike" id="comlike" type="button" value=${tmp.num }>
@@ -449,14 +449,14 @@ img {
 	});
 	
 	//댓글 삭제를 눌렀을때 호출되는 함수
-	function deleteComment(seq){
+	function deleteComment(num){
 		var isDelete=confirm("확인을 누르면 댓글이 삭제 됩니다.");
 		if(isDelete){
 			//페이지 전환 없이 ajax 요청을 통해서 삭제하기
 			$.ajax({
 				url:"comment_delete.do",
 				method:"post",
-				data:{"seq":seq},
+				data:{"num":num},
 				success:function(responseData){
 					if(responseData.isSuccess){
 						location.href="${pageContext.request.contextPath}/detail.do?seq=${dto.seq}";

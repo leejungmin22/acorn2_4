@@ -114,17 +114,14 @@ public class CommentServiceImpl implements CommentService{
 		
 		//1. DB 에서 댓글 목록을 얻어온다.
 		List<CommentDto> commentList=commentDao.getList(dto);
-		//2. 글 목록을 응답한다.
-		
-	
 		List<Com_LikeDto> comLikeList=new ArrayList<Com_LikeDto>();
 		
+		//좋아요
 		String CommentLikeId=null;
 		
 		boolean isCommentLikeId=false;
-		if(id!=null) {	     
+		if(id!=null) {
 		     for(int i=0;i<commentList.size();i++) {
-		        //CommentDto commentDto = new CommentDto();
 				CommentDto commentDto = commentList.get(i);
 				int num = commentDto.getNum();
 				Com_LikeDto comLikeDto = new Com_LikeDto(id,num);
@@ -132,25 +129,19 @@ public class CommentServiceImpl implements CommentService{
 				if(id.equals(CommentLikeId)) {
 				   isCommentLikeId = true;
 				   comLikeDto.setIsCommentLikeId(isCommentLikeId);
-				   //commentDto.setCommentLikeId(isCommentLikeId);
-				  // request.setAttribute("isCommentLikeId"+i, isCommentLikeId);
 				  
 				}else {
 				   isCommentLikeId = false;
 				   comLikeDto.setIsCommentLikeId(isCommentLikeId);
-				   //commentDto.setCommentLikeId(isCommentLikeId);
-				   //request.setAttribute("isCommentLikeId"+i, isCommentLikeId);
 				}
 				comLikeList.add(comLikeDto);
 			 }//for end
 		}//if end
-		      
+		   
 		request.setAttribute("comLikeList", comLikeList);
 		//EL, JSTL 을 활용하기 위해 필요한 모델을 request 에 담는다.
 		request.setAttribute("commentList", commentList);
 		request.setAttribute("dto", dto);
-		
-		
 	}
 
 	@Override
