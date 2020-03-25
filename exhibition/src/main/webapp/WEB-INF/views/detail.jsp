@@ -354,7 +354,7 @@ img {
 	});
 	
 	//댓글좋아요 수 올리기
-	$(".comlike").on("click",function(){
+	$(document).on("click", ".comlike", function(){
 		var num = $(this).attr('value');
 		var isLogin=${not empty id};
 		var imgTag=$(this).children('img');
@@ -472,7 +472,7 @@ img {
 		var isLogin=${not empty id};
 		if(isLogin==false){
 			alert("로그인 페이지로 이동 합니다.");
-			location.href="${pageContext.request.contextPath}/users/loginform.do?url=${pageContext.request.contextPath}/cafe/detail.do?seq=${dto.seq}";
+			location.href="${pageContext.request.contextPath}/users/loginform.do?url=${pageContext.request.contextPath}/detail.do?seq=${dto.seq}";
 			return false;//폼 전송 막기 
 		}
 	});
@@ -484,7 +484,7 @@ img {
 		if(isLogin==false){
 			var isMove=confirm("로그인 페이지로 이동하시겠습니까?");
 			if(isMove){
-				location.href="${pageContext.request.contextPath }/users/loginform.do?url=${pageContext.request.contextPath}/cafe/detail.do?seq=${dto.seq}";
+				location.href="${pageContext.request.contextPath }/users/loginform.do?url=${pageContext.request.contextPath}/detail.do?seq=${dto.seq}";
 			}
 		}
 	});
