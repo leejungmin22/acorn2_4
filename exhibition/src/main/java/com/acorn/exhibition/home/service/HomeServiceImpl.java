@@ -114,7 +114,6 @@ public class HomeServiceImpl implements HomeService{
 		     ExhibitionLikeId=dao.getExhibitionLikeId(likeDto);
 		     
 		     for(int i=0;i<commentList.size();i++) {
-		        //CommentDto commentDto = new CommentDto();
 				CommentDto commentDto = commentList.get(i);
 				int num = commentDto.getNum();
 				Com_LikeDto comLikeDto = new Com_LikeDto(id,num);
@@ -122,14 +121,10 @@ public class HomeServiceImpl implements HomeService{
 				if(id.equals(CommentLikeId)) {
 				   isCommentLikeId = true;
 				   comLikeDto.setIsCommentLikeId(isCommentLikeId);
-				   //commentDto.setCommentLikeId(isCommentLikeId);
-				  // request.setAttribute("isCommentLikeId"+i, isCommentLikeId);
 				  
 				}else {
 				   isCommentLikeId = false;
 				   comLikeDto.setIsCommentLikeId(isCommentLikeId);
-				   //commentDto.setCommentLikeId(isCommentLikeId);
-				   //request.setAttribute("isCommentLikeId"+i, isCommentLikeId);
 				}
 				comLikeList.add(comLikeDto);
 			 }//for end

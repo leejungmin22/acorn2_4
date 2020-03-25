@@ -140,8 +140,7 @@ img {
 				</div> 
 				<div >
 					<h6>지도</h6>
-						<div id="map"
-							style="width: 100%; height: 400px;"></div>
+						<div id="map" style="width: 100%; height: 400px;"></div>
 				</div>
 			</div>
 		</div>	
@@ -212,23 +211,21 @@ img {
 												<c:choose>
 													<c:when test="${id ne null }" >
 														<c:forEach items="${comLikeList }" var="comList">
-															<c:choose>
-																<c:when test="${tmp.num eq comList.num }">
-																	<button class="btn btn-default comlike" id="comlike" type="button" value=${tmp.num }>
-																		<c:choose>
-																			<c:when test="${comList.isCommentLikeId }">
-																				<img src="${pageContext.request.contextPath }/resources/images/comment_red-heart.png" alt="" />
-																				<%-- <span>${tmp.num }${comList.num }</span> --%>
-																			</c:when>
-																			<c:otherwise>
-																				<img src="${pageContext.request.contextPath }/resources/images/comment_empty-heart.png" alt="" />
-																			</c:otherwise>
-																		</c:choose>
-																		좋아요
-																		<span>${tmp.com_likeCount }</span>
-																	</button>
-																</c:when>	
-															</c:choose>
+															<c:if test="${tmp.num eq comList.num }">
+																<button class="btn btn-default comlike" id="comlike" type="button" value=${tmp.num }>
+																	<c:choose>
+																		<c:when test="${comList.isCommentLikeId }">
+																			<img src="${pageContext.request.contextPath }/resources/images/comment_red-heart.png" alt="" />
+																			<%-- <span>${tmp.num }${comList.num }</span> --%>
+																		</c:when>
+																		<c:otherwise>
+																			<img src="${pageContext.request.contextPath }/resources/images/comment_empty-heart.png" alt="" />
+																		</c:otherwise>
+																	</c:choose>
+																	좋아요
+																	<span>${tmp.com_likeCount }</span>
+																</button>
+															</c:if>
 														</c:forEach>
 													</c:when>
 													<c:otherwise>
@@ -353,7 +350,7 @@ img {
 	});
 	
 	//댓글좋아요 수 올리기
-	$(".comlike").on("click",function(){
+	$(document).on("click", ".comlike", function(){
 		var num = $(this).attr('value');
 		var isLogin=${not empty id};
 		var imgTag=$(this).children('img');
