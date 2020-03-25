@@ -82,7 +82,6 @@
 	
 	
 </style>
-<<<<<<< HEAD
 <script src="${pageContext.request.contextPath }/resources/js/jquery-3.3.1.js"></script>
 <script src="${pageContext.request.contextPath }/resources/js/bootstrap.js"></script>
 <!-- jQuery UI Datepicker -->
@@ -108,73 +107,11 @@
 	.ui-datepicker-calendar > tbody td.ui-datepicker-week-end:first-child a {color:#f00;}
 	.ui-datepicker-calendar > tbody td.ui-datepicker-week-end:last-child a {color:#00f;}
 </style>
-=======
->>>>>>> refs/remotes/origin/seulji2
+
 </head>
 <body>
 <jsp:include page="../include/navbar.jsp"/>
 <div class="container">
-<<<<<<< HEAD
-	<h1>회원 가입 페이지</h1>
-	<form action="signup.do" method="post" id="signupForm" enctype="multipart/form-data">
-		<div class="form-group has-feedback">
-			<label class="control-label" for="name">이름</label>
-			<input class="form-control" type="text" id="name" name="name"/>
-		</div>
-		<div class="form-group has-feedback">
-			<label class="control-label" for="profileLink">프로필 이미지</label>
-			<input type="file" id="profileImage" name="profileImage" accept=".jpg, .jpeg, .png, .JPG, .JPEG, .PNG">		
-		</div>
-		<div class="form-group has-feedback">
-			<label class="control-label" for="id">아이디</label>
-			<input class="form-control" type="text" id="id" name="id"/>
-			<p class="help-block" id="id_notusable">사용 불가능한 아이디 입니다.</p>
-			<p class="help-block" id="id_required">반드시 입력 하세요</p>
-			<p class="help-block" id="id_notmatch">아이디는 숫자,영문 15자 내로 입력 할 수 있습니다.</p>
-			<span class="glyphicon glyphicon-remove form-control-feedback"></span>
-			<span class="glyphicon glyphicon-ok form-control-feedback"></span>
-		</div>
-		<div class="form-group has-feedback">
-			<label class="control-label" for="pwd">비밀번호</label>
-			<input class="form-control" type="password" id="pwd" name="pwd"/>
-			<p class="help-block" id="pwd_required">반드시 입력하세요</p>
-			<p class="help-block" id="pwd_notmatch">비밀번호는 영어, 특수문자를 포함하여 8~15자리로 입력해야합니다.</p>
-			<span class="glyphicon glyphicon-remove form-control-feedback"></span>
-			<span class="glyphicon glyphicon-ok form-control-feedback"></span>
-		</div>
-		<div class="form-group has-feedback">
-			<label class="control-label" for="pwd2">비밀번호 확인</label>
-			<input class="form-control" type="password" id="pwd2" name="pwd2"/>
-			<p class="help-block" id="pwd_required2">반드시 입력하세요</p>
-			<p class="help-block" id="pwd_notequal">비밀번호 입력란과 동일하게 입력하세요</p>
-			<span class="glyphicon glyphicon-remove form-control-feedback"></span>
-			<span class="glyphicon glyphicon-ok form-control-feedback"></span>
-		</div>
-		<div class="form-group has-feedback">
-			<label class="control-label" for="email">이메일</label>
-			<input class="form-control" type="email" id="email" name="email" />
-			<p class="help-block" id="email_notmatch">이메일 형식에 맞게 입력하세요</p>
-			<span class="glyphicon glyphicon-remove form-control-feedback"></span>
-			<span class="glyphicon glyphicon-ok form-control-feedback"></span>
-		</div>
-		<div class="form-group has-feedback">
-			<label class="control-label" for="birth">생년월일</label>
-			<input class="form-control" type="text" id="birth" name="birth" autocomplete="off"/>
-		</div>
-		<div class="form-group has-feedback">
-			<label class="control-label" for="gender">성별</label>
-			<select class="form-control" name="gender" id="gender">
-				<option value="f">여</option>
-				<option value="m">남</option>
-			</select>
-		</div>
-		<br/>
-		<button disabled="disabled" class="btn btn-primary" type="submit">가입</button>
-		<button class="btn btn-warning" type="reset">취소</button>
-	</form>
-	
-	
-=======
 	<ol class="breadcrumb" id="bread">
 		<li><a href="${pageContext.request.contextPath }/community/comList.do">목록</a></li>
 		<li>회원가입</li>
@@ -185,6 +122,10 @@
 				<label class="font" for="name">이름</label><br/>
 				<input class="textbox" type="text" id="name" name="name"/>
 			</div>
+			<div class="form-group has-feedback">
+			<label class="control-label" for="profileLink">프로필 이미지</label>
+			<input type="file" id="profileImage" name="profileImage" accept=".jpg, .jpeg, .png, .JPG, .JPEG, .PNG">		
+		</div>
 			<div class="form-group has-feedback">
 				<label class="font" for="id">아이디</label><br/>
 				<input class="textbox" type="text" id="id" name="id"/>
@@ -197,11 +138,14 @@
 				<label class="font" for="pwd">비밀번호</label><br/>
 				<input class="textbox" type="password" id="pwd" name="pwd"/>
 				<p class="danger" id="pwd_required">필수 정보입니다.</p>
-			
+				<p class="danger" id="pwd_notmatch">비밀번호는 영어, 특수문자를 포함하여 8~15자리로 입력해야합니다.</p>
+				<span class="glyphicon glyphicon-remove form-control-feedback"></span>
+				<span class="glyphicon glyphicon-ok form-control-feedback"></span>
 			</div>
 			<div class="form-group">
 				<label class="font" for="pwd2">비밀번호 확인</label><br/>
 				<input class="textbox" type="password" id="pwd2" name="pwd2"/>
+				<p class="danger" id="pwd_required">필수 정보입니다.</p>
 				<p class="danger" id="pwd_notequal">비밀번호가 일치하지 않습니다.</p>
 				<span class="glyphicon glyphicon-remove form-control-feedback"></span>
 				<span class="glyphicon glyphicon-ok form-control-feedback"></span>
@@ -227,10 +171,7 @@
 			<button disabled="disabled" class="signup" type="submit">가 입 하 기</button>
 		</form>
 	</div>
->>>>>>> refs/remotes/origin/seulji2
 </div>
-
-	
 	<%-- jquery form  플러그인 javascript 로딩 --%>
 	<script src="${pageContext.request.contextPath }/resources/js/jquery.form.min.js"></script>
 	<script>	
@@ -248,9 +189,7 @@
 	//비밀번호 형식에 맞게 입력했는지 여부
 	var isPwdMatch=false;
 	
-	var isPwd2Input=false;
-	var isPwd2Dirty=false;
-	
+
 	//이메일을 형식에 맞게 입력했는지 여부 
 	var isEmailMatch=false;
 	//이메일을 입력했는지 여부
@@ -260,6 +199,8 @@
 	var isIdDirty=false;
 	//비밀 번호 입력란에 한번이라도 입력한 적이 있는지 여부
 	var isPwdDirty=false;
+	//비밀 번호 확인란에 한번이라도 입력한 적이 있는지 여부
+	var isPwd2Dirty=false;
 	
 	// id 체크 정규식 : 숫자, 영문(대문자, 소문자)만 1개이상 15개이하 입력 가능
 	var idCheck = /^[0-9a-zA-Z]{1,15}$/gi
@@ -289,94 +230,51 @@
 	});
 	
 	//비밀번호를 입력할때 실행할 함수 등록
-	$("#pwd").on("input", function(){
+	$("#pwd, #pwd2").on("input", function(){
 		//상태값을 바꿔준다. 
 		isPwdDirty=true;
 		
 		//입력한 비밀번호를 읽어온다.
-<<<<<<< HEAD
-		var pwd=$("#pwd").val();
-
-		//띄어쓰기 불가
-		var a=pwd.replace(/ /gi, '');
-		$("#pwd").val(a);
-=======
-		var pwd=$("#pwd2").val();
-		var pwd2=$("#pwd").val();
->>>>>>> refs/remotes/origin/seulji2
-		
-<<<<<<< HEAD
-		//pwd 입력 여부 검증
-		if(pwd.length == 0){
-=======
-		if(pwd2 != pwd){//두 비밀번호를 동일하게 입력하지 않았다면
-			isPwdEqual=false;
-		}else{
-			isPwdEqual=true;
-		}
-		//isPwdEqual = pwd != pwd2 ? false : true;
-		if(pwd2.length == 0){
->>>>>>> refs/remotes/origin/seulji2
-			isPwdInput=false;
-		}else{
-			isPwdInput=true;
-		}
-<<<<<<< HEAD
-		
-		//비밀번호 형식에 맞게 입력 했는지 검증
-		if(pwd.match(pwdCheck)){ //비밀번호 형식에 맞게 입력했다면
-			isPwdMatch=true;
-		}else{//형식에 맞지 않다면
-			isPwdMatch=false;
-		}
-		
-		//아이디 에러 여부
-		var isErrorReult= !isPwdInput || !isPwdMatch ;
-		
-		//아이디 상태 바꾸기 
-		setState("#pwd", isErrorReult );
-		
-=======
-		//비밀번호 에러 여부 
-		var isError=!isPwdInput || !isPwdEqual;
-		//비밀번호 상태 바꾸기 
-		setState("#pwd2", isError);
->>>>>>> refs/remotes/origin/seulji2
-	});
-	
-	//비밀번호를 입력할때 실행할 함수 등록
-	$("#pwd2").on("input", function(){
-		//상태값을 바꿔준다. 
-		isPwd2Dirty=true;
-		
-		//입력한 비밀번호를 읽어온다.
 		var pwd=$("#pwd").val();
 		var pwd2=$("#pwd2").val();
-
 		//띄어쓰기 불가
+		var a=pwd.replace(/ /gi, '');
 		var b=pwd2.replace(/ /gi, '');
+		$("#pwd").val(a);
 		$("#pwd2").val(b);
-		
-		//pwd 입력 여부 검증
-		if(pwd2.length == 0){
-			isPwd2Input=false;
-		}else{
-			isPwd2Input=true;
-		}
-		console.log("isPwd2Input:"+isPwd2Input);
-		//pwd과 pwd2 일치 여부 검증
-		isPwdEqual = pwd != pwd2 ? false : true;
-		console.log("isPwdEqual:"+isPwdEqual);
-		//아이디 에러 여부 
-		var isErrorReult= !isPwd2Input || !isPwdEqual ;
-		
-		//아이디 상태 바꾸기 
-		setState("#pwd2", isErrorReult );
-		console.log("pwd2isErrorReult:"+isErrorReult);
-		
-		
-	});
 	
+		//pwd 입력 여부 검증
+		if(pwd.length == 0){
+			isPwdInput=false;
+			var isError=true;
+			//비밀번호 상태 바꾸기 
+			setState("#pwd", isError);
+		}else{
+			isPwdInput=true;
+			//비밀번호 형식에 맞게 입력 했는지 검증
+			if(pwd.match(pwdCheck)){ //비밀번호 형식에 맞게 입력했다면
+				isPwdMatch=true;
+			}else{//형식에 맞지 않다면
+				isPwdMatch=false;
+			}
+			
+			if(pwd != pwd2){//두 비밀번호를 동일하게 입력하지 않았다면
+				isPwdEqual=false;
+				
+			}else{
+				isPwdEqual=true;
+			}
+			var isError=!isPwdEqual || !isPwdMatch;
+			//비밀번호 상태 바꾸기 
+			setState("#pwd", isError);
+			setState("#pwd2", isError);
+		}
+	
+	});
+	$("#pwd, #pwd2").on("input", function(){
+		isPwd2Dirty=true;
+		setState("#pwd2", isError);
+	});
 	//아이디를 입력할때 실행할 함수 등록 
 	$("#id").on("input", function(){
 		isIdDirty=true;
@@ -390,9 +288,27 @@
 		//id 입력여부 검증
 		if(inputId.length == 0){
 			isIdInput=false;
+			isError=true;
+			setState("#id", isError );
 		}else{
 			isIdInput=true;
-		}
+			$.ajax({
+				url:"${pageContext.request.contextPath }/users/checkid.do",
+				method:"GET",
+				data:{inputId:inputId},
+				success:function(responseData){
+					if(responseData.isExist){//이미 존재하는 아이디라면 
+						isIdUsable=false;
+					}else{
+						isIdUsable=true;
+					}
+					
+					//아이디 에러 여부 
+					var isError= !isIdUsable || !isIdMatch ;
+					//아이디 상태 바꾸기 
+					setState("#id", isError );
+				}
+			});
 		
 		//아이디 형식에 맞게 입력 했는지 검증
 		if(inputId.match(idCheck)){//아이디 형식에 맞게 입력 했다면
@@ -401,41 +317,17 @@
 			isIdMatch=false;
 		}
 		
-		$.ajax({
-			url:"${pageContext.request.contextPath }/users/checkid.do",
-			method:"GET",
-			data:{inputId:inputId},
-			success:function(responseData){
-				if(responseData.isExist){//이미 존재하는 아이디라면 
-					isIdUsable=false;
-				}else{
-					isIdUsable=true;
-				}
-				
-				//아이디 에러 여부 
-				var isError1= !isIdUsable || !isIdInput ;
-				var isError2= !isIdUsable || !isIdMatch ;
-				
-				var isErrorReult= isError1 || isError2 ;
-				
-				//아이디 상태 바꾸기 
-				setState("#id", isErrorReult );
-			}
-		});
-
 		//아이디 에러 여부 
-		var isError1= !isIdUsable || !isIdInput ;
-		var isError2= !isIdUsable || !isIdMatch ;
-		
-		var isErrorReult= isError1 || isError2 ;
-		
+		var isError= !isIdUsable || !isIdMatch ;
 		//아이디 상태 바꾸기 
-		setState("#id", isErrorReult );
+		setState("#id", isError );
+		
+		}
 		
 	});
 	
 	//입력란의 상태를 바꾸는 함수 
-	function setState(sel, isErrorReult){
+	function setState(sel, isError){
 		//일단 UI 를 초기 상태로 바꿔준다.
 		$(sel)
 		.parent()
@@ -444,7 +336,7 @@
 		.hide();
 		
 		//입력란의 색상과 아이콘을 바꿔주는 작업 
-		if(isErrorReult){
+		if(isError){
 			//입력란이 error 인 상태
 			$(sel)
 			.parent()
@@ -476,18 +368,10 @@
 		if(!isPwdInput && isPwdDirty){ // pwd를 입력하지 않은 경우
 			$("#pwd_required").show();
 		}
-		
-		/* 
-			[pwd 확인 입력란 에러 메세지 조건]
-			1. pwd 확인란 입력하지 않고, pwd와 pwd2가 동일하게 입력되지 않은 경우
-		*/
-		if(isPwd2Input && !isPwdEqual){ //pwd와 pwd2가 동일하게 입력되지 않은 경우
+		if(!isPwdEqual && isPwd2Dirty && isPwdInput){ //pwd 같지 않은 경우
 			$("#pwd_notequal").show();
 		}
-		if(!isPwd2Input && isPwd2Dirty){ // pwd2를 입력하지 않은 경우
-			$("#pwd_required2").show();
-		}
-		
+	
 		//id 에러가 있다면 에러 메세지 띄우기
 		if(!isIdMatch && isIdDirty && isIdInput){ //id를 입력했는데 조건에 맞지 않는 경우
 			$("#id_notmatch").show();
@@ -498,7 +382,7 @@
 		if(!isIdInput && isIdDirty){ //id를 입력하지 않은 경우
 			$("#id_required").show();
 		}
-
+		
 		//버튼의 상태 바꾸기 
 		if(isIdUsable && isIdInput && isPwdEqual && 
 				isPwdInput && isPwdMatch && isPwd2Input && (!isEmailInput || isEmailMatch) ){
