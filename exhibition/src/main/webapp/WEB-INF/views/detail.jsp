@@ -292,7 +292,7 @@ img {
 													</c:choose>
 													<span>${tmp.writer }</span>
 													<c:if test="${tmp.num ne tmp.comment_group }">
-												 	<strong>${tmp.target_id }</strong>
+												 	to <strong>${tmp.target_id }</strong>
 													</c:if>
 													<span>${tmp.regdate }</span>
 												</dt>
@@ -450,17 +450,17 @@ img {
 	});
 	
 	//댓글 삭제를 눌렀을때 호출되는 함수
-	function deleteComment(seq){
+	function deleteComment(num){
 		var isDelete=confirm("확인을 누르면 댓글이 삭제 됩니다.");
 		if(isDelete){
 			//페이지 전환 없이 ajax 요청을 통해서 삭제하기
 			$.ajax({
 				url:"comment_delete.do",
 				method:"post",
-				data:{"seq":seq},
+				data:{"num":num},
 				success:function(responseData){
 					if(responseData.isSuccess){
-						location.href="${pageContext.request.contextPath}/list.do?seq=${dto.seq}";
+						location.href="${pageContext.request.contextPath}/detail.do?seq=${dto.seq}";
 					}
 				}
 			});
@@ -473,7 +473,7 @@ img {
 		var isLogin=${not empty id};
 		if(isLogin==false){
 			alert("로그인 페이지로 이동 합니다.");
-			location.href="${pageContext.request.contextPath}/users/loginform.do?url=${pageContext.request.contextPath}/list.do?seq=${dto.seq}";
+			location.href="${pageContext.request.contextPath}/users/loginform.do?url=${pageContext.request.contextPath}/detail.do?seq=${dto.seq}";
 			return false;//폼 전송 막기 
 		}
 	});
@@ -485,7 +485,7 @@ img {
 		if(isLogin==false){
 			var isMove=confirm("로그인 페이지로 이동하시겠습니까?");
 			if(isMove){
-				location.href="${pageContext.request.contextPath }/users/loginform.do?url=${pageContext.request.contextPath}/list.do?seq=${dto.seq}";
+				location.href="${pageContext.request.contextPath }/users/loginform.do?url=${pageContext.request.contextPath}/detail.do?seq=${dto.seq}";
 			}
 		}
 	});
