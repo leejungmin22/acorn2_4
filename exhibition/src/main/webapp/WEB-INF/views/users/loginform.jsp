@@ -4,72 +4,133 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>/users/loginform.jsp</title>
+<title>조이름 : 로그인</title>
 <jsp:include page="../include/resource.jsp"></jsp:include>
+<link rel="stylesheet" href="style.css">
 <style>
-	/* stylelint-disable selector-no-qualifying-type, property-no-vendor-prefix */
+	* {
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+	}
+	/*배경화면 화면에 꽉 채우기*/
+	body{
+		background: url(../resources/images/Star.png) no-repeat center center fixed;
+		-webkit-background-size: cover;
+		-moz-background-size: cover;
+		-o-background-size: cover;
+		background-size: cover;
+	}
+
+	.img-button{
+		background:url("../resources/images/HomeImg.png");
+		border:none;		
+		position: absolute;
+		top:50%;
+		left:50%;
+		width:230px;
+		height:230px;
+		margin:-380px 0px 200px -70px;			
+	}
+		
+	/*로그인창 크기,가운데 정렬*/
+	.form-signin{
+		width:380px;
+		height:420px;
+		position:absolute;
+		left:50%;
+		top:50%;
+		margin-left:-150px;
+		margin-top:-150px;
+		overflow:hidden;
+		background-color: #ffffff;
+        background-color: rgba( 255, 255, 255, 0.8 );
+		
+	}	
 	
-	body {
-	  padding-top: 40px;
-	  padding-bottom: 40px;
-	  background-color: #eee;
+	/*아이디, 비밀번호 입력*/
+	.input-field {
+		width: 100%;
+		padding: 10px 10px;
+		margin: 10px 10px 10px 10px;
+		border: none;
+		border-bottom: 1px solid #999;
+		outline: none;
+		background: transparent;
 	}
 	
-	.form-signin {
-	  max-width: 330px;
-	  padding: 15px;
-	  margin: 0 auto;
+	/*로그인 버튼*/
+	.submit{
+		width: 85%;
+		padding: 10px 30px;
+		cursor: pointer;
+		display: block;
+		margin: 180px 10px 50px 25px;
+		background: linear-gradient(to right, #ffde38, #1d4163);
+		border: 0;
+		outline: none;
+		border-radius: 30px;
+		zoom: 1;
+		filter: alpha(opacity=80); 
+		opacity: 0.8;
 	}
-	.form-signin .form-signin-heading,
-	.form-signin .checkbox {
-	  margin-bottom: 10px;
+		
+	.checkbox {
+		margin: 30px 10px 50px 110px;
+		color: #777;
+		font-size: 12px;
+		bottom: 68px;
+		position: absolute;
+		cursor: pointer;
 	}
-	.form-signin .checkbox {
-	  font-weight: 400;
+	
+	.signup {
+		height: 20px;
+		margin: 0 0 0 300px;
+		color: #777;
+		font-size: 12px;
+		color: #777;
+		cursor: pointer;
 	}
-	.form-signin .form-control {
-	  position: relative;
-	  -webkit-box-sizing: border-box;
-	  -moz-box-sizing: border-box;
-	  box-sizing: border-box;
-	  height: auto;
-	  padding: 10px;
-	  font-size: 16px;
-	}
-	.form-signin .form-control:focus {
-	  z-index: 2;
-	}
-	.form-signin input[type="email"] {
-	  margin-bottom: -1px;
-	  border-bottom-right-radius: 0;
-	  border-bottom-left-radius: 0;
-	}
-	.form-signin input[type="password"] {
-	  margin-bottom: 10px;
-	  border-top-left-radius: 0;
-	  border-top-right-radius: 0;
-	}
+
 </style>
+
 </head>
 <body>
-<div class="container">
-	<form class="form-signin" action="login.do" method="post">
-		<%-- 폼 제출할때 목적지 정보도 같이 보내준다. --%>
-		<input type="hidden" name="url" value="${url }" />
-		<h2 class="form-signin-heading">로그인 정보 입력</h2>
-		<label for="id" class="sr-only">아이디</label>
-		<input type="text" id="id" name="id" class="form-control" 
-			placeholder="아이디" value="${savedId }"/>
-		<label for="pwd" class="sr-only">비밀번호</label>
-		<input type="password" id="pwd" name="pwd" class="form-control" 
-			placeholder="비밀번호" value="${savedPwd }">
-		<div class="checkbox">
-			<label>
-				<input type="checkbox" name="isSave" value="yes"/>아이디, 비밀번호 저장
-			</label>
-		</div>
-		<button class="btn btn-lg btn-primary btn-block" type="submit">로그인</button>
-	</form>	
+
+<div class="wrap">
+	<div class="form-wrap">		
+			<!-- 차후 이미지 변경(홈페이지명으로) -->
+			<button class="img-button" id="button"></button>		
+		<form class="form-signin" action="login.do" method="post" onsubmit="return checkValue()">
+			<%-- 폼 제출할때 목적지 정보도 같이 보내준다. --%>
+			<input type="hidden" name="url" value="${url }" />
+		
+			<label for="id" class="sr-only">아이디</label>
+			<input type="text" id="id" name="id" class="input-field" 
+				placeholder="아이디입력" value="${savedId }">
+			
+			<label for="pwd"  class="sr-only">비밀번호</label>
+			<input type="password" id="pwd" name="pwd" class="input-field" 
+				placeholder="비밀번호입력" value="${savedPwd }">
+			<div class="checkbox">
+				<label>
+					<input type="checkbox" name="isSave" value="yes"/>아이디, 비밀번호 저장
+				</label>
+			</div>
+			<button class="submit">Login</button>
+			<div class="signup">
+				<a href="signup_form.do">회원가입</a>
+			</div>
+		</form>
+	</div>
 </div>
 </body>
+<script>
+
+
+$(".img-button").on("click", function(){
+	location.href="${pageContext.request.contextPath }/home.do";
+});
+</script>
 </html>

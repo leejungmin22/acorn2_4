@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>전시일정</title>
+<title>홈페이지명</title>
 <jsp:include page="include/resource.jsp" />
 <!-- fullcalendar -->
 <link rel='stylesheet' type='text/css' href='${pageContext.request.contextPath }/resources/css/fullcalendar/main.css'/>
@@ -27,13 +27,24 @@
 	
 </style>
 <style>
+body{
+	background-color:#82b0d1;
+}
+
+@import url(//fonts.googleapis.com/earlyaccess/nanumpenscript.css);
+	.form-group{
+		font-size:25px;
+		font-color:#FFFFFF;
+		font-family: 'Nanum Pen Script', cursive;
+	}
+	h3{
+		font-size:25px;
+		font-family: 'Nanum Pen Script', cursive;
+	}
+	
 	button{
 		vertical-align:middle;
-	}
-	button.form-text{
-		border: 1px solid #bcbcbc;
-		height: 25px;
-	}
+	}		
 	button.img-button{
 		background:url("resources/images/button_search.png") no-repeat;
 		border:none;
@@ -206,7 +217,10 @@ $(document).ready(function(){
 				<input class="form-control date" type="text" name="startDate" class="date" id="startDate" value="${startdate }" autocomplete="off" readonly/>
 				<span class="date">~</span>
 				<input class="form-control date" type="text" name="endDate" class="date" id="endDate" value="${enddate }" autocomplete="off" readonly/>
-				<button class="btn btn-primary" type="submit" disabled="disabled">검색</button>
+
+				<button class="img-button" type="submit"></button>
+
+
 			</div>
 		</form>
 	</div>

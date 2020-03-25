@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>조이름 : 가입확인</title>
 <jsp:include page="../include/resource.jsp" />
 </head>
 <body>

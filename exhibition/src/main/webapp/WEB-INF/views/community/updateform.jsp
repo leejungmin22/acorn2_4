@@ -24,8 +24,7 @@
 		</div>
 		<div class="form-group">
 			<label for="title">제목</label>
-			<input class="form-control" type="text" id="title" name="title" 
-				value="${dto.title }"/>
+			<input class="form-control" type="text" id="title" name="title" value="${dto.title }"/>
 		</div>
 		<div class="form-group">
 			<label for="content">내용</label>

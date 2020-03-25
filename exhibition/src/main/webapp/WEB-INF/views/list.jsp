@@ -5,9 +5,42 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>전체공연보기</title>
 <jsp:include page="include/resource.jsp" />
 <style type="text/css">
+@import url(//fonts.googleapis.com/earlyaccess/nanumpenscript.css);
+	p, .form-group{
+		font-size:20px;
+		font-family: 'Nanum Pen Script', cursive;
+	}
+	
+	button{
+		vertical-align:middle;
+	}
+	/*검색버튼*/
+	button.img-button{
+		background:url("resources/images/button_search.png") no-repeat;
+		border:none;
+		width:38px;
+		height:38px;
+		cursor:pointer
+	}
+	/*breadcrumb 색상변경*/
+	#bread{
+		background-color: #ffdd33;
+	}
+	/*표 색상 변경*/
+	.tr{
+		background-color: #FAEBD7;
+	}
+	
+	
+	/*thead 색상변경*/
+	/*
+	.title{
+		background-color: #4682B4;
+	}*/
+	
     .condition{
    		margin: 10px 0 20px 0;
     }
@@ -74,26 +107,8 @@
 </head>
 <body>
 <jsp:include page="include/navbar.jsp">
-	<jsp:param value="cafe" name="category"/>
+	<jsp:param value="list" name="category"/>
 </jsp:include>
-<div class="container">
-	<c:choose>
-		<c:when test="${not empty keyword or (not empty startdate and not empty enddate)}">
-			<p>
-				<c:if test="${encodedKeyword ne null }">
-					<strong>${keyword }</strong> 키워드로 검색된
-					<strong>${totalRow }</strong> 개의 공연/전시가 있습니다.
-				</c:if>
-				<c:if test="${startdate ne null and enddate ne null }">
-					<strong>${startdate }</strong>~<strong>${enddate }</strong> 에는
-					<strong>${totalRow }</strong> 개의 공연/전시가 있습니다.
-				</c:if>
-			</p>
-		</c:when>
-		<c:otherwise>
-			<p><strong>${totalRow }</strong> 개의 공연/전시가 있습니다.</p>
-		</c:otherwise>
-	</c:choose>
 	<h1>글 목록 입니다.</h1>
 	<div class="condition" align="right">
 		<form class="form-inline" action="list.do" method="get"> 
@@ -113,7 +128,9 @@
 			</div>
 		</form>
 	</div>
-	<table class="table table-striped table-condensed">
+
+	<table class="table table-hover">
+
 		<colgroup>
 			<col class="col-xs-6"/>
 			<col class="col-xs-1"/>
@@ -121,7 +138,7 @@
 			<col class="col-xs-3"/>
 		</colgroup>
 		<thead>
-			<tr>
+			<tr class="title">
 				<th>공연명 </th>
 				<th>좋아요</th>
 				<th>장소</th>
@@ -130,24 +147,25 @@
 		</thead>
 		<tbody>
 			<c:forEach var="tmp" items="${requestScope.list }">
-				<tr>
+				<tr class="tr">
 					<td>
 						<a href="detail.do?seq=${tmp.seq }">
 							${tmp.title }
 						</a>				
-					</td>
+					</td>				
 					<td>
 						<img class="heart" src="${pageContext.request.contextPath }/resources/images/red-heart.png" alt="" />
 						${tmp.likeCount }
-					</td>
+					</td>				
 					<td>${tmp.place }</td>
 					<td>${tmp.startdate } ~ ${tmp.enddate }</td>
 				</tr>
+				
 			</c:forEach>
 		</tbody>	
 	</table>
 	
-	<div class="page-display">
+	<div class="page-display" style="text-align: center;">
 		<ul class="pagination pagination-sm">
 			<c:choose>
 				<c:when test="${startPageNum ne 1 }">
@@ -231,7 +249,7 @@
 			</c:choose>
 		</ul>
 	</div>
-</div>
+
 <script>
 	//select 된 정보를 담을 변수
 	var value=$("#condition").val();

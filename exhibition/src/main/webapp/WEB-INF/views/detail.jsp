@@ -5,31 +5,38 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>${exhibitionDto.title }</title>
 <jsp:include page="include/resource.jsp" />
 
 <style>
+@import url(//fonts.googleapis.com/earlyaccess/nanumpenscript.css);
+@import url(//fonts.googleapis.com/earlyaccess/jejugothic.css);
+	
+	#bread{
+		background-color: #FAEBD7;
+	}
+	
+	h6{
+		font-size:16px;
+		font-family: 'Jeju Gothic', sans-serif;
+	}
 
-div {
-	border: 1px solid red;
-}
+	.row {
+		border: 1px solid blue;
+	}
 
-.row {
-	border: 1px solid blue;
-}
+	.row>div {
+		border: 1px dotted green;
+	}
 
-.row>div {
-	border: 1px dotted green;
-}
+	.poster {
+		max-width: 100%;
+		height: 560px;
+	}
 
-.poster {
-	max-width: 100%;
-	height: 560px;
-}
-
-img {
-	height: auto;
-}
+	img {
+		height: auto;
+	}
 
 /* 댓글 css */
 /* 글 내용을 출력할 div 에 적용할 css */
@@ -59,6 +66,8 @@ img {
 
 .comments form textarea, .comments form button {
 	float: left;
+	font-size:20px;
+	font-family: 'Nanum Pen Script', cursive;
 }
 
 .comments li {
@@ -73,6 +82,8 @@ img {
 .comments form button {
 	width: 15%;
 	height: 100px;
+	font-size:20px;
+	font-family: 'Nanum Pen Script', cursive;
 }
 /* 댓글에 댓글을 다는 폼과 수정폼을 일단 숨긴다. */
 .comment form {
@@ -81,6 +92,8 @@ img {
 
 .comment {
 	position: relative;
+	font-size:20px;
+	font-family: 'Nanum Pen Script', cursive;
 }
 
 .comment .reply_icon {
@@ -96,6 +109,12 @@ img {
 	height: 20px;
 	border-radius: 50%;
 }
+/*쓰여진 댓글창*/
+pre{
+	font-size:20px;
+	font-family: 'Nanum Pen Script', cursive;
+	background-color:#FFFFFF;
+}
 
 .heart{
 	width: 20px;
@@ -107,7 +126,10 @@ img {
 <body>
 	<jsp:include page="include/navbar.jsp"></jsp:include>
 	<div class="container">
-		<h3>${exhibitionDto.title }</h3>
+	<ol class="breadcrumb" id="bread">
+		<li><a href="${pageContext.request.contextPath }/list.do">목록</a></li>
+		<li>${exhibitionDto.title }</li>
+	</ol>		
 		<div class="row">
 			<div class="col-sm-4">
 				<img class="poster" src="${exhibitionDto.imgUrl }"alt="${exhibitionDto.title } 포스터">

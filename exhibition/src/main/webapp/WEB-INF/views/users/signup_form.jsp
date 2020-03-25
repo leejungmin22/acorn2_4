@@ -1,17 +1,88 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>/users/signup_form.jsp</title>
+<title>조이름 : 회원가입</title>
+<jsp:include page="../include/resource.jsp"></jsp:include>
+<link href="http://fonts.googleapis.com/earlyaccess/hanna.css" rel="stylesheet">
+<link href="http://fonts.googleapis.com/earlyaccess/nanumgothiccoding.css" rel="stylesheet">
+<link href="http://fonts.googleapis.com/earlyaccess/nanumpenscript.css" rel="stylesheet">
 <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/bootstrap.css" />
 <style>
 	/* 페이지 로딩 시점에 도움말과 피드백 아이콘은 일단 숨기기 */
-	.help-block, .form-control-feedback{
+	.danger, .form-control-feedback{
 		display: none;
 	}
+	.danger{
+		color:#FF0000;
+	}
+	
+	/*화면 가운데정렬*/
+	.condition{
+		width: 400px; 
+		position: absolute; 
+		left: 50%; 
+		margin-left: -250px;		
+	}
+	
+	#bread{
+		background-color: #FAEBD7;		
+	}
+	
+	#signupForm{
+		margin-top:40px;
+	}
+	
+	/*입력필드*/
+	.textbox{ 
+		border-radius: .5rem .5rem .5rem .5rem;
+		margin-top: 10px;
+		position:relative;
+		text-align: left;				
+		left: 0;	
+		color: #999; 
+		cursor: text;
+		width: 600px; /* 칸 너비 설정 */
+		height:40px; /*칸 높이*/
+		border: 2px solid #F5F5F5;		
+	}
+	
+	
+	/*가입버튼 #DEB887 #CD853F*/
+	.signup {
+    	width:500px;
+    	height:70px;
+    	font-size:30px;
+    	font-weight:bolder;
+    	background-color: #D2691E;
+    	margin-top: 0.8rem;
+    	cursor:pointer;
+    	letter-spacing: 0.4rem;
+    	color:#fff;
+    	border-radius: .5rem;  
+		position: absolute; 
+		left: 12%;
+		  	
+   	}
+	
+	/*성별*/
+	.textbox2 { 
+		border-radius: .5rem .5rem .5rem .5rem;
+		margin-top: 10px;
+		position:relative;
+		text-align: center;
+		width:100px;		
+		left: 0;
+		border: 2px solid #F5F5F5;
+		font-size: 15px;
+	}
+	
+	
 </style>
+<<<<<<< HEAD
 <script src="${pageContext.request.contextPath }/resources/js/jquery-3.3.1.js"></script>
 <script src="${pageContext.request.contextPath }/resources/js/bootstrap.js"></script>
 <!-- jQuery UI Datepicker -->
@@ -37,9 +108,13 @@
 	.ui-datepicker-calendar > tbody td.ui-datepicker-week-end:first-child a {color:#f00;}
 	.ui-datepicker-calendar > tbody td.ui-datepicker-week-end:last-child a {color:#00f;}
 </style>
+=======
+>>>>>>> refs/remotes/origin/seulji2
 </head>
 <body>
+<jsp:include page="../include/navbar.jsp"/>
 <div class="container">
+<<<<<<< HEAD
 	<h1>회원 가입 페이지</h1>
 	<form action="signup.do" method="post" id="signupForm" enctype="multipart/form-data">
 		<div class="form-group has-feedback">
@@ -99,6 +174,60 @@
 	</form>
 	
 	
+=======
+	<ol class="breadcrumb" id="bread">
+		<li><a href="${pageContext.request.contextPath }/community/comList.do">목록</a></li>
+		<li>회원가입</li>
+	</ol>
+	<div class="condition">
+		<form action="signup.do" method="post" id="signupForm">	
+			<div class="form-group has-feedback">
+				<label class="font" for="name">이름</label><br/>
+				<input class="textbox" type="text" id="name" name="name"/>
+			</div>
+			<div class="form-group has-feedback">
+				<label class="font" for="id">아이디</label><br/>
+				<input class="textbox" type="text" id="id" name="id"/>
+				<p class="danger" id="id_notusable">사용 불가능한 아이디 입니다.</p>
+				<p class="danger" id="id_required">필수 정보입니다.</p>
+				<span class="glyphicon glyphicon-remove form-control-feedback"></span>
+				<span class="glyphicon glyphicon-ok form-control-feedback"></span>
+			</div>
+			<div class="form-group has-feedback">
+				<label class="font" for="pwd">비밀번호</label><br/>
+				<input class="textbox" type="password" id="pwd" name="pwd"/>
+				<p class="danger" id="pwd_required">필수 정보입니다.</p>
+			
+			</div>
+			<div class="form-group">
+				<label class="font" for="pwd2">비밀번호 확인</label><br/>
+				<input class="textbox" type="password" id="pwd2" name="pwd2"/>
+				<p class="danger" id="pwd_notequal">비밀번호가 일치하지 않습니다.</p>
+				<span class="glyphicon glyphicon-remove form-control-feedback"></span>
+				<span class="glyphicon glyphicon-ok form-control-feedback"></span>
+			</div>
+			<div class="form-group has-feedback">
+				<label class="font" for="email">이메일</label><br/>
+				<input class="textbox" type="email" id="email" name="email" />
+				<p class="danger" id="email_notmatch">이메일 형식에 맞게 입력하세요</p>
+				<span class="glyphicon glyphicon-remove form-control-feedback"></span>
+				<span class="glyphicon glyphicon-ok form-control-feedback"></span>
+			</div>
+			<div class="form-group has-feedback">
+				<label class="font" for="birth">생년월일</label><br/>
+				<input class="textbox" type="text" id="birth" name="birth"/>
+			</div>
+			<div class="form-group has-feedback">
+				<label class="font" for="gender">성별</label><br/>
+				<select class="textbox2" name="gender" id="gender">
+					<option value="f">여</option>
+					<option value="m">남</option>
+				</select>
+			</div>
+			<button disabled="disabled" class="signup" type="submit">가 입 하 기</button>
+		</form>
+	</div>
+>>>>>>> refs/remotes/origin/seulji2
 </div>
 
 	
@@ -165,18 +294,34 @@
 		isPwdDirty=true;
 		
 		//입력한 비밀번호를 읽어온다.
+<<<<<<< HEAD
 		var pwd=$("#pwd").val();
 
 		//띄어쓰기 불가
 		var a=pwd.replace(/ /gi, '');
 		$("#pwd").val(a);
+=======
+		var pwd=$("#pwd2").val();
+		var pwd2=$("#pwd").val();
+>>>>>>> refs/remotes/origin/seulji2
 		
+<<<<<<< HEAD
 		//pwd 입력 여부 검증
 		if(pwd.length == 0){
+=======
+		if(pwd2 != pwd){//두 비밀번호를 동일하게 입력하지 않았다면
+			isPwdEqual=false;
+		}else{
+			isPwdEqual=true;
+		}
+		//isPwdEqual = pwd != pwd2 ? false : true;
+		if(pwd2.length == 0){
+>>>>>>> refs/remotes/origin/seulji2
 			isPwdInput=false;
 		}else{
 			isPwdInput=true;
 		}
+<<<<<<< HEAD
 		
 		//비밀번호 형식에 맞게 입력 했는지 검증
 		if(pwd.match(pwdCheck)){ //비밀번호 형식에 맞게 입력했다면
@@ -191,6 +336,12 @@
 		//아이디 상태 바꾸기 
 		setState("#pwd", isErrorReult );
 		
+=======
+		//비밀번호 에러 여부 
+		var isError=!isPwdInput || !isPwdEqual;
+		//비밀번호 상태 바꾸기 
+		setState("#pwd2", isError);
+>>>>>>> refs/remotes/origin/seulji2
 	});
 	
 	//비밀번호를 입력할때 실행할 함수 등록
@@ -289,7 +440,7 @@
 		$(sel)
 		.parent()
 		.removeClass("has-success has-error")
-		.find(".help-block, .form-control-feedback")
+		.find(".danger, .form-control-feedback")
 		.hide();
 		
 		//입력란의 색상과 아이콘을 바꿔주는 작업 

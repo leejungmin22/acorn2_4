@@ -6,3 +6,27 @@
 <%-- 필요한 javascript 로딩하기 --%>
 <script src="${pageContext.request.contextPath }/resources/js/jquery-3.3.1.js"></script>
 <script src="${pageContext.request.contextPath }/resources/js/bootstrap.js"></script>
+<style>
+@import url(//fonts.googleapis.com/earlyaccess/nanumpenscript.css);
+	#one{
+		font-size:20px;
+		font-family: 'Nanum Pen Script', cursive;
+		background-color: #ffefa1;		
+	}
+	
+	li{
+		font-size:20px;
+		font-family: 'Nanum Pen Script', cursive;
+		background-color: #ffefa1;
+	}
+		
+	#two{
+		font-size:20px;
+		font-family: 'Nanum Pen Script', cursive;
+		background-color: #ffefa1;
+	}
+	
+	#footer{
+		background-color: #ffefa1;
+	}
+</style>

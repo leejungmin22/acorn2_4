@@ -28,6 +28,7 @@ import com.acorn.exhibition.users.service.UsersService;
 
 @Controller
 public class UsersController {
+
 	@Autowired
 	private UsersService service;
 	
@@ -215,3 +216,4 @@ public class UsersController {
 			return mView;
 		}
 	}
+     

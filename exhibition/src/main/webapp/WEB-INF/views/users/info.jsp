@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>/users/info.jsp</title>
+<title>조이름 : 개인정보페이지</title>
 <jsp:include page="../include/resource.jsp"></jsp:include>
 <style>
 	/* 프로필 이미지가 가로 세로 50px 인 원형으로 표시 될수 있도록  */
