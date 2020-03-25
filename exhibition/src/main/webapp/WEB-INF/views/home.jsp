@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>전시일정</title>
+<title>홈페이지명</title>
 <jsp:include page="include/resource.jsp" />
 <!-- fullcalendar -->
 <link rel='stylesheet' type='text/css' href='${pageContext.request.contextPath }/resources/css/fullcalendar/main.css'/>
@@ -24,9 +24,14 @@
 	
 </style>
 <style>
+body{
+	background-color:#82b0d1;
+}
+
 @import url(//fonts.googleapis.com/earlyaccess/nanumpenscript.css);
 	.form-group{
 		font-size:25px;
+		font-color:#FFFFFF;
 		font-family: 'Nanum Pen Script', cursive;
 	}
 	h3{

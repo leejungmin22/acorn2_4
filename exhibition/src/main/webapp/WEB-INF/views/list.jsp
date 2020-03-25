@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>전체공연보기</title>
 <jsp:include page="include/resource.jsp" />
 <style>
 @import url(//fonts.googleapis.com/earlyaccess/nanumpenscript.css);
@@ -17,6 +17,7 @@
 	button{
 		vertical-align:middle;
 	}
+	/*검색버튼*/
 	button.img-button{
 		background:url("resources/images/button_search.png") no-repeat;
 		border:none;
@@ -24,14 +25,18 @@
 		height:38px;
 		cursor:pointer
 	}
-	
+	/*breadcrumb 색상변경*/
 	#bread{
+		background-color: #ffdd33;
+	}
+	/*표 색상 변경*/
+	.tr{
 		background-color: #FAEBD7;
 	}
 	
-	/*.detail{
-		background-color: #BDB76B;
-	}
+	
+	/*thead 색상변경*/
+	/*
 	.title{
 		background-color: #4682B4;
 	}*/
@@ -106,7 +111,7 @@
 		</thead>
 		<tbody>
 			<c:forEach var="tmp" items="${requestScope.list }">
-				<tr class="detail">
+				<tr class="tr">
 					<td>
 						<a href="detail.do?seq=${tmp.seq }">
 							${tmp.title }

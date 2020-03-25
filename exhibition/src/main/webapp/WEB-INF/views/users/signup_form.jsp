@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>/users/signup_form.jsp</title>
+<title>조이름 : 회원가입</title>
 <jsp:include page="../include/resource.jsp"></jsp:include>
 <link href="http://fonts.googleapis.com/earlyaccess/hanna.css" rel="stylesheet">
 <link href="http://fonts.googleapis.com/earlyaccess/nanumgothiccoding.css" rel="stylesheet">

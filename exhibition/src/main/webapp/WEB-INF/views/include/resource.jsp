@@ -11,24 +11,22 @@
 	#one{
 		font-size:20px;
 		font-family: 'Nanum Pen Script', cursive;
-		background-color: #DEB887;		
+		background-color: #ffefa1;		
 	}
 	
 	li{
 		font-size:20px;
 		font-family: 'Nanum Pen Script', cursive;
-		background-color: #FAEBD7;
+		background-color: #ffefa1;
 	}
-	
-	
-	
-	
+		
 	#two{
 		font-size:20px;
 		font-family: 'Nanum Pen Script', cursive;
-		background-color: #FAEBD7;
+		background-color: #ffefa1;
 	}
+	
 	#footer{
-		background-color: #FAEBD7;
+		background-color: #ffefa1;
 	}
 </style>

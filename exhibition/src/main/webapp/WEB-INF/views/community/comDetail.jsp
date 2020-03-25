@@ -15,6 +15,9 @@
 		border: 1px dotted #cecece;
 		box-shadow: 3px 3px 5px 6px #ccc;
 	}
+	#bread{
+		background-color: #FAEBD7;
+	}
 </style>
 </head>
 <body>
@@ -22,7 +25,7 @@
 	<jsp:param value="community" name="category"/>
 </jsp:include>
 <div class="container">
-	<ol class="breadcrumb">
+	<ol class="breadcrumb" id="bread">
 		<li><a href="${pageContext.request.contextPath }/community/comList.do">목록</a></li>
 		<li>글 상세 보기</li>
 	</ol>

@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>/users/loginform.jsp</title>
+<title>조이름 : 로그인</title>
 <jsp:include page="../include/resource.jsp"></jsp:include>
 <link rel="stylesheet" href="style.css">
 <style>
@@ -66,7 +66,7 @@
 		cursor: pointer;
 		display: block;
 		margin: 180px 10px 50px 25px;
-		background: linear-gradient(to right, #ffD700, #4682B4);
+		background: linear-gradient(to right, #ffde38, #1d4163);
 		border: 0;
 		outline: none;
 		border-radius: 30px;
@@ -102,7 +102,7 @@
 	<div class="form-wrap">		
 			<!-- 차후 이미지 변경(홈페이지명으로) -->
 			<button class="img-button" id="button"></button>		
-		<form class="form-signin" action="login.do" method="post">
+		<form class="form-signin" action="login.do" method="post" onsubmit="return checkValue()">
 			<%-- 폼 제출할때 목적지 정보도 같이 보내준다. --%>
 			<input type="hidden" name="url" value="${url }" />
 		
@@ -123,11 +123,12 @@
 				<a href="signup_form.do">회원가입</a>
 			</div>
 		</form>
-		
 	</div>
 </div>
 </body>
 <script>
+
+
 $(".img-button").on("click", function(){
 	location.href="${pageContext.request.contextPath }/home.do";
 });

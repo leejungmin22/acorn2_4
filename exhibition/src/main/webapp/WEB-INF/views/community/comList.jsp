@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>/community/comList.jsp</title>
+<title>자유게시판</title>
 <jsp:include page="../include/resource.jsp"></jsp:include>
 <style>
 @import url(//fonts.googleapis.com/earlyaccess/nanumpenscript.css);
@@ -22,7 +22,7 @@
 		border:none;
 		width:38px;
 		height:38px;
-		cursor:pointer
+		cursor:pointer;
 	}
 	
 	#bread{

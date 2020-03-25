@@ -5,21 +5,15 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>${exhibitionDto.title }</title>
 <jsp:include page="include/resource.jsp" />
 
 <style>
 @import url(//fonts.googleapis.com/earlyaccess/nanumpenscript.css);
 @import url(//fonts.googleapis.com/earlyaccess/jejugothic.css);
-	li{
-		font-size:25px;
-		font-family: 'Nanum Pen Script', cursive;
-	}	
-
-	div {
-		border: 1px solid red;
-		font-size:15px;
-		font-family: 'Jeju Gothic', sans-serif;
+	
+	#bread{
+		background-color: #FAEBD7;
 	}
 	
 	h6{
@@ -115,9 +109,11 @@
 	height: 20px;
 	border-radius: 50%;
 }
+/*쓰여진 댓글창*/
 pre{
 	font-size:20px;
 	font-family: 'Nanum Pen Script', cursive;
+	background-color:#FFFFFF;
 }
 
 .heart{
@@ -130,7 +126,7 @@ pre{
 <body>
 	<jsp:include page="include/navbar.jsp"></jsp:include>
 	<div class="container">
-	<ol class="breadcrumb">
+	<ol class="breadcrumb" id="bread">
 		<li><a href="${pageContext.request.contextPath }/list.do">목록</a></li>
 		<li>${exhibitionDto.title }</li>
 	</ol>		
