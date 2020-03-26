@@ -93,7 +93,7 @@
 		//{savedPath:"/upload/저장된이미지파일명"}
 		//savedPath 라는 방에 저장된 이미지의 경로가 들어 있다.
 		console.log(responseData);
-		var src="${pageContext.request.contextPath }"+responseData.savedPath;
+		var src="${pageContext.request.contextPath }"+responseData.savePath;
 		// img 의 src 속성에 반영함으로써 이미지가 업데이트 되도록 한다.
 		$("#profileLink img").attr("src", src);
 	});

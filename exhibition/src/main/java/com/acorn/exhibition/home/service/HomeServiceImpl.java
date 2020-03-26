@@ -2,6 +2,7 @@ package com.acorn.exhibition.home.service;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Service;
 import com.acorn.exhibition.comment.dao.CommentDao;
 import com.acorn.exhibition.home.dao.HomeDao;
 import com.acorn.exhibition.home.dto.ApiDto;
+import com.acorn.exhibition.home.dto.Com_LikeDto;
 import com.acorn.exhibition.home.dto.CommentDto;
 import com.acorn.exhibition.home.dto.FullCalendarDto;
 
@@ -100,18 +102,38 @@ public class HomeServiceImpl implements HomeService{
 		
 		//1. DB 에서 댓글 목록을 얻어온다.
 		List<CommentDto> commentList=commentDao.getList(dto);
-
+		List<Com_LikeDto> comLikeList=new ArrayList<Com_LikeDto>();
+		
 		//좋아요
 		String ExhibitionLikeId=null;
 		String CommentLikeId=null;
 		
+		boolean isCommentLikeId=false;
 		if(id!=null) {
-			LikeDto likeDto=new LikeDto(seq, id);
-			ExhibitionLikeId=dao.getExhibitionLikeId(likeDto);
-
-		}
+		     LikeDto likeDto=new LikeDto(seq, id);
+		     ExhibitionLikeId=dao.getExhibitionLikeId(likeDto);
+		     
+		     for(int i=0;i<commentList.size();i++) {
+				CommentDto commentDto = commentList.get(i);
+				int num = commentDto.getNum();
+				Com_LikeDto comLikeDto = new Com_LikeDto(id,num);
+				CommentLikeId=commentDao.getCommentLikeId(comLikeDto);
+				if(id.equals(CommentLikeId)) {
+				   isCommentLikeId = true;
+				   comLikeDto.setIsCommentLikeId(isCommentLikeId);
+				  
+				}else {
+				   isCommentLikeId = false;
+				   comLikeDto.setIsCommentLikeId(isCommentLikeId);
+				}
+				comLikeList.add(comLikeDto);
+			 }//for end
+		}//if end
+		      
+		
+		request.setAttribute("comLikeList", comLikeList);
 		request.setAttribute("ExhibitionLikeId", ExhibitionLikeId);
-		request.setAttribute("CommentLikeId", CommentLikeId);
+		
 		
 		FullCalendarDto tmp=dao.getData(seq);
 		dto.setLikeCount(tmp.getLikeCount());
@@ -141,15 +163,34 @@ public class HomeServiceImpl implements HomeService{
 		//검색과 관련된 파라미터를 읽어와 본다.
 		String keyword=request.getParameter("keyword");
 		String condition=request.getParameter("condition");
+		String startdate=request.getParameter("startDate");
+		String enddate=request.getParameter("endDate");
+		String startdateFormat="";
+		String enddateFormat="";
+		
+		if(startdate!=null && startdate!=null){
+			String[] startdateArr=startdate.split("-");
+			String[] enddateArr=enddate.split("-");
+			
+			for(int i=0; i<startdateArr.length; i++) {
+				startdateFormat+=startdateArr[i];
+			}
+			
+			for(int i=0; i<enddateArr.length; i++) {
+				enddateFormat+=enddateArr[i];
+			}
+			
+		}
 		
 		FullCalendarDto dto=new FullCalendarDto();
-		if(keyword!=null) {
-			if(condition.equals("seq")) {//공연번호
-				dto.setSeq(Integer.parseInt(keyword));
-			}else if (condition.equals("title")) {//제목 검색
+		if(keyword!=null || (startdate!=null && startdate!=null)) {
+			if (condition.equals("title")) {//제목 검색
 				dto.setTitle(keyword);
 			}else if (condition.equals("place")) {//장소 검색
 				dto.setPlace(keyword);
+			}else if (condition.equals("date")) {//기간 검색
+				dto.setStartdate(startdateFormat);
+				dto.setEnddate(enddateFormat);
 			}
 			
 			/*
@@ -158,19 +199,27 @@ public class HomeServiceImpl implements HomeService{
 			 *  request 에 담아준다.
 			 */
 			String encodedKeyword=null;
-			try {
-				encodedKeyword=URLEncoder.encode(keyword, "utf-8");
-			} catch (UnsupportedEncodingException e) {
-				e.printStackTrace();
+			if(keyword!=null) {
+				try {
+					encodedKeyword=URLEncoder.encode(keyword, "utf-8");
+				} catch (UnsupportedEncodingException e) {
+					e.printStackTrace();
+				}
 			}
-			
+
 			//키워드와 검색조건을 request 에 담는다. 
 			request.setAttribute("keyword", keyword);
 			request.setAttribute("encodedKeyword", encodedKeyword);
 			request.setAttribute("condition", condition);
-		}
+			request.setAttribute("startdate", startdate);
+			request.setAttribute("enddate", enddate);
+			request.setAttribute("startdateFormat", startdateFormat);
+			request.setAttribute("enddateFormat", enddateFormat);
+
+		}//if end
+		
 		//한 페이지에 나타낼 row 의 갯수
-		final int PAGE_ROW_COUNT=5;
+		final int PAGE_ROW_COUNT=10;
 		//하단 디스플레이 페이지 갯수
 		final int PAGE_DISPLAY_COUNT=5;
 		
@@ -259,9 +308,8 @@ public class HomeServiceImpl implements HomeService{
 			//exhibition_likecount 테이블에서 like 개수를 하나 더해준다.
 			boolean result2=dao.addLikeCount(dto);
 			likeCount=dao.getData(seq).getLikeCount();
-
+			
 			if(result1 && result2) {
-				
 				map.put("isSuccess", true);
 				map.put("likecount", likeCount);
 				return map;
@@ -273,6 +321,5 @@ public class HomeServiceImpl implements HomeService{
 		}//if end
 		
 	}//updateLikeCount() end
-
 
 }

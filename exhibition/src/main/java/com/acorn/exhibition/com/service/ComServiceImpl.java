@@ -79,6 +79,7 @@ public class ComServiceImpl implements ComService{
 		if(totalPageCount<endPageNum) {
 			endPageNum=totalPageCount;
 		}
+	
 		dto.setStartRowNum(startRowNum);
 		dto.setEndRowNum(endRowNum);
 		
@@ -147,8 +148,10 @@ public class ComServiceImpl implements ComService{
 	@Override
 	public void deleteContent(int num, HttpServletRequest request) {
 		String id=(String)request.getSession().getAttribute("id");
+		String admin = (String)request.getSession().getAttribute("admin");
 		String writer=comDao.getData(num).getWriter();
-		if(!id.equals(writer)) {
+		// admin
+		if(!id.equals(writer) || !admin.equals("1")) {
 			
 		}
 		comDao.delete(num);
