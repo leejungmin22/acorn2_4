@@ -78,6 +78,7 @@ body{
 		           success: 
 		        	   function(result) {
 			               var events = [];
+			              
 			               if(result!=null){
 				            	   $.each(result, function(index, element) {
 			            		   var enddate=element.enddate;
@@ -88,7 +89,7 @@ body{
 									var startdate=moment(element.startdate).format('YYYY-MM-DD');
 									var enddate=moment(enddate).format('YYYY-MM-DD');
 									   
-									events.push({
+									events.push({										
 				                       title: element.title,
 				                       start: startdate,
 				                       end: enddate,
@@ -101,7 +102,7 @@ body{
 			               
 			               successCallback(events);	
 			           }//success: function end
-		          
+		         
 		       }); //ajax end
 
 		}//events:function end

@@ -49,7 +49,10 @@
 		height:40px; /*칸 높이*/
 		border: 2px solid #F5F5F5;		
 	}
-	
+	.form-control-feedback{
+		position:relative;
+		left:550px;	
+	}
 	
 	/*가입버튼 #DEB887 #CD853F*/
 	.signup {
@@ -99,30 +102,32 @@
 			<div class="form-group has-feedback">
 				<label class="font" for="id">아이디</label><br/>
 				<input class="textbox" type="text" id="id" name="id"/>
-				<p class="danger" id="id_notusable">사용 불가능한 아이디 입니다.</p>
-				<p class="danger" id="id_required">필수 정보입니다.</p>
-				<span class="glyphicon glyphicon-remove form-control-feedback"></span>
-				<span class="glyphicon glyphicon-ok form-control-feedback"></span>
+					<span class="glyphicon glyphicon-remove form-control-feedback"></span>
+					<span class="glyphicon glyphicon-ok form-control-feedback"></span>
+				<p class="danger" id="id_notusable">사용 불가능한 아이디 입니다.</p>				
+				<p class="danger" id="id_required">필수 정보입니다.</p>								
 			</div>
 			<div class="form-group has-feedback">
 				<label class="font" for="pwd">비밀번호</label><br/>
 				<input class="textbox" type="password" id="pwd" name="pwd"/>
-				<p class="danger" id="pwd_required">필수 정보입니다.</p>
-			
+					<span class="glyphicon glyphicon-remove form-control-feedback"></span>
+					<span class="glyphicon glyphicon-ok form-control-feedback"></span>
+				<p class="danger" id="pwd_required">필수 정보입니다.</p>			
 			</div>
 			<div class="form-group">
 				<label class="font" for="pwd2">비밀번호 확인</label><br/>
 				<input class="textbox" type="password" id="pwd2" name="pwd2"/>
+					<span class="glyphicon glyphicon-remove form-control-feedback"></span>
+					<span class="glyphicon glyphicon-ok form-control-feedback"></span>
 				<p class="danger" id="pwd_notequal">비밀번호가 일치하지 않습니다.</p>
-				<span class="glyphicon glyphicon-remove form-control-feedback"></span>
-				<span class="glyphicon glyphicon-ok form-control-feedback"></span>
+								
 			</div>
 			<div class="form-group has-feedback">
 				<label class="font" for="email">이메일</label><br/>
-				<input class="textbox" type="email" id="email" name="email" />
-				<p class="danger" id="email_notmatch">이메일 형식에 맞게 입력하세요</p>
-				<span class="glyphicon glyphicon-remove form-control-feedback"></span>
-				<span class="glyphicon glyphicon-ok form-control-feedback"></span>
+				<input class="textbox" type="email" id="email" name="email"/>
+					<span class="glyphicon glyphicon-remove form-control-feedback"></span>
+					<span class="glyphicon glyphicon-ok form-control-feedback"></span>
+				<p class="danger" id="email_notmatch">이메일 형식에 맞게 입력하세요</p>								
 			</div>
 			<div class="form-group has-feedback">
 				<label class="font" for="birth">생년월일</label><br/>
