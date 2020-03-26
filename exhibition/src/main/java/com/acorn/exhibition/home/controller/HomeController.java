@@ -161,7 +161,6 @@ public class HomeController {
 	@RequestMapping(value = "/detail")
 	public String detail(HttpServletRequest request, @RequestParam int seq) {
 		service.getData(request);
-		
 		return "detail";
 	}
 	@RequestMapping("/list")

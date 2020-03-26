@@ -99,37 +99,28 @@
 		//이벤트를 클릭하면 요청 주소를 받아와서 ajax로 요청을 보내고 dtail page의 내용의 JSON 문자열로 전달한다.(bridge 사용)
 		eventClick: function showAndroidToast(toast) {
 			toast.jsEvent.preventDefault();
-			console.log(toast);
+			// seq 번호 갖고 오기
+			var search=toast.el.search;
+			var seq=search.substr(5,6);
 			//mobile 접속인지 pc 접속인지 검증
 			var filter = "win16|win32|win64|mac|macintel"; 
 			if ( navigator.platform ) { 
 				if ( filter.indexOf( navigator.platform.toLowerCase() ) < 0 ) {
 					//1.mobile 에서 접속했으면
-					if(typeof Android !== "undefined" && Android !== null) {
-						//Android.showToast("mobile 접속");
-						Android.showToast(toast.jsEvent.type);
-						//1-1.ajax로 detail 페이지의 내용을 갖고오고
-						$(this).on(toast.jsEvent.type, function(){
-							$.ajax({
-								url:toast.el.href,
-								method:"post",
-								data:{"seq":${dto.seq}}, //data : 파라미터로 전달할 문자열 
-								dataType:"json",
-								success:function(responseData){
-									console.log(responseData);
-									Android.showToast(responseData);
-								}
-							});
-						 });
-			        	
-			        } else {
-			            alert("Not viewing in webview");
-			        }
-					
+					//1-1.ajax로 detail 페이지의 내용을 갖고오고
+					$.ajax({
+						url:"android/detail.do",
+						method:"get",
+						data:{"seq":seq}, //158709
+						dataType:"json",
+						success:function(responseData){
+							Android.showToast(JSON.stringify(responseData));
+						}
+					});
+
 				} else { 
 					//2. pc 에서 접속했으면(새로운 창에서 detail 페이지로 이동)
 					window.open(toast.el.href);
-					alert("pc 접속");
 				} 
 				
 			}//if ( navigator.platform ) end
