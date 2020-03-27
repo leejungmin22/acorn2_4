@@ -16,7 +16,7 @@ public class AndroidController {
 	
 	@ResponseBody
 	@RequestMapping("/android/detail")
-	public Map<String, String> detail(@RequestParam int seq) {
+	public Map<String, Object> detail(@RequestParam int seq) {
 		return service.getData(seq);
 	}
 	

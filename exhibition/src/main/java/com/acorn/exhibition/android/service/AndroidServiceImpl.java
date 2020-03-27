@@ -12,10 +12,10 @@ import com.acorn.exhibition.home.service.XmlParsing;
 public class AndroidServiceImpl implements AndroidService{
 
 	@Override
-	public Map<String, String> getData(int seq) {
+	public Map<String, Object> getData(int seq) {
 		ApiDto apiDto = XmlParsing.getData(seq);
 		
-		Map<String, String> map=new HashMap<String, String>();
+		Map<String, Object> map=new HashMap<String, Object>();
 		map.put("seq", Integer.toString(apiDto.getSeq()));
 		map.put("title", apiDto.getTitle());
 		map.put("startDate",apiDto.getStartDate());
