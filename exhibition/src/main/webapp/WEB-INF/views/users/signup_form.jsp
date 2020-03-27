@@ -117,57 +117,6 @@
 		<li>회원가입</li>
 	</ol>
  	<div class="condition"> 
-<!-- 		<form action="signup.do" method="post" id="signupForm">	 -->
-<!-- 			<div class="form-group has-feedback"> -->
-<!-- 				<label class="font" for="name">이름</label><br/> -->
-<!-- 				<input class="textbox" type="text" id="name" name="name"/> -->
-<!-- 			</div> -->
-<!-- 			<div class="form-group has-feedback"> -->
-<!-- 			<label class="control-label" for="profileLink">프로필 이미지</label> -->
-<!-- 			<input type="file" id="profileImage" name="profileImage" accept=".jpg, .jpeg, .png, .JPG, .JPEG, .PNG">		 -->
-<!-- 		</div> -->
-<!-- 			<div class="form-group has-feedback"> -->
-<!-- 				<label class="font" for="id">아이디</label><br/> -->
-<!-- 				<input class="textbox" type="text" id="id" name="id"/> -->
-<!-- 				<p class="danger" id="id_notusable">사용 불가능한 아이디 입니다.</p> -->
-<!-- 				<p class="danger" id="id_required">필수 정보입니다.</p> -->
-<!-- 				<span class="glyphicon glyphicon-remove form-control-feedback"></span> -->
-<!-- 				<span class="glyphicon glyphicon-ok form-control-feedback"></span> -->
-<!-- 			</div> -->
-<!-- 			<div class="form-group has-feedback"> -->
-<!-- 				<label class="font" for="pwd">비밀번호</label><br/> -->
-<!-- 				<input class="textbox" type="password" id="pwd" name="pwd"/> -->
-<!-- 				<p class="danger" id="pwd_required">필수 정보입니다.</p> -->
-<!-- 				<p class="danger" id="pwd_notmatch">비밀번호는 영어, 특수문자를 포함하여 8~15자리로 입력해야합니다.</p> -->
-<!-- 				<span class="glyphicon glyphicon-remove form-control-feedback"></span> -->
-<!-- 				<span class="glyphicon glyphicon-ok form-control-feedback"></span> -->
-<!-- 			</div> -->
-<!-- 			<div class="form-group has-feedback"> -->
-<!-- 				<label class="font" for="pwd2">비밀번호 확인</label><br/> -->
-<!-- 				<input class="textbox" type="password" id="pwd2" name="pwd2"/> -->
-<!-- 				<p class="danger" id="pwd2_required">필수 정보입니다.</p> -->
-<!-- 				<p class="danger" id="pwd2_notequal">비밀번호가 일치하지 않습니다.</p> -->
-<!-- 				<span class="glyphicon glyphicon-remove form-control-feedback"></span> -->
-<!-- 				<span class="glyphicon glyphicon-ok form-control-feedback"></span> -->
-<!-- 			</div> -->
-<!-- 			<div class="form-group has-feedback"> -->
-<!-- 				<label class="font" for="email">이메일</label><br/> -->
-<!-- 				<input class="textbox" type="email" id="email" name="email" /> -->
-<!-- 				<p class="danger" id="email_notmatch">이메일 형식에 맞게 입력하세요</p> -->
-<!-- 				<span class="glyphicon glyphicon-remove form-control-feedback"></span> -->
-<!-- 				<span class="glyphicon glyphicon-ok form-control-feedback"></span> -->
-<!-- 			</div> -->
-<!-- 			<div class="form-group has-feedback"> -->
-<!-- 				<label class="font" for="birth">생년월일</label><br/> -->
-<!-- 				<input class="textbox" type="text" id="birth" name="birth"/> -->
-<!-- 			</div> -->
-<!-- 			<div class="form-group has-feedback"> -->
-<!-- 				<label class="font" for="gender">성별</label><br/> -->
-<!-- 				<select class="textbox2" name="gender" id="gender"> -->
-<!-- 					<option value="f">여</option> -->
-<!-- 					<option value="m">남</option> -->
-<!-- 				</select> -->
-<!-- 			</div> -->
 	<form action="signup.do" method="post" id="signupForm" enctype="multipart/form-data">
 		<div class="form-group has-feedback"> 
 			<label class="control-label" for="name">이름</label><br/>
