@@ -145,8 +145,8 @@
 			<div class="form-group">
 				<label class="font" for="pwd2">비밀번호 확인</label><br/>
 				<input class="textbox" type="password" id="pwd2" name="pwd2"/>
-				<p class="danger" id="pwd_required">필수 정보입니다.</p>
-				<p class="danger" id="pwd_notequal">비밀번호가 일치하지 않습니다.</p>
+				<p class="danger" id="pwd2_required">필수 정보입니다.</p>
+				<p class="danger" id="pwd2_notequal">비밀번호가 일치하지 않습니다.</p>
 				<span class="glyphicon glyphicon-remove form-control-feedback"></span>
 				<span class="glyphicon glyphicon-ok form-control-feedback"></span>
 			</div>
@@ -230,18 +230,14 @@
 	});
 	
 	//비밀번호를 입력할때 실행할 함수 등록
-	$("#pwd, #pwd2").on("input", function(){
+	$("#pwd").on("input", function(){
 		//상태값을 바꿔준다. 
 		isPwdDirty=true;
 		
-		//입력한 비밀번호를 읽어온다.
-		var pwd=$("#pwd").val();
-		var pwd2=$("#pwd2").val();
 		//띄어쓰기 불가
 		var a=pwd.replace(/ /gi, '');
-		var b=pwd2.replace(/ /gi, '');
+	
 		$("#pwd").val(a);
-		$("#pwd2").val(b);
 	
 		//pwd 입력 여부 검증
 		if(pwd.length == 0){
@@ -257,6 +253,31 @@
 			}else{//형식에 맞지 않다면
 				isPwdMatch=false;
 			}
+			var isError=!isPwdMatch && isPwdInput;
+			//비밀번호 상태 바꾸기 
+			setState("#pwd", isError);
+		}
+	
+	});
+	
+	$("#pwd2").on("input", function(){
+		
+		isPwd2Dirty=true; //입력이 한번이라도 되었을 경우
+
+		//입력한 비밀번호를 읽어온다.
+		var pwd=$("#pwd").val();
+		var pwd2=$("#pwd2").val();
+		var b=pwd2.replace(/ /gi, '');
+		
+		$("#pwd2").val(b);
+		
+		//pwd 입력 여부 검증
+		if(pwd2.length == 0){
+			isPwd2Input=false;
+			var isError=true;
+			setState("#pwd2", isError);
+		}else{
+			isPwd2Input=true;
 			
 			if(pwd != pwd2){//두 비밀번호를 동일하게 입력하지 않았다면
 				isPwdEqual=false;
@@ -264,17 +285,13 @@
 			}else{
 				isPwdEqual=true;
 			}
-			var isError=!isPwdEqual || !isPwdMatch;
-			//비밀번호 상태 바꾸기 
-			setState("#pwd", isError);
+			
+			var isError=!isPwdEqual || isPwdInput ;
 			setState("#pwd2", isError);
 		}
+		
+	});
 	
-	});
-	$("#pwd, #pwd2").on("input", function(){
-		isPwd2Dirty=true;
-		setState("#pwd2", isError);
-	});
 	//아이디를 입력할때 실행할 함수 등록 
 	$("#id").on("input", function(){
 		isIdDirty=true;
@@ -361,6 +378,8 @@
 			[pwd 입력란 에러 메세지 조건]
  			1. pwd를 입력 했는데 조건에 맞지 않은 경우
  			2. pwd를 입력하지 않은 경우 
+ 			3. pwd2를 입력하지 않은 경우
+ 			4. pwd2를 입력했는데 같지 않은 경우
 		*/
 		if(!isPwdMatch && isPwdDirty && isPwdInput){ //pwd를 입력 했는데 조건에 맞지 않는 경우
 			$("#pwd_notmatch").show();
@@ -368,8 +387,11 @@
 		if(!isPwdInput && isPwdDirty){ // pwd를 입력하지 않은 경우
 			$("#pwd_required").show();
 		}
-		if(!isPwdEqual && isPwd2Dirty && isPwdInput){ //pwd 같지 않은 경우
-			$("#pwd_notequal").show();
+		if(!isPwd2Input && isPwd2Dirty){ //pwd2 입력하지 않은 경우
+			$("#pwd2_required").show();
+		}
+		if(!isPwdEqual && isPwdInput && isPwd2Input){ //pwd 같지 않은 경우
+			$("#pwd2_notequal").show();
 		}
 	
 		//id 에러가 있다면 에러 메세지 띄우기
