@@ -13,7 +13,7 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/bootstrap.css" />
 <style>
 	/* 페이지 로딩 시점에 도움말과 피드백 아이콘은 일단 숨기기 */
-	.danger, .form-control-feedback{
+	.help-block, .form-control-feedback{
 		display: none;
 	}
 	.danger{
@@ -33,7 +33,7 @@
 	}
 	
 	#signupForm{
-		margin-top:40px;
+		margin-top:10px;
 	}
 	
 	/*입력필드*/
@@ -116,47 +116,102 @@
 		<li><a href="${pageContext.request.contextPath }/community/comList.do">목록</a></li>
 		<li>회원가입</li>
 	</ol>
-	<div class="condition">
-		<form action="signup.do" method="post" id="signupForm">	
-			<div class="form-group has-feedback">
-				<label class="font" for="name">이름</label><br/>
-				<input class="textbox" type="text" id="name" name="name"/>
-			</div>
-			<div class="form-group has-feedback">
+ 	<div class="condition"> 
+<!-- 		<form action="signup.do" method="post" id="signupForm">	 -->
+<!-- 			<div class="form-group has-feedback"> -->
+<!-- 				<label class="font" for="name">이름</label><br/> -->
+<!-- 				<input class="textbox" type="text" id="name" name="name"/> -->
+<!-- 			</div> -->
+<!-- 			<div class="form-group has-feedback"> -->
+<!-- 			<label class="control-label" for="profileLink">프로필 이미지</label> -->
+<!-- 			<input type="file" id="profileImage" name="profileImage" accept=".jpg, .jpeg, .png, .JPG, .JPEG, .PNG">		 -->
+<!-- 		</div> -->
+<!-- 			<div class="form-group has-feedback"> -->
+<!-- 				<label class="font" for="id">아이디</label><br/> -->
+<!-- 				<input class="textbox" type="text" id="id" name="id"/> -->
+<!-- 				<p class="danger" id="id_notusable">사용 불가능한 아이디 입니다.</p> -->
+<!-- 				<p class="danger" id="id_required">필수 정보입니다.</p> -->
+<!-- 				<span class="glyphicon glyphicon-remove form-control-feedback"></span> -->
+<!-- 				<span class="glyphicon glyphicon-ok form-control-feedback"></span> -->
+<!-- 			</div> -->
+<!-- 			<div class="form-group has-feedback"> -->
+<!-- 				<label class="font" for="pwd">비밀번호</label><br/> -->
+<!-- 				<input class="textbox" type="password" id="pwd" name="pwd"/> -->
+<!-- 				<p class="danger" id="pwd_required">필수 정보입니다.</p> -->
+<!-- 				<p class="danger" id="pwd_notmatch">비밀번호는 영어, 특수문자를 포함하여 8~15자리로 입력해야합니다.</p> -->
+<!-- 				<span class="glyphicon glyphicon-remove form-control-feedback"></span> -->
+<!-- 				<span class="glyphicon glyphicon-ok form-control-feedback"></span> -->
+<!-- 			</div> -->
+<!-- 			<div class="form-group has-feedback"> -->
+<!-- 				<label class="font" for="pwd2">비밀번호 확인</label><br/> -->
+<!-- 				<input class="textbox" type="password" id="pwd2" name="pwd2"/> -->
+<!-- 				<p class="danger" id="pwd2_required">필수 정보입니다.</p> -->
+<!-- 				<p class="danger" id="pwd2_notequal">비밀번호가 일치하지 않습니다.</p> -->
+<!-- 				<span class="glyphicon glyphicon-remove form-control-feedback"></span> -->
+<!-- 				<span class="glyphicon glyphicon-ok form-control-feedback"></span> -->
+<!-- 			</div> -->
+<!-- 			<div class="form-group has-feedback"> -->
+<!-- 				<label class="font" for="email">이메일</label><br/> -->
+<!-- 				<input class="textbox" type="email" id="email" name="email" /> -->
+<!-- 				<p class="danger" id="email_notmatch">이메일 형식에 맞게 입력하세요</p> -->
+<!-- 				<span class="glyphicon glyphicon-remove form-control-feedback"></span> -->
+<!-- 				<span class="glyphicon glyphicon-ok form-control-feedback"></span> -->
+<!-- 			</div> -->
+<!-- 			<div class="form-group has-feedback"> -->
+<!-- 				<label class="font" for="birth">생년월일</label><br/> -->
+<!-- 				<input class="textbox" type="text" id="birth" name="birth"/> -->
+<!-- 			</div> -->
+<!-- 			<div class="form-group has-feedback"> -->
+<!-- 				<label class="font" for="gender">성별</label><br/> -->
+<!-- 				<select class="textbox2" name="gender" id="gender"> -->
+<!-- 					<option value="f">여</option> -->
+<!-- 					<option value="m">남</option> -->
+<!-- 				</select> -->
+<!-- 			</div> -->
+	<form action="signup.do" method="post" id="signupForm" enctype="multipart/form-data">
+		<div class="form-group has-feedback"> 
+			<label class="control-label" for="name">이름</label><br/>
+			<input class="form-control" type="text" id="name" name="name"/>
+			<p class="help-block" id="name_required">반드시 입력 하세요</p>
+			<span class="glyphicon glyphicon-remove form-control-feedback"></span>
+			<span class="glyphicon glyphicon-ok form-control-feedback"></span>
+			
+		</div>
+		<div class="form-group">
 			<label class="control-label" for="profileLink">프로필 이미지</label>
 			<input type="file" id="profileImage" name="profileImage" accept=".jpg, .jpeg, .png, .JPG, .JPEG, .PNG">		
 		</div>
-			<div class="form-group has-feedback">
-				<label class="font" for="id">아이디</label><br/>
-				<input class="textbox" type="text" id="id" name="id"/>
-				<p class="danger" id="id_notusable">사용 불가능한 아이디 입니다.</p>
-				<p class="danger" id="id_required">필수 정보입니다.</p>
-				<span class="glyphicon glyphicon-remove form-control-feedback"></span>
-				<span class="glyphicon glyphicon-ok form-control-feedback"></span>
-			</div>
-			<div class="form-group has-feedback">
-				<label class="font" for="pwd">비밀번호</label><br/>
-				<input class="textbox" type="password" id="pwd" name="pwd"/>
-				<p class="danger" id="pwd_required">필수 정보입니다.</p>
-				<p class="danger" id="pwd_notmatch">비밀번호는 영어, 특수문자를 포함하여 8~15자리로 입력해야합니다.</p>
-				<span class="glyphicon glyphicon-remove form-control-feedback"></span>
-				<span class="glyphicon glyphicon-ok form-control-feedback"></span>
-			</div>
-			<div class="form-group">
-				<label class="font" for="pwd2">비밀번호 확인</label><br/>
-				<input class="textbox" type="password" id="pwd2" name="pwd2"/>
-				<p class="danger" id="pwd2_required">필수 정보입니다.</p>
-				<p class="danger" id="pwd2_notequal">비밀번호가 일치하지 않습니다.</p>
-				<span class="glyphicon glyphicon-remove form-control-feedback"></span>
-				<span class="glyphicon glyphicon-ok form-control-feedback"></span>
-			</div>
-			<div class="form-group has-feedback">
-				<label class="font" for="email">이메일</label><br/>
-				<input class="textbox" type="email" id="email" name="email" />
-				<p class="danger" id="email_notmatch">이메일 형식에 맞게 입력하세요</p>
-				<span class="glyphicon glyphicon-remove form-control-feedback"></span>
-				<span class="glyphicon glyphicon-ok form-control-feedback"></span>
-			</div>
+		<div class="form-group has-feedback">
+			<label class="control-label" for="id">아이디</label>
+			<input class="form-control" type="text" id="id" name="id"/>
+			<p class="help-block" id="id_notusable">사용 불가능한 아이디 입니다.</p>
+			<p class="help-block" id="id_required">반드시 입력 하세요</p>
+			<span class="glyphicon glyphicon-remove form-control-feedback"></span>
+			<span class="glyphicon glyphicon-ok form-control-feedback"></span>
+		</div>
+		<div class="form-group has-feedback">
+			<label class="control-label" for="pwd">비밀번호</label>
+			<input class="form-control" type="password" id="pwd" name="pwd"/>
+			<p class="help-block" id="pwd_required">반드시 입력하세요</p>
+			<p class="help-block" id="pwd_notmatch">비밀번호는 영어, 특수문자를 포함하여 8~15자리로 입력해야합니다.</p>
+			<span class="glyphicon glyphicon-remove form-control-feedback"></span>
+			<span class="glyphicon glyphicon-ok form-control-feedback"></span>
+		</div>
+		<div class="form-group has-feedback">
+			<label class="control-label" for="pwd2">비밀번호 확인</label>
+			<input class="form-control" type="password" id="pwd2" name="pwd2"/>
+			<p class="help-block" id="pwd2_required">필수 정보입니다.</p> 
+			<p class="help-block" id="pwd2_notequal">비밀번호와 동일하게 입력하세요</p>
+			<span class="glyphicon glyphicon-remove form-control-feedback"></span>
+			<span class="glyphicon glyphicon-ok form-control-feedback"></span>
+		</div>
+		<div class="form-group has-feedback">
+			<label class="control-label" for="email">이메일</label>
+			<input class="form-control" type="email" id="email" name="email" />
+			<p class="help-block" id="email_notmatch">이메일 형식에 맞게 입력하세요</p>
+			<span class="glyphicon glyphicon-remove form-control-feedback"></span>
+			<span class="glyphicon glyphicon-ok form-control-feedback"></span>
+		</div>
 			<div class="form-group has-feedback">
 				<label class="font" for="birth">생년월일</label><br/>
 				<input class="textbox" type="text" id="birth" name="birth"/>
@@ -175,6 +230,9 @@
 	<%-- jquery form  플러그인 javascript 로딩 --%>
 	<script src="${pageContext.request.contextPath }/resources/js/jquery.form.min.js"></script>
 	<script>	
+	
+	var isNameInput=false; //이름을 입력했는지 여부
+	
 	//아이디를 사용할수 있는지 여부 
 	var isIdUsable=false;
 	//아이디를 입력 했는지 여부 
@@ -195,6 +253,7 @@
 	//이메일을 입력했는지 여부
 	var isEmailInput=false;
 	
+	var isNameDirty=false;
 	//아이디 입력란에 한번이라도 입력한 적이 있는지 여부
 	var isIdDirty=false;
 	//비밀 번호 입력란에 한번이라도 입력한 적이 있는지 여부
@@ -208,6 +267,26 @@
 	var emailCheck = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,3}))$/;
 	// pwd 체크 정규식 : 영어(대,소)와 특수문자를 포함한 8자리 이상 15자리 이하로 입력할것.
 	var pwdCheck=/^.*(?=^.{8,15}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=.]).*$/g
+	
+	
+	//이름을 입력할때 실행할 함수 등록
+	$("#name").on("input", function(){
+		isNameDirty=true;
+		var inputName=$("#name").val();
+		//띄어쓰기 불가
+		var a=inputName.replace(/ /gi, '');
+		$("#name").val(a);
+		if(inputName.length == 0){ //이메일을 입력하지 않았다면
+			isNameInput=false;
+		}else{//이메일을 입력 했다면 
+			isNameInput=true;
+		}
+		//이메일 에러 여부 
+		var isError=isNameDirty && !isNameInput;
+		//이메일 상태 바꾸기 
+		setState("#name", isError);
+	});
+	
 	
 	//이메일을 입력할때 실행할 함수 등록
 	$("#email").on("input", function(){
@@ -233,31 +312,28 @@
 	$("#pwd").on("input", function(){
 		//상태값을 바꿔준다. 
 		isPwdDirty=true;
-		
 		//띄어쓰기 불가
+		var pwd=$("#pwd").val();
 		var a=pwd.replace(/ /gi, '');
-	
 		$("#pwd").val(a);
-	
+		
 		//pwd 입력 여부 검증
 		if(pwd.length == 0){
 			isPwdInput=false;
-			var isError=true;
-			//비밀번호 상태 바꾸기 
-			setState("#pwd", isError);
+
 		}else{
 			isPwdInput=true;
-			//비밀번호 형식에 맞게 입력 했는지 검증
-			if(pwd.match(pwdCheck)){ //비밀번호 형식에 맞게 입력했다면
-				isPwdMatch=true;
-			}else{//형식에 맞지 않다면
-				isPwdMatch=false;
-			}
-			var isError=!isPwdMatch && isPwdInput;
-			//비밀번호 상태 바꾸기 
-			setState("#pwd", isError);
+			
 		}
-	
+		//비밀번호 형식에 맞게 입력 했는지 검증
+		if(pwd.match(pwdCheck)){ //비밀번호 형식에 맞게 입력했다면
+			isPwdMatch=true;
+		}else{//형식에 맞지 않다면
+			isPwdMatch=false;
+		}
+		var isError=!isPwdMatch && isPwdInput;
+		//비밀번호 상태 바꾸기 
+		setState("#pwd", isError);
 	});
 	
 	$("#pwd2").on("input", function(){
@@ -270,23 +346,22 @@
 		var b=pwd2.replace(/ /gi, '');
 		
 		$("#pwd2").val(b);
-		
+
 		//pwd 입력 여부 검증
 		if(pwd2.length == 0){
 			isPwd2Input=false;
-			var isError=true;
-			setState("#pwd2", isError);
+// 			var isError=true;
+// 			setState("#pwd2", isError);
 		}else{
 			isPwd2Input=true;
 			
 			if(pwd != pwd2){//두 비밀번호를 동일하게 입력하지 않았다면
 				isPwdEqual=false;
-				
 			}else{
 				isPwdEqual=true;
 			}
 			
-			var isError=!isPwdEqual || isPwdInput ;
+			var isError=!isPwdEqual && isPwd2Input ;
 			setState("#pwd2", isError);
 		}
 		
@@ -301,37 +376,32 @@
 		//띄어쓰기 불가
 		var a=inputId.replace(/ /gi, '');
 		$("#id").val(a);
-		
+		$.ajax({
+			url:"${pageContext.request.contextPath }/users/checkid.do",
+			method:"GET",
+			data:{inputId:inputId},
+			success:function(responseData){
+				if(responseData.isExist){//이미 존재하는 아이디라면 
+					isIdUsable=false;
+				}else{
+					isIdUsable=true;
+				}
+				//아이디 에러 여부 
+				var isError= !isIdUsable || !isIdMatch ;
+				//아이디 상태 바꾸기 
+				setState("#id", isError );
+			}
+		});
 		//id 입력여부 검증
 		if(inputId.length == 0){
 			isIdInput=false;
-			isError=true;
-			setState("#id", isError );
 		}else{
 			isIdInput=true;
-			$.ajax({
-				url:"${pageContext.request.contextPath }/users/checkid.do",
-				method:"GET",
-				data:{inputId:inputId},
-				success:function(responseData){
-					if(responseData.isExist){//이미 존재하는 아이디라면 
-						isIdUsable=false;
-					}else{
-						isIdUsable=true;
-					}
-					
-					//아이디 에러 여부 
-					var isError= !isIdUsable || !isIdMatch ;
-					//아이디 상태 바꾸기 
-					setState("#id", isError );
-				}
-			});
-		
-		//아이디 형식에 맞게 입력 했는지 검증
-		if(inputId.match(idCheck)){//아이디 형식에 맞게 입력 했다면
-			isIdMatch=true;
-		}else{//형식에 맞지 않게 입력했다면 
-			isIdMatch=false;
+			//아이디 형식에 맞게 입력 했는지 검증
+			if(inputId.match(idCheck)){//아이디 형식에 맞게 입력 했다면
+				isIdMatch=true;
+			}else{//형식에 맞지 않게 입력했다면 
+				isIdMatch=false;
 		}
 		
 		//아이디 에러 여부 
@@ -349,7 +419,7 @@
 		$(sel)
 		.parent()
 		.removeClass("has-success has-error")
-		.find(".danger, .form-control-feedback")
+		.find(".help-block, .form-control-feedback")
 		.hide();
 		
 		//입력란의 색상과 아이콘을 바꿔주는 작업 
@@ -367,6 +437,10 @@
 			.addClass("has-success")
 			.find(".glyphicon-ok")
 			.show();
+		}
+		
+		if(isNameDirty && !isNameInput){
+			$("#name_required").show();
 		}
 		//에러가 있다면 에러 메세지 띄우기
 		if(isEmailInput && !isEmailMatch){
