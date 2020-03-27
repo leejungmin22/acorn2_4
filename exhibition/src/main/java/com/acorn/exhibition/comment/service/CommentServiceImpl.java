@@ -187,8 +187,6 @@ public class CommentServiceImpl implements CommentService{
 			boolean result2=commentDao.addcommentLikeCount(num);
 			
 			int likecountplus = commentDao.getlikeCount(num).getCom_likeCount();
-			System.out.println("!!!---"+likecountplus);
-			//dto.setIsCommentLikeId("1");
 			if(result1 && result2) {
 				map.put("comisSuccess", true);
 				map.put("comlikecount", likecountplus);

@@ -9,6 +9,7 @@
 <jsp:include page="include/resource.jsp" />
 
 <style>
+<<<<<<< HEAD
 @import url(//fonts.googleapis.com/earlyaccess/nanumpenscript.css);
 @import url(//fonts.googleapis.com/earlyaccess/jejugothic.css);
 	
@@ -37,6 +38,16 @@
 	img {
 		height: auto;
 	}
+=======
+.poster {
+	max-width: 100%;
+	height: 560px;
+}
+
+img {
+	height: auto;
+}
+>>>>>>> refs/remotes/origin/android
 
 /* 댓글 css */
 /* 글 내용을 출력할 div 에 적용할 css */
@@ -187,6 +198,19 @@ pre{
 			<div class="row">
 				<div class="col-sm-12">
 					<div class="comments">
+						<div class="comment_form">
+							<!-- 원글에 댓글을 작성할 수 있는 폼 : 누가 쓴 어떤글에 댓글을 작성하는지 파라미터로 담아서 폼 제출시 post 방식으로 전달 -->
+							<form class="comment-insert-form" action="comment_insert.do"
+								method="post">
+								<input type="hidden" name="ref_group" value="${dto.seq }" />
+								<!-- 몇번 글의 글번호인지(댓글의 그룹번호) -->
+								<%-- <input type="hidden" name="target_id" value="${tmp.writer }" />--%>
+								<!-- 원글의 작성자 id(댓글의 대상자) -->
+								<textarea name="content"><c:if test="${empty id }">로그인이 필요합니다.</c:if></textarea>
+								<!-- 로그인을 하지않았을 때 '로그인이 필요합니다' 출력 -->
+								<button type="submit">등록</button>
+							</form>
+						</div><!--  class="comment_form -->
 						<ul>
 							<c:forEach items="${commentList }" var="tmp" varStatus="status">
 								<c:choose>
@@ -305,7 +329,7 @@ pre{
 													</c:choose>
 													<span>${tmp.writer }</span>
 													<c:if test="${tmp.num ne tmp.comment_group }">
-												 	<strong>${tmp.target_id }</strong>
+												 	to <strong>${tmp.target_id }</strong>
 													</c:if>
 													<span>${tmp.regdate }</span>
 												</dt>
@@ -319,19 +343,6 @@ pre{
 							</c:forEach>
 						</ul>
 						<div class="clearfix"></div>
-						<div class="comment_form">
-							<!-- 원글에 댓글을 작성할 수 있는 폼 : 누가 쓴 어떤글에 댓글을 작성하는지 파라미터로 담아서 폼 제출시 post 방식으로 전달 -->
-							<form class="comment-insert-form" action="comment_insert.do"
-								method="post">
-								<input type="hidden" name="ref_group" value="${dto.seq }" />
-								<!-- 몇번 글의 글번호인지(댓글의 그룹번호) -->
-								<%-- <input type="hidden" name="target_id" value="${tmp.writer }" />--%>
-								<!-- 원글의 작성자 id(댓글의 대상자) -->
-								<textarea name="content"><c:if test="${empty id }">로그인이 필요합니다.</c:if></textarea>
-								<!-- 로그인을 하지않았을 때 '로그인이 필요합니다' 출력 -->
-								<button type="submit">등록</button>
-							</form>
-						</div><!--  class="comment_form -->
 					</div><!--  class="comments -->
 				</div><!-- class="col-sm-12" -->
 			</div><!-- class="row" -->
@@ -376,7 +387,7 @@ pre{
 	});
 	
 	//댓글좋아요 수 올리기
-	$(document).on("click", ".comlike", function(){
+	$(".comlike").on("click",function(){
 		var num = $(this).attr('value');
 		var isLogin=${not empty id};
 		var imgTag=$(this).children('img');
