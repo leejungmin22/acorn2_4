@@ -28,10 +28,13 @@
 </style>
 <style>
 body{
-	background-color:#82b0d1;
+	background-color:#FFFFFF; /* 백그라운드 색상 */
 }
 
 @import url(//fonts.googleapis.com/earlyaccess/nanumpenscript.css);
+@import url(//fonts.googleapis.com/earlyaccess/nanumgothic.css);
+@import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
+
 	.form-group{
 		font-size:25px;
 		font-color:#FFFFFF;
