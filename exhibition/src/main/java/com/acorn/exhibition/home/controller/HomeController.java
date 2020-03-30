@@ -176,5 +176,11 @@ public class HomeController {
 		Map<String, Object> result= service.updateLikeCount(request);
 		return result;
 	}
+	@RequestMapping("/favorite")
+	public ModelAndView favoritelist(ModelAndView mView, HttpServletRequest request) {
+		service.favoritelist(request);
+		mView.setViewName("list");
+		return mView;
+	}
 
 }

@@ -322,4 +322,10 @@ public class HomeServiceImpl implements HomeService{
 		
 	}//updateLikeCount() end
 
+	@Override
+	public void favoritelist(HttpServletRequest request) {
+		
+		
+	}
+
 }

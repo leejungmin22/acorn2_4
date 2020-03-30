@@ -16,6 +16,7 @@ public interface HomeService {
 
 	//전체 공연 list
 	public void list(HttpServletRequest request);
+	public void favoritelist(HttpServletRequest request);
 	public Map<String, Object> updateLikeCount(HttpServletRequest request);
 
 }

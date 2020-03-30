@@ -21,8 +21,8 @@
 	.condition{
 		width: 400px; 
 		position: absolute; 
-		margin-left: auto;
-		margin-right: auto;
+		margin-left: -250px;
+		left: 50%;
 
 	}
 	
@@ -47,10 +47,7 @@
 		height:40px; /*칸 높이*/
 		border: 2px solid #F5F5F5;		
 	}
-	.form-control-feedback{
-		position:relative;
-		left:550px;	
-	}
+	
 	
 	/*가입버튼 #DEB887 #CD853F*/
 	.signup {
@@ -177,7 +174,6 @@
 			<button disabled="disabled" class="signup" type="submit">가 입 하 기</button>
 		</form>
 		</div>
-	
 </div>
 	<%-- jquery form  플러그인 javascript 로딩 --%>
 	<script src="${pageContext.request.contextPath }/resources/js/jquery.form.min.js"></script>

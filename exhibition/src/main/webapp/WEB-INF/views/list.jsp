@@ -23,12 +23,15 @@
 		border:none;
 		width:38px;
 		height:38px;
-		cursor:pointer
+		cursor:pointer;
 	}
-	/*breadcrumb 색상변경*/
+	
+	/*breadcrumb 색상변경 */
+	
 	#bread{
 		background-color: #ffdd33;
 	}
+	
 	/*표 색상 변경*/
 	.tr{
 		background-color: #FAEBD7;
@@ -36,10 +39,10 @@
 	
 	
 	/*thead 색상변경*/
-	/*
+	
 	.title{
 		background-color: #4682B4;
-	}*/
+	}
 	
     .condition{
    		margin: 10px 0 20px 0;
@@ -98,14 +101,89 @@
 	});
 </script>
 <style type="text/css">
-	.ui-datepicker{font-size: 12px; width: 200px;}
-	.ui-datepicker select.ui-datepicker-month{width: 50%; font-size: 11px;}
-	.ui-datepicker select.ui-datepicker-year{width: 50%; font-size: 11px;}
-	.ui-datepicker-calendar > tbody td.ui-datepicker-week-end:first-child a {color:#f00;}
-	.ui-datepicker-calendar > tbody td.ui-datepicker-week-end:last-child a {color:#00f;}
-	.form-group{
-		max-width:200px;
-	}
+.ui-datepicker {
+	font-size: 12px;
+	width: 200px;
+}
+
+.ui-datepicker select.ui-datepicker-month {
+	width: 50%;
+	font-size: 11px;
+}
+
+.ui-datepicker select.ui-datepicker-year {
+	width: 50%;
+	font-size: 11px;
+}
+
+.ui-datepicker-calendar>tbody td.ui-datepicker-week-end:first-child a {
+	color: #f00;
+}
+
+.ui-datepicker-calendar>tbody td.ui-datepicker-week-end:last-child a {
+	color: #00f;
+}
+
+.form-group {
+	max-width: 200px;
+}
+
+.sub_option {
+	display: inline-block;
+	overflow: hidden;
+	font-size: 15px;
+	padding-right: 6px;
+	width: auto !important;
+	height: 43px !important;
+	border: 0 !important;
+	zoom: 1;
+}
+.sub_option li .btn_option {
+    margin-right: 17px;
+    padding: 16px 0 12px;
+    color: #8f8f8f;
+    text-decoration: none;
+    }
+.cs_nperformance .option_tab .sub_option li .btn_option .ico_select {
+    overflow: hidden;
+    display: inline-block;
+    vertical-align: top;
+    font-size: 0;
+    line-height: 0;
+    color: rgba(0, 0, 0, 0);
+    background: url(../img/sp_nperformance_v3.png) no-repeat;
+    background-position: -146px -115px;
+    width: 4px;
+    height: 4px;
+    margin-top: -1px;
+    margin-right: 5px;
+    vertical-align: 3px;
+    vertical-align: 5px;
+}
+
+.sort_area {
+	position: relative;
+    height: 40px; 
+    line-height: 36px;
+    font-size: 0;
+  
+    padding: 0 24px 0 24px;
+    white-space: nowrap;
+    background-color: #fbfcfe;
+    margin: 0 0 -1px;
+    border-bottom: 1px solid #edeef0;
+    z-index: 110;
+}
+.sub_option li {
+    float: left !important;
+    padding-top: 6px;
+    margin: 0 !important;
+  
+}
+
+ol, ul {
+    list-style-type: none;
+}
 </style>
 </head>
 <body>
@@ -121,6 +199,14 @@
 	<div class="condition" align="right">
 		<form class="form-inline" action="list.do" method="get"> 
 			<div class="form-group">
+				<label for="sort">정렬조건</label>
+					<select class="form-control" name="sort" id="sort">
+						<option value="sortnone">선택하세요</option>
+						<option value="favorite" <c:if test="${sort eq 'favorite' }">selected</c:if>>인기순</option>
+						<option value="sortdate" <c:if test="${sort eq 'sortdate' }">selected</c:if>>날짜순</option>
+					</select>
+			</div>
+			<div class="form-group">
 				<label for="condition">검색조건</label>
 				<select class="form-control" name="condition" id="condition">
 					<option value="none">선택하세요</option>
@@ -134,11 +220,13 @@
 				<input class="form-control date" type="text" name="startDate" class="date" id="startDate" value="${startdate }" autocomplete="off" readonly/>
 				<span class="date">~</span>
 			</div>
+			
 			<div class="form-group">
 				<input class="form-control date" type="text" name="endDate" class="date" id="endDate" value="${enddate }" autocomplete="off" readonly/>
 				<button class="btn btn-primary" type="submit" disabled="disabled">검색</button>
 			</div>
 		</form>
+		
 	</div>
 
 	<table class="table table-hover">
@@ -267,19 +355,44 @@
 	var value=$("#condition").val();
 	//페이지가 로딩되는 시점에 어떤 값이 선택되었는지 확인 후 그에 맞는 input tag를 보여준다.
 	checkeSelectBox(value);
+	var sortvalue=$("#sort").val();
+	checkesortSelectBox(sortvalue);
 	//select 옵션이 변경된 경우 그에 맞는 input tag를 보여준다.
 	$("#condition").change(function(){
 		value=$(this).val();
 		checkeSelectBox(value);
 	});
 	//어떤 옵션이 선택되었는지 확인할 함수
-	function checkeSelectBox(value){
-		if(value=="none"){
+	function checkesortSelectBox(sortvalue){
+		if(value=="sortnone" ){
 			$("#keyword").attr("disabled", "disabled").hide();
 			$(".date").attr("disabled", "disabled").hide();
 			//$("button[type=submit]").attr("disabled","disabled");
 		}
-		if(value=="date"){
+		if(value=="favorite" ){
+			$("#keyword").attr("disabled", "disabled").hide();
+			$(".date").removeAttr("disabled").show();
+			//$("button[type=submit]").removeAttr("disabled");
+			console.log("기간 선택");
+		}
+		if(value=="sortdate"){
+			$("#keyword").removeAttr("disabled").show();
+			$(".date").attr("disabled", "disabled").hide();
+			//$("button[type=submit]").removeAttr("disabled");
+			console.log("제목 선택");
+		}
+		
+	
+	}	
+
+	//어떤 옵션이 선택되었는지 확인할 함수
+	function checkeSelectBox(value){
+		if(value=="none" ){
+			$("#keyword").attr("disabled", "disabled").hide();
+			$(".date").attr("disabled", "disabled").hide();
+			//$("button[type=submit]").attr("disabled","disabled");
+		}
+		if(value=="date" ){
 			$("#keyword").attr("disabled", "disabled").hide();
 			$(".date").removeAttr("disabled").show();
 			//$("button[type=submit]").removeAttr("disabled");
@@ -341,6 +454,7 @@
 			return true;
 		}
 	}
+	
 </script>
 </body>
 </html>
