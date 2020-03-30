@@ -19,6 +19,13 @@
 		font-family: 'Nanum Pen Script', cursive;
 		background-color: #ffefa1;
 	}
+	.test{
+		background-color: #ffefa1;
+	}
+	
+	.active{
+		background-color: #ffefa1;
+	}
 		
 	#two{
 		font-size:20px;

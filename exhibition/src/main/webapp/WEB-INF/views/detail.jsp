@@ -20,14 +20,15 @@
 		font-size:16px;
 		font-family: 'Jeju Gothic', sans-serif;
 	}
-
+	
 	.row {
 		border: 1px solid blue;
 	}
-
+	
 	.row>div {
 		border: 1px dotted green;
 	}
+	
 
 	.poster {
 		max-width: 100%;

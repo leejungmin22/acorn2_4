@@ -103,13 +103,21 @@
 	.ui-datepicker select.ui-datepicker-year{width: 50%; font-size: 11px;}
 	.ui-datepicker-calendar > tbody td.ui-datepicker-week-end:first-child a {color:#f00;}
 	.ui-datepicker-calendar > tbody td.ui-datepicker-week-end:last-child a {color:#00f;}
+	.form-group{
+		max-width:200px;
+	}
 </style>
 </head>
 <body>
 <jsp:include page="include/navbar.jsp">
 	<jsp:param value="list" name="category"/>
 </jsp:include>
-	<h1>글 목록 입니다.</h1>
+<div class="container">
+	<ol class="breadcrumb" id="bread">
+		<li><a href="${pageContext.request.contextPath }/community/comList.do">목록</a></li>
+		<li>전체공연</li>
+	</ol>
+	
 	<div class="condition" align="right">
 		<form class="form-inline" action="list.do" method="get"> 
 			<div class="form-group">
@@ -120,9 +128,13 @@
 					<option value="place" <c:if test="${condition eq 'place' }">selected</c:if>>장소</option>
 					<option value="date" <c:if test="${condition eq 'date' }">selected</c:if>>기간</option>
 				</select>
+			</div>
+			<div class="form-group">
 				<input class="form-control" type="text" name="keyword" id="keyword" value="${keyword }" placeholder="검색어를 입력하세요" />
 				<input class="form-control date" type="text" name="startDate" class="date" id="startDate" value="${startdate }" autocomplete="off" readonly/>
 				<span class="date">~</span>
+			</div>
+			<div class="form-group">
 				<input class="form-control date" type="text" name="endDate" class="date" id="endDate" value="${enddate }" autocomplete="off" readonly/>
 				<button class="btn btn-primary" type="submit" disabled="disabled">검색</button>
 			</div>
@@ -249,7 +261,7 @@
 			</c:choose>
 		</ul>
 	</div>
-
+</div>
 <script>
 	//select 된 정보를 담을 변수
 	var value=$("#condition").val();

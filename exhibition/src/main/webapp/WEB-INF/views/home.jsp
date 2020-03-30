@@ -56,7 +56,7 @@ body{
 <script>
   document.addEventListener('DOMContentLoaded', function() {
     var calendarEl = document.getElementById('calendar');
-
+    
     var calendar = new FullCalendar.Calendar(calendarEl, {
     	height: 600,
 		plugins: [ 'dayGrid' ],
@@ -79,6 +79,7 @@ body{
 		           dataType: 'json',
 		           success: 
 		        	   function(result) {
+		        	   
 			               var events = [];
 			              
 			               if(result!=null){
@@ -90,12 +91,13 @@ body{
 									
 									var startdate=moment(element.startdate).format('YYYY-MM-DD');
 									var enddate=moment(enddate).format('YYYY-MM-DD');
-									   
-									events.push({										
+									events.push({
+										
 				                       title: element.title,
 				                       start: startdate,
 				                       end: enddate,
 				           			   url: "${pageContext.request.contextPath }/detail.do?seq="+element.seq
+				           				
 				                    }); //.push()
 									
 				               }); //.each()
@@ -106,7 +108,7 @@ body{
 			           }//success: function end
 		         
 		       }); //ajax end
-
+		
 		}//events:function end
 		
    });//new FullCalendar end
@@ -195,10 +197,13 @@ $(document).ready(function(){
 </script>
 <style type="text/css">
 	.ui-datepicker{font-size: 12px; width: 200px;}
-	.ui-datepicker select.ui-datepicker-month{width: 50%; font-size: 11px;}
-	.ui-datepicker select.ui-datepicker-year{width: 50%; font-size: 11px;}
+	.ui-datepicker select.ui-datepicker-month{width: 100%; font-size: 11px;}
+	.ui-datepicker select.ui-datepicker-year{width: 100%; font-size: 11px;}
 	.ui-datepicker-calendar > tbody td.ui-datepicker-week-end:first-child a {color:#f00;}
 	.ui-datepicker-calendar > tbody td.ui-datepicker-week-end:last-child a {color:#00f;}
+	.form-group{
+		max-width:200px;
+	}
 </style>
 </head>
 <body>
@@ -214,14 +219,15 @@ $(document).ready(function(){
 					<option value="place" <c:if test="${condition eq 'place' }">selected</c:if>>장소</option>
 					<option value="date" <c:if test="${condition eq 'date' }">selected</c:if>>기간</option>
 				</select>
-				<input class="form-control" type="text" name="keyword" id="keyword" value="${keyword }" placeholder="검색어를 입력하세요" />
+			</div>
+			<div class="form-group">
+				<input class="form-control" type="text" name="keyword" id="keyword" value="${keyword }" placeholder="검색어를 입력하세요"/>
 				<input class="form-control date" type="text" name="startDate" class="date" id="startDate" value="${startdate }" autocomplete="off" readonly/>
 				<span class="date">~</span>
+			</div>
+			<div class="form-group">				
 				<input class="form-control date" type="text" name="endDate" class="date" id="endDate" value="${enddate }" autocomplete="off" readonly/>
-
 				<button class="img-button" type="submit"></button>
-
-
 			</div>
 		</form>
 	</div>

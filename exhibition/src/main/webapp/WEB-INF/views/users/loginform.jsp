@@ -23,14 +23,15 @@
 	}
 
 	.img-button{
-		background:url("../resources/images/HomeImg.png");
+		background:url("../resources/images/google.png");
 		border:none;		
 		position: absolute;
 		top:50%;
 		left:50%;
-		width:230px;
-		height:230px;
-		margin:-380px 0px 160px -130px;			
+		width:300px;
+		height:110px;
+		margin:-300px 0px 160px -160px;
+		opacity: 0.8; /*투명도*/
 	}
 		
 	/*로그인창 크기,가운데 정렬*/
