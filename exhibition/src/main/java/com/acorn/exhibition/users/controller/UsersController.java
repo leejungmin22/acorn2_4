@@ -136,6 +136,7 @@ public class UsersController {
 			session.invalidate();
 			return "redirect:/home.do";
 		}
+		
 		//개인정보 보기 요청 처리
 		@RequestMapping("/users/info")
 		public ModelAndView authinfo(HttpServletRequest request, ModelAndView mView ) {

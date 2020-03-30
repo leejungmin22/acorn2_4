@@ -9,7 +9,6 @@
 <jsp:include page="include/resource.jsp" />
 
 <style>
-<<<<<<< HEAD
 @import url(//fonts.googleapis.com/earlyaccess/nanumpenscript.css);
 @import url(//fonts.googleapis.com/earlyaccess/jejugothic.css);
 	
@@ -38,16 +37,8 @@
 	img {
 		height: auto;
 	}
-=======
-.poster {
-	max-width: 100%;
-	height: 560px;
-}
 
-img {
-	height: auto;
-}
->>>>>>> refs/remotes/origin/android
+
 
 /* 댓글 css */
 /* 글 내용을 출력할 div 에 적용할 css */

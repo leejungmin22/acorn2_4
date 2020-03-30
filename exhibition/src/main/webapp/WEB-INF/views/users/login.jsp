@@ -25,7 +25,7 @@
 	<c:choose>
 		<c:when test="${not empty sessionScope.id }">
 			<script type="text/javascript">
-				location.href="${pageContext.request.contextPath}/home.do?url=${pageContext.request.contextPath}/detail.do?seq=${dto.seq}";
+				location.href="${url }";
 			</script>
 		</c:when>
 		<c:otherwise>

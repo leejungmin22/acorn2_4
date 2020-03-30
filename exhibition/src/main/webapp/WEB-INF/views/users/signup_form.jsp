@@ -121,7 +121,7 @@
 		<div class="form-group has-feedback"> 
 			<label class="control-label" for="name">이름</label><br/>
 			<input class="form-control" type="text" id="name" name="name"/>
-			<p class="help-block" id="name_required">반드시 입력 하세요</p>
+			<p class="help-block" id="name_required">필수 정보입니다.</p>
 			<span class="glyphicon glyphicon-remove form-control-feedback"></span>
 			<span class="glyphicon glyphicon-ok form-control-feedback"></span>
 			
@@ -134,14 +134,14 @@
 			<label class="control-label" for="id">아이디</label>
 			<input class="form-control" type="text" id="id" name="id"/>
 			<p class="help-block" id="id_notusable">사용 불가능한 아이디 입니다.</p>
-			<p class="help-block" id="id_required">반드시 입력 하세요</p>
+			<p class="help-block" id="id_required">필수 정보입니다.</p>
 			<span class="glyphicon glyphicon-remove form-control-feedback"></span>
 			<span class="glyphicon glyphicon-ok form-control-feedback"></span>
 		</div>
 		<div class="form-group has-feedback">
 			<label class="control-label" for="pwd">비밀번호</label>
 			<input class="form-control" type="password" id="pwd" name="pwd"/>
-			<p class="help-block" id="pwd_required">반드시 입력하세요</p>
+			<p class="help-block" id="pwd_required">필수 정보입니다.</p>
 			<p class="help-block" id="pwd_notmatch">비밀번호는 영어, 특수문자를 포함하여 8~15자리로 입력해야합니다.</p>
 			<span class="glyphicon glyphicon-remove form-control-feedback"></span>
 			<span class="glyphicon glyphicon-ok form-control-feedback"></span>
@@ -269,7 +269,6 @@
 		//pwd 입력 여부 검증
 		if(pwd.length == 0){
 			isPwdInput=false;
-
 		}else{
 			isPwdInput=true;
 			
@@ -280,7 +279,7 @@
 		}else{//형식에 맞지 않다면
 			isPwdMatch=false;
 		}
-		var isError=!isPwdMatch && isPwdInput;
+		var isError=!isPwdMatch || !isPwdInput;
 		//비밀번호 상태 바꾸기 
 		setState("#pwd", isError);
 	});
@@ -319,7 +318,6 @@
 	//아이디를 입력할때 실행할 함수 등록 
 	$("#id").on("input", function(){
 		isIdDirty=true;
-		var isError=false;
 		//1. 입력한 아이디를 읽어온다.
 		var inputId=$("#id").val();
 		//띄어쓰기 불가
@@ -336,7 +334,7 @@
 					isIdUsable=true;
 				}
 				//아이디 에러 여부 
-				var isError= !isIdUsable || !isIdMatch ;
+				var isError= !isIdUsable || !isIdInput ;
 				//아이디 상태 바꾸기 
 				setState("#id", isError );
 			}
@@ -354,7 +352,7 @@
 		}
 		
 		//아이디 에러 여부 
-		var isError= !isIdUsable || !isIdMatch ;
+		var isError= !isIdUsable || !isIdInput;
 		//아이디 상태 바꾸기 
 		setState("#id", isError );
 		
@@ -421,7 +419,7 @@
 		if(!isIdMatch && isIdDirty && isIdInput){ //id를 입력했는데 조건에 맞지 않는 경우
 			$("#id_notmatch").show();
 		}
-		if(!isIdUsable && isIdDirty && isIdInput){ //id를 입력했는데 DB에 이미 등록된 ID인 경우
+		if(!isIdUsable && isIdDirty ){ //id를 입력했는데 DB에 이미 등록된 ID인 경우
 			$("#id_notusable").show();
 		}
 		if(!isIdInput && isIdDirty){ //id를 입력하지 않은 경우
