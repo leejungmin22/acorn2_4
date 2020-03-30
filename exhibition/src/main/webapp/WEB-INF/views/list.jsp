@@ -114,8 +114,8 @@
 </jsp:include>
 <div class="container">
 	<ol class="breadcrumb" id="bread">
-		<li><a href="${pageContext.request.contextPath }/community/comList.do">목록</a></li>
 		<li>전체공연</li>
+		<li><a href="${pageContext.request.contextPath }/list.do">목록</a></li>
 	</ol>
 	
 	<div class="condition" align="right">
