@@ -16,8 +16,7 @@
 	#one{
 		font-size:20px;
 		font-family: 'Nanum Pen Script', cursive;
-		background-color: #ffefa1;
-		/* background-color: #FFFFFF; */
+		background-color: #ffefa1;		
 	}
 	
 	#one a {

@@ -15,17 +15,15 @@
 	/* 페이지 로딩 시점에 도움말과 피드백 아이콘은 일단 숨기기 */
 	.help-block, .form-control-feedback{
 		display: none;
-	}
-	.danger{
-		color:#FF0000;
-	}
 	
+	}
 	/*화면 가운데정렬*/
 	.condition{
 		width: 400px; 
 		position: absolute; 
-		left: 50%; 
-		margin-left: -250px;		
+		margin-left: auto;
+		margin-right: auto;
+
 	}
 	
 	#bread{
@@ -56,8 +54,8 @@
 	
 	/*가입버튼 #DEB887 #CD853F*/
 	.signup {
-    	width:500px;
-    	height:70px;
+    	width:300px;
+    	height:60px;
     	font-size:30px;
     	font-weight:bolder;
     	background-color: #D2691E;
@@ -67,7 +65,7 @@
     	color:#fff;
     	border-radius: .5rem;  
 		position: absolute; 
-		left: 12%;
+		left: 10%;
 		  	
    	}
 	
@@ -119,8 +117,8 @@
 		<li><a href="${pageContext.request.contextPath }/community/comList.do">목록</a></li>
 		<li>회원가입</li>
 	</ol>
- 	<div class="condition"> 
-
+	
+ 	<div class="condition" > 
 	<form action="signup.do" method="post" id="signupForm" enctype="multipart/form-data">
 		<div class="form-group has-feedback"> 
 			<label class="control-label" for="name">이름</label><br/>
@@ -167,7 +165,7 @@
 		</div>
 			<div class="form-group has-feedback">
 				<label class="font" for="birth">생년월일</label><br/>
-				<input class="textbox" type="text" id="birth" name="birth"/>
+				<input class="form-control" type="text" id="birth" name="birth"/>
 			</div>
 			<div class="form-group has-feedback">
 				<label class="font" for="gender">성별</label><br/>
@@ -178,7 +176,8 @@
 			</div>
 			<button disabled="disabled" class="signup" type="submit">가 입 하 기</button>
 		</form>
-	</div>
+		</div>
+	
 </div>
 	<%-- jquery form  플러그인 javascript 로딩 --%>
 	<script src="${pageContext.request.contextPath }/resources/js/jquery.form.min.js"></script>

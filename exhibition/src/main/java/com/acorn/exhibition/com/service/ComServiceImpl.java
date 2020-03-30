@@ -19,7 +19,7 @@ public class ComServiceImpl implements ComService{
 	@Autowired
 	private ComDao comDao;
 	
-	static final int PAGE_ROW_COUNT=5;	
+	static final int PAGE_ROW_COUNT=10;	
 	static final int PAGE_DISPLAY_COUNT=5;
 
 	@Override
