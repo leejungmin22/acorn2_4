@@ -28,10 +28,13 @@
 </style>
 <style>
 body{
-	background-color:#82b0d1;
+	background-color:#FFFFFF; /* 백그라운드 색상 */
 }
 
 @import url(//fonts.googleapis.com/earlyaccess/nanumpenscript.css);
+@import url(//fonts.googleapis.com/earlyaccess/nanumgothic.css);
+@import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
+
 	.form-group{
 		font-size:25px;
 		font-color:#FFFFFF;
@@ -80,6 +83,7 @@ body{
 		           success: 
 		        	   function(result) {
 			               var events = [];
+			              
 			               if(result!=null){
 				            	   $.each(result, function(index, element) {
 			            		   var enddate=element.enddate;
@@ -90,7 +94,7 @@ body{
 									var startdate=moment(element.startdate).format('YYYY-MM-DD');
 									var enddate=moment(enddate).format('YYYY-MM-DD');
 									   
-									events.push({
+									events.push({										
 				                       title: element.title,
 				                       start: startdate,
 				                       end: enddate,
@@ -103,7 +107,7 @@ body{
 			               
 			               successCallback(events);	
 			           }//success: function end
-		          
+		         
 		       }); //ajax end
 
 		}, //events:function end

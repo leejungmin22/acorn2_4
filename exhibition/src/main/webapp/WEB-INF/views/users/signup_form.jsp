@@ -49,7 +49,10 @@
 		height:40px; /*칸 높이*/
 		border: 2px solid #F5F5F5;		
 	}
-	
+	.form-control-feedback{
+		position:relative;
+		left:550px;	
+	}
 	
 	/*가입버튼 #DEB887 #CD853F*/
 	.signup {
@@ -117,6 +120,7 @@
 		<li>회원가입</li>
 	</ol>
  	<div class="condition"> 
+
 	<form action="signup.do" method="post" id="signupForm" enctype="multipart/form-data">
 		<div class="form-group has-feedback"> 
 			<label class="control-label" for="name">이름</label><br/>
@@ -279,6 +283,7 @@
 		}else{//형식에 맞지 않다면
 			isPwdMatch=false;
 		}
+
 		var isError=!isPwdMatch || !isPwdInput;
 		//비밀번호 상태 바꾸기 
 		setState("#pwd", isError);
@@ -334,6 +339,7 @@
 					isIdUsable=true;
 				}
 				//아이디 에러 여부 
+
 				var isError= !isIdUsable || !isIdInput ;
 				//아이디 상태 바꾸기 
 				setState("#id", isError );

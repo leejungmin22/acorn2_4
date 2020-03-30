@@ -30,7 +30,7 @@
 		left:50%;
 		width:230px;
 		height:230px;
-		margin:-380px 0px 200px -70px;			
+		margin:-380px 0px 160px -130px;			
 	}
 		
 	/*로그인창 크기,가운데 정렬*/
@@ -40,7 +40,7 @@
 		position:absolute;
 		left:50%;
 		top:50%;
-		margin-left:-150px;
+		margin-left:-200px;
 		margin-top:-150px;
 		overflow:hidden;
 		background-color: #ffffff;
