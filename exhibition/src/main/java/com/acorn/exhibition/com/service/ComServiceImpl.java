@@ -10,7 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.acorn.exhibition.com.dao.ComCommentDao;
 import com.acorn.exhibition.com.dao.ComDao;
+import com.acorn.exhibition.com.dto.ComCommentDto;
 import com.acorn.exhibition.com.dto.ComDto;
 
 
@@ -18,6 +20,8 @@ import com.acorn.exhibition.com.dto.ComDto;
 public class ComServiceImpl implements ComService{
 	@Autowired
 	private ComDao comDao;
+	@Autowired
+	private ComCommentDao comCommentDao;
 	
 	static final int PAGE_ROW_COUNT=10;	
 	static final int PAGE_DISPLAY_COUNT=5;
@@ -166,6 +170,42 @@ public class ComServiceImpl implements ComService{
 	@Override
 	public void updateContent(ComDto dto) {
 		comDao.update(dto);
+	}
+	//댓글 저장하는 메소드
+	@Override
+	public void saveComment(HttpServletRequest request) {
+		//댓글 작성자
+		String writer=(String)request.getSession()
+						.getAttribute("id");
+		//댓글 그룹번호
+		int ref_group=
+				Integer.parseInt(request.getParameter("ref_group"));
+		//댓글의 대상자 아이디
+		String target_id=request.getParameter("target_id");
+		//댓글의 내용
+		String content=request.getParameter("content");
+		//댓글 내에서의 그룹번호(null이면 원글의 댓글)
+		String comment_group=
+				request.getParameter("comment_group");
+		//저장 할 댓글의 primary key 값이 필요하다
+		int seq=comCommentDao.getSequence();
+		//댓글 정보를 Dto에 담기
+		ComCommentDto dto=new ComCommentDto();
+		dto.setNum(seq);
+		dto.setWriter(writer);
+		dto.setTarget_id(target_id);
+		dto.setContent(content);
+		dto.setRef_group(ref_group);
+		
+		if(comment_group==null) { //원글의 댓글
+			//댓글의 글번호가 댓글의 그룹번호가 된다.
+			dto.setComment_group(seq);
+		}else { //댓글의 댓글
+			//comment_group번호가 댓글의 그룹번호가 된다.
+			dto.setComment_group(Integer.parseInt(comment_group));
+		}
+		//댓글정보 DB 저장
+		comCommentDao.insert(dto);
 	}
 }
 

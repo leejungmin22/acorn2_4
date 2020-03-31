@@ -12,5 +12,6 @@ public interface ComService {
 	public void getDetail(HttpServletRequest request);
 	public void deleteContent(int num, HttpServletRequest request);
 	public void getUpdateData(ModelAndView mView, int num);
-	public void updateContent(ComDto dto);
+	public void updateContent(ComDto dto); //원글 수정하는 메소드
+	public void saveComment(HttpServletRequest request); //댓글 저장하는 메소드
 }

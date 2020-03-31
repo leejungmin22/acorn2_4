@@ -60,6 +60,7 @@ public class ComController {
 		mView.setViewName("community/updateform");
 		return mView;
 	}
+	//원글 수정반영 요청 처리
 	@RequestMapping(value = "/community/update", 
 					method = RequestMethod.POST)
 	public ModelAndView 
@@ -67,5 +68,13 @@ public class ComController {
 					@ModelAttribute ComDto dto) {
 		service.updateContent(dto);
 		return new ModelAndView("redirect:/community/comDetail.do?num="+dto.getNum());
+	}
+	//댓글 저장 요청 처리
+	@RequestMapping(value = "/community/comment_insert",
+					method = RequestMethod.POST)
+	public ModelAndView authCommentInsert(HttpServletRequest request,
+					@RequestParam int ref_group) {
+		service.saveComment(request);
+		return new ModelAndView("redirect:/community/comDetail.do?num="+ref_group);
 	}
 }
