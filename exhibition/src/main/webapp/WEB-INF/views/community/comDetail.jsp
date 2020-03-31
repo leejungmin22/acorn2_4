@@ -250,8 +250,7 @@ function deleteComment(num){
 			data:{"num":num}, //num 이라는 파라미터 명으로 삭제 할 댓글의 번호 전송
 			success:function(responseData){
 				if(responseData.isSuccess){
-					var sel="#comment"+num;
-					$(sel).text("삭제된 댓글 입니다.");
+					location.href="${pageContext.request.contextPath}/community/comDetail.do?num=${dto.num}";
 				}
 			}
 		});

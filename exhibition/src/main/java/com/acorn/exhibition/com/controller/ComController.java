@@ -47,14 +47,14 @@ public class ComController {
 		return new ModelAndView("redirect:/community/comList.do");
 	}
 	@RequestMapping("/community/comDetail")
-	public String detail(HttpServletRequest request) {
+	public String detail(HttpServletRequest request, @RequestParam int num) {
 		service.getDetail(request);
 		return "community/comDetail";
 	}
 	@RequestMapping("/community/delete")
 	public ModelAndView authDelete(HttpServletRequest request, @RequestParam int num) {
 		service.deleteContent(num, request);
-		return new ModelAndView("redirect:/community/comList.do");
+		return new ModelAndView("redirect:/community/comDtail.do");
 	}
 	@RequestMapping("/community/updateform")
 	public ModelAndView 
@@ -83,7 +83,7 @@ public class ComController {
 	}
 	//댓글 삭제 요청 처리
 	@ResponseBody
-	@RequestMapping(value = "/community_delete",
+	@RequestMapping(value = "/community/comment_delete",
 					method = RequestMethod.POST)
 	public Map<String, Object>
 			authCommentDelete(HttpServletRequest request,

@@ -110,7 +110,7 @@ public class ComServiceImpl implements ComService{
 		String keyword=request.getParameter("keyword");
 		String condition=request.getParameter("condition");
 
-		//CafeDto 객체 생성 (select 할때 필요한 정보를 담기 위해)
+		//ComDto 객체 생성 (select 할때 필요한 정보를 담기 위해)
 		ComDto dto=new ComDto();
 
 		if(keyword != null) {//검색 키워드가 전달된 경우
