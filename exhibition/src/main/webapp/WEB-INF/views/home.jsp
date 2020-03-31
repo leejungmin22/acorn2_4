@@ -41,6 +41,9 @@
 		height:38px;
 		cursor:pointer
 	}
+	.fc-popover{
+		
+	} 
 </style>
 <script>
   document.addEventListener('DOMContentLoaded', function() {
@@ -171,6 +174,10 @@ $(document).ready(function(){
     .item{
     	max-height:300px;
     }
+    /* fullcalendar pophover 버튼 메뉴가 가장 위에 표기 될 수 있도록 하기 */
+    .owl-carousel {
+    z-index: 0;
+	}
 </style>
 <!-- jQuery UI Datepicker -->
 <script type="text/javascript">
