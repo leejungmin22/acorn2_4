@@ -12,16 +12,18 @@
 @import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
 	
 
-	/* nav bar 메뉴 */
+	/* nav bar 메뉴 #bdbdbd;*/
 	#one a {
   		color: #FFFFFF;
 	}
+	
+	
+	
 	
 	/*  */	
 	#two{
 		font-size:15px;
 		font-family: 'NanumGothic ExtraBold', cursive;
-		/* background-color: #ffefa1; */
 		background-color: #111111;
 	}
 	
