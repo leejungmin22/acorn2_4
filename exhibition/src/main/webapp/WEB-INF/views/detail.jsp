@@ -345,7 +345,7 @@ pre{
 		if(isLogin==true){
 			$.ajax({
 				url:"updateLikeCount.do",
-				method:"post",
+				method:"post", 
 				data:{"seq":${dto.seq}}, //data : 파라미터로 전달할 문자열 
 				dataType:"json",
 				success:function(responseData){
