@@ -243,10 +243,11 @@ $(".comment-update-form").on("submit", function(){
 function deleteComment(num){
 	var isDelete=confirm("확인을 누르면 댓글이 삭제 됩니다.");
 	if(isDelete){
+		//페이지 전환없이 ajax 요청을 통해서 삭제하기
 		$.ajax({
-			url:"comment_delete.do",
+			url:"comment_delete.do", //"/comuunity/comment_delete.do" 요청
 			method:"post",
-			data:{"num":num},
+			data:{"num":num}, //num 이라는 파라미터 명으로 삭제 할 댓글의 번호 전송
 			success:function(responseData){
 				if(responseData.isSuccess){
 					var sel="#comment"+num;

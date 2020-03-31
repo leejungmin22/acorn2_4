@@ -210,5 +210,10 @@ public class ComServiceImpl implements ComService{
 		//댓글정보 DB 저장
 		comCommentDao.insert(dto);
 	}
+
+	@Override
+	public void deleteComment(int num) {
+		comCommentDao.delete(num);
+	}
 }
 
