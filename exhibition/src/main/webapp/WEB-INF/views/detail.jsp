@@ -40,7 +40,6 @@
 	}
 
 
-
 /* 댓글 css */
 /* 글 내용을 출력할 div 에 적용할 css */
 .contents, table {
