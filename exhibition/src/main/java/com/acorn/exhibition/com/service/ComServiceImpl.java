@@ -215,5 +215,10 @@ public class ComServiceImpl implements ComService{
 	public void deleteComment(int num) {
 		comCommentDao.delete(num);
 	}
+
+	@Override
+	public void updateComment(ComCommentDto dto) {
+		comCommentDao.update(dto);
+	}
 }
 

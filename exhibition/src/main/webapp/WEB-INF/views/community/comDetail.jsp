@@ -212,7 +212,7 @@ $(".comment-update-link").click(function(){
 
 //댓글 수정 폼에 submit 이벤트가 일어났을때 호출되는 함수 등록
 $(".comment-update-form").on("submit", function(){
-	// "private/comment_update.do"
+	// "comment_update.do"
 	var url=$(this).attr("action");
 	//폼에 작성된 내용을 query 문자열로 읽어온다.
 	// num=댓글번호&content=댓글내용
@@ -265,6 +265,17 @@ $(".comments form").on("submit", function(){
 		alert("로그인 페이지로 이동 합니다.");
 		location.href="${pageContext.request.contextPath}/users/loginform.do?url=${pageContext.request.contextPath}/community/comDetail.do?num=${dto.num}";
 		return false;//폼 전송 막기 
+	}
+});
+//폼에 click 이벤트가 일어났을 때 실행 할 함수 등록
+$(".comments form textarea").on("click", function(){
+	//로그인 여부
+	var isLogin=${not empty id};
+	if(isLogin==false){
+		var isMove=confirm("로그인 페이지로 이동 하시겠습니까?");
+		if(isMove){
+			location.href="${pageContext.request.contextPath}/users/loginform.do?url=${pageContext.request.contextPath}/community/comDetail.do?num=${dto.num}";
+		}
 	}
 });
 

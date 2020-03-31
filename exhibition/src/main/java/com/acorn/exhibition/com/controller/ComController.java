@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.acorn.exhibition.com.dto.ComCommentDto;
 import com.acorn.exhibition.com.dto.ComDto;
 import com.acorn.exhibition.com.service.ComService;
 
@@ -93,5 +94,16 @@ public class ComController {
 		Map<String, Object> map=new HashMap<String, Object>();
 		map.put("isSuccess", true);
 		return map; // {"isSuccess":true} 형식의 JSON 문자열이 응답된다.
+	}
+	//댓글 수정 요청 처리(ajax)
+	@ResponseBody
+	@RequestMapping("/community/comment_update")
+	public Map<String, Object>
+			authCommentUpdate(HttpServletRequest request,
+								@ModelAttribute ComCommentDto dto){
+		service.updateComment(dto);
+		Map<String, Object> map=new HashMap<String, Object>();
+		map.put("isSuccess", true);
+		return map;
 	}
 }
