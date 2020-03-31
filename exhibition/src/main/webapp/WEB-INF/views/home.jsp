@@ -58,8 +58,7 @@ body{
 </style>
 <script>
   document.addEventListener('DOMContentLoaded', function() {
-    var calendarEl = document.getElementById('calendar');
-    
+    var calendarEl = document.getElementById('calendar');   
     var calendar = new FullCalendar.Calendar(calendarEl, {
     	height: 600,
 		plugins: [ 'dayGrid' ],
@@ -76,6 +75,8 @@ body{
 		editable: false,
 		droppable: false,
 		dayPopoverFormat: { year: 'numeric', month: 'long', day: 'numeric' },
+		
+		
 		events:function(info, successCallback, failureCallback){
 			$.ajax({
 		           url: '${pageContext.request.contextPath}/getEvents.do',
@@ -86,6 +87,7 @@ body{
 			               var events = [];
 			              
 			               if(result!=null){
+			            	   
 				            	   $.each(result, function(index, element) {
 			            		   var enddate=element.enddate;
 									if(enddate==null){
@@ -94,23 +96,87 @@ body{
 									
 									var startdate=moment(element.startdate).format('YYYY-MM-DD');
 									var enddate=moment(enddate).format('YYYY-MM-DD');
+									var realmname = element.realmname;
+									
+									// realmname (분야) 분야별로 color 설정
+									if (realmname == "기타"){
+										events.push({
+											   title: element.title,
+						                       start: startdate,
+						                       end: enddate,
+						           			   url: "${pageContext.request.contextPath }/detail.do?seq="+element.seq,
+						           			   color:"#6937a1"						           				
+						                    }); //.push()
+									}
+																		
+									else if (realmname == "무용"){
+										events.push({
+											   title: element.title,
+						                       start: startdate,
+						                       end: enddate,
+						           			   url: "${pageContext.request.contextPath }/detail.do?seq="+element.seq,
+						           			   color:"#f7e600"						           				
+						                    }); //.push()
+									}
+									
+									else if (realmname == "미술"){
+										events.push({
+											   title: element.title,
+						                       start: startdate,
+						                       end: enddate,
+						           			   url: "${pageContext.request.contextPath }/detail.do?seq="+element.seq,
+						           			   color:"#2a67b7"						           				
+						                    }); //.push()
+									}
+									
+									else if (realmname == "연극"){
+										events.push({
+											   title: element.title,
+						                       start: startdate,
+						                       end: enddate,
+						           			   url: "${pageContext.request.contextPath }/detail.do?seq="+element.seq,
+						           			   color:"#008d62"						           				
+						                    }); //.push()
+									}
+									
+									else if (realmname == "음악"){
+										events.push({
+											   title: element.title,
+						                       start: startdate,
+						                       end: enddate,
+						           			   url: "${pageContext.request.contextPath }/detail.do?seq="+element.seq,
+						           			   color:"#6937a1"						           				
+						                    }); //.push()
+									}
+									
+									else{
+										events.push({
+											   title: element.title,
+						                       start: startdate,
+						                       end: enddate,
+						           			   url: "${pageContext.request.contextPath }/detail.do?seq="+element.seq,
+						           			   color:"#ff3399"						           				
+						                    }); //.push()
+									}
+									/*
 									events.push({
 										
-				                       title: element.title,
+									   title: element.title+" 종류:"+realmname,
 				                       start: startdate,
 				                       end: enddate,
-				           			   url: "${pageContext.request.contextPath }/detail.do?seq="+element.seq
-				           				
+				           			   url: "${pageContext.request.contextPath }/detail.do?seq="+element.seq,				           			 			           			   				           			
 				                    }); //.push()
+				                    */
+				                    
 									
 				               }); //.each()
+				               
 			            	   console.log(events);
-			               }//if end
-			               
-			               successCallback(events);	
-			           }//success: function end
-		         
-		       }); //ajax end
+				               
+			               }//if end			               
+			               successCallback(events);				               
+			           }//success: function end						  
+			}); //ajax end
 		}, //events:function end
 		//이벤트를 클릭하면 요청 주소를 받아와서 ajax로 요청을 보내고 dtail page의 내용의 JSON 문자열로 전달한다.(bridge 사용)
 		eventClick: function showAndroidToast(toast) {
@@ -147,6 +213,8 @@ body{
    calendar.render();
    
   });
+  
+ 
   
 </script>
 <!-- owl.carousel -->

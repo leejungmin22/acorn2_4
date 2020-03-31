@@ -17,6 +17,16 @@
 		display: none;
 	
 	}
+
+	/*화면 가운데정렬*/
+	.condition{
+		width: 400px; 
+		position: absolute; 
+		margin-left: -250px;
+		left: 50%;
+
+	}
+
 	
 	#bread{
 		background-color: #FAEBD7;		
@@ -31,8 +41,25 @@
 	#signupForm{
 		margin-top:10px;
 	}
-		
-	/*가입버튼*/
+
+	
+	/*입력필드*/
+	.textbox{ 
+		border-radius: .5rem .5rem .5rem .5rem;
+		margin-top: 10px;
+		position:relative;
+		text-align: left;				
+		left: 0;	
+		color: #999; 
+		cursor: text;
+		width: 600px; /* 칸 너비 설정 */
+		height:40px; /*칸 높이*/
+		border: 2px solid #F5F5F5;		
+	}
+	
+	
+	/*가입버튼 #DEB887 #CD853F*/
+
 	.signup {
     	width:300px;
     	height:60px;
@@ -148,7 +175,6 @@
 			<button disabled="disabled" class="signup" type="submit">가 입 하 기</button>
 		</form>
 		</div>
-	
 </div>
 	<%-- jquery form  플러그인 javascript 로딩 --%>
 	<script src="${pageContext.request.contextPath }/resources/js/jquery.form.min.js"></script>

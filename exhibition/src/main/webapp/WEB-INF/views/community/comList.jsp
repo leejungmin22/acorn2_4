@@ -89,8 +89,8 @@
 </jsp:include>
 <div class="container">
 	<ol class="breadcrumb" id="bread">
-		<li><a href="${pageContext.request.contextPath }/community/comList.do">목록</a></li>
 		<li>자유게시판</li>
+		<li><a href="${pageContext.request.contextPath }/community/comList.do">목록</a></li>	
 	</ol>
 	
 	<%-- 글 검색 기능 폼 --%>	
