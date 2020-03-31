@@ -71,3 +71,17 @@ FROM (SELECT seq, title, startdate, enddate
 		FROM tb_api_date
 		WHERE startdate>=to_date(20170401,'yyyymmdd') AND startdate<=to_date(20170531,'yyyymmdd')) result2
 WHERE enddate>=to_date(20170401,'yyyymmdd') AND enddate<=to_date(20170531,'yyyymmdd')
+
+--자유게시판 댓글 정보 저장 할 테이블
+CREATE TABLE community_comment(
+	num NUMBER PRIMARY KEY, -- 댓글의 글번호
+	writer VARCHAR2(100), -- 댓글 작성자
+	content VARCHAR2(500), -- 댓글 내용
+	target_id VARCHAR2(100), -- 댓글의대상이되는아이디(글작성자)
+	ref_group NUMBER, -- 댓글 그룹번호
+	comment_group NUMBER, -- 원글에 달린 댓글 내에서의 그룹번호
+	deleted CHAR(3) DEFAULT 'no', -- 댓글이 삭제 되었는지 여부 
+	regdate DATE -- 댓글 등록일 
+);
+
+CREATE SEQUENCE community_comment_seq;
