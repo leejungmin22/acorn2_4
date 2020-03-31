@@ -199,14 +199,6 @@ ol, ul {
 	<div class="condition" align="right">
 		<form class="form-inline" action="list.do" method="get"> 
 			<div class="form-group">
-				<label for="sort">정렬조건</label>
-					<select class="form-control" name="sort" id="sort">
-						<option value="sortnone">선택하세요</option>
-						<option value="favorite" <c:if test="${sort eq 'favorite' }">selected</c:if>>인기순</option>
-						<option value="sortdate" <c:if test="${sort eq 'sortdate' }">selected</c:if>>날짜순</option>
-					</select>
-			</div>
-			<div class="form-group">
 				<label for="condition">검색조건</label>
 				<select class="form-control" name="condition" id="condition">
 					<option value="none">선택하세요</option>
@@ -226,9 +218,18 @@ ol, ul {
 				<button class="btn btn-primary" type="submit" disabled="disabled">검색</button>
 			</div>
 		</form>
-		
-	</div>
-
+		<form class="form-inline" action="list.do" method="get"> 
+		<div class="form-group">
+				<label for="sort">정렬조건</label>
+					<select class="form-control" name="sort" id="sort">
+						<option value="sortnone">선택하세요</option>
+						<option value="sortnone" <c:if test="${sort eq 'sortnone' }">selected</c:if>>최신날짜순</option>
+						<option value="favorite" <c:if test="${sort eq 'favorite' }">selected</c:if>>인기순</option>
+						<option value="sortpastdate" <c:if test="${sort eq 'sortpastdate' }">selected</c:if>>이전날짜순</option>
+					</select>
+			</div>
+			</form>
+		</div>
 	<table class="table table-hover">
 
 		<colgroup>
@@ -259,8 +260,7 @@ ol, ul {
 					</td>				
 					<td>${tmp.place }</td>
 					<td>${tmp.startdate } ~ ${tmp.enddate }</td>
-				</tr>
-				
+				</tr>	
 			</c:forEach>
 		</tbody>	
 	</table>
@@ -353,45 +353,53 @@ ol, ul {
 <script>
 	//select 된 정보를 담을 변수
 	var value=$("#condition").val();
+	var values=$("#sort").val();
 	//페이지가 로딩되는 시점에 어떤 값이 선택되었는지 확인 후 그에 맞는 input tag를 보여준다.
 	checkeSelectBox(value);
-	var sortvalue=$("#sort").val();
-	checkesortSelectBox(sortvalue);
+	
+	$("#sort").change(function(){
+		values=$(this).val();
+// 		$.ajax({
+// 			url:"list.do",
+// 			method:"post",
+// 			data:{"sort":values},
+// 			success:function(responseData){
+// 				if(responseData.isSuccess){
+// 					location.href="${pageContext.request.contextPath}/list.do?sort=${sort}";
+// 					console.log(11)
+// 				}
+// 			}
+// 		});
+		checkSortBox(values)
+		
+	});
+	
 	//select 옵션이 변경된 경우 그에 맞는 input tag를 보여준다.
 	$("#condition").change(function(){
 		value=$(this).val();
 		checkeSelectBox(value);
 	});
-	//어떤 옵션이 선택되었는지 확인할 함수
-	function checkesortSelectBox(sortvalue){
-		if(value=="sortnone" ){
-			$("#keyword").attr("disabled", "disabled").hide();
-			$(".date").attr("disabled", "disabled").hide();
-			//$("button[type=submit]").attr("disabled","disabled");
-		}
-		if(value=="favorite" ){
-			$("#keyword").attr("disabled", "disabled").hide();
-			$(".date").removeAttr("disabled").show();
-			//$("button[type=submit]").removeAttr("disabled");
-			console.log("기간 선택");
-		}
-		if(value=="sortdate"){
-			$("#keyword").removeAttr("disabled").show();
-			$(".date").attr("disabled", "disabled").hide();
-			//$("button[type=submit]").removeAttr("disabled");
-			console.log("제목 선택");
-		}
-		
 	
-	}	
-
+	function checkSortBox(values){
+		$.ajax({
+			url:"list.do",
+			method:"post",
+			data:{"sort":values},
+			success:function(responseData){
+				
+					location.href="${pageContext.request.contextPath}/list.do?sort="+values;
+				
+			}
+		});
+	}
 	//어떤 옵션이 선택되었는지 확인할 함수
 	function checkeSelectBox(value){
-		if(value=="none" ){
+		if(value=="none"){
 			$("#keyword").attr("disabled", "disabled").hide();
 			$(".date").attr("disabled", "disabled").hide();
 			//$("button[type=submit]").attr("disabled","disabled");
 		}
+		
 		if(value=="date" ){
 			$("#keyword").attr("disabled", "disabled").hide();
 			$(".date").removeAttr("disabled").show();
@@ -413,7 +421,7 @@ ol, ul {
 		}
 		
 	}	
-	
+		
 	//페이지 로딩시 키워드, 시작, 끝 날짜에 입력되어 있는값 갖고오기 
 	var keyword=$("#keyword").val();
 	var startDate=$("#startDate").val();

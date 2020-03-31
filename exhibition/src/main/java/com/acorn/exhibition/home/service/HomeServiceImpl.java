@@ -160,6 +160,7 @@ public class HomeServiceImpl implements HomeService{
 		 *  - 전달 되는 경우 : 하단에 검색어를 입력하고 검색 버튼을 누른경우
 		 *  - 전달 되는 경우2: 이미 검색을 한 상태에서 하단 페이지 번호를 누른 경우 
 		 */
+		
 		//검색과 관련된 파라미터를 읽어와 본다.
 		String keyword=request.getParameter("keyword");
 		String condition=request.getParameter("condition");
@@ -252,11 +253,30 @@ public class HomeServiceImpl implements HomeService{
 		dto.setStartRowNum(startRowNum);
 		dto.setEndRowNum(endRowNum);
 		
+		String sort=request.getParameter("sort");
+		System.out.println(sort);
 		//1. DB 에서 글 목록을 얻어온다.
-		List<FullCalendarDto> list=dao.getList(dto);
-		
+		if(sort!=null) {
+		if(sort.equals("favorite")) {
+			List<FullCalendarDto> list=dao.getfavoriteList(dto);
+			request.setAttribute("list", list);
+			System.out.println("1");
+		}else if(sort.equals("sortpastdate")) {
+			List<FullCalendarDto> list=dao.getdateList(dto);
+			request.setAttribute("list", list);
+			System.out.println("2");
+		}else if(sort.equals("sortnone")){
+			List<FullCalendarDto> list=dao.getList(dto);
+			request.setAttribute("list", list);
+			System.out.println("3");
+		}
+		}else {
+			List<FullCalendarDto> list=dao.getList(dto);
+			request.setAttribute("list", list);
+			System.out.println("4");
+		}
 		//EL, JSTL 을 활용하기 위해 필요한 모델을 request 에 담는다.
-		request.setAttribute("list", list);
+		
 		request.setAttribute("pageNum", pageNum);
 		request.setAttribute("startPageNum", startPageNum);
 		request.setAttribute("endPageNum", endPageNum);
@@ -322,10 +342,6 @@ public class HomeServiceImpl implements HomeService{
 		
 	}//updateLikeCount() end
 
-	@Override
-	public void favoritelist(HttpServletRequest request) {
-		
-		
-	}
+	
 
 }
