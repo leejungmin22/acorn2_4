@@ -139,7 +139,7 @@ public class ComServiceImpl implements ComService{
 			request.setAttribute("encodedKeyword", encodedKeyword);
 			request.setAttribute("keyword", keyword);
 		}		
-		//CafeDto 에 글번호도 담기
+		//ComDto 에 글번호도 담기
 		dto.setNum(num);
 		//조회수 1 증가 시키기
 		comDao.addViewCount(num);
@@ -147,6 +147,9 @@ public class ComServiceImpl implements ComService{
 		ComDto dto2=comDao.getData(dto);
 		//request 에 글정보를 담고 
 		request.setAttribute("dto", dto2);
+		//댓글 목록 얻어와서 request에 담아준다.
+		List<ComCommentDto> comCommentList=comCommentDao.getList(num);
+		request.setAttribute("comCommentList", comCommentList);
 	}
 
 	@Override
