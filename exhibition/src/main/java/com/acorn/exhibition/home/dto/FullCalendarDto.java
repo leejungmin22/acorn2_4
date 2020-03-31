@@ -15,14 +15,14 @@ public class FullCalendarDto {
 	private int endRowNum;
 	private String id;
 	private int likeCount;
-	private String sort;
+	
 	
 	public FullCalendarDto() {}
-	
 
+	
 	public FullCalendarDto(int seq, String title, String startdate, String enddate, String place, String realmname,
 			String area, String thumbnail, String gpsx, String gpsy, int startRowNum, int endRowNum, String id,
-			int likeCount, String sort) {
+			int likeCount) {
 		super();
 		this.seq = seq;
 		this.title = title;
@@ -38,7 +38,6 @@ public class FullCalendarDto {
 		this.endRowNum = endRowNum;
 		this.id = id;
 		this.likeCount = likeCount;
-		this.sort = sort;
 	}
 
 
@@ -46,121 +45,141 @@ public class FullCalendarDto {
 		return seq;
 	}
 
+
 	public void setSeq(int seq) {
 		this.seq = seq;
 	}
+
 
 	public String getTitle() {
 		return title;
 	}
 
+
 	public void setTitle(String title) {
 		this.title = title;
 	}
+
 
 	public String getStartdate() {
 		return startdate;
 	}
 
+
 	public void setStartdate(String startdate) {
 		this.startdate = startdate;
 	}
+
 
 	public String getEnddate() {
 		return enddate;
 	}
 
+
 	public void setEnddate(String enddate) {
 		this.enddate = enddate;
 	}
+
 
 	public String getPlace() {
 		return place;
 	}
 
+
 	public void setPlace(String place) {
 		this.place = place;
 	}
+
 
 	public String getRealmname() {
 		return realmname;
 	}
 
+
 	public void setRealmname(String realmname) {
 		this.realmname = realmname;
 	}
+
 
 	public String getArea() {
 		return area;
 	}
 
+
 	public void setArea(String area) {
 		this.area = area;
 	}
+
 
 	public String getThumbnail() {
 		return thumbnail;
 	}
 
+
 	public void setThumbnail(String thumbnail) {
 		this.thumbnail = thumbnail;
 	}
+
 
 	public String getGpsx() {
 		return gpsx;
 	}
 
+
 	public void setGpsx(String gpsx) {
 		this.gpsx = gpsx;
 	}
+
 
 	public String getGpsy() {
 		return gpsy;
 	}
 
+
 	public void setGpsy(String gpsy) {
 		this.gpsy = gpsy;
 	}
+
 
 	public int getStartRowNum() {
 		return startRowNum;
 	}
 
+
 	public void setStartRowNum(int startRowNum) {
 		this.startRowNum = startRowNum;
 	}
+
 
 	public int getEndRowNum() {
 		return endRowNum;
 	}
 
+
 	public void setEndRowNum(int endRowNum) {
 		this.endRowNum = endRowNum;
 	}
+
 
 	public String getId() {
 		return id;
 	}
 
+
 	public void setId(String id) {
 		this.id = id;
 	}
+
 
 	public int getLikeCount() {
 		return likeCount;
 	}
 
+
 	public void setLikeCount(int likeCount) {
 		this.likeCount = likeCount;
 	}
-
-	public String getSort() {
-		return sort;
-	}
-
-	public void setSort(String sort) {
-		this.sort = sort;
-	}
-
 	
+	
+
 }

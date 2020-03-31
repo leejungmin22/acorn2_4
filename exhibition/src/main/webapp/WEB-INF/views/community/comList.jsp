@@ -8,6 +8,11 @@
 <title>자유게시판</title>
 <jsp:include page="../include/resource.jsp"></jsp:include>
 <style>
+@import url(//fonts.googleapis.com/earlyaccess/nanumpenscript.css);
+	p, .form-group{
+		font-size:20px;
+		font-family: 'Nanum Pen Script', cursive;
+	}
 
 	button{
 		vertical-align:middle;
@@ -29,7 +34,7 @@
 		text-align:left;
 		border-bottom:1px solid #ddd;
 		padding:1px 0 5px;
-		font-family: "Noto Sans KR","맑은 고딕","Malgun Gothic";
+		font-family: "Noto Sans KR","맑은 고딕","Malgun Gothic",;
 	}
 	
 </style>
@@ -40,7 +45,7 @@
 </jsp:include>
 <div class="container">
 	<div class="sub-nav-left">
-			<a href="${pageContext.request.contextPath }/home.do" onclick="javascript:page_link('000000'); return false;">
+			<a href="home.do" onclick="javascript:page_link('000000'); return false;">
 				<img src="../resources/images/home.png" alt="홈" />
 			</a>
 			>
@@ -157,50 +162,6 @@
 </div>
 </body>
 <script>
-	//select 된 정보를 담을 변수
-	var value=$("#condition").val();
-	//페이지가 로딩되는 시점에 어떤 값이 선택되었는지 확인 후 그에 맞는 input tag를 보여준다.
-	checkeSelectBox(value);
-	var value=${sort}
-	
-	//select 옵션이 변경된 경우 그에 맞는 input tag를 보여준다.
-	$("#condition").change(function(){
-		value=$(this).val();
-		checkeSelectBox(value);
-	});
-	
-	//어떤 옵션이 선택되었는지 확인할 함수
-	function checkeSelectBox(value){
-		
-			if(value=="none" ){
-				$("#keyword").attr("disabled", "disabled").hide();
-				$(".date").attr("disabled", "disabled").hide();
-				//$("button[type=submit]").attr("disabled","disabled");
-			}
-			
-			if(value=="title"){
-				$("#keyword").removeAttr("disabled").show();
-				$(".date").attr("disabled", "disabled").hide();
-				//$("button[type=submit]").removeAttr("disabled");
-				console.log("제목 선택");
-			}
-			
-			if(value=="titlecontent"){
-				$("#keyword").removeAttr("disabled").show();
-				$(".date").attr("disabled", "disabled").hide();
-				//$("button[type=submit]").removeAttr("disabled");
-				console.log("제목+내용 선택");
-			}
-
-			if(value=="writer"){
-				$("#keyword").removeAttr("disabled").show();
-				$(".date").attr("disabled", "disabled").hide();
-				//$("button[type=submit]").removeAttr("disabled");
-				console.log("작성자 선택");
-			}
-	}	
-
-
 	var keyword=$("#keyword").val();
 	//페이지 로딩시 
 	if(!isEmpty(keyword)){//키워드가 입력되어 있다면 disabled 속성 없애기

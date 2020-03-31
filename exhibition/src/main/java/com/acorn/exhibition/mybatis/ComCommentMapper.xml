@@ -9,6 +9,7 @@
 						INNER JOIN exhibition_users ON community_comment.writer=exhibition_users.id
 						WHERE ref_group=#{num}
 						ORDER BY comment_group DESC, num ASC) result1)
+
 	</select>
 	<update id="delete" parameterType="int">
 		UPDATE community_comment

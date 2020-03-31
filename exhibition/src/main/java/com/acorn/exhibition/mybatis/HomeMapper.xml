@@ -36,19 +36,13 @@
 	<!-- 전체 공연 list -->
 	<select id="getCount" parameterType="fullCalendarDto" resultType="int">
 		SELECT NVL(MAX(ROWNUM), 0)
+		FROM tb_api_date
 		<choose>
 			<when test="startdate != null and enddate != null">
-				FROM (SELECT seq, title, startdate, enddate, place, thumbnail, likecount
-						FROM tb_api_date
-						<![CDATA[
-						WHERE startdate>=to_date(${startdate},'yyyymmdd') AND startdate<=to_date(${enddate},'yyyymmdd')) result2
-						]]>
+				<![CDATA[
+				WHERE startdate>=to_date(${startdate},'yyyymmdd') AND startdate<=to_date(${enddate},'yyyymmdd')
+				]]>
 			</when>
-			<otherwise>
-				FROM tb_api_date
-			</otherwise>
-		</choose>
-		<choose>
 			<when test="title != null">
 				WHERE title LIKE '%${title}%'
 			</when>
@@ -58,24 +52,17 @@
 		</choose>
 	</select>
 	
-	<select id="getList" resultType="fullCalendarDto">
+	<select id="getList" parameterType="fullCalendarDto" resultType="fullCalendarDto">
 		SELECT *
 		 FROM (SELECT result1.*, ROWNUM AS rnum
 				FROM (SELECT seq, title, TO_CHAR(startdate,'YYYY/MM/DD') AS startdate, TO_CHAR(enddate,'YYYY/MM/DD') AS enddate, place, thumbnail, likecount
+						FROM tb_api_date
 						<choose>
 							<when test="startdate != null and enddate != null">
-								FROM (SELECT seq, title, startdate, enddate, place, thumbnail, likecount
-										FROM tb_api_date
-										<![CDATA[
-										WHERE startdate>=to_date(${startdate},'yyyymmdd') AND startdate<=to_date(${enddate},'yyyymmdd')) result2
-										]]>
-										
+								<![CDATA[
+								WHERE startdate>=to_date(${startdate},'yyyymmdd') AND startdate<=to_date(${enddate},'yyyymmdd')
+								]]>
 							</when>
-							<otherwise>
-								FROM tb_api_date
-							</otherwise>
-						</choose>
-						<choose>
 							<when test="title != null">
 								WHERE title LIKE '%${title}%'
 							</when>
@@ -83,8 +70,7 @@
 								WHERE place LIKE '%${place}%'
 							</when>
 						</choose>
-						order by
-							startdate DESC
+						ORDER BY startdate DESC
 
 						) result1)
  		WHERE rnum BETWEEN #{startRowNum} AND #{endRowNum}
@@ -117,6 +103,17 @@
 						order by
 							likecount DESC
 
+						) result1)
+ 		WHERE rnum BETWEEN #{startRowNum} AND #{endRowNum}
+	</select>
+	<select id="getmapList" resultType="fullCalendarDto">
+		SELECT *
+		 FROM (SELECT result1.*, ROWNUM AS rnum
+				FROM (SELECT seq, title, TO_CHAR(startdate,'YYYY/MM/DD') AS startdate, TO_CHAR(enddate,'YYYY/MM/DD') AS enddate, place, thumbnail, likecount
+								FROM tb_api_date
+								WHERE place = #{place}
+						order by
+							likecount DESC
 						) result1)
  		WHERE rnum BETWEEN #{startRowNum} AND #{endRowNum}
 	</select>
@@ -161,5 +158,7 @@
 		FROM exhibition_like
 		WHERE seq=#{seq} AND id=#{id}
 	</select>
-	
+	<select id="mapList" resultType="com.acorn.exhibition.home.dto.mapDto">
+		SELECT place, gpsx, gpsy FROM tb_api_date GROUP BY place, gpsx, gpsy
+	</select>
 </mapper>

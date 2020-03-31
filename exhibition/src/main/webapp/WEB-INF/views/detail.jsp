@@ -9,6 +9,106 @@
 <jsp:include page="include/resource.jsp" />
 
 <style>
+@import url(//fonts.googleapis.com/earlyaccess/nanumpenscript.css);
+@import url(//fonts.googleapis.com/earlyaccess/jejugothic.css);
+	
+
+	h6{
+		font-size:16px;
+		font-family: 'Jeju Gothic', sans-serif;
+	}
+	
+
+	.poster {
+		max-width: 100%;
+		height: 560px;
+	}
+
+	img {
+		height: auto;
+	}
+	/* 댓글 css */
+	.contents, table {
+		width: 100%;
+		border: 1px dotted #cecece;
+		box-shadow: 3px 3px 5px 6px #ccc;
+	}
+	.comments{
+		padding-bottom: 40px;
+	}
+	.comments ul {
+		padding: 0;
+		margin: 0;
+		list-style-type: none;
+	}
+	
+	.comments ul li {
+		border-top: 1px solid #888;
+	}
+	
+	.comments dt {
+		margin-top: 5px;
+	}
+	
+	.comments dd {
+		margin-left: 26px;
+	}
+	
+	.comments form textarea, .comments form button {
+		float: left;
+		font-size:20px;
+		font-family: 'Nanum Pen Script', cursive;
+	}
+	
+	.comments li {
+		clear: left;
+	}
+	
+	.comments form textarea {
+		width: 85%;
+		height: 100px;
+	}
+	
+	.comments form button {
+		width: 15%;
+		height: 100px;
+		font-size:20px;
+		font-family: 'Nanum Pen Script', cursive;
+	}
+	.comment form {
+		display: none;
+	}
+	
+	.comment {
+		position: relative;
+		font-size:20px;
+		font-family: 'Nanum Pen Script', cursive;
+	}
+	
+	.comment .reply_icon {
+		width: 8px;
+		height: 8px;
+		position: absolute;
+		top: 10px;
+		left: 30px;
+	}
+	
+	.comments .user-img {
+		width: 20px;
+		height: 20px;
+		border-radius: 50%;
+	}
+	pre{
+		font-size:20px;
+		font-family: 'Nanum Pen Script', cursive;
+		background-color:#FFFFFF;
+	}
+	
+	.heart{
+		width: 20px;
+		height: auto;
+	}
+
 	.sub-nav-left{
 		display:block;
 		position:relative;
@@ -18,104 +118,8 @@
 		text-align:left;
 		border-bottom:1px solid #ddd;
 		padding:1px 0 5px;
-		font-family: "Noto Sans KR","맑은 고딕","Malgun Gothic";
+		font-family: "Noto Sans KR","맑은 고딕","Malgun Gothic",;
 	}
-	
-	h6{
-		font-size:15px;
-		font-family: "Noto Sans KR","맑은 고딕","Malgun Gothic";
-	}
-	.poster {
-		max-width: 100%;
-		height: 560px;
-	}
-
-	img {
-		height: auto;
-	}
-
-/* 댓글 css */
-/* 글 내용을 출력할 div 에 적용할 css */
-.contents, table {
-	width: 100%;
-	border: 1px dotted #cecece;
-	box-shadow: 3px 3px 5px 6px #ccc;
-}
-/* 댓글에 관련된 css */
-.comments ul {
-	padding: 0;
-	margin: 0;
-	list-style-type: none;
-}
-
-.comments ul li {
-	border-top: 1px solid #888; /* li 의 윗쪽 경계선 */
-}
-
-.comments dt {
-	margin-top: 5px;
-}
-
-.comments dd {
-	margin-left: 26px;
-}
-
-.comments form textarea, .comments form button {
-	float: left;
-	font-size:15px;
-	font-family: "Noto Sans KR","맑은 고딕","Malgun Gothic";
-}
-
-.comments li {
-	clear: left;
-}
-
-.comments form textarea {
-	width: 85%;
-	height: 100px;
-}
-
-.comments form button {
-	width: 15%;
-	height: 100px;
-	font-size:15px;
-	font-family: "Noto Sans KR","맑은 고딕","Malgun Gothic";
-}
-/* 댓글에 댓글을 다는 폼과 수정폼을 일단 숨긴다. */
-.comment form {
-	display: none;
-}
-
-.comment {
-	position: relative;
-	font-size:15px;
-	font-family: "Noto Sans KR","맑은 고딕","Malgun Gothic";
-}
-
-.comment .reply_icon {
-	width: 8px;
-	height: 8px;
-	position: absolute;
-	top: 10px;
-	left: 30px;
-}
-
-.comments .user-img {
-	width: 20px;
-	height: 20px;
-	border-radius: 50%;
-}
-/*쓰여진 댓글창*/
-pre{
-	font-size:15px;
-	font-family: "Noto Sans KR","맑은 고딕","Malgun Gothic";
-	background-color:#FFFFFF;
-}
-
-.heart{
-	width: 20px;
-	height: auto;
-}
 </style>
 
 </head>
@@ -133,7 +137,7 @@ pre{
 		</div>	
 		<div class="row">
 			<div class="col-sm-4">
-				<img class="poster" src="${exhibitionDto.imgUrl }"alt="${exhibitionDto.title } 포스터">
+				<img class="poster" src="${exhibitionDto.imgUrl }" alt="${exhibitionDto.title } 포스터">
 			</div>
 			<div class="col-sm-8">
 				<div>
@@ -158,7 +162,6 @@ pre{
 						</c:choose>
 						좋아요
 						<span>${dto.likeCount }</span>
-
 					</button>
 				</div> 
 				<div >
@@ -172,7 +175,6 @@ pre{
 				<h3>줄거리</h3>
 				<c:choose>
 					<c:when test="${exhibitionDto.contents1 ne null }">
-
 						${exhibitionDto.contents1 }
 					</c:when>
 						<c:when test="${exhibitionDto.contents2 ne null }">
@@ -193,9 +195,6 @@ pre{
 							<form class="comment-insert-form" action="comment_insert.do"
 								method="post">
 								<input type="hidden" name="ref_group" value="${dto.seq }" />
-								<!-- 몇번 글의 글번호인지(댓글의 그룹번호) -->
-								<%-- <input type="hidden" name="target_id" value="${tmp.writer }" />--%>
-								<!-- 원글의 작성자 id(댓글의 대상자) -->
 								<textarea name="content"><c:if test="${empty id }">로그인이 필요합니다.</c:if></textarea>
 								<!-- 로그인을 하지않았을 때 '로그인이 필요합니다' 출력 -->
 								<button type="submit">등록</button>
@@ -238,7 +237,7 @@ pre{
 													<%-- 로그인된 아이디와 댓글의 작성자가 같으면 --%>
 													<c:when test="${ admin eq 1 || id eq tmp.writer }">
 														<a href="javascript:" class="comment-update-link">수정</a>&nbsp;&nbsp;
-														<a href="javascript:deleteComment(${tmp.num })">삭제</a>
+													<a href="javascript:deleteComment(${tmp.num })">삭제</a>
 													</c:when>
 													<c:otherwise>
 														<a href="javascript:">신고</a>
@@ -279,16 +278,13 @@ pre{
 											</dd>
 										</dl>
 										<form class="comment-insert-form" action="comment_insert.do" method="post">
-											<!-- 덧글 그룹 -->
 											<input type="hidden" name="ref_group" value="${dto.seq }" />
-											<!-- 덧글 대상 -->
 											<input type="hidden" name="target_id" value="${tmp.writer }" />
 											<input type="hidden" name="comment_group"
 												value="${tmp.comment_group }" />
 											<textarea name="content"><c:if test="${empty id }">로그인이 필요합니다.</c:if></textarea>
 											<button type="submit">등록</button>
-										</form> 
-										<!-- 로그인한 아이디와 댓글의 작성자와 같으면 수정폼 출력 --> 
+										</form>
 										<c:if test="${ admin eq 1 || id eq tmp.writer }">
 											<form class="comment-update-form" action="comment_update.do"
 												method="post">
@@ -339,14 +335,14 @@ pre{
 			</div><!-- class="row" -->
 		</div><!-- class="container" -->
 <script>
-	//좋아요 수 올리기
+	//공연 좋아요
 	$(".like").on("click", function(){
 		var isLogin=${not empty id};
 		if(isLogin==true){
 			$.ajax({
 				url:"updateLikeCount.do",
 				method:"post", 
-				data:{"seq":${dto.seq}}, //data : 파라미터로 전달할 문자열 
+				data:{"seq":${dto.seq}},
 				dataType:"json",
 				success:function(responseData){
 					console.log(responseData);
@@ -361,22 +357,19 @@ pre{
 						span.text(responseData.likecount);
 					}
 				}
-		});
-		//폼 제출 막기 
-		return false; 
-	}
-
-	if(isLogin==false){
-		var goLoginPage=confirm("로그인이 필요합니다. 로그인 하시겠습니까?");
-		if(goLoginPage==true){
-			location.href="${pageContext.request.contextPath}/users/loginform.do?url=${pageContext.request.contextPath}/detail.do?seq=${dto.seq}";
-			imgLike=false;
+			});
 		}
-		return false;//폼 전송 막기 
-	}
+	
+		if(isLogin==false){
+			var goLoginPage=confirm("로그인이 필요합니다. 로그인 하시겠습니까?");
+			if(goLoginPage==true){
+				location.href="${pageContext.request.contextPath}/users/loginform.do?url=${pageContext.request.contextPath}/detail.do?seq=${dto.seq}";
+				imgLike=false;
+			}
+		}
 	});
 	
-	//댓글좋아요 수 올리기
+	//댓글 좋아요
 	$(".comlike").on("click",function(){
 		var num = $(this).attr('value');
 		var isLogin=${not empty id};
@@ -400,8 +393,6 @@ pre{
 					}
 				} 
 			});
-			//폼 제출 막기 
-			return false; 
 		}
 		
 		if(isLogin==false){
@@ -410,7 +401,6 @@ pre{
 				location.href="${pageContext.request.contextPath}/users/loginform.do?url=${pageContext.request.contextPath}/detail.do?seq=${dto.seq}";
 				imgLike=false;
 			}
-			return false;//폼 전송 막기 
 		}
 	});
 
@@ -551,7 +541,7 @@ pre{
 	// 마커가 지도 위에 표시되도록 설정합니다
 	marker.setMap(map);
 	
-	var iwContent = '<div style="padding:5px;">${exhibitionDto.place} <br><a href="https://map.kakao.com/link/to/${exhibitionDto.place},${exhibitionDto.gpsY}, ${exhibitionDto.gpsX}" style="color:blue" target="_blank">길찾기</a></div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+	var iwContent = '<div style="padding:5px;">${exhibitionDto.place}</div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
     iwPosition = new kakao.maps.LatLng(${exhibitionDto.gpsY }, ${exhibitionDto.gpsX }); //인포윈도우 표시 위치입니다
 
 	// 인포윈도우를 생성합니다

@@ -7,12 +7,11 @@
 		where id=#{inputId}
 	</select>
 	
-	<insert id="insert" parameterType="usersDto" >
-		insert into exhibition_users
-		(id,name,pwd,email,birth,gender,profile,regdate)
-		values(#{id},#{name},#{pwd},#{email},#{birth},#{gender},#{profile,jdbcType=VARCHAR},SYSDATE)
-	</insert>
-	
+   <insert id="insert" parameterType="usersDto" >
+      insert into exhibition_users
+      (id,name,pwd,email,birth,gender,profile,regdate)
+      values(#{id},#{name},#{pwd},#{email},#{birth},#{gender},#{savePath,jdbcType=VARCHAR},SYSDATE)
+   </insert>
 	<select id="getPwdHash" parameterType="String" resultType="String">
 		select pwd
 		from exhibition_users
@@ -30,7 +29,6 @@
 		set profile=#{profile}
 		where id=#{id}
 	</update>
-	
 	<update id="updatePwd" parameterType="usersDto">
 		update exhibition_users
 		set pwd=#{pwd}
@@ -47,10 +45,78 @@
 		delete from exhibition_users
 		where id=#{id}
 	</delete>
-	
+	<delete id="deletelike" parameterType="String">
+		delete from exhibition_like
+		where id=#{id}
+	</delete>
+	<delete id="deletecomment" parameterType="String">
+		delete from board_cafe_comment
+		where id=#{id}
+	</delete>
+	<delete id="deletecomcomment" parameterType="String">
+		delete from community_comment
+		where id=#{id}
+	</delete>
 	<select id="getAdminAuth" parameterType="String" resultType="String">
 		SELECT admin
 		FROM exhibition_users
 		WHERE id=#{inputId}
+	</select>
+	
+		<!-- 전체 공연 list -->
+	<select id="getCount" parameterType="fullCalendarDto" resultType="int">
+		SELECT NVL(MAX(ROWNUM), 0)
+		<choose>
+			<when test="startdate != null and enddate != null">
+				FROM (SELECT stb_api_date.seq, title, startdate, enddate, place, thumbnail, likecount
+					FROM tb_api_date,exhibition_like
+						<![CDATA[
+						WHERE startdate>=to_date(${startdate},'yyyymmdd') AND startdate<=to_date(${enddate},'yyyymmdd'))
+						AND tb_api_date.seq = exhibition_like.seq AND exhibition_like.id = #{id} result2
+						]]>
+			</when>
+			<otherwise>
+				FROM tb_api_date,exhibition_like WHERE tb_api_date.seq = exhibition_like.seq AND exhibition_like.id = #{id}
+			</otherwise>
+		</choose>
+		<choose>
+			<when test="title != null">
+				WHERE title LIKE '%${title}%'
+			</when>
+			<when test="place != null">
+				WHERE place LIKE '%${place}%'
+			</when>
+		</choose>
+	</select>
+	
+	<select id="getLikeList" resultType="fullCalendarDto">
+		SELECT *
+		 FROM (SELECT result1.*, ROWNUM AS rnum
+				FROM (SELECT tb_api_date.seq, title, TO_CHAR(startdate,'YYYY/MM/DD') AS startdate, TO_CHAR(enddate,'YYYY/MM/DD') AS enddate, place, thumbnail, likecount
+						<choose>
+							<when test="startdate != null and enddate != null">
+								FROM (SELECT stb_api_date.seq, title, startdate, enddate, place, thumbnail, likecount
+										FROM tb_api_date,exhibition_like
+										<![CDATA[
+										WHERE startdate>=to_date(${startdate},'yyyymmdd') AND startdate<=to_date(${enddate},'yyyymmdd'))
+										AND tb_api_date.seq = exhibition_like.seq AND exhibition_like.id = #{id} result2
+										]]>
+							</when>
+							<otherwise>
+								FROM tb_api_date,exhibition_like WHERE tb_api_date.seq = exhibition_like.seq AND exhibition_like.id = #{id}
+							</otherwise>
+						</choose>
+						<choose>
+							<when test="title != null">
+								WHERE title LIKE '%${title}%'
+							</when>
+							<when test="place != null">
+								WHERE place LIKE '%${place}%'
+							</when>
+						</choose>
+						order by
+							startdate DESC
+						) result1)
+ 		WHERE rnum BETWEEN #{startRowNum} AND #{endRowNum}
 	</select>
 </mapper>

@@ -5,13 +5,13 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>개인정보 수정</title>
+<title>개인정보</title>
 <jsp:include page="../include/resource.jsp"></jsp:include>
 <style>
 	/* 프로필 이미지가 가로 세로 50px 인 원형으로 표시 될수 있도록  */
 	#profileLink img{
 		width: 200px;
-		height: auto;
+		height: 200px;
 		border-radius: 50%;
 		margin: 30px;
 	}
@@ -19,12 +19,31 @@
 	#profileForm{
 		display: none;
 	}
+	.sub-nav-left{
+		display:block;
+		position:relative;
+		font-size:15px;
+		float:none;
+		margin:10px 0 10px 0;
+		text-align:left;
+		border-bottom:1px solid #ddd;
+		padding:1px 0 5px;
+		font-family: "Noto Sans KR","맑은 고딕","Malgun Gothic",;
+	}
 </style>
 </head>
 <body>
 <jsp:include page="../include/navbar.jsp" />
 <div class="container">
-	<h1>개인정보 수정</h1>
+	<div class="sub-nav-left">
+		<a href="${pageContext.request.contextPath }/home.do">
+			<img src="../resources/images/home.png" alt="홈" />
+		</a>
+		> 
+		<a href="${pageContext.request.contextPath }/users/info.do">개인정보 </a>
+	</div>	
+	<h1>개인정보 </h1>
+
 	<div style="text-align: center;">
 		<a href="javascript:" id="profileLink">
 			<c:choose>
@@ -40,7 +59,7 @@
 	<table class="table">
 		<tr>
 			<th>아이디</th>
-			<td>${dto.id }</td>
+			<td id="id">${dto.id }</td>
 		</tr>
 		<tr>
 			<th>이름</th>
@@ -65,6 +84,12 @@
 				<c:if test="${dto.gender eq 'm' }">남</c:if>
 			</td>
 		</tr>
+		<tr>
+			<th>좋아요한 글목록</th>
+			<td>
+				<a class="btn btn-info" href="likelist.do">좋아요한 글 목록보기</a>
+			</td>
+		</tr>
 
 	</table>
 	<a class="btn btn-info" href="updateform.do">개인 정보 수정하기</a>
@@ -74,6 +99,8 @@
 <form action="profile_upload.do" method="post" enctype="multipart/form-data" id="profileForm">
 	<label for="profileImage">프로필 이미지 선택</label>
 	<input type="file" name="profileImage" id="profileImage" accept=".jpg, .jpeg, .png, .JPG, .JPEG"/>
+	<input id="checkReqPage" name="checkReqPage" value="1"/>
+	<input id="id" name="id" value="${dto.id }"/>
 </form>
 <%-- jquery form  플러그인 javascript 로딩 --%>
 <script src="${pageContext.request.contextPath }/resources/js/jquery.form.min.js"></script>
@@ -94,12 +121,15 @@
 		//responseData 는 plain object 이다.
 		//{savedPath:"/upload/저장된이미지파일명"}
 		//savedPath 라는 방에 저장된 이미지의 경로가 들어 있다.
-		console.log(responseData);
-		var src="${pageContext.request.contextPath }"+responseData.savePath;
+		console.log(responseData.saveSuccess);
 		// img 의 src 속성에 반영함으로써 이미지가 업데이트 되도록 한다.
-		$("#profileLink img").attr("src", src);
+		if(responseData.saveSuccess){
+			alert("프로필 수정에 성공하였습니다.");
+			location.href="${pageContext.request.contextPath}/users/info.do";
+		}else {
+			alert("프로필 수정에 실패하였습니다.");
+		}
 	});
-	
 
 	function deleteConfirm(){
 		var isDelete=confirm("${id} 님 탈퇴 하시겠습니까?");

@@ -5,8 +5,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>전체공연보기</title>
-<jsp:include page="include/resource.jsp" />
+<title>좋아요 한 공연 목록</title>
+<jsp:include page="../include/resource.jsp" />
 <style type="text/css">
 @import url(//fonts.googleapis.com/earlyaccess/nanumpenscript.css);
 	.sub-nav-left{
@@ -103,21 +103,20 @@ ol, ul {
 </script>
 </head>
 <body>
-<jsp:include page="include/navbar.jsp">
+<jsp:include page="../include/navbar.jsp">
 	<jsp:param value="list" name="category"/>
 </jsp:include>
 <div class="container">
 	<div class="sub-nav-left">
 		<a href="home.do" onclick="javascript:page_link('000000'); return false;">
-			<img src="resources/images/home.png" alt="홈" />
+			<img src="../resources/images/home.png" alt="홈" />
 		</a>
 		>
-		<a href="list.do" onclick="javascript:page_link('010000'); return false;">목록</a>
-		>
-		<a href="listfavor.do" onclick="javascript:page_link('010000'); return false;">인기순 목록</a>
+		<a href="list.do" onclick="javascript:page_link('010000'); return false;">좋아요 한 글목록</a>
+		
 	</div>
 	<div class="condition" align="right">
-		<form class="form-inline" action="listfavor.do" method="get"> 
+		<form class="form-inline" action="likelist.do" method="get"> 
 			<div class="form-group">
 				<label for="condition">검색조건</label>
 				<select class="form-control" name="condition" id="condition">
@@ -141,12 +140,6 @@ ol, ul {
 		
 		
 		</div>
-		<div class="option_tab _tabContainer" data-tab="sort">
-		<ul class="sub_option">
-			<li class="_tab" data-value role="tab" ><a class ="sort" href="javascript:" id="favorite" >인기순</a></li>
-			<li  class="_tab" data-value role="default.asc" ><a class ="sort" type="javascript:" id="pastdate">날짜순</a></li>
-		</ul>
-		</div>
 	<table class="table table-hover">
 
 		<colgroup>
@@ -164,17 +157,17 @@ ol, ul {
 			</tr>
 		</thead>
 		<tbody>
-			<c:forEach var="tmp" items="${requestScope.list }">
+			<c:forEach var="tmp" items="${requestScope.likelist }">
 				<tr class="tr">
 					<td>
-						<a href="detail.do?seq=${tmp.seq }">
+						<a href="${pageContext.request.contextPath }/detail.do?seq=${tmp.seq }">
 							${tmp.title }
 						</a>				
-					</td>				
+					</td>
 					<td>
 						<img class="heart" src="${pageContext.request.contextPath }/resources/images/red-heart.png" alt="" />
 						${tmp.likeCount }
-					</td>				
+					</td>							
 					<td>${tmp.place }</td>
 					<td>${tmp.startdate } ~ ${tmp.enddate }</td>
 				</tr>	
@@ -189,13 +182,13 @@ ol, ul {
 					<li>
 						<c:choose>
 							<c:when test="${encodedKeyword ne null }">
-								<a href="listfaovr.do?pageNum=${startPageNum-1 }&condition=${condition }&keyword=${encodedKeyword }">&laquo;</a>
+								<a href="likelist.do?pageNum=${startPageNum-1 }&condition=${condition }&keyword=${encodedKeyword }">&laquo;</a>
 							</c:when>
 							<c:when test="${startdate ne null and enddate ne null }">
-								<a href="listfaovr.do?pageNum=${startPageNum-1 }&condition=${condition }&startDate=${startdateFormat }&endDate=${enddateFormat }">&laquo;</a>
+								<a href="likelist.do?pageNum=${startPageNum-1 }&condition=${condition }&startDate=${startdateFormat }&endDate=${enddateFormat }">&laquo;</a>
 							</c:when>
 							<c:otherwise>
-								<a href="listfaovr.do?pageNum=${startPageNum-1 }">&laquo;</a>
+								<a href="likelist.do?pageNum=${startPageNum-1 }">&laquo;</a>
 							</c:otherwise>
 						</c:choose>
 					</li>
@@ -213,13 +206,13 @@ ol, ul {
 						<li class="active">
 							<c:choose>
 								<c:when test="${encodedKeyword ne null }">
-									<a href="listfaovr.do?pageNum=${i }&condition=${condition }&keyword=${encodedKeyword }">${i }</a>
+									<a href="likelist.do?pageNum=${i }&condition=${condition }&keyword=${encodedKeyword }">${i }</a>
 								</c:when>
 								<c:when test="${startdate ne null and enddate ne null }">
-									<a href="listfaovr.do?pageNum=${i }&condition=${condition }&startDate=${startdateFormat }&endDate=${enddateFormat }">${i }</a>
+									<a href="likelist.do?pageNum=${i }&condition=${condition }&startDate=${startdateFormat }&endDate=${enddateFormat }">${i }</a>
 								</c:when>
 								<c:otherwise>
-									<a href="listfaovr.do?pageNum=${i }">${i }</a>
+									<a href="likelist.do?pageNum=${i }">${i }</a>
 								</c:otherwise>
 							</c:choose>
 						</li>
@@ -228,13 +221,13 @@ ol, ul {
 						<li>
 							<c:choose>
 								<c:when test="${encodedKeyword ne null }">
-									<a href="listfaovr.do?pageNum=${i }&condition=${condition }&keyword=${encodedKeyword }">${i }</a>
+									<a href="likelist.do?pageNum=${i }&condition=${condition }&keyword=${encodedKeyword }">${i }</a>
 								</c:when>
 								<c:when test="${startdate ne null and enddate ne null }">
-									<a href="listfaovr.do?pageNum=${i }&condition=${condition }&startDate=${startdateFormat }&endDate=${enddateFormat }">${i }</a>
+									<a href="likelist.do?pageNum=${i }&condition=${condition }&startDate=${startdateFormat }&endDate=${enddateFormat }">${i }</a>
 								</c:when>
 								<c:otherwise>
-									<a href="listfaovr.do?pageNum=${i }">${i }</a>
+									<a href="likelist.do?pageNum=${i }">${i }</a>
 								</c:otherwise>
 							</c:choose>
 						</li>
@@ -247,13 +240,13 @@ ol, ul {
 					<li>
 						<c:choose>
 							<c:when test="${encodedKeyword ne null }">
-								<a href="listfaovr.do?pageNum=${endPageNum+1 }&condition=${condition }&keyword=${encodedKeyword }">&raquo;</a>
+								<a href="likelist.do?pageNum=${endPageNum+1 }&condition=${condition }&keyword=${encodedKeyword }">&raquo;</a>
 							</c:when>
 							<c:when test="${startdate ne null and enddate ne null or sort ne null}">
-								<a href="listfaovr.do?pageNum=${endPageNum+1 }&condition=${condition }&startDate=${startdateFormat }&endDate=${enddateFormat }">&raquo;</a>
+								<a href="likelist.do?pageNum=${endPageNum+1 }&condition=${condition }&startDate=${startdateFormat }&endDate=${enddateFormat }">&raquo;</a>
 							</c:when>
 							<c:otherwise>
-								<a href="listfaovr.do?pageNum=${endPageNum+1 }">&raquo;</a>
+								<a href="likelist.do?pageNum=${endPageNum+1 }">&raquo;</a>
 							</c:otherwise>
 						</c:choose>
 					</li>

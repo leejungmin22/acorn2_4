@@ -16,24 +16,34 @@
 <link rel="stylesheet" type='text/css' href="${pageContext.request.contextPath }/resources/css/owl.carousel/owl.carousel.min.css" />
 <link rel="stylesheet" type='text/css' href="${pageContext.request.contextPath }/resources/css/owl.carousel/owl.theme.default.min.css" />
 <script type="text/javascript" src="${pageContext.request.contextPath }/resources/js/owl.carousel/owl.carousel.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
 <!-- jQuery UI Datepicker -->
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<!-- fullcalendar -->
+<style type="text/css">
+	.fc-sat {color:#1F618D; background-color:#A9CCE3;} /*토요일*/	
+	.fc-sun {color:#B03A2E; background-color:#F2D7D5;} /*일요일*/
+	
+</style>
+
 <style>
 
 body{
    background-color:#FFFFFF; /* 백그라운드 색상 */
-  }
+}
+
+@import url(//fonts.googleapis.com/earlyaccess/nanumpenscript.css);
+@import url(//fonts.googleapis.com/earlyaccess/nanumgothic.css);
+@import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
 
    .form-group{
-      font-size:15px;
+      font-size:25px;
       font-color:#FFFFFF;
-      font-family: "Noto Sans KR","맑은 고딕","Malgun Gothic";
+      font-family: 'Nanum Pen Script', cursive;
    }
    h3{
-      font-size:15px;
-      font-family: "Noto Sans KR","맑은 고딕","Malgun Gothic";
+      font-size:25px;
+      font-family: 'Nanum Pen Script', cursive;
    }
    
    button{
@@ -47,11 +57,6 @@ body{
       cursor:pointer
    }
 
-</style>
-<!-- fullcalendar -->
-<style type="text/css">
-	.fc-sat {color:#1F618D; background-color:#A9CCE3;} /*토요일*/	
-	.fc-sun {color:#B03A2E; background-color:#F2D7D5;} /*일요일*/
 </style>
 <script>
   document.addEventListener('DOMContentLoaded', function() {
@@ -110,7 +115,7 @@ body{
 						                       start: startdate,
 						                       end: enddate,
 						           			   url: "${pageContext.request.contextPath }/detail.do?seq="+element.seq,
-						           			   color:"#f7e600"						           				
+						           			   color:"#dc143c"						           				
 						                    }); //.push()
 									}
 									
@@ -162,37 +167,7 @@ body{
 			               successCallback(events);				               
 			           }//success: function end						  
 			}); //ajax end
-		}, //events:function end
-		//이벤트를 클릭하면 요청 주소를 받아와서 ajax로 요청을 보내고 dtail page의 내용의 JSON 문자열로 전달한다.(bridge 사용)
-		eventClick: function sendData(data) {
-			data.jsEvent.preventDefault();
-			// seq 번호 갖고 오기
-			var search=data.el.search;
-			var seq=search.substr(5,6);
-			//mobile 접속인지 pc 접속인지 검증
-			var filter = "win16|win32|win64|mac|macintel"; 
-			if ( navigator.platform ) { 
-				if ( filter.indexOf( navigator.platform.toLowerCase() ) < 0 ) {
-					//1.mobile 에서 접속했으면
-					//1-1.ajax로 detail 페이지의 내용을 갖고오고
-					$.ajax({
-						url:"android/detail.do",
-						method:"get",
-						data:{"seq":seq}, //158709
-						dataType:"json",
-						success:function(responseData){
-							Android.getDetailData(JSON.stringify(responseData));
-						}
-					});
-
-				} else { 
-					//2. pc 에서 접속했으면(새로운 창에서 detail 페이지로 이동)
-					window.open(data.el.href);
-				} 
-				
-			}//if ( navigator.platform ) end
-			
-	    } //eventClick end
+		} //events:function end
    });//new FullCalendar end
 
    calendar.render();
@@ -203,51 +178,26 @@ body{
 <script>
 $(document).ready(function(){
   $('.owl-carousel').owlCarousel({
-      loop:true,
-      margin:10,
-      autoplay:true,
-      autoplayTimeout:1000,
-       autoplayHoverPause:true,
-      responsiveClass:true,
-      responsive:{
-          0:{
-              items:3,
-          },
-          600:{
-              items:3,
-          },
-          1000:{
-              items:5,
-              loop:false //Infinity loop. Duplicate last and first items to get loop illusion.
-          }
-      }
+		loop:true,
+		margin:10,
+		autoplay:true,
+		autoplayTimeout:1000,
+	    autoplayHoverPause:true,
+		responsiveClass:true,
+		responsive:{
+		    0:{
+		        items:3,
+		    },
+		    600:{
+		        items:3,
+		    },
+		    1000:{
+		        items:5,
+		        loop:true //Infinity loop. Duplicate last and first items to get loop illusion.
+		    }
+		}
   })
 });
-
-//인기 공연의 img를 클릭했을 때 동작할 함수
-function sendData(seq) {
-	var filter = "win16|win32|win64|mac|macintel"; 
-	if ( navigator.platform ) { 
-		if ( filter.indexOf( navigator.platform.toLowerCase() ) < 0 ) {
-			//1.mobile 에서 접속했으면
-			//1-1.ajax로 detail 페이지의 내용을 갖고오고
-			$.ajax({
-				url:"android/detail.do",
-				method:"get",
-				data:{"seq":seq}, //158709
-				dataType:"json",
-				success:function(responseData){
-					Android.getDetailData(JSON.stringify(responseData));
-				}
-			});
-
-		} else { 
-			//2. pc 에서 접속했으면(새로운 창에서 detail 페이지로 이동)
-			window.open("http://localhost:8888/exhibition/detail.do?seq="+seq);
-		} 
-		
-	}//if ( navigator.platform ) end
-}
 </script>
 <style>
    .owl-carousel .item {
@@ -354,7 +304,9 @@ function sendData(seq) {
 			<div class="owl-carousel owl-theme">
 				<c:forEach var="tmp" items="${list }" end="9">
 					<div class="item">
-						<img alt="${tmp.title }" src="${tmp.thumbnail }" onclick="sendData(${tmp.seq})">
+						<a href="detail.do?seq=${tmp.seq }">
+							<img alt="${tmp.title }" src="${tmp.thumbnail }">
+						</a>
 				    </div>
 				</c:forEach>
 			</div>
