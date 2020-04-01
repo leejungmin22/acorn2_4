@@ -24,10 +24,10 @@ public class CommentDaoImpl implements CommentDao{
 	}
 
 	@Override
-	public void delete(int num) {
+	public void delete(int seq) {
 		//댓글 삭제해도 oracle table에서는 지우지 않고 deleted 칼럼에 "no"라고만 표시한다.
 		//(해당 댓글이 DB에서도 삭제되면 대댓글의 경우 위치가 위로 당겨지기때문에 보기 좋지 않음)
-		session.update("comment.delete", num); 
+		session.update("comment.delete", seq); 
 
 	}
 	
@@ -84,8 +84,8 @@ public class CommentDaoImpl implements CommentDao{
 	}
 
 	@Override
-	public boolean addcommentLikeCount(CommentDto dto) {
-		int result=session.update("comment.addLikeCount", dto);
+	public boolean addcommentLikeCount(int num) {
+		int result=session.update("comment.addLikeCount", num);
 		if(result>0) {
 			return true;
 		}else {
@@ -94,9 +94,8 @@ public class CommentDaoImpl implements CommentDao{
 	}
 
 	@Override
-	public boolean minuscommentLikeCount(CommentDto dto) {
-		int result=session.update("comment.minusLikeCount", dto);
-		System.out.println(result);
+	public boolean minuscommentLikeCount(int num) {
+		int result=session.update("comment.minusLikeCount", num);
 		if(result>0) {
 			return false;
 		}else {
@@ -107,6 +106,13 @@ public class CommentDaoImpl implements CommentDao{
 	public String getCommentLikeId(Com_LikeDto comlikeDto) {
 		String id=session.selectOne("comment.getid", comlikeDto);
 		return id;
+	}
+
+	@Override
+	public CommentDto getlikeCount(int num) {
+		CommentDto dto=session.selectOne("comment.getlikeCount", num);
+		return dto;
+		
 	}
 	
 }

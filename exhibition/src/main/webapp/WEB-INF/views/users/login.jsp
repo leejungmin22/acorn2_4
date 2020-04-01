@@ -5,17 +5,28 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>/users/login.jsp</title>
+<title>조이름:로그인</title>
+<jsp:include page="../include/resource.jsp"></jsp:include>
+<style>
+
+#bread{
+		background-color: #FAEBD7;		
+	}
+
+</style>
 </head>
 <body>
+<jsp:include page="../include/navbar.jsp"/>
 <div class="container">
-	<h1>Alert</h1>
+	<ol class="breadcrumb" id="bread">
+		<li><a href="${pageContext.request.contextPath }/community/comList.do">목록</a></li>
+		<li>로그인</li>
+	</ol>
 	<c:choose>
 		<c:when test="${not empty sessionScope.id }">
-			<p>
-				<strong>${id }</strong> 회원님 로그인 되었습니다.
-				<a href="${url }">확인</a>
-			</p>
+			<script type="text/javascript">
+				location.href="${url }";
+			</script>
 		</c:when>
 		<c:otherwise>
 			<p>

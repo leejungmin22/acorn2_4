@@ -5,35 +5,30 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>${exhibitionDto.title }</title>
 <jsp:include page="include/resource.jsp" />
 
 <style>
 @import url(//fonts.googleapis.com/earlyaccess/nanumpenscript.css);
 @import url(//fonts.googleapis.com/earlyaccess/jejugothic.css);
-	li{
-		font-size:25px;
-		font-family: 'Nanum Pen Script', cursive;
-	}	
-
-	div {
-		border: 1px solid red;
-		font-size:15px;
-		font-family: 'Jeju Gothic', sans-serif;
+	
+	#bread{
+		background-color: #FAEBD7;
 	}
 	
 	h6{
 		font-size:16px;
 		font-family: 'Jeju Gothic', sans-serif;
 	}
-
+	
 	.row {
 		border: 1px solid blue;
 	}
-
+	
 	.row>div {
 		border: 1px dotted green;
 	}
+	
 
 	.poster {
 		max-width: 100%;
@@ -43,6 +38,7 @@
 	img {
 		height: auto;
 	}
+
 
 /* 댓글 css */
 /* 글 내용을 출력할 div 에 적용할 css */
@@ -115,9 +111,11 @@
 	height: 20px;
 	border-radius: 50%;
 }
+/*쓰여진 댓글창*/
 pre{
 	font-size:20px;
 	font-family: 'Nanum Pen Script', cursive;
+	background-color:#FFFFFF;
 }
 
 .heart{
@@ -130,7 +128,7 @@ pre{
 <body>
 	<jsp:include page="include/navbar.jsp"></jsp:include>
 	<div class="container">
-	<ol class="breadcrumb">
+	<ol class="breadcrumb" id="bread">
 		<li><a href="${pageContext.request.contextPath }/list.do">목록</a></li>
 		<li>${exhibitionDto.title }</li>
 	</ol>		
@@ -151,7 +149,6 @@ pre{
 					<h6>문의 : ${exhibitionDto.phone }</h6>
 					<a class="btn btn-success" href="${exhibitionDto.url }">결제</a>
 					<button class="btn btn-default like" type="button">
-
 						<c:choose>
 							<c:when test="${id eq ExhibitionLikeId and id ne null }">
 								<img class="heart" src="${pageContext.request.contextPath }/resources/images/red-heart.png" alt="" />
@@ -167,8 +164,7 @@ pre{
 				</div> 
 				<div >
 					<h6>지도</h6>
-						<div id="map"
-							style="width: 100%; height: 400px;"></div>
+						<div id="map" style="width: 100%; height: 400px;"></div>
 				</div>
 			</div>
 		</div>	
@@ -193,8 +189,21 @@ pre{
 			<div class="row">
 				<div class="col-sm-12">
 					<div class="comments">
+						<div class="comment_form">
+							<!-- 원글에 댓글을 작성할 수 있는 폼 : 누가 쓴 어떤글에 댓글을 작성하는지 파라미터로 담아서 폼 제출시 post 방식으로 전달 -->
+							<form class="comment-insert-form" action="comment_insert.do"
+								method="post">
+								<input type="hidden" name="ref_group" value="${dto.seq }" />
+								<!-- 몇번 글의 글번호인지(댓글의 그룹번호) -->
+								<%-- <input type="hidden" name="target_id" value="${tmp.writer }" />--%>
+								<!-- 원글의 작성자 id(댓글의 대상자) -->
+								<textarea name="content"><c:if test="${empty id }">로그인이 필요합니다.</c:if></textarea>
+								<!-- 로그인을 하지않았을 때 '로그인이 필요합니다' 출력 -->
+								<button type="submit">등록</button>
+							</form>
+						</div><!--  class="comment_form -->
 						<ul>
-							<c:forEach items="${commentList }" var="tmp">
+							<c:forEach items="${commentList }" var="tmp" varStatus="status">
 								<c:choose>
 									<c:when test="${tmp.deleted ne 'yes' }">
 										<li class="comment" id="comment${tmp.num }"
@@ -228,7 +237,7 @@ pre{
 												<a href="javascript:" class="reply_link">답글</a> 
 												<c:choose>
 													<%-- 로그인된 아이디와 댓글의 작성자가 같으면 --%>
-													<c:when test="${id eq tmp.writer }">
+													<c:when test="${ admin eq 1 || id eq tmp.writer }">
 														<a href="javascript:" class="comment-update-link">수정</a>&nbsp;&nbsp;
 													<a href="javascript:deleteComment(${tmp.num })">삭제</a>
 													</c:when>
@@ -236,22 +245,41 @@ pre{
 														<a href="javascript:">신고</a>
 													</c:otherwise>
 												</c:choose>
-												<button class="btn btn-default comlike" type="button">
 												<c:choose>
-													<c:when test="${id eq CommentLikeId and id ne null }">
-														<img src="${pageContext.request.contextPath }/resources/images/comment_red-heart.png" alt="" />
+													<c:when test="${id ne null }" >
+														<c:forEach items="${comLikeList }" var="comList">
+
+															<c:choose>
+																<c:when test="${tmp.num eq comList.num }">
+																	<button class="btn btn-default comlike" id="comlike" type="button" value=${tmp.num }>
+																		<c:choose>
+																			<c:when test="${comList.isCommentLikeId }">
+																				<img src="${pageContext.request.contextPath }/resources/images/comment_red-heart.png" alt="" />
+																				<%-- <span>${tmp.num }${comList.num }</span> --%>
+																			</c:when>
+																			<c:otherwise>
+																				<img src="${pageContext.request.contextPath }/resources/images/comment_empty-heart.png" alt="" />
+																			</c:otherwise>
+																		</c:choose>
+																		좋아요
+																		<span>${tmp.com_likeCount }</span>
+																	</button>
+																</c:when>
+																
+															</c:choose>
+														</c:forEach>
 													</c:when>
 													<c:otherwise>
-														<img src="${pageContext.request.contextPath }/resources/images/comment_empty-heart.png" alt="" />
+														<button class="btn btn-default comlike" id="comlike" type="button" value=${tmp.num }>
+															<img src="${pageContext.request.contextPath }/resources/images/comment_empty-heart.png" alt="" />
+															좋아요
+															<span>${tmp.com_likeCount }</span>
+														</button>
 													</c:otherwise>
 												</c:choose>
-												좋아요
-												<span>${tmp.com_likeCount }</span>
-											</button>
 											</dd>
 										</dl>
-										<form class="comment-insert-form" action="comment_insert.do"
-											method="post">
+										<form class="comment-insert-form" action="comment_insert.do" method="post">
 											<!-- 덧글 그룹 -->
 											<input type="hidden" name="ref_group" value="${dto.seq }" />
 											<!-- 덧글 대상 -->
@@ -261,7 +289,7 @@ pre{
 											<textarea name="content"><c:if test="${empty id }">로그인이 필요합니다.</c:if></textarea>
 											<button type="submit">등록</button>
 										</form> <!-- 로그인한 아이디와 댓글의 작성자와 같으면 수정폼 출력 --> 
-										<c:if test="${id eq tmp.writer }">
+										<c:if test="${ admin eq 1 || id eq tmp.writer }">
 											<form class="comment-update-form" action="comment_update.do"
 												method="post">
 												<input type="hidden" name="num" value="${tmp.num }" />
@@ -292,7 +320,7 @@ pre{
 													</c:choose>
 													<span>${tmp.writer }</span>
 													<c:if test="${tmp.num ne tmp.comment_group }">
-												 	<strong>${tmp.target_id }</strong>
+												 	to <strong>${tmp.target_id }</strong>
 													</c:if>
 													<span>${tmp.regdate }</span>
 												</dt>
@@ -306,19 +334,6 @@ pre{
 							</c:forEach>
 						</ul>
 						<div class="clearfix"></div>
-						<div class="comment_form">
-							<!-- 원글에 댓글을 작성할 수 있는 폼 : 누가 쓴 어떤글에 댓글을 작성하는지 파라미터로 담아서 폼 제출시 post 방식으로 전달 -->
-							<form class="comment-insert-form" action="comment_insert.do"
-								method="post">
-								<input type="hidden" name="ref_group" value="${dto.seq }" />
-								<!-- 몇번 글의 글번호인지(댓글의 그룹번호) -->
-								<%-- <input type="hidden" name="target_id" value="${tmp.writer }" />--%>
-								<!-- 원글의 작성자 id(댓글의 대상자) -->
-								<textarea name="content"><c:if test="${empty id }">로그인이 필요합니다.</c:if></textarea>
-								<!-- 로그인을 하지않았을 때 '로그인이 필요합니다' 출력 -->
-								<button type="submit">등록</button>
-							</form>
-						</div><!--  class="comment_form -->
 					</div><!--  class="comments -->
 				</div><!-- class="col-sm-12" -->
 			</div><!-- class="row" -->
@@ -330,7 +345,7 @@ pre{
 		if(isLogin==true){
 			$.ajax({
 				url:"updateLikeCount.do",
-				method:"post",
+				method:"post", 
 				data:{"seq":${dto.seq}}, //data : 파라미터로 전달할 문자열 
 				dataType:"json",
 				success:function(responseData){
@@ -361,51 +376,49 @@ pre{
 		return false;//폼 전송 막기 
 	}
 	});
+	
 	//댓글좋아요 수 올리기
-	$(".comlike").on("click", function(){
+	$(".comlike").on("click",function(){
+		var num = $(this).attr('value');
 		var isLogin=${not empty id};
+		var imgTag=$(this).children('img');
+		var span=$(this).children('span');
 		if(isLogin==true){
-			$.ajax({
+			 $.ajax({
 				url:"com_updateLikeCount.do",
 				method:"post",
-				data:{"seq":${dto.seq}}, //data : 파라미터로 전달할 문자열 
+				data:{"num":num}, //data : 파라미터로 전달할 문자열 
 				dataType:"json",
 				success:function(responseData){
 					console.log(responseData);
-					var imgTag=$('.comlike').children('img');
-					var span=$('.comlike').children('span');
-					if(responseData.comisSuccess==true){
-						//location.href="${pageContext.request.contextPath}/detail.do?seq=${dto.seq}";
+					//var imgTag=$('.num').children('img');
+					if(responseData.comisSuccess==true ){
 						imgTag.attr('src', '${pageContext.request.contextPath }/resources/images/comment_red-heart.png');
-						span.text(responseData.comlikeCount);
+						span.text(responseData.comlikecount);
+						console.log(responseData.comlikecount);
 					}else if(responseData.comisSuccess==false){
 						imgTag.attr('src', '${pageContext.request.contextPath }/resources/images/comment_empty-heart.png');
-						span.text(responseData.comlikeCount);
+						span.text(responseData.comlikecount);
 					}
-
-					
-				}
-				
-			
-		});
-		//폼 제출 막기 
-		return false; 
-	}
-	
-	if(isLogin==false){
-		var goLoginPage=confirm("로그인이 필요합니다. 로그인 하시겠습니까?");
-		if(goLoginPage==true){
-			location.href="${pageContext.request.contextPath}/users/loginform.do?url=${pageContext.request.contextPath}/detail.do?seq=${dto.seq}";
-			imgLike=false;
+				} 
+			});
+			//폼 제출 막기 
+			return false; 
 		}
-		return false;//폼 전송 막기 
-	}
+		
+		if(isLogin==false){
+			var goLoginPage=confirm("로그인이 필요합니다. 로그인 하시겠습니까?");
+			if(goLoginPage==true){
+				location.href="${pageContext.request.contextPath}/users/loginform.do?url=${pageContext.request.contextPath}/detail.do?seq=${dto.seq}";
+				imgLike=false;
+			}
+			return false;//폼 전송 막기 
+		}
 	});
 
 	var pageNum=1;
 	//댓글 스크롤로 보이기
 	$(window).scroll(function() {
-		
 	    if ($(window).scrollTop() == $(document).height() - $(window).height()) {
 	    	pageNum++;
 	    	$.ajax({
@@ -414,18 +427,14 @@ pre{
 				data:{"pageNum":pageNum, "seq":${dto.seq}}, //data : 파라미터로 전달할 문자열 
 				dataType:"html",
 				success:function(responseData){
-					
 					$(".comments ul").append(responseData);
-				
 				}
 					
 			})
 	    }
 	});
-     
-
 	//댓글 수정 링크를 눌렀을때 호출되는 함수 등록
-	$(".comment-update-link").click(function(){
+	$(document).on("click", ".comment-update-link", function(){
 		$(this)
 		.parent().parent().parent()
 		.find(".comment-update-form")
@@ -433,7 +442,8 @@ pre{
 	});
 	
 	//댓글 수정 폼에 submit 이벤트가 일어났을때 호출되는 함수 등록
-	$(".comment-update-form").on("submit", function(){
+	$(document).on("submit", ".comment-update-form", function(){
+		// "private/comment_update.do"
 		var url=$(this).attr("action"); //action 속성의 value를 읽어온다.
 		//폼에 작성된 내용을 query 문자열로 읽어온다.
 		// num=댓글번호&content=댓글내용
@@ -481,7 +491,7 @@ pre{
 	}
 	
 	//폼에 submit 이벤트가 일어 났을때 실행할 함수 등록 
-	$(".comments form").on("submit", function(){
+	$(document).on("submit", ".comments form", function(){
 		//로그인 여부
 		var isLogin=${not empty id};
 		if(isLogin==false){
@@ -492,7 +502,7 @@ pre{
 	});
 	
 	//폼에 focus 이벤트가 일어 났을때 실행할 함수 등록 
-	$(".comments form textarea").on("click", function(){
+	$(document).on("click", ".comments form textarea", function(){
 		//로그인 여부
 		var isLogin=${not empty id};
 		if(isLogin==false){
@@ -504,7 +514,7 @@ pre{
 	});
 	
 	//답글 달기 링크를 클릭했을때 실행할 함수 등록
-	$(".comment .reply_link").click(function(){
+	$(document).on("click", ".comment .reply_link", function(){
 		$(this)
 		.parent().parent().parent()
 		.find(".comment-insert-form")
@@ -561,7 +571,7 @@ infowindow.open(map, marker);
     // 크기를 변경한 이후에는 반드시  map.relayout 함수를 호출해야 합니다 
     // window의 resize 이벤트에 의한 크기변경은 map.relayout 함수가 자동으로 호출됩니다
     map.relayout();
-	}
+	};
 </script>
 </body>
 </html>

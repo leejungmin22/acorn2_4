@@ -28,6 +28,7 @@ import com.acorn.exhibition.users.service.UsersService;
 
 @Controller
 public class UsersController {
+
 	@Autowired
 	private UsersService service;
 	
@@ -48,12 +49,16 @@ public class UsersController {
 		Map<String,Object> map = service.isExistId(inputId);
 		return map;
 	}
+	
+	// 회원가입 컨트롤
 	@RequestMapping(value = "/users/signup",method = RequestMethod.POST) //get방식 요청을 하면 처리 하지 않는다
-	public ModelAndView signup(@ModelAttribute("dto") UsersDto dto, ModelAndView mView) {
-		service.addUser(dto);
+	public ModelAndView signup(@ModelAttribute("dto") UsersDto dto, ModelAndView mView, HttpServletRequest request, @RequestParam MultipartFile profileImage) {
+		service.addUser(dto, request, profileImage);
 		mView.setViewName("users/insert");
 		return mView;
 	}
+	
+	
 	//로그인 폼 요청 처리
 		@RequestMapping("/users/loginform")
 		public String loginform(HttpServletRequest request) {
@@ -131,6 +136,7 @@ public class UsersController {
 			session.invalidate();
 			return "redirect:/home.do";
 		}
+		
 		//개인정보 보기 요청 처리
 		@RequestMapping("/users/info")
 		public ModelAndView authinfo(HttpServletRequest request, ModelAndView mView ) {
@@ -150,8 +156,7 @@ public class UsersController {
 		 */
 		@ResponseBody
 		@RequestMapping(value="/users/profile_upload",method=RequestMethod.POST)
-		public Map<String,Object> profileUpload(HttpServletRequest request,
-						@RequestParam MultipartFile profileImage){
+		public Map<String,Object> profileUpload(HttpServletRequest request, @RequestParam MultipartFile profileImage){
 			String path= service.saveProfileImage(request, profileImage);
 			/*
 			 * {"savedPath":"/upload/xxxx.jpg"}형식의 JSON 문자열을 리턴해 주도록
@@ -212,3 +217,4 @@ public class UsersController {
 			return mView;
 		}
 	}
+     

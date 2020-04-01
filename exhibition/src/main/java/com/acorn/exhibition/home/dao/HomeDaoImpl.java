@@ -45,7 +45,16 @@ public class HomeDaoImpl implements HomeDao{
 		List<FullCalendarDto> list=session.selectList("event.getList", dto);
 		return list;
 	}
-	
+	@Override
+	public List<FullCalendarDto> getfavoriteList(FullCalendarDto dto) {
+		List<FullCalendarDto> list=session.selectList("event.getfavoriteList", dto);
+		return list;
+	}
+	@Override
+	public List<FullCalendarDto> getdateList(FullCalendarDto dto) {
+		List<FullCalendarDto> list=session.selectList("event.getpastList", dto);
+		return list;
+	}
 	// 좋아요
 	@Override
 	public int findLike(FullCalendarDto dto) {
@@ -73,7 +82,7 @@ public class HomeDaoImpl implements HomeDao{
 	@Override
 	public boolean addOnExhibitionLike(FullCalendarDto dto) {
 		int result = session.insert("event.add", dto);
-		if(result>1) {
+		if(result>0) {
 			return true;
 		}
 		else {
@@ -84,7 +93,7 @@ public class HomeDaoImpl implements HomeDao{
 	@Override
 	public boolean addLikeCount(FullCalendarDto dto) {
 		int result =session.update("event.addLikeCount", dto);
-		if(result>1) {
+		if(result>0) {
 			return true;
 		}
 		else {
@@ -95,7 +104,6 @@ public class HomeDaoImpl implements HomeDao{
 	@Override
 	public boolean minusLikeCount(FullCalendarDto dto) {
 		int result=session.update("event.minusLikeCount", dto);
-		System.out.println(result);
 		if(result>0) {
 			return false;
 		}else {

@@ -12,5 +12,5 @@ public interface CommentService {
 		public void deleteComment(int num);
 		public void updateComment(CommentDto dto);
 		public void commentList(HttpServletRequest request);
-		public Map<String, Object> com_updateLikeCount(HttpServletRequest request);
+		public Map<String, Object> com_updateLikeCount(HttpServletRequest request,int num);
 }

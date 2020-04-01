@@ -4,15 +4,16 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>조이름 : 가입확인</title>
+<title>Insert title here</title>
 <jsp:include page="../include/resource.jsp" />
 </head>
 <body>
 <div class="container">
-	<h1>Alert</h1>
-	<p>
-		<strong>${dto.id }</strong> 회원님 가입되었습니다.
-		<a href="${pageContext.request.contextPath }/users/loginform.do">로그인하러 가기</a>
+	<h1>500</h1>
+	<p class="alert alert-danger">
+		요청 처리 중에 오류가 발생했습니다.<br/>
+		조속히 복구 하겠습니다.<br/>
+		<a href="${pageContext.request.contextPath }/home.do">확인</a>
 	</p>
 </div>
 </body>

@@ -15,6 +15,9 @@
 		border: 1px dotted #cecece;
 		box-shadow: 3px 3px 5px 6px #ccc;
 	}
+	#bread{
+		background-color: #FAEBD7;
+	}
 </style>
 </head>
 <body>
@@ -22,7 +25,7 @@
 	<jsp:param value="community" name="category"/>
 </jsp:include>
 <div class="container">
-	<ol class="breadcrumb">
+	<ol class="breadcrumb" id="bread">
 		<li><a href="${pageContext.request.contextPath }/community/comList.do">목록</a></li>
 		<li>글 상세 보기</li>
 	</ol>
@@ -64,7 +67,7 @@
 		글 작성자와 로그인 된 아이디가 같을때만 기능을 제공해 준다. 
 		즉, 본인이 작성한 글만 수정할수 있도록 하기 위해
 	--%>
-	<c:if test="${dto.writer eq id }">
+	<c:if test="${ admin eq 1 || dto.writer eq id }">
 		<a href="updateform.do?num=${dto.num }">수정</a>
 		<a href="javascript:deleteConfirm()">삭제</a>
 	</c:if>

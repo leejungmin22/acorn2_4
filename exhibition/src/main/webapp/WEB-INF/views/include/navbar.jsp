@@ -15,7 +15,7 @@
 <div class="navbar navbar-default navbar-fixed-top" id="two">
 	<div class="container">
 		<!-- 홈페이지 링크와 버튼을 넣어둘 div -->
-		<div class="navbar-header" >
+		<div class="navbar-header">
 			<a class="navbar-brand" href="${pageContext.request.contextPath }/home.do">Home</a>
 			<button class="navbar-toggle" 
 				data-toggle="collapse" 

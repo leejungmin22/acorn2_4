@@ -65,5 +65,11 @@ public class UsersDaoImpl implements UsersDao{
 		
 	}
 
+	@Override
+	public String getAdminAuth(String inputId) {
+		String getAdminAuth = session.selectOne("users.getAdminAuth",inputId);
+		return getAdminAuth;
+	}
+
 	
 }

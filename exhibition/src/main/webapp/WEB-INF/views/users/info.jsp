@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>/users/info.jsp</title>
+<title>조이름 : 개인정보페이지</title>
 <jsp:include page="../include/resource.jsp"></jsp:include>
 <style>
 	/* 프로필 이미지가 가로 세로 50px 인 원형으로 표시 될수 있도록  */
@@ -93,7 +93,7 @@
 		//{savedPath:"/upload/저장된이미지파일명"}
 		//savedPath 라는 방에 저장된 이미지의 경로가 들어 있다.
 		console.log(responseData);
-		var src="${pageContext.request.contextPath }"+responseData.savedPath;
+		var src="${pageContext.request.contextPath }"+responseData.savePath;
 		// img 의 src 속성에 반영함으로써 이미지가 업데이트 되도록 한다.
 		$("#profileLink img").attr("src", src);
 	});

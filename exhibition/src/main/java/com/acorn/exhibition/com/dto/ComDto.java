@@ -12,6 +12,7 @@ public class ComDto {
 	private int prevNum;
 	private int nextNum;
 	
+	
 	public ComDto() {}
 
 	public ComDto(int num, String writer, String title, String content, int viewCount, String regdate, int startRowNum,
@@ -107,5 +108,8 @@ public class ComDto {
 
 	public void setNextNum(int nextNum) {
 		this.nextNum = nextNum;
-	}	
+	}
+
+	
+	
 }
