@@ -35,7 +35,7 @@
         <beans:property name="dataSource" ref="dataSource"/>
         <beans:property name="configLocation" value="classpath:com/acorn/exhibition/mybatis/configuration.xml"/>
     </beans:bean>
-    <beans:bean class="org.mybatis.spring.SqlSessionTemplate">
+    <beans:bean class="org.mybatis.spring.SqlSessionTemplate" destroy-method="clearCache">
         <beans:constructor-arg name="sqlSessionFactory" ref="sessionFactory"/>
     </beans:bean>
 	

@@ -10,6 +10,7 @@
   	<typeAlias type="com.acorn.exhibition.home.dto.CommentDto" alias="commentDto"/>
   	<typeAlias type="com.acorn.exhibition.home.dto.ApiDto" alias="apiDto"/>
   	<typeAlias type="com.acorn.exhibition.com.dto.ComDto" alias="comDto"/>
+  	<typeAlias type="com.acorn.exhibition.com.dto.ComCommentDto" alias="comCommentDto"/>
   </typeAliases>
   <!-- Mapper 설정 -->
   <mappers>
@@ -17,5 +18,6 @@
   	<mapper resource="com/acorn/exhibition/mybatis/HomeMapper.xml"/>
   	<mapper resource="com/acorn/exhibition/mybatis/CommentMapper.xml"/>
   	<mapper resource="com/acorn/exhibition/mybatis/CommunityMapper.xml"/>
+  	<mapper resource="com/acorn/exhibition/mybatis/ComCommentMapper.xml"/>
   </mappers>
   </configuration>

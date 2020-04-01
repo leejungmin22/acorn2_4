@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="comComment">
+	<select id="getList" parameterType="int" resultType="comCommentDto">
+		SELECT num, writer, content, target_id, ref_group,
+			comment_group, deleted, community_comment.regdate, profile
+		FROM community_comment
+		INNER JOIN users
+		ON community_comment.writer = users.id
+		WHERE ref_group=#{ref_group}
+		ORDER BY comment_group ASC, num ASC
+	</select>
+	<update id="delete" parameterType="int">
+		UPDATE community_comment
+		SET deleted='yes'
+		WHERE num=#{num}
+	</update>
+	<insert id="insert" parameterType="comCommentDto">
+		INSERT INTO community_comment
+		(num, writer, content, target_id, ref_group, comment_group, regdate)
+		VALUES(#{num}, #{writer}, #{content}, #{target_id}, #{ref_group},
+		#{comment_group}, SYSDATE)
+	</insert>
+	<select id="getSequence" resultType="int">
+		SELECT community_comment_seq.NEXTVAL
+		FROM DUAL
+	</select>
+	<update id="update" parameterType="comCommentDto">
+		UPDATE community_comment
+		SET content=#{content}
+		WHERE num=#{num}
+	</update>
+</mapper>

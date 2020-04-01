@@ -29,12 +29,13 @@
 	/*breadcrumb 색상변경 */
 	
 	#bread{
-		background-color: #ffdd33;
+		background-color: #bdbdbd;
+		color: #FFFFFF;
 	}
 	
 	/*표 색상 변경*/
 	.tr{
-		background-color: #FAEBD7;
+		background-color: #FFFFFF;
 	}
 	
 	

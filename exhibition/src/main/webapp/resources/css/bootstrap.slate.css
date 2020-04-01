@@ -1733,8 +1733,8 @@ pre code {
   background-color: rgba(255, 255, 255, 0.05);
 }
 
-.table-hover tbody tr:hover {
-  background-color: #CD853F;
+.table-hover tbody tr:hover {/*hover 색 변경*/
+  background-color: rgba(255, 255, 255, 0.075);
 }
 
 .table-primary,
@@ -1743,7 +1743,7 @@ pre code {
   background-color: #c8c9cb;
 }
 
-.table-hover .table-primary:hover { /*table hover 색변경 됨*/
+.table-hover .table-primary:hover {
   background-color: #bbbcbf;
 }
 

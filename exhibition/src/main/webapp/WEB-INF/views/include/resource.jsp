@@ -12,27 +12,23 @@
 @import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
 	
 
-	/* nav bar 메뉴 */
-	#one{
-		font-size:20px;
-		font-family: 'Nanum Pen Script', cursive;
-		background-color: #ffefa1;		
+	/* nav bar 메뉴 #bdbdbd;*/
+	#one a {
+  		color: #FFFFFF;
 	}
 	
-	#one a {
-  	color: #FFFFFF;
-	}
+	
+	
 	
 	/*  */	
 	#two{
 		font-size:15px;
 		font-family: 'NanumGothic ExtraBold', cursive;
-		/* background-color: #ffefa1; */
 		background-color: #111111;
 	}
 	
 	#two a {
-  	color: #FFFFFF;
+  		color: #FFFFFF;
 	}
 	
 	/* two bar의 li 요소 */
@@ -41,14 +37,10 @@
 		font-family: 'NanumGothic ExtraBold', cursive;
 		/* background-color: #ffefa1; */
 		background-color: #111111;
-	}
-	
-	
-	
+	}	
 	
 	/* 하단 레터박스 */
 	#footer{
-		/* background-color: #ffefa1; */
 		background-color: #FFFFFF;
 		border: 2px ridge black;
 	}

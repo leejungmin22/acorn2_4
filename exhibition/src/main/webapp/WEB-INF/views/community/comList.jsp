@@ -26,7 +26,8 @@
 	}
 	
 	#bread{
-		background-color: #FAEBD7;
+		background-color: #bdbdbd;
+		color: #FFFFFF;
 	}
 	
 </style>
