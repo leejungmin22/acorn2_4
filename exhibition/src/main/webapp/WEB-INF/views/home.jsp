@@ -219,7 +219,7 @@ $(document).ready(function(){
 	<div class="row">
 		<div class="large-12 columns">
 			<div class="owl-carousel owl-theme">
-				<c:forEach var="tmp" items="${list }" begin="1" end="10">
+				<c:forEach var="tmp" items="${list }" end="9">
 					<div class="item">
 						<a href="${pageContext.request.contextPath }/detail.do?seq=${tmp.seq}">
 							<img alt="${tmp.title }" src="${tmp.thumbnail }">
