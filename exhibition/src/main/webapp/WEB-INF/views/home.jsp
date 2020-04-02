@@ -20,31 +20,7 @@
 <!-- jQuery UI Datepicker -->
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<!-- fullcalendar -->
-<style type="text/css">
-	.fc-sat {color:#1F618D; background-color:#A9CCE3;} /*토요일*/	
-	.fc-sun {color:#B03A2E; background-color:#F2D7D5;} /*일요일*/
-	
-</style>
 <style>
-body{
-	background-color:#FFFFFF; /* 백그라운드 색상 */
-}
-
-@import url(//fonts.googleapis.com/earlyaccess/nanumpenscript.css);
-@import url(//fonts.googleapis.com/earlyaccess/nanumgothic.css);
-@import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
-
-	.form-group{
-		font-size:25px;
-		font-color:#FFFFFF;
-		font-family: 'Nanum Pen Script', cursive;
-	}
-	h3{
-		font-size:25px;
-		font-family: 'Nanum Pen Script', cursive;
-	}
-	
 	button{
 		vertical-align:middle;
 	}		
@@ -55,9 +31,11 @@ body{
 		height:38px;
 		cursor:pointer
 	}
-	.fc-popover{
-		
-	} 
+</style>
+<!-- fullcalendar -->
+<style type="text/css">
+	.fc-sat {color:#1F618D; background-color:#A9CCE3;} /*토요일*/	
+	.fc-sun {color:#B03A2E; background-color:#F2D7D5;} /*일요일*/
 </style>
 <script>
   document.addEventListener('DOMContentLoaded', function() {
@@ -78,15 +56,13 @@ body{
 		editable: false,
 		droppable: false,
 		dayPopoverFormat: { year: 'numeric', month: 'long', day: 'numeric' },
-		
-		
 		events:function(info, successCallback, failureCallback){
 			$.ajax({
 		           url: '${pageContext.request.contextPath}/getEvents.do',
 		           dataType: 'json',
 		           success: 
 		        	   function(result) {
-		        	   
+ 
 			               var events = [];
 			              
 			               if(result!=null){
@@ -161,16 +137,6 @@ body{
 						           			   color:"#ff3399"						           				
 						                    }); //.push()
 									}
-									/*
-									events.push({
-										
-									   title: element.title+" 종류:"+realmname,
-				                       start: startdate,
-				                       end: enddate,
-				           			   url: "${pageContext.request.contextPath }/detail.do?seq="+element.seq,				           			 			           			   				           			
-				                    }); //.push()
-				                    */
-				                    
 									
 				               }); //.each()
 				               
@@ -216,9 +182,6 @@ body{
    calendar.render();
    
   });
-  
- 
-  
 </script>
 <!-- owl.carousel -->
 <script>
@@ -303,13 +266,10 @@ $(document).ready(function(){
 </script>
 <style type="text/css">
 	.ui-datepicker{font-size: 12px; width: 200px;}
-	.ui-datepicker select.ui-datepicker-month{width: 100%; font-size: 11px;}
-	.ui-datepicker select.ui-datepicker-year{width: 100%; font-size: 11px;}
+	.ui-datepicker select.ui-datepicker-month{width: 50%; font-size: 11px;}
+	.ui-datepicker select.ui-datepicker-year{width: 50%; font-size: 11px;}
 	.ui-datepicker-calendar > tbody td.ui-datepicker-week-end:first-child a {color:#f00;}
 	.ui-datepicker-calendar > tbody td.ui-datepicker-week-end:last-child a {color:#00f;}
-	.form-group{
-		max-width:200px;
-	}
 </style>
 </head>
 <body>

@@ -8,39 +8,6 @@
 <title>전체공연보기</title>
 <jsp:include page="include/resource.jsp" />
 <style type="text/css">
-@import url(//fonts.googleapis.com/earlyaccess/nanumpenscript.css);
-	p, .form-group{
-		font-size:20px;
-		font-family: 'Nanum Pen Script', cursive;
-	}
-	
-	button{
-		vertical-align:middle;
-	}
-	/*검색버튼*/
-	button.img-button{
-		background:url("resources/images/button_search.png") no-repeat;
-		border:none;
-		width:38px;
-		height:38px;
-		cursor:pointer
-	}
-	/*breadcrumb 색상변경*/
-	#bread{
-		background-color: #ffdd33;
-	}
-	/*표 색상 변경*/
-	.tr{
-		background-color: #FAEBD7;
-	}
-	
-	
-	/*thead 색상변경*/
-	/*
-	.title{
-		background-color: #4682B4;
-	}*/
-	
     .condition{
    		margin: 10px 0 20px 0;
     }
@@ -51,9 +18,12 @@
 		width: 20px;
 		height: auto;
 	}
-	.arrow{
-		width: 15px;
-		height: auto;
+	button.img-button{
+		background:url("resources/images/button_search.png") no-repeat;
+		border:none;
+		width:38px;
+		height:38px;
+		cursor:pointer
 	}
 </style>
 <!-- jQuery UI Datepicker -->
@@ -103,9 +73,6 @@
 	.ui-datepicker select.ui-datepicker-year{width: 50%; font-size: 11px;}
 	.ui-datepicker-calendar > tbody td.ui-datepicker-week-end:first-child a {color:#f00;}
 	.ui-datepicker-calendar > tbody td.ui-datepicker-week-end:last-child a {color:#00f;}
-	.form-group{
-		max-width:200px;
-	}
 </style>
 </head>
 <body>
@@ -136,7 +103,7 @@
 			</div>
 			<div class="form-group">
 				<input class="form-control date" type="text" name="endDate" class="date" id="endDate" value="${enddate }" autocomplete="off" readonly/>
-				<button class="btn btn-primary" type="submit" disabled="disabled">검색</button>
+				<button class="btn btn-primary img-button" type="submit" disabled="disabled"></button>
 			</div>
 		</form>
 	</div>
@@ -171,8 +138,7 @@
 					</td>				
 					<td>${tmp.place }</td>
 					<td>${tmp.startdate } ~ ${tmp.enddate }</td>
-				</tr>
-				
+				</tr>	
 			</c:forEach>
 		</tbody>	
 	</table>
