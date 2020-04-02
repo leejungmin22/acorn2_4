@@ -17,16 +17,6 @@
 		display: none;
 	
 	}
-
-	/*화면 가운데정렬*/
-	.condition{
-		width: 400px; 
-		position: absolute; 
-		margin-left: -250px;
-		left: 50%;
-
-	}
-
 	
 	.sub-nav-left{
 		display:block;
@@ -42,11 +32,14 @@
 	
 	/*화면 가운데정렬*/
 	.condition{
-		width: 400px; 
-		position: absolute; 
-		margin-left: -150;
-		left:38%;
-	}	
+		width: auto;
+		max-width:500px;
+		margin: 0 auto;
+		position: relative;
+		overflow:hidden;
+		padding-bottom:50%;
+	} 
+	
 	#signupForm{
 		margin-top:10px;
 	}
@@ -55,39 +48,32 @@
 	/*입력필드*/
 	.textbox{ 
 		border-radius: .5rem .5rem .5rem .5rem;
-		margin-top: 10px;
-		position:relative;
+		top:50%; left: 50%; transform:translate(-50%, -50%);
+		position:absolute;
 		text-align: left;				
-		left: 0;	
 		color: #999; 
 		cursor: text;
-		width: 600px; /* 칸 너비 설정 */
 		height:40px; /*칸 높이*/
-		border: 2px solid #F5F5F5;		
+		border: 2px solid #F5F5F5;
 	}
 	
-	
-	/*가입버튼 #DEB887 #CD853F*/
-
-	.signup {
-    	width:300px;
-    	height:60px;
-    	font-size:30px;
-    	font-weight:bolder;
-    	background-color: #111111;
-    	margin-top: 0.8rem;
-    	cursor:pointer;
-    	letter-spacing: 0.4rem;
-    	color:#fff;
-    	border-radius: .5rem;  
-		position: absolute; 
-		left: 10%;
-		  	
-   	}
-	
-	/*성별*/
-	
-	
+	.btn_area{
+		margin:30px 30px 0 30px;
+		display:block;
+	}
+	.btn_primary{
+		color:#FFFFFF;
+		background-color:#000000;
+	}
+	.btn_type{
+		font-weight:400;
+		display:block;
+		width:100%;
+		padding:21px 0 17px;
+		font-size:20px;
+		text-align:center;
+		box-sizing:border-box;
+	}
 	
 </style>
 <script src="${pageContext.request.contextPath }/resources/js/jquery-3.3.1.js"></script>
@@ -186,7 +172,9 @@
 					<option value="m">남</option>
 				</select>
 			</div>
-			<button disabled="disabled" class="signup" type="submit">가 입 하 기</button>
+			<div class="btn_area">
+				<button disabled="disabled" class="btn_type btn_primary" type="submit">가 입 하 기</button>
+			</div>
 		</form>
 		</div>
 </div>
