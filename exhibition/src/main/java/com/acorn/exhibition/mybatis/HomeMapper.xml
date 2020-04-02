@@ -3,7 +3,7 @@
 <mapper namespace="event">
 
 	<select id="getevent" resultType="fullCalendarDto">
-		SELECT seq, title, startdate, enddate, thumbnail, likecount
+		SELECT seq, title, startdate, enddate, thumbnail, likecount, realmname
 		FROM tb_api_date
 		<![CDATA[
 		WHERE enddate>=SYSDATE

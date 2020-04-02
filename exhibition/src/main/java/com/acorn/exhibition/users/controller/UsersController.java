@@ -28,6 +28,7 @@ import com.acorn.exhibition.users.service.UsersService;
 
 @Controller
 public class UsersController {
+
 	@Autowired
 	private UsersService service;
 	
@@ -135,6 +136,7 @@ public class UsersController {
 			session.invalidate();
 			return "redirect:/home.do";
 		}
+		
 		//개인정보 보기 요청 처리
 		@RequestMapping("/users/info")
 		public ModelAndView authinfo(HttpServletRequest request, ModelAndView mView ) {
@@ -215,3 +217,4 @@ public class UsersController {
 			return mView;
 		}
 	}
+     

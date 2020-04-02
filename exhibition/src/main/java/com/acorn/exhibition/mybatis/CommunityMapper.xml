@@ -5,9 +5,10 @@
 		select NVL(MAX(ROWNUM), 0)
 		from community
 		<choose>
-			<when test="title != null and content != null">
-				where title like '%'||#(title)||'%'or
-				content like '%'||#{content}||'%'			
+			<when test="title != null or content != null">
+				where title like '%'||#{title}||'%' 
+				or
+				content like '%'||#{content}||'%'
 			</when>
 			<when test="title != null">
 				where title like '%'||#{title}||'%'
@@ -26,7 +27,8 @@
 				from community
 				<choose>
 					<when test="title != null and content != null">
-						where title like '%'||#{title}||'%' or
+						where title like '%'||#{title}||'%' 
+						or
 						content like '%'||#{content}||'%'
 					</when>
 					<when test="title != null">

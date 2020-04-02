@@ -50,7 +50,8 @@ public class CommentController {
 			map.put("isSuccess", true);
 			return map;
 		}
-
+		
+		@ResponseBody
 		@RequestMapping(value = "/more_comment")
 		public ModelAndView getComment(HttpServletRequest request, ModelAndView mView) {
 			commentservice.commentList(request);
@@ -62,6 +63,7 @@ public class CommentController {
 		@ResponseBody
 		@RequestMapping("/com_updateLikeCount")
 		public Map<String, Object> com_updateLikeCount(HttpServletRequest request, @RequestParam int num) {
+			
 			Map<String, Object> result=commentservice.com_updateLikeCount(request,num);
 			return result;
 		}

@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>전시일정</title>
+<title>홈페이지명</title>
 <jsp:include page="include/resource.jsp" />
 <!-- fullcalendar -->
 <link rel='stylesheet' type='text/css' href='${pageContext.request.contextPath }/resources/css/fullcalendar/main.css'/>
@@ -27,13 +27,27 @@
 	
 </style>
 <style>
+body{
+	background-color:#FFFFFF; /* 백그라운드 색상 */
+}
+
+@import url(//fonts.googleapis.com/earlyaccess/nanumpenscript.css);
+@import url(//fonts.googleapis.com/earlyaccess/nanumgothic.css);
+@import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
+
+	.form-group{
+		font-size:25px;
+		font-color:#FFFFFF;
+		font-family: 'Nanum Pen Script', cursive;
+	}
+	h3{
+		font-size:25px;
+		font-family: 'Nanum Pen Script', cursive;
+	}
+	
 	button{
 		vertical-align:middle;
-	}
-	button.form-text{
-		border: 1px solid #bcbcbc;
-		height: 25px;
-	}
+	}		
 	button.img-button{
 		background:url("resources/images/button_search.png") no-repeat;
 		border:none;
@@ -47,8 +61,7 @@
 </style>
 <script>
   document.addEventListener('DOMContentLoaded', function() {
-    var calendarEl = document.getElementById('calendar');
-
+    var calendarEl = document.getElementById('calendar');   
     var calendar = new FullCalendar.Calendar(calendarEl, {
     	height: 600,
 		plugins: [ 'dayGrid' ],
@@ -65,14 +78,19 @@
 		editable: false,
 		droppable: false,
 		dayPopoverFormat: { year: 'numeric', month: 'long', day: 'numeric' },
+		
+		
 		events:function(info, successCallback, failureCallback){
 			$.ajax({
 		           url: '${pageContext.request.contextPath}/getEvents.do',
 		           dataType: 'json',
 		           success: 
 		        	   function(result) {
+		        	   
 			               var events = [];
+			              
 			               if(result!=null){
+			            	   
 				            	   $.each(result, function(index, element) {
 			            		   var enddate=element.enddate;
 									if(enddate==null){
@@ -81,23 +99,87 @@
 									
 									var startdate=moment(element.startdate).format('YYYY-MM-DD');
 									var enddate=moment(enddate).format('YYYY-MM-DD');
-									   
+									var realmname = element.realmname;
+									
+									// realmname (분야) 분야별로 color 설정
+									if (realmname == "기타"){
+										events.push({
+											   title: element.title,
+						                       start: startdate,
+						                       end: enddate,
+						           			   url: "${pageContext.request.contextPath }/detail.do?seq="+element.seq,
+						           			   color:"#6937a1"						           				
+						                    }); //.push()
+									}
+																		
+									else if (realmname == "무용"){
+										events.push({
+											   title: element.title,
+						                       start: startdate,
+						                       end: enddate,
+						           			   url: "${pageContext.request.contextPath }/detail.do?seq="+element.seq,
+						           			   color:"#f7e600"						           				
+						                    }); //.push()
+									}
+									
+									else if (realmname == "미술"){
+										events.push({
+											   title: element.title,
+						                       start: startdate,
+						                       end: enddate,
+						           			   url: "${pageContext.request.contextPath }/detail.do?seq="+element.seq,
+						           			   color:"#2a67b7"						           				
+						                    }); //.push()
+									}
+									
+									else if (realmname == "연극"){
+										events.push({
+											   title: element.title,
+						                       start: startdate,
+						                       end: enddate,
+						           			   url: "${pageContext.request.contextPath }/detail.do?seq="+element.seq,
+						           			   color:"#008d62"						           				
+						                    }); //.push()
+									}
+									
+									else if (realmname == "음악"){
+										events.push({
+											   title: element.title,
+						                       start: startdate,
+						                       end: enddate,
+						           			   url: "${pageContext.request.contextPath }/detail.do?seq="+element.seq,
+						           			   color:"#6937a1"						           				
+						                    }); //.push()
+									}
+									
+									else{
+										events.push({
+											   title: element.title,
+						                       start: startdate,
+						                       end: enddate,
+						           			   url: "${pageContext.request.contextPath }/detail.do?seq="+element.seq,
+						           			   color:"#ff3399"						           				
+						                    }); //.push()
+									}
+									/*
 									events.push({
-				                       title: element.title,
+										
+									   title: element.title+" 종류:"+realmname,
 				                       start: startdate,
 				                       end: enddate,
-				           			   url: "${pageContext.request.contextPath }/detail.do?seq="+element.seq
+				           			   url: "${pageContext.request.contextPath }/detail.do?seq="+element.seq,				           			 			           			   				           			
 				                    }); //.push()
+				                    */
+				                    
 									
 				               }); //.each()
+				               
 			            	   console.log(events);
-			               }//if end
-			               
-			               successCallback(events);	
-			           }//success: function end
-		          
-		       }); //ajax end
-
+				               
+			               }//if end			               
+			               successCallback(events);				               
+			           }//success: function end						  
+			}); //ajax end
 		}, //events:function end
 		//이벤트를 클릭하면 요청 주소를 받아와서 ajax로 요청을 보내고 dtail page의 내용의 JSON 문자열로 전달한다.(bridge 사용)
 		eventClick: function showAndroidToast(toast) {
@@ -128,13 +210,14 @@
 				
 			}//if ( navigator.platform ) end
 			
-	    } //eventClick end
-		
+	    } //eventClick end		
    });//new FullCalendar end
 
    calendar.render();
    
   });
+  
+ 
   
 </script>
 <!-- owl.carousel -->
@@ -220,10 +303,13 @@ $(document).ready(function(){
 </script>
 <style type="text/css">
 	.ui-datepicker{font-size: 12px; width: 200px;}
-	.ui-datepicker select.ui-datepicker-month{width: 50%; font-size: 11px;}
-	.ui-datepicker select.ui-datepicker-year{width: 50%; font-size: 11px;}
+	.ui-datepicker select.ui-datepicker-month{width: 100%; font-size: 11px;}
+	.ui-datepicker select.ui-datepicker-year{width: 100%; font-size: 11px;}
 	.ui-datepicker-calendar > tbody td.ui-datepicker-week-end:first-child a {color:#f00;}
 	.ui-datepicker-calendar > tbody td.ui-datepicker-week-end:last-child a {color:#00f;}
+	.form-group{
+		max-width:200px;
+	}
 </style>
 </head>
 <body>
@@ -239,11 +325,15 @@ $(document).ready(function(){
 					<option value="place" <c:if test="${condition eq 'place' }">selected</c:if>>장소</option>
 					<option value="date" <c:if test="${condition eq 'date' }">selected</c:if>>기간</option>
 				</select>
-				<input class="form-control" type="text" name="keyword" id="keyword" value="${keyword }" placeholder="검색어를 입력하세요" />
+			</div>
+			<div class="form-group">
+				<input class="form-control" type="text" name="keyword" id="keyword" value="${keyword }" placeholder="검색어를 입력하세요"/>
 				<input class="form-control date" type="text" name="startDate" class="date" id="startDate" value="${startdate }" autocomplete="off" readonly/>
 				<span class="date">~</span>
+			</div>
+			<div class="form-group">				
 				<input class="form-control date" type="text" name="endDate" class="date" id="endDate" value="${enddate }" autocomplete="off" readonly/>
-				<button class="btn btn-primary" type="submit" disabled="disabled">검색</button>
+				<button class="img-button" type="submit"></button>
 			</div>
 		</form>
 	</div>

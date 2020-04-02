@@ -44,23 +44,26 @@
 						</c:otherwise>
 					</c:choose>
 					<c:choose>
-						<c:when test="${id ne null }" >
-							<c:forEach items="${comLikeList }" var="comList">
-								<c:if test="${tmp.num eq comList.num }">
-									<button class="btn btn-default comlike" id="comlike" type="button" value=${tmp.num }>
-										<c:choose>
-											<c:when test="${comList.isCommentLikeId }">
-												<img src="${pageContext.request.contextPath }/resources/images/comment_red-heart.png" alt="" />
-												<%-- <span>${tmp.num }${comList.num }</span> --%>
-											</c:when>
-											<c:otherwise>
-												<img src="${pageContext.request.contextPath }/resources/images/comment_empty-heart.png" alt="" />
-											</c:otherwise>
-										</c:choose>
-										좋아요
-										<span>${tmp.com_likeCount }</span>
-									</button>
-								</c:if>	
+						<c:when test="${id ne null}" >
+							<c:forEach items="${comLikeList}" var="comList">
+								<c:choose>
+									<c:when test="${tmp.num eq comList.num }">
+										<button class="btn btn-default comlike" id="comlike" type="button" value=${tmp.num }>
+											<c:choose>
+												<c:when test="${comList.isCommentLikeId }">
+													<img src="${pageContext.request.contextPath }/resources/images/comment_red-heart.png" alt="" />
+													<%-- <span>${tmp.num }${comList.num }</span> --%>
+												</c:when>
+												<c:otherwise>
+													<img src="${pageContext.request.contextPath }/resources/images/comment_empty-heart.png" alt="" />
+												</c:otherwise>
+											</c:choose>
+											좋아요
+											<span>${tmp.com_likeCount }</span>
+										</button>
+									</c:when>
+									
+								</c:choose>
 							</c:forEach>
 						</c:when>
 						<c:otherwise>
@@ -125,4 +128,4 @@
 			</li>
 		</c:otherwise>
 	</c:choose>
-</c:forEach>
+	</c:forEach>

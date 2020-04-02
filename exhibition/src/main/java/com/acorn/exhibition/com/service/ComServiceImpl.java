@@ -19,7 +19,7 @@ public class ComServiceImpl implements ComService{
 	@Autowired
 	private ComDao comDao;
 	
-	static final int PAGE_ROW_COUNT=5;	
+	static final int PAGE_ROW_COUNT=10;	
 	static final int PAGE_DISPLAY_COUNT=5;
 
 	@Override
@@ -39,8 +39,14 @@ public class ComServiceImpl implements ComService{
 			}else if(condition.equals("writer")) {//작성자
 				dto.setWriter(keyword);
 			}
-			request.setAttribute("condition", condition);
+			
+			/*
+			 *  검색 키워드에는 한글이 포함될 가능성이 있기 때문에
+			 *  링크에 그대로 출력가능하도록 하기 위해 미리 인코딩을 해서
+			 *  request 에 담아준다.
+			 */			
 			String encodedKeyword=null;
+			
 			try {
 				encodedKeyword=URLEncoder.encode(keyword,"utf-8");
 			}catch(UnsupportedEncodingException e) {
@@ -48,6 +54,7 @@ public class ComServiceImpl implements ComService{
 			}
 			request.setAttribute("encodedKeyword", encodedKeyword);
 			request.setAttribute("keyword", keyword);
+			request.setAttribute("condition", condition);
 		}
 		//보여줄 페이지 번호
 		int pageNum=1;

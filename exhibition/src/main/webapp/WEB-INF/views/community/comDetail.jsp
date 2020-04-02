@@ -8,11 +8,15 @@
 <title>/community/comDetail.jsp</title>
 <jsp:include page="../include/resource.jsp"></jsp:include>
 <style>
+
 	/* 글 내용을 출력할 div 에 적용할 css */
 	.contents, table{
 		width: 100%;
 		border: 1px dotted #cecece;
 		box-shadow: 3px 3px 5px 6px #ccc;
+	}
+	#bread{
+		background-color: #FAEBD7;
 	}
 </style>
 </head>
@@ -21,15 +25,13 @@
 	<jsp:param value="community" name="category"/>
 </jsp:include>
 <div class="container">
-	<ol class="breadcrumb">
+	<ol class="breadcrumb" id="bread">
 		<li><a href="${pageContext.request.contextPath }/community/comList.do">목록</a></li>
 		<li>글 상세 보기</li>
 	</ol>
 	<c:if test="${not empty keyword }">
-		<p> <strong>${keyword }</strong> 검색어로 검색된 결과 자세히 보기 입니다.</p>
+		<p> <strong>${keyword }</strong> 검색어로 검색</p>
 	</c:if>
-
-	<h3>카페 글 상세 보기</h3>
 
 	<c:if test="${dto.prevNum ne 0 }">
 		<a href="comDetail.do?num=${dto.prevNum }&condition=${condition}&keyword=${encodedKeyword}">이전글</a>

@@ -5,9 +5,42 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>전체공연보기</title>
 <jsp:include page="include/resource.jsp" />
 <style type="text/css">
+@import url(//fonts.googleapis.com/earlyaccess/nanumpenscript.css);
+	p, .form-group{
+		font-size:20px;
+		font-family: 'Nanum Pen Script', cursive;
+	}
+	
+	button{
+		vertical-align:middle;
+	}
+	/*검색버튼*/
+	button.img-button{
+		background:url("resources/images/button_search.png") no-repeat;
+		border:none;
+		width:38px;
+		height:38px;
+		cursor:pointer
+	}
+	/*breadcrumb 색상변경*/
+	#bread{
+		background-color: #ffdd33;
+	}
+	/*표 색상 변경*/
+	.tr{
+		background-color: #FAEBD7;
+	}
+	
+	
+	/*thead 색상변경*/
+	/*
+	.title{
+		background-color: #4682B4;
+	}*/
+	
     .condition{
    		margin: 10px 0 20px 0;
     }
@@ -70,31 +103,21 @@
 	.ui-datepicker select.ui-datepicker-year{width: 50%; font-size: 11px;}
 	.ui-datepicker-calendar > tbody td.ui-datepicker-week-end:first-child a {color:#f00;}
 	.ui-datepicker-calendar > tbody td.ui-datepicker-week-end:last-child a {color:#00f;}
+	.form-group{
+		max-width:200px;
+	}
 </style>
 </head>
 <body>
 <jsp:include page="include/navbar.jsp">
-	<jsp:param value="cafe" name="category"/>
+	<jsp:param value="list" name="category"/>
 </jsp:include>
 <div class="container">
-	<c:choose>
-		<c:when test="${not empty keyword or (not empty startdate and not empty enddate)}">
-			<p>
-				<c:if test="${encodedKeyword ne null }">
-					<strong>${keyword }</strong> 키워드로 검색된
-					<strong>${totalRow }</strong> 개의 공연/전시가 있습니다.
-				</c:if>
-				<c:if test="${startdate ne null and enddate ne null }">
-					<strong>${startdate }</strong>~<strong>${enddate }</strong> 에는
-					<strong>${totalRow }</strong> 개의 공연/전시가 있습니다.
-				</c:if>
-			</p>
-		</c:when>
-		<c:otherwise>
-			<p><strong>${totalRow }</strong> 개의 공연/전시가 있습니다.</p>
-		</c:otherwise>
-	</c:choose>
-	<h1>글 목록 입니다.</h1>
+	<ol class="breadcrumb" id="bread">
+		<li>전체공연</li>
+		<li><a href="${pageContext.request.contextPath }/list.do">목록</a></li>
+	</ol>
+	
 	<div class="condition" align="right">
 		<form class="form-inline" action="list.do" method="get"> 
 			<div class="form-group">
@@ -105,15 +128,21 @@
 					<option value="place" <c:if test="${condition eq 'place' }">selected</c:if>>장소</option>
 					<option value="date" <c:if test="${condition eq 'date' }">selected</c:if>>기간</option>
 				</select>
+			</div>
+			<div class="form-group">
 				<input class="form-control" type="text" name="keyword" id="keyword" value="${keyword }" placeholder="검색어를 입력하세요" />
 				<input class="form-control date" type="text" name="startDate" class="date" id="startDate" value="${startdate }" autocomplete="off" readonly/>
 				<span class="date">~</span>
+			</div>
+			<div class="form-group">
 				<input class="form-control date" type="text" name="endDate" class="date" id="endDate" value="${enddate }" autocomplete="off" readonly/>
 				<button class="btn btn-primary" type="submit" disabled="disabled">검색</button>
 			</div>
 		</form>
 	</div>
-	<table class="table table-striped table-condensed">
+
+	<table class="table table-hover">
+
 		<colgroup>
 			<col class="col-xs-6"/>
 			<col class="col-xs-1"/>
@@ -121,7 +150,7 @@
 			<col class="col-xs-3"/>
 		</colgroup>
 		<thead>
-			<tr>
+			<tr class="title">
 				<th>공연명 </th>
 				<th>좋아요</th>
 				<th>장소</th>
@@ -130,24 +159,25 @@
 		</thead>
 		<tbody>
 			<c:forEach var="tmp" items="${requestScope.list }">
-				<tr>
+				<tr class="tr">
 					<td>
 						<a href="detail.do?seq=${tmp.seq }">
 							${tmp.title }
 						</a>				
-					</td>
+					</td>				
 					<td>
 						<img class="heart" src="${pageContext.request.contextPath }/resources/images/red-heart.png" alt="" />
 						${tmp.likeCount }
-					</td>
+					</td>				
 					<td>${tmp.place }</td>
 					<td>${tmp.startdate } ~ ${tmp.enddate }</td>
 				</tr>
+				
 			</c:forEach>
 		</tbody>	
 	</table>
 	
-	<div class="page-display">
+	<div class="page-display" style="text-align: center;">
 		<ul class="pagination pagination-sm">
 			<c:choose>
 				<c:when test="${startPageNum ne 1 }">

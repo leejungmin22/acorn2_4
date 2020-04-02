@@ -73,6 +73,7 @@ public class CommentServiceImpl implements CommentService{
 		
 		//파라미터로 전달되는 글번호
 		int seq=Integer.parseInt(request.getParameter("seq"));
+		String id=(String)request.getSession().getAttribute("id");
 		FullCalendarDto dto=new FullCalendarDto();
 		dto.setSeq(seq);
 		/* 댓글 페이징 처리 */
@@ -116,7 +117,6 @@ public class CommentServiceImpl implements CommentService{
 		List<Com_LikeDto> comLikeList=new ArrayList<Com_LikeDto>();
 		
 		//좋아요
-		String id=(String)request.getSession().getAttribute("id");
 		String CommentLikeId=null;
 		
 		boolean isCommentLikeId=false;
@@ -137,11 +137,11 @@ public class CommentServiceImpl implements CommentService{
 				comLikeList.add(comLikeDto);
 			 }//for end
 		}//if end
-		
+		   
+		request.setAttribute("comLikeList", comLikeList);
 		//EL, JSTL 을 활용하기 위해 필요한 모델을 request 에 담는다.
 		request.setAttribute("commentList", commentList);
 		request.setAttribute("dto", dto);
-		request.setAttribute("comLikeList", comLikeList);
 	}
 
 	@Override
