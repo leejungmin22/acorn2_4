@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>홈페이지명</title>
-<jsp:include page="include/resource.jsp" />
+
 <!-- fullcalendar -->
 <link rel='stylesheet' type='text/css' href='${pageContext.request.contextPath }/resources/css/fullcalendar/main.css'/>
 <link rel='stylesheet' type='text/css' href='${pageContext.request.contextPath }/resources/css/fullcalendar/daygrid.min.css'/>
@@ -26,6 +26,7 @@
 	.fc-sun {color:#B03A2E; background-color:#F2D7D5;} /*일요일*/
 	
 </style>
+<jsp:include page="include/resource.jsp" />
 <style>
 body{
 	background-color:#FFFFFF; /* 백그라운드 색상 */

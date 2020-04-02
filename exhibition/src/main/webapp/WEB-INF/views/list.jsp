@@ -273,10 +273,10 @@ ol, ul {
 					<li>
 						<c:choose>
 							<c:when test="${encodedKeyword ne null }">
-								<a href="list.do?pageNum=${startPageNum-1 }&condition=${condition }&keyword=${encodedKeyword }">&laquo;</a>
+								<a href="list.do?pageNum=${startPageNum-1 }&sort=${sort}&condition=${condition }&keyword=${encodedKeyword }">&laquo;</a>
 							</c:when>
 							<c:when test="${startdate ne null and enddate ne null }">
-								<a href="list.do?pageNum=${startPageNum-1 }&condition=${condition }&startDate=${startdateFormat }&endDate=${enddateFormat }">&laquo;</a>
+								<a href="list.do?pageNum=${startPageNum-1 }&sort=${sort}&condition=${condition }&startDate=${startdateFormat }&endDate=${enddateFormat }">&laquo;</a>
 							</c:when>
 							<c:otherwise>
 								<a href="list.do?pageNum=${startPageNum-1 }">&laquo;</a>
@@ -297,10 +297,10 @@ ol, ul {
 						<li class="active">
 							<c:choose>
 								<c:when test="${encodedKeyword ne null }">
-									<a href="list.do?pageNum=${i }&condition=${condition }&keyword=${encodedKeyword }">${i }</a>
+									<a href="list.do?pageNum=${i }&sort=${sort}&condition=${condition }&keyword=${encodedKeyword }">${i }</a>
 								</c:when>
 								<c:when test="${startdate ne null and enddate ne null }">
-									<a href="list.do?pageNum=${i }&condition=${condition }&startDate=${startdateFormat }&endDate=${enddateFormat }">${i }</a>
+									<a href="list.do?pageNum=${i }&sort=${sort}&condition=${condition }&startDate=${startdateFormat }&endDate=${enddateFormat }">${i }</a>
 								</c:when>
 								<c:otherwise>
 									<a href="list.do?pageNum=${i }">${i }</a>
@@ -312,10 +312,10 @@ ol, ul {
 						<li>
 							<c:choose>
 								<c:when test="${encodedKeyword ne null }">
-									<a href="list.do?pageNum=${i }&condition=${condition }&keyword=${encodedKeyword }">${i }</a>
+									<a href="list.do?pageNum=${i }&sort=${sort}&condition=${condition }&keyword=${encodedKeyword }">${i }</a>
 								</c:when>
 								<c:when test="${startdate ne null and enddate ne null }">
-									<a href="list.do?pageNum=${i }&condition=${condition }&startDate=${startdateFormat }&endDate=${enddateFormat }">${i }</a>
+									<a href="list.do?pageNum=${i }&sort=${sort}&condition=${condition }&startDate=${startdateFormat }&endDate=${enddateFormat }">${i }</a>
 								</c:when>
 								<c:otherwise>
 									<a href="list.do?pageNum=${i }">${i }</a>
@@ -331,10 +331,10 @@ ol, ul {
 					<li>
 						<c:choose>
 							<c:when test="${encodedKeyword ne null }">
-								<a href="list.do?pageNum=${endPageNum+1 }&condition=${condition }&keyword=${encodedKeyword }">&raquo;</a>
+								<a href="list.do?pageNum=${endPageNum+1 }&sort=${sort}&condition=${condition }&keyword=${encodedKeyword }">&raquo;</a>
 							</c:when>
 							<c:when test="${startdate ne null and enddate ne null }">
-								<a href="list.do?pageNum=${endPageNum+1 }&condition=${condition }&startDate=${startdateFormat }&endDate=${enddateFormat }">&raquo;</a>
+								<a href="list.do?pageNum=${endPageNum+1 }&sort=${sort}&condition=${condition }&startDate=${startdateFormat }&endDate=${enddateFormat }">&raquo;</a>
 							</c:when>
 							<c:otherwise>
 								<a href="list.do?pageNum=${endPageNum+1 }">&raquo;</a>
@@ -360,17 +360,6 @@ ol, ul {
 	
 	$("#sort").change(function(){
 		values=$(this).val();
-// 		$.ajax({
-// 			url:"list.do",
-// 			method:"post",
-// 			data:{"sort":values},
-// 			success:function(responseData){
-// 				if(responseData.isSuccess){
-// 					location.href="${pageContext.request.contextPath}/list.do?sort=${sort}";
-// 					console.log(11)
-// 				}
-// 			}
-// 		});
 		checkSortBox(values)
 		
 	});
@@ -387,9 +376,7 @@ ol, ul {
 			method:"post",
 			data:{"sort":values},
 			success:function(responseData){
-				
-					location.href="${pageContext.request.contextPath}/list.do?sort="+values;
-				
+					location.href="${pageContext.request.contextPath}/list.do?sort="+values;	
 			}
 		});
 	}

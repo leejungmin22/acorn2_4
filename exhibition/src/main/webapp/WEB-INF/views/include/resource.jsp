@@ -16,9 +16,7 @@
 	#one a {
   		color: #FFFFFF;
 	}
-	
-	
-	
+
 	
 	/*  */	
 	#two{
