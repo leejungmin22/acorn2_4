@@ -62,7 +62,6 @@ public class CommentController {
 		@ResponseBody
 		@RequestMapping("/com_updateLikeCount")
 		public Map<String, Object> com_updateLikeCount(HttpServletRequest request, @RequestParam int num) {
-			System.out.println("댓글 번호"+num);
 			Map<String, Object> result=commentservice.com_updateLikeCount(request,num);
 			return result;
 		}
