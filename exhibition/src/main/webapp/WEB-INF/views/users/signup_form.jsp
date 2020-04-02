@@ -28,9 +28,18 @@
 	}
 
 	
-	#bread{
-		background-color: #FAEBD7;		
+	.sub-nav-left{
+		display:block;
+		position:relative;
+		font-size:15px;
+		float:none;
+		margin:10px 0 10px 0;
+		text-align:left;
+		border-bottom:1px solid #ddd;
+		padding:1px 0 5px;
+		font-family: "Noto Sans KR","맑은 고딕","Malgun Gothic",;
 	}
+	
 	/*화면 가운데정렬*/
 	.condition{
 		width: 400px; 
@@ -111,10 +120,15 @@
 <body>
 <jsp:include page="../include/navbar.jsp"/>
 <div class="container">
-	<ol class="breadcrumb" id="bread">
-		<li><a href="${pageContext.request.contextPath }/community/comList.do">목록</a></li>
-		<li>회원가입</li>
-	</ol>
+	<div class="sub-nav-left">
+		<a href="home.do" onclick="javascript:page_link('000000'); return false;">
+			<img src="../resources/images/home.png"" alt="홈" />
+		</a>
+		>
+				<a href="${pageContext.request.contextPath }/users/loginform.do" onclick="javascript:page_link('010100'); return false;">로그인</a>
+		>
+		<a href="${pageContext.request.contextPath }/users/signup_form.do" onclick="javascript:page_link('010000'); return false;">회원가입</a>
+	</div>
 	
  	<div class="condition" > 
 	<form action="signup.do" method="post" id="signupForm" enctype="multipart/form-data">
