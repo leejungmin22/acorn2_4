@@ -19,7 +19,7 @@
 		position:relative;
 		font-size:15px;
 		float:none;
-		margin=top:10px;
+		margin:10px 0 10px 0;
 		text-align:left;
 		border-bottom:1px solid #ddd;
 		padding:1px 0 5px;
