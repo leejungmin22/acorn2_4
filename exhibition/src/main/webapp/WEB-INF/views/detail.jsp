@@ -21,6 +21,14 @@
 		font-family: 'Jeju Gothic', sans-serif;
 	}
 	
+	.row {
+		border: 1px solid blue;
+	}
+	
+	.row>div {
+		border: 1px dotted green;
+	}
+	
 
 	.poster {
 		max-width: 100%;
@@ -30,6 +38,29 @@
 	img {
 		height: auto;
 	}
+
+@import url(//fonts.googleapis.com/earlyaccess/nanumpenscript.css);
+@import url(//fonts.googleapis.com/earlyaccess/jejugothic.css);
+	
+	#bread{
+		background-color: #FAEBD7;
+	}
+	
+	h6{
+		font-size:16px;
+		font-family: 'Jeju Gothic', sans-serif;
+	}
+	
+
+	.poster {
+		max-width: 100%;
+		height: 560px;
+	}
+
+	img {
+		height: auto;
+	}
+
 
 /* 댓글 css */
 /* 글 내용을 출력할 div 에 적용할 css */

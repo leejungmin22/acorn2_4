@@ -20,4 +20,10 @@ public class AndroidController {
 		return service.getData(seq);
 	}
 	
+	@RequestMapping("android/navbar")
+	public String getNavBar() {
+		return "android/navbar";
+	}
+	
 }
+
