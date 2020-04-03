@@ -129,22 +129,6 @@
 	max-width: 200px;
 }
 
-.sub_option {
-	display: inline-block;
-	overflow: hidden;
-	font-size: 15px;
-	padding-right: 6px;
-	width: auto !important;
-	height: 43px !important;
-	border: 0 !important;
-	zoom: 1;
-}
-.sub_option li .btn_option {
-    margin-right: 17px;
-    padding: 16px 0 12px;
-    color: #8f8f8f;
-    text-decoration: none;
-    }
 .cs_nperformance .option_tab .sub_option li .btn_option .ico_select {
     overflow: hidden;
     display: inline-block;
@@ -162,30 +146,22 @@
     vertical-align: 5px;
 }
 
-.sort_area {
-	position: relative;
-    height: 40px; 
-    line-height: 36px;
-    font-size: 0;
-  
-    padding: 0 24px 0 24px;
-    white-space: nowrap;
-    background-color: #fbfcfe;
-    margin: 0 0 -1px;
-    border-bottom: 1px solid #edeef0;
-    z-index: 110;
-}
-.sub_option li {
-    float: left !important;
-    padding-top: 6px;
-    margin: 0 !important;
-  
-}
 
 ol, ul {
     list-style-type: none;
 }
+.cs_nperformance .main_tab {
+    position: relative;
+    height: 40px;
+    border-bottom: 1px solid #eaeef3;
+    line-height: 37px;
+    }
+.cs_nperformance .main_tab .list_tab li {
+    display: block;
+    float: left;
+    }
 </style>
+
 </head>
 <body>
 <jsp:include page="include/navbar.jsp">
@@ -196,7 +172,6 @@ ol, ul {
 		<li>전체공연</li>
 		<li><a href="${pageContext.request.contextPath }/list.do">목록</a></li>
 	</ol>
-	
 	<div class="condition" align="right">
 		<form class="form-inline" action="list.do" method="get"> 
 			<div class="form-group">
@@ -219,17 +194,12 @@ ol, ul {
 				<button class="btn btn-primary" type="submit" disabled="disabled">검색</button>
 			</div>
 		</form>
-		<form class="form-inline" action="list.do" method="get"> 
-		<div class="form-group">
-				<label for="sort">정렬조건</label>
-					<select class="form-control" name="sort" id="sort">
-						<option value="sortnone">선택하세요</option>
-						<option value="sortnone" <c:if test="${sort eq 'sortnone' }">selected</c:if>>최신날짜순</option>
-						<option value="favorite" <c:if test="${sort eq 'favorite' }">selected</c:if>>인기순</option>
-						<option value="sortpastdate" <c:if test="${sort eq 'sortpastdate' }">selected</c:if>>이전날짜순</option>
-					</select>
-			</div>
-			</form>
+		
+		
+		</div>
+		<div>
+		<a href="javascript:favorite()" id="favorite">인기순</a>
+		<a type="javascript:pastdate()" id="pastdate">최신순</a>
 		</div>
 	<table class="table table-hover">
 
@@ -357,57 +327,53 @@ ol, ul {
 	var values=$("#sort").val();
 	//페이지가 로딩되는 시점에 어떤 값이 선택되었는지 확인 후 그에 맞는 input tag를 보여준다.
 	checkeSelectBox(value);
-	
-	$("#sort").change(function(){
-		values=$(this).val();
-		checkSortBox(values)
 		
-	});
-	
+	function favorite(){
+		console.log("안녕")
+		$.ajax({
+			url:"list.do",
+			method:"post",
+			data:{"sort":"favorite"},
+			success:function(responseData){
+				location.href="${pageContext.request.contextPath}/list.do?sort=${sort}"	
+			}
+		});
+		return false;
+	}
 	//select 옵션이 변경된 경우 그에 맞는 input tag를 보여준다.
 	$("#condition").change(function(){
 		value=$(this).val();
 		checkeSelectBox(value);
 	});
 	
-	function checkSortBox(values){
-		$.ajax({
-			url:"list.do",
-			method:"post",
-			data:{"sort":values},
-			success:function(responseData){
-					location.href="${pageContext.request.contextPath}/list.do?sort="+values;	
-			}
-		});
-	}
 	//어떤 옵션이 선택되었는지 확인할 함수
 	function checkeSelectBox(value){
-		if(value=="none"){
-			$("#keyword").attr("disabled", "disabled").hide();
-			$(".date").attr("disabled", "disabled").hide();
-			//$("button[type=submit]").attr("disabled","disabled");
-		}
 		
-		if(value=="date" ){
-			$("#keyword").attr("disabled", "disabled").hide();
-			$(".date").removeAttr("disabled").show();
-			//$("button[type=submit]").removeAttr("disabled");
-			console.log("기간 선택");
-		}
-		if(value=="title"){
-			$("#keyword").removeAttr("disabled").show();
-			$(".date").attr("disabled", "disabled").hide();
-			//$("button[type=submit]").removeAttr("disabled");
-			console.log("제목 선택");
-		}
-		
-		if(value=="place"){
-			$("#keyword").removeAttr("disabled").show();
-			$(".date").attr("disabled", "disabled").hide();
-			//$("button[type=submit]").removeAttr("disabled");
-			console.log("장소 선택");
-		}
-		
+			if(value=="none" ){
+				$("#keyword").attr("disabled", "disabled").hide();
+				$(".date").attr("disabled", "disabled").hide();
+				//$("button[type=submit]").attr("disabled","disabled");
+			}
+			
+			if(value=="date" ){
+				$("#keyword").attr("disabled", "disabled").hide();
+				$(".date").removeAttr("disabled").show();
+				//$("button[type=submit]").removeAttr("disabled");
+				console.log("기간 선택");
+			}
+			if(value=="title"){
+				$("#keyword").removeAttr("disabled").show();
+				$(".date").attr("disabled", "disabled").hide();
+				//$("button[type=submit]").removeAttr("disabled");
+				console.log("제목 선택");
+			}
+			
+			if(value=="place"){
+				$("#keyword").removeAttr("disabled").show();
+				$(".date").attr("disabled", "disabled").hide();
+				//$("button[type=submit]").removeAttr("disabled");
+				console.log("장소 선택");
+			}
 	}	
 		
 	//페이지 로딩시 키워드, 시작, 끝 날짜에 입력되어 있는값 갖고오기 

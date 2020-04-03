@@ -14,8 +14,6 @@ public interface HomeDao {
 	//list
 	public int getCount(FullCalendarDto dto);
 	public List<FullCalendarDto> getList(FullCalendarDto dto);
-	public List<FullCalendarDto> getfavoriteList(FullCalendarDto dto);
-	public List<FullCalendarDto> getdateList(FullCalendarDto dto);
 	// 좋아요
 	public int findLike(FullCalendarDto dto);
 	public int getLikeCount(int seq);

@@ -192,6 +192,10 @@ public class HomeController {
 		Map<String, Object> result= service.updateLikeCount(request);
 		return result;
 	}
-
+	
+	@RequestMapping("/map")
+	public String map(ModelAndView mView, HttpServletRequest request) {
+		return "map";
+	}
 
 }

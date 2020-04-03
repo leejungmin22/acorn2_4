@@ -256,25 +256,12 @@ public class HomeServiceImpl implements HomeService{
 		String sort=request.getParameter("sort");
 		System.out.println(sort);
 		//1. DB 에서 글 목록을 얻어온다.
-		if(sort!=null) {
-		if(sort.equals("favorite")) {
-			List<FullCalendarDto> list=dao.getfavoriteList(dto);
-			request.setAttribute("list", list);
-			System.out.println("1");
-		}else if(sort.equals("sortpastdate")) {
-			List<FullCalendarDto> list=dao.getdateList(dto);
-			request.setAttribute("list", list);
-			System.out.println("2");
-		}else if(sort.equals("sortnone")){
-			List<FullCalendarDto> list=dao.getList(dto);
-			request.setAttribute("list", list);
-			System.out.println("3");
-		}
-		}else {
-			List<FullCalendarDto> list=dao.getList(dto);
-			request.setAttribute("list", list);
-			System.out.println("4");
-		}
+	
+		dto.setSort(sort);
+		request.setAttribute("sort", sort);
+		List<FullCalendarDto> list=dao.getList(dto);
+		request.setAttribute("list", list);
+		
 		//EL, JSTL 을 활용하기 위해 필요한 모델을 request 에 담는다.
 		
 		request.setAttribute("pageNum", pageNum);

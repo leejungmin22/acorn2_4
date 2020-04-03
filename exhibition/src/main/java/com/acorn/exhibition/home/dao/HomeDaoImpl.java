@@ -45,16 +45,6 @@ public class HomeDaoImpl implements HomeDao{
 		List<FullCalendarDto> list=session.selectList("event.getList", dto);
 		return list;
 	}
-	@Override
-	public List<FullCalendarDto> getfavoriteList(FullCalendarDto dto) {
-		List<FullCalendarDto> list=session.selectList("event.getfavoriteList", dto);
-		return list;
-	}
-	@Override
-	public List<FullCalendarDto> getdateList(FullCalendarDto dto) {
-		List<FullCalendarDto> list=session.selectList("event.getpastList", dto);
-		return list;
-	}
 	// 좋아요
 	@Override
 	public int findLike(FullCalendarDto dto) {
