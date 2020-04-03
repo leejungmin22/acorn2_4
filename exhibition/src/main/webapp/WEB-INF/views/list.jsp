@@ -68,11 +68,97 @@
 	});
 </script>
 <style type="text/css">
+<<<<<<< HEAD
 	.ui-datepicker{font-size: 12px; width: 200px;}
 	.ui-datepicker select.ui-datepicker-month{width: 50%; font-size: 11px;}
 	.ui-datepicker select.ui-datepicker-year{width: 50%; font-size: 11px;}
 	.ui-datepicker-calendar > tbody td.ui-datepicker-week-end:first-child a {color:#f00;}
 	.ui-datepicker-calendar > tbody td.ui-datepicker-week-end:last-child a {color:#00f;}
+=======
+.ui-datepicker {
+	font-size: 12px;
+	width: 200px;
+}
+
+.ui-datepicker select.ui-datepicker-month {
+	width: 50%;
+	font-size: 11px;
+}
+
+.ui-datepicker select.ui-datepicker-year {
+	width: 50%;
+	font-size: 11px;
+}
+
+.ui-datepicker-calendar>tbody td.ui-datepicker-week-end:first-child a {
+	color: #f00;
+}
+
+.ui-datepicker-calendar>tbody td.ui-datepicker-week-end:last-child a {
+	color: #00f;
+}
+
+.form-group {
+	max-width: 200px;
+}
+
+.sub_option {
+	display: inline-block;
+	overflow: hidden;
+	font-size: 15px;
+	padding-right: 6px;
+	width: auto !important;
+	height: 43px !important;
+	border: 0 !important;
+	zoom: 1;
+}
+.sub_option li .btn_option {
+    margin-right: 17px;
+    padding: 16px 0 12px;
+    color: #8f8f8f;
+    text-decoration: none;
+    }
+.cs_nperformance .option_tab .sub_option li .btn_option .ico_select {
+    overflow: hidden;
+    display: inline-block;
+    vertical-align: top;
+    font-size: 0;
+    line-height: 0;
+    color: rgba(0, 0, 0, 0);
+    background: url(../img/sp_nperformance_v3.png) no-repeat;
+    background-position: -146px -115px;
+    width: 4px;
+    height: 4px;
+    margin-top: -1px;
+    margin-right: 5px;
+    vertical-align: 3px;
+    vertical-align: 5px;
+}
+
+.sort_area {
+	position: relative;
+    height: 40px; 
+    line-height: 36px;
+    font-size: 0;
+  
+    padding: 0 24px 0 24px;
+    white-space: nowrap;
+    background-color: #fbfcfe;
+    margin: 0 0 -1px;
+    border-bottom: 1px solid #edeef0;
+    z-index: 110;
+}
+.sub_option li {
+    float: left !important;
+    padding-top: 6px;
+    margin: 0 !important;
+  
+}
+
+ol, ul {
+    list-style-type: none;
+}
+>>>>>>> refs/heads/sanghoo
 </style>
 </head>
 <body>
@@ -101,13 +187,24 @@
 				<input class="form-control date" type="text" name="startDate" class="date" id="startDate" value="${startdate }" autocomplete="off" readonly/>
 				<span class="date">~</span>
 			</div>
+			
 			<div class="form-group">
 				<input class="form-control date" type="text" name="endDate" class="date" id="endDate" value="${enddate }" autocomplete="off" readonly/>
 				<button class="btn btn-primary img-button" type="submit" disabled="disabled"></button>
 			</div>
 		</form>
-	</div>
-
+		<form class="form-inline" action="list.do" method="get"> 
+		<div class="form-group">
+				<label for="sort">정렬조건</label>
+					<select class="form-control" name="sort" id="sort">
+						<option value="sortnone">선택하세요</option>
+						<option value="sortnone" <c:if test="${sort eq 'sortnone' }">selected</c:if>>최신날짜순</option>
+						<option value="favorite" <c:if test="${sort eq 'favorite' }">selected</c:if>>인기순</option>
+						<option value="sortpastdate" <c:if test="${sort eq 'sortpastdate' }">selected</c:if>>이전날짜순</option>
+					</select>
+			</div>
+			</form>
+		</div>
 	<table class="table table-hover">
 
 		<colgroup>
@@ -231,13 +328,45 @@
 <script>
 	//select 된 정보를 담을 변수
 	var value=$("#condition").val();
+	var values=$("#sort").val();
 	//페이지가 로딩되는 시점에 어떤 값이 선택되었는지 확인 후 그에 맞는 input tag를 보여준다.
 	checkeSelectBox(value);
+	
+	$("#sort").change(function(){
+		values=$(this).val();
+// 		$.ajax({
+// 			url:"list.do",
+// 			method:"post",
+// 			data:{"sort":values},
+// 			success:function(responseData){
+// 				if(responseData.isSuccess){
+// 					location.href="${pageContext.request.contextPath}/list.do?sort=${sort}";
+// 					console.log(11)
+// 				}
+// 			}
+// 		});
+		checkSortBox(values)
+		
+	});
+	
 	//select 옵션이 변경된 경우 그에 맞는 input tag를 보여준다.
 	$("#condition").change(function(){
 		value=$(this).val();
 		checkeSelectBox(value);
 	});
+	
+	function checkSortBox(values){
+		$.ajax({
+			url:"list.do",
+			method:"post",
+			data:{"sort":values},
+			success:function(responseData){
+				
+					location.href="${pageContext.request.contextPath}/list.do?sort="+values;
+				
+			}
+		});
+	}
 	//어떤 옵션이 선택되었는지 확인할 함수
 	function checkeSelectBox(value){
 		if(value=="none"){
@@ -245,7 +374,8 @@
 			$(".date").attr("disabled", "disabled").hide();
 			//$("button[type=submit]").attr("disabled","disabled");
 		}
-		if(value=="date"){
+		
+		if(value=="date" ){
 			$("#keyword").attr("disabled", "disabled").hide();
 			$(".date").removeAttr("disabled").show();
 			//$("button[type=submit]").removeAttr("disabled");
@@ -266,7 +396,7 @@
 		}
 		
 	}	
-	
+		
 	//페이지 로딩시 키워드, 시작, 끝 날짜에 입력되어 있는값 갖고오기 
 	var keyword=$("#keyword").val();
 	var startDate=$("#startDate").val();
@@ -307,6 +437,7 @@
 			return true;
 		}
 	}
+	
 </script>
 </body>
 </html>

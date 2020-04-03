@@ -17,22 +17,31 @@
 		display: none;
 	
 	}
+
 	/*화면 가운데정렬*/
 	.condition{
 		width: 400px; 
 		position: absolute; 
-		margin-left: auto;
-		margin-right: auto;
+		margin-left: -250px;
+		left: 50%;
 
 	}
+
 	
 	#bread{
 		background-color: #FAEBD7;		
 	}
-	
+	/*화면 가운데정렬*/
+	.condition{
+		width: 400px; 
+		position: absolute; 
+		margin-left: -150;
+		left:38%;
+	}	
 	#signupForm{
 		margin-top:10px;
 	}
+
 	
 	/*입력필드*/
 	.textbox{ 
@@ -47,18 +56,16 @@
 		height:40px; /*칸 높이*/
 		border: 2px solid #F5F5F5;		
 	}
-	.form-control-feedback{
-		position:relative;
-		left:550px;	
-	}
+	
 	
 	/*가입버튼 #DEB887 #CD853F*/
+
 	.signup {
     	width:300px;
     	height:60px;
     	font-size:30px;
     	font-weight:bolder;
-    	background-color: #D2691E;
+    	background-color: #111111;
     	margin-top: 0.8rem;
     	cursor:pointer;
     	letter-spacing: 0.4rem;
@@ -70,16 +77,7 @@
    	}
 	
 	/*성별*/
-	.textbox2 { 
-		border-radius: .5rem .5rem .5rem .5rem;
-		margin-top: 10px;
-		position:relative;
-		text-align: center;
-		width:100px;		
-		left: 0;
-		border: 2px solid #F5F5F5;
-		font-size: 15px;
-	}
+	
 	
 	
 </style>
@@ -164,11 +162,11 @@
 			<span class="glyphicon glyphicon-ok form-control-feedback"></span>
 		</div>
 			<div class="form-group has-feedback">
-				<label class="font" for="birth">생년월일</label><br/>
+				<label class="control-label" for="birth">생년월일</label><br/>
 				<input class="form-control" type="text" id="birth" name="birth"/>
 			</div>
 			<div class="form-group has-feedback">
-				<label class="font" for="gender">성별</label><br/>
+				<label class="control-label" for="gender">성별</label><br/>
 				<select class="textbox2" name="gender" id="gender">
 					<option value="f">여</option>
 					<option value="m">남</option>
@@ -177,7 +175,6 @@
 			<button disabled="disabled" class="signup" type="submit">가 입 하 기</button>
 		</form>
 		</div>
-	
 </div>
 	<%-- jquery form  플러그인 javascript 로딩 --%>
 	<script src="${pageContext.request.contextPath }/resources/js/jquery.form.min.js"></script>

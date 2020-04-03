@@ -40,14 +40,17 @@ public class HomeController {
 		cal.add(Calendar.YEAR, 1); // 현재시간 + 1년
 		
 		String fromTime = format1.format(todate); // fromTime : 컴퓨터의 현재 시간
+		//String fromTime = "20190101";
 		String toTime = format1.format(cal.getTime()); // toTime : fromTime + 1년
+		//String toTime = "20220101";
 
 		int page = 1; // 읽어올 첫 페이지
 		
 		String lastApiUrl;
 		String apiUrl;
 		String url = "http://www.culture.go.kr/openapi/rest/publicperformancedisplays/period?serviceKey" // API URL
-				+ "=Gz2ltmko3fuxZQxk8hBjvYFNlR9DqV9a2SSG80HzdcKMvY99yDDYxCV5H%2Fl0mJtEmDimd9LEm5T5TgX%2BOH9IHA%3D%3D"
+				//+ "=Gz2ltmko3fuxZQxk8hBjvYFNlR9DqV9a2SSG80HzdcKMvY99yDDYxCV5H%2Fl0mJtEmDimd9LEm5T5TgX%2BOH9IHA%3D%3D"
+				+ "=Jk4SI5EtRU6zD2rvATXkT9ozMFDhXtCI5HVy7M5ZfpWIs2UVCdjLFfY8U9vTMrBr8V3XaNgiFuG%2BLiO1BNtmKA%3D%3D" // 예비용 운영계정 KEY 
 				+ "&sortStdr=1"  // 정렬기준 : 등록일
 				+ "&from="+fromTime // 현재시간
 				+ "&to="+toTime  // 현재시간 +1년
@@ -70,52 +73,58 @@ public class HomeController {
 			// root tag
 			doc.getDocumentElement().normalize();
 			System.out.println("Root element :" + doc.getDocumentElement().getNodeName());
-
+			
 			// msgBody의 0번 node가 totalCount 값
 			NodeList msgBodyTag = doc.getElementsByTagName("msgBody");
-			Node msgNode = msgBodyTag.item(0).getFirstChild();
-			
-			if (msgNode != null && msgNode.getNodeName().equals("totalCount")) {
-				System.out.println("뽑아올 공연 데이터 갯수 : " + msgNode.getFirstChild().getNodeValue());
-			} else {
-				System.out.println("뽑아올 데이터가 없습니다.");
-			}
-			
-			// totalCount 값 얻어오기 ("msgBody"의 첫번째 자식 요소의 값을 얻어온다.)
-			int TotalCount = Integer.parseInt(msgNode.getFirstChild().getNodeValue());
-			
-			try { 
-				lastApiUrl = url + Integer.toString(TotalCount);					
-				Document lstParseDoc = dBuilder.parse(lastApiUrl);
-		
-				extractedInsertApiData(dto, lstParseDoc);			
-				service.addExhibition(dto);
-				// TotalCount의 마지막 page의 데이터를 먼저 parsing 후 데이터가 있으면 최신 상태이므로  Exception 처리
+			try {
+				Node msgNode = msgBodyTag.item(0).getFirstChild();
 				
-				// From~ToDate에서 조회된 Data Parsing을 하기위해서 TotalCount 만큼 반복
-				for (int i = 1; i <= TotalCount; i++) {
+				if (msgNode != null && msgNode.getNodeName().equals("totalCount")) {
+					System.out.println("뽑아올 공연 데이터 갯수 : " + msgNode.getFirstChild().getNodeValue());
+				} else {
+					System.out.println("뽑아올 데이터가 없습니다.");
+				}
+				
+				// totalCount 값 얻어오기 ("msgBody"의 첫번째 자식 요소의 값을 얻어온다.)
+				int TotalCount = Integer.parseInt(msgNode.getFirstChild().getNodeValue());
+				
+				try { 
+					lastApiUrl = url + Integer.toString(TotalCount);					
+					Document lstParseDoc = dBuilder.parse(lastApiUrl);
+			
+					extractedInsertApiData(dto, lstParseDoc);			
+					service.addExhibition(dto);
+					// TotalCount의 마지막 page의 데이터를 먼저 parsing 후 데이터가 있으면 최신 상태이므로  Exception 처리
 					
-					//dto = new ApiDto();				
+					// From~ToDate에서 조회된 Data Parsing을 하기위해서 TotalCount 만큼 반복
+					for (int i = 1; i <= TotalCount; i++) {
+						
+						//dto = new ApiDto();				
 
-					apiUrl = url + Integer.toString(i);
-					System.out.println(i+"번째 Parsing URL : "+apiUrl); // 데이터를 얻어올 XML URL 출력 (필요 없음)
-					Document parseDoc = dBuilder.parse(apiUrl);
+						apiUrl = url + Integer.toString(i);
+						System.out.println(i+"번째 Parsing URL : "+apiUrl); // 데이터를 얻어올 XML URL 출력 (필요 없음)
+						Document parseDoc = dBuilder.parse(apiUrl);
 
-					Element eElement = extractedInsertApiData(dto, parseDoc);
+						Element eElement = extractedInsertApiData(dto, parseDoc);
 
-					try {						
-						// 중복 데이터가 없으면 INSERT
-						service.addExhibition(dto);
-						System.out.println("일련번호  : " + getTagValue("seq", eElement) + " 공연 추가 완료.");
-					} catch (Exception e) {
-						System.out.println("일련번호  : " + getTagValue("seq", eElement) + " 중복 공연 추가 시도!");
-					}			
+						try {						
+							// 중복 데이터가 없으면 INSERT
+							service.addExhibition(dto);
+							System.out.println("일련번호  : " + getTagValue("seq", eElement) + " 공연 추가 완료");
+						} catch (Exception e) {
+							System.out.println("일련번호  : " + getTagValue("seq", eElement) + " 중복 공연 추가 시도");
+						}			
+					}
+				}
+				catch (Exception e) {
+					System.out.println("데이터 최신화 완료 상태");
 				}
 			}
 			catch (Exception e) {
-				System.out.println("데이터 최신화 완료 상태");
+				System.out.println("LIMITED NUMBER OF SERVICE REQUESTS EXCEEDS ERROR.");
+				System.out.println("기존 제공되는 일 1,000건을 초과하였습니다.");
+				System.out.println("API KEY를 변경해주세요.");
 			}
-
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -178,6 +187,7 @@ public class HomeController {
 		service.getData(request);
 		return "detail";
 	}
+	@ResponseBody
 	@RequestMapping("/list")
 	public ModelAndView list(ModelAndView mView, HttpServletRequest request) {
 		service.list(request);
@@ -191,5 +201,6 @@ public class HomeController {
 		Map<String, Object> result= service.updateLikeCount(request);
 		return result;
 	}
+
 
 }

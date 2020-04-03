@@ -11,7 +11,7 @@
 				content like '%'||#{content}||'%'
 			</when>
 			<when test="title != null">
-				where title like '%'||#{title}||'%'
+				where title like '%'||#{title, jdbcType=VARCHAR }||'%'
 			</when>
 			<when test="writer != null">
 				where writer like '%'||#{writer}||'%'
@@ -32,7 +32,7 @@
 						content like '%'||#{content}||'%'
 					</when>
 					<when test="title != null">
-						where title like '%'||#{title}||'%'
+						where title like '%'||#{title, jdbcType=VARCHAR}||'%'
 					</when>
 					<when test="writer != null">
 						where writer like '%'||#{writer}||'%'
@@ -64,7 +64,7 @@
 					content  LIKE '%'||#{content}||'%'
 				</when>
 				<when test="title != null">
-					WHERE title LIKE '%'||#{title}||'%'
+					WHERE title LIKE '%'||#{title, jdbcType=VARCHAR}||'%'
 				</when>
 				<when test="writer != null">
 					WHERE writer LIKE '%'||#{writer}||'%'

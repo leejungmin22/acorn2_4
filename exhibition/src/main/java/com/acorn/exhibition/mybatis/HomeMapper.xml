@@ -86,6 +86,63 @@
 						ORDER BY startdate DESC) result1)
  		WHERE rnum BETWEEN #{startRowNum} AND #{endRowNum}
 	</select>
+	<select id="getfavoriteList" resultType="fullCalendarDto">
+		SELECT *
+		 FROM (SELECT result1.*, ROWNUM AS rnum
+				FROM (SELECT seq, title, TO_CHAR(startdate,'YYYY/MM/DD') AS startdate, TO_CHAR(enddate,'YYYY/MM/DD') AS enddate, place, thumbnail, likecount
+						<choose>
+							<when test="startdate != null and enddate != null">
+								FROM (SELECT seq, title, startdate, enddate, place, thumbnail, likecount
+										FROM tb_api_date
+										<![CDATA[
+										WHERE startdate>=to_date(${startdate},'yyyymmdd') AND startdate<=to_date(${enddate},'yyyymmdd')) result2
+										]]>
+										
+							</when>
+							<otherwise>
+								FROM tb_api_date
+							</otherwise>
+						</choose>
+						<choose>
+							<when test="title != null">
+								WHERE title LIKE '%${title}%'
+							</when>
+							<when test="place != null">
+								WHERE place LIKE '%${place}%'
+							</when>
+						</choose>
+						ORDER BY likecount DESC) result1)
+ 		WHERE rnum BETWEEN #{startRowNum} AND #{endRowNum}
+	</select>
+	
+	<select id="getpastList" resultType="fullCalendarDto">
+		SELECT *
+		 FROM (SELECT result1.*, ROWNUM AS rnum
+				FROM (SELECT seq, title, TO_CHAR(startdate,'YYYY/MM/DD') AS startdate, TO_CHAR(enddate,'YYYY/MM/DD') AS enddate, place, thumbnail, likecount
+						<choose>
+							<when test="startdate != null and enddate != null">
+								FROM (SELECT seq, title, startdate, enddate, place, thumbnail, likecount
+										FROM tb_api_date
+										<![CDATA[
+										WHERE startdate>=to_date(${startdate},'yyyymmdd') AND startdate<=to_date(${enddate},'yyyymmdd')) result2
+										]]>
+										
+							</when>
+							<otherwise>
+								FROM tb_api_date
+							</otherwise>
+						</choose>
+						<choose>
+							<when test="title != null">
+								WHERE title LIKE '%${title}%'
+							</when>
+							<when test="place != null">
+								WHERE place LIKE '%${place}%'
+							</when>
+						</choose>
+						ORDER BY startdate ASC) result1)
+ 		WHERE rnum BETWEEN #{startRowNum} AND #{endRowNum}
+	</select>
 	
 	<!-- 좋아요 -->
 	<select id="findLike" parameterType="fullCalendarDto" resultType="int">

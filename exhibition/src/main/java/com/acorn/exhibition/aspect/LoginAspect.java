@@ -44,7 +44,7 @@ public class LoginAspect {
 			// 리턴되는 값을 리턴해 주기 
 			return obj;
 		}
-		//월래 가려던 url 정보 읽어오기 
+		//원래 가려던 url 정보 읽어오기 
 		String url=request.getRequestURI();
 		//GET 방식 전송 파라미터를 query string 으로 얻어오기
 		String query=request.getQueryString();

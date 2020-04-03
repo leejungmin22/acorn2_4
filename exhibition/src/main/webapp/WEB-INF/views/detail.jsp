@@ -21,14 +21,6 @@
 		font-family: 'Jeju Gothic', sans-serif;
 	}
 	
-	.row {
-		border: 1px solid blue;
-	}
-	
-	.row>div {
-		border: 1px dotted green;
-	}
-	
 
 	.poster {
 		max-width: 100%;
@@ -38,8 +30,6 @@
 	img {
 		height: auto;
 	}
-
-
 
 /* 댓글 css */
 /* 글 내용을 출력할 div 에 적용할 css */
@@ -346,7 +336,7 @@ pre{
 		if(isLogin==true){
 			$.ajax({
 				url:"updateLikeCount.do",
-				method:"post",
+				method:"post", 
 				data:{"seq":${dto.seq}}, //data : 파라미터로 전달할 문자열 
 				dataType:"json",
 				success:function(responseData){
