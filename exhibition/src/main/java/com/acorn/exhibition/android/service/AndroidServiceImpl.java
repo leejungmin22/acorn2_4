@@ -34,6 +34,7 @@ public class AndroidServiceImpl implements AndroidService{
 		map.put("gpsY", apiDto.getGpsY());
 		map.put("imgUrl", apiDto.getImgUrl());
 		map.put("placeAddr", apiDto.getPlaceAddr());
+		map.put("placeUrl", apiDto.getPlaceUrl());
 		
 		return map;
 	}
