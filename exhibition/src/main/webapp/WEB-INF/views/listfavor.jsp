@@ -169,7 +169,7 @@ ol, ul {
 		<li><a href="${pageContext.request.contextPath }/list.do">목록</a></li>
 	</ol>
 	<div class="condition" align="right">
-		<form class="form-inline" action="list.do" method="get"> 
+		<form class="form-inline" action="listfavor.do" method="get"> 
 			<div class="form-group">
 				<label for="condition">검색조건</label>
 				<select class="form-control" name="condition" id="condition">
@@ -240,14 +240,14 @@ ol, ul {
 				<c:when test="${startPageNum ne 1 }">
 					<li>
 						<c:choose>
-							<c:when test="${encodedKeyword ne null or sort ne null}">
-								<a href="list.do?pageNum=${startPageNum-1 }&sort=${sort}&condition=${condition }&keyword=${encodedKeyword }">&laquo;</a>
+							<c:when test="${encodedKeyword ne null }">
+								<a href="listfaovr.do?pageNum=${startPageNum-1 }&condition=${condition }&keyword=${encodedKeyword }">&laquo;</a>
 							</c:when>
-							<c:when test="${startdate ne null and enddate ne null or sort ne null  }">
-								<a href="list.do?pageNum=${startPageNum-1 }&sort=${sort}&condition=${condition }&startDate=${startdateFormat }&endDate=${enddateFormat }">&laquo;</a>
+							<c:when test="${startdate ne null and enddate ne null }">
+								<a href="listfaovr.do?pageNum=${startPageNum-1 }&condition=${condition }&startDate=${startdateFormat }&endDate=${enddateFormat }">&laquo;</a>
 							</c:when>
 							<c:otherwise>
-								<a href="list.do?pageNum=${startPageNum-1 }">&laquo;</a>
+								<a href="listfaovr.do?pageNum=${startPageNum-1 }">&laquo;</a>
 							</c:otherwise>
 						</c:choose>
 					</li>
@@ -264,14 +264,14 @@ ol, ul {
 					<c:when test="${i eq pageNum }">
 						<li class="active">
 							<c:choose>
-								<c:when test="${encodedKeyword ne null or sort ne null }">
-									<a href="list.do?pageNum=${i }&sort=${sort}&condition=${condition }&keyword=${encodedKeyword }">${i }</a>
+								<c:when test="${encodedKeyword ne null }">
+									<a href="listfaovr.do?pageNum=${i }&condition=${condition }&keyword=${encodedKeyword }">${i }</a>
 								</c:when>
-								<c:when test="${startdate ne null and enddate ne null or sort ne null }">
-									<a href="list.do?pageNum=${i }&sort=${sort}&condition=${condition }&startDate=${startdateFormat }&endDate=${enddateFormat }">${i }</a>
+								<c:when test="${startdate ne null and enddate ne null }">
+									<a href="listfaovr.do?pageNum=${i }&condition=${condition }&startDate=${startdateFormat }&endDate=${enddateFormat }">${i }</a>
 								</c:when>
 								<c:otherwise>
-									<a href="list.do?pageNum=${i }">${i }</a>
+									<a href="listfaovr.do?pageNum=${i }">${i }</a>
 								</c:otherwise>
 							</c:choose>
 						</li>
@@ -279,14 +279,14 @@ ol, ul {
 					<c:otherwise>
 						<li>
 							<c:choose>
-								<c:when test="${encodedKeyword ne null or sort ne null}">
-									<a href="list.do?pageNum=${i }&sort=${sort}&condition=${condition }&keyword=${encodedKeyword }">${i }</a>
+								<c:when test="${encodedKeyword ne null }">
+									<a href="listfaovr.do?pageNum=${i }&condition=${condition }&keyword=${encodedKeyword }">${i }</a>
 								</c:when>
-								<c:when test="${startdate ne null and enddate ne null or sort ne null}">
-									<a href="list.do?pageNum=${i }&sort=${sort}&condition=${condition }&startDate=${startdateFormat }&endDate=${enddateFormat }">${i }</a>
+								<c:when test="${startdate ne null and enddate ne null }">
+									<a href="listfaovr.do?pageNum=${i }&condition=${condition }&startDate=${startdateFormat }&endDate=${enddateFormat }">${i }</a>
 								</c:when>
 								<c:otherwise>
-									<a href="list.do?pageNum=${i }">${i }</a>
+									<a href="listfaovr.do?pageNum=${i }">${i }</a>
 								</c:otherwise>
 							</c:choose>
 						</li>
@@ -298,14 +298,14 @@ ol, ul {
 				<c:when test="${endPageNum < totalPageCount }">
 					<li>
 						<c:choose>
-							<c:when test="${encodedKeyword ne null or sort ne null}">
-								<a href="list.do?pageNum=${endPageNum+1 }&sort=${sort}&condition=${condition }&keyword=${encodedKeyword }">&raquo;</a>
+							<c:when test="${encodedKeyword ne null }">
+								<a href="listfaovr.do?pageNum=${endPageNum+1 }&condition=${condition }&keyword=${encodedKeyword }">&raquo;</a>
 							</c:when>
 							<c:when test="${startdate ne null and enddate ne null or sort ne null}">
-								<a href="list.do?pageNum=${endPageNum+1 }&sort=${sort}&condition=${condition }&startDate=${startdateFormat }&endDate=${enddateFormat }">&raquo;</a>
+								<a href="listfaovr.do?pageNum=${endPageNum+1 }&condition=${condition }&startDate=${startdateFormat }&endDate=${enddateFormat }">&raquo;</a>
 							</c:when>
 							<c:otherwise>
-								<a href="list.do?pageNum=${endPageNum+1 }">&raquo;</a>
+								<a href="listfaovr.do?pageNum=${endPageNum+1 }">&raquo;</a>
 							</c:otherwise>
 						</c:choose>
 					</li>
@@ -326,13 +326,13 @@ ol, ul {
 	checkeSelectBox(value);
 	var value=${sort}
 
-	
 	$("#favorite").click(function(){
 		location.href="listfavor.do"
 	});
 	$("#pastdate").click(function(){
 		location.href="list.do"
 	});
+	
 	//select 옵션이 변경된 경우 그에 맞는 input tag를 보여준다.
 	$("#condition").change(function(){
 		value=$(this).val();
