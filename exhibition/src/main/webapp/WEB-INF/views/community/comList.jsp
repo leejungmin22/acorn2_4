@@ -52,7 +52,11 @@
 					<option value="title" <c:if test="${condition eq 'title' }">selected</c:if> >제목</option>
 					<option value="titlecontent" <c:if test="${condition eq 'titlecontent' }">selected</c:if> >제목+내용</option>					
 					<option value="writer" <c:if test="${condition eq 'writer' }">selected</c:if> >작성자</option>
+<<<<<<< HEAD
 				</select>
+=======
+				</select>	
+>>>>>>> refs/remotes/origin/jungmin
 					<input class="form-control" type="text" name="keyword" placeholder="검색어를 입력하세요" value="${keyword }"/>
 					<button class="img-button" type="submit"></button>
 			</div>
