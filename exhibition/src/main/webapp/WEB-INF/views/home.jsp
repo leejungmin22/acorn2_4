@@ -149,7 +149,6 @@
 		}, //events:function end
 		//이벤트를 클릭하면 요청 주소를 받아와서 ajax로 요청을 보내고 dtail page의 내용의 JSON 문자열로 전달한다.(bridge 사용)
 		eventClick: function sendData(data) {
-			console.log(data)
 			data.jsEvent.preventDefault();
 			// seq 번호 갖고 오기
 			var search=data.el.search;
@@ -357,25 +356,21 @@ function sendData(seq) {
 		if(value=="none"){
 			$("#keyword").attr("disabled", "disabled").hide();
 			$(".date").attr("disabled", "disabled").hide();
-			//$("button[type=submit]").attr("disabled","disabled");
 		}
 		if(value=="date"){
 			$("#keyword").attr("disabled", "disabled").hide();
 			$(".date").removeAttr("disabled").show();
-			//$("button[type=submit]").removeAttr("disabled");
 			console.log("기간 선택");
 		}
 		if(value=="title"){
 			$("#keyword").removeAttr("disabled").show();
 			$(".date").attr("disabled", "disabled").hide();
-			//$("button[type=submit]").removeAttr("disabled");
 			console.log("제목 선택");
 		}
 		
 		if(value=="place"){
 			$("#keyword").removeAttr("disabled").show();
 			$(".date").attr("disabled", "disabled").hide();
-			//$("button[type=submit]").removeAttr("disabled");
 			console.log("장소 선택");
 		}
 		

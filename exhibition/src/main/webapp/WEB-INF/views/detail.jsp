@@ -375,7 +375,6 @@ pre{
 					var imgTag=$('.like').children('img');
 					var span=$('.like').children('span');
 					if(responseData.isSuccess==true){
-						//location.href="${pageContext.request.contextPath}/detail.do?seq=${dto.seq}";
 						imgTag.attr('src', '${pageContext.request.contextPath }/resources/images/red-heart.png');
 						span.text(responseData.likecount);
 						console.log(responseData.likecount);
@@ -413,7 +412,6 @@ pre{
 				dataType:"json",
 				success:function(responseData){
 					console.log(responseData);
-					//var imgTag=$('.num').children('img');
 					if(responseData.comisSuccess==true ){
 						imgTag.attr('src', '${pageContext.request.contextPath }/resources/images/comment_red-heart.png');
 						span.text(responseData.comlikecount);
