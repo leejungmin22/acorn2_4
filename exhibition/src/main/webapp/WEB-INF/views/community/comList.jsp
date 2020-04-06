@@ -52,13 +52,10 @@
 					<option value="title" <c:if test="${condition eq 'title' }">selected</c:if> >제목</option>
 					<option value="titlecontent" <c:if test="${condition eq 'titlecontent' }">selected</c:if> >제목+내용</option>					
 					<option value="writer" <c:if test="${condition eq 'writer' }">selected</c:if> >작성자</option>
-<<<<<<< HEAD
+
 				</select>
-=======
-				</select>	
->>>>>>> refs/remotes/origin/jungmin
-					<input class="form-control" type="text" name="keyword" placeholder="검색어를 입력하세요" value="${keyword }"/>
-					<button class="img-button" type="submit"></button>
+					<input class="form-control" type="text" name="keyword" id="keyword" value="${keyword }" placeholder="검색어를 입력하세요"/>
+					<button class="img-button" type="submit" disabled="disabled"></button>
 			</div>
 		</form>
 	</div>
@@ -152,4 +149,29 @@
 	</div>	
 </div>
 </body>
+<script>
+	var keyword=$("#keyword").val();
+	//페이지 로딩시 
+	if(!isEmpty(keyword)){//키워드가 입력되어 있다면 disabled 속성 없애기
+		$("button[type=submit]").removeAttr("disabled");
+	}else{ //키워드가 입력되지 않은 경우 disabled 속성 추가하기
+		$("button[type=submit]").attr("disabled","disabled");
+	}
+	//input#keyword 요소가 변경될때마다 확인해서 disabled 속성 추가하기
+ 	$("#keyword").on("input", function(){
+		keyword=$("#keyword").val();
+		if(!isEmpty(keyword)){//키워드가 입력된 경우
+			$("button[type=submit]").removeAttr("disabled");
+		}else{ //키워드가 입력되지 않은 경우
+			$("button[type=submit]").attr("disabled","disabled");
+		}
+
+	});
+ 	//input 요소가 비어있는지 확인할 함수
+	function isEmpty(str){
+		if(str==" " || str=="" || typeof str == "undefined" || str == null){
+			return true;
+		}
+	}
+</script>
 </html>
