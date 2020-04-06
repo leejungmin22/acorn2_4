@@ -191,7 +191,7 @@ public class HomeController {
 		service.listfavor(request);
 		mView.setViewName("listfavor");
 		return mView;
-	}
+	} 
 	@ResponseBody
 	@RequestMapping("/updateLikeCount")
 	public Map<String, Object> updateLikeCount(HttpServletRequest request) {
