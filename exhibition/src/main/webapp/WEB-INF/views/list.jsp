@@ -14,6 +14,18 @@
 		font-family: 'Nanum Pen Script', cursive;
 	}
 	
+	.sub-nav-left{
+		display:block;
+		position:relative;
+		font-size:15px;
+		float:none;
+		margin:10px 0 10px 0;
+		text-align:left;
+		border-bottom:1px solid #ddd;
+		padding:1px 0 5px;
+		font-family: "Noto Sans KR","맑은 고딕","Malgun Gothic",;
+	}
+	
 	button{
 		vertical-align:middle;
 	}
@@ -26,12 +38,6 @@
 		cursor:pointer;
 	}
 	
-	/*breadcrumb 색상변경 */
-	
-	#bread{
-		background-color: #bdbdbd;
-		color: #FFFFFF;
-	}
 	
 	/*표 색상 변경*/
 	.tr{
@@ -41,9 +47,9 @@
 	
 	/*thead 색상변경*/
 	
-	.title{
+	/*.title{
 		background-color: #4682B4;
-	}
+	}*/
 	
     .condition{
    		margin: 10px 0 20px 0;
@@ -164,10 +170,16 @@ ol, ul {
 	<jsp:param value="list" name="category"/>
 </jsp:include>
 <div class="container">
-	<ol class="breadcrumb" id="bread">
-		<li>전체공연</li>
-		<li><a href="${pageContext.request.contextPath }/list.do">목록</a></li>
-	</ol>
+	<div class="sub-nav-left">
+		<a href="home.do" onclick="javascript:page_link('000000'); return false;">
+			<img src="resources/images/home.png"" alt="홈" />
+		</a>
+		>
+		<a href="list.do" onclick="javascript:page_link('010000'); return false;">목록</a>
+		>
+		<a href="list.do" onclick="javascript:page_link('010000'); return false;">목록</a>
+	</div>
+	
 	<div class="condition" align="right">
 		<form class="form-inline" action="list.do" method="get"> 
 			<div class="form-group">
