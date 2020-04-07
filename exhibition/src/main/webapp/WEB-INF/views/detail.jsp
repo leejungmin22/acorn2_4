@@ -13,7 +13,8 @@
 @import url(//fonts.googleapis.com/earlyaccess/jejugothic.css);
 	
 	#bread{
-		background-color: #FAEBD7;
+		background-color: #bdbdbd;
+		color: #FFFFFF;
 	}
 	
 	h6{

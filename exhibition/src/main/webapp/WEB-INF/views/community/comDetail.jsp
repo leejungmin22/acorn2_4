@@ -16,7 +16,8 @@
 		box-shadow: 3px 3px 5px 6px #ccc;
 	}
 	#bread{
-		background-color: #FAEBD7;
+		background-color: #bdbdbd;
+		color: #FFFFFF;
 	}
 	/* 댓글에 관련된 css */
 	.comments ul{

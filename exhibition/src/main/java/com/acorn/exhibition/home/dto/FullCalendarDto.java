@@ -15,12 +15,14 @@ public class FullCalendarDto {
 	private int endRowNum;
 	private String id;
 	private int likeCount;
+	private String sort;
 	
 	public FullCalendarDto() {}
+	
 
 	public FullCalendarDto(int seq, String title, String startdate, String enddate, String place, String realmname,
 			String area, String thumbnail, String gpsx, String gpsy, int startRowNum, int endRowNum, String id,
-			int likeCount) {
+			int likeCount, String sort) {
 		super();
 		this.seq = seq;
 		this.title = title;
@@ -36,7 +38,9 @@ public class FullCalendarDto {
 		this.endRowNum = endRowNum;
 		this.id = id;
 		this.likeCount = likeCount;
+		this.sort = sort;
 	}
+
 
 	public int getSeq() {
 		return seq;
@@ -150,6 +154,13 @@ public class FullCalendarDto {
 		this.likeCount = likeCount;
 	}
 
-	
+	public String getSort() {
+		return sort;
+	}
+
+	public void setSort(String sort) {
+		this.sort = sort;
+	}
+
 	
 }

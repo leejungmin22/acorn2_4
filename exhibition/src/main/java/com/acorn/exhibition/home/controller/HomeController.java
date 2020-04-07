@@ -194,13 +194,23 @@ public class HomeController {
 		mView.setViewName("list");
 		return mView;
 	}
-	
+	@ResponseBody
+	@RequestMapping("/listfavor")
+	public ModelAndView listfavor(ModelAndView mView, HttpServletRequest request) {
+		service.listfavor(request);
+		mView.setViewName("listfavor");
+		return mView;
+	} 
 	@ResponseBody
 	@RequestMapping("/updateLikeCount")
 	public Map<String, Object> updateLikeCount(HttpServletRequest request) {
 		Map<String, Object> result= service.updateLikeCount(request);
 		return result;
 	}
-
+	
+	@RequestMapping("/map")
+	public String map(ModelAndView mView, HttpServletRequest request) {
+		return "map";
+	}
 
 }

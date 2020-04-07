@@ -5,13 +5,13 @@
 		select NVL(MAX(ROWNUM), 0)
 		from community
 		<choose>
-			<when test="title != null or content != null">
+			<when test="title != null and content != null">
 				where title like '%'||#{title}||'%' 
 				or
 				content like '%'||#{content}||'%'
 			</when>
 			<when test="title != null">
-				where title like '%'||#{title, jdbcType=VARCHAR }||'%'
+				where title like '%'||#{title}||'%'
 			</when>
 			<when test="writer != null">
 				where writer like '%'||#{writer}||'%'
@@ -32,7 +32,7 @@
 						content like '%'||#{content}||'%'
 					</when>
 					<when test="title != null">
-						where title like '%'||#{title, jdbcType=VARCHAR}||'%'
+						where title like '%'||#{title}||'%'
 					</when>
 					<when test="writer != null">
 						where writer like '%'||#{writer}||'%'
@@ -64,7 +64,7 @@
 					content  LIKE '%'||#{content}||'%'
 				</when>
 				<when test="title != null">
-					WHERE title LIKE '%'||#{title, jdbcType=VARCHAR}||'%'
+					WHERE title LIKE '%'||#{title}||'%'
 				</when>
 				<when test="writer != null">
 					WHERE writer LIKE '%'||#{writer}||'%'
