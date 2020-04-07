@@ -251,7 +251,7 @@ pre{
 													<%-- 로그인된 아이디와 댓글의 작성자가 같으면 --%>
 													<c:when test="${ admin eq 1 || id eq tmp.writer }">
 														<a href="javascript:" class="comment-update-link">수정</a>&nbsp;&nbsp;
-													<a href="javascript:deleteComment(${tmp.num })">삭제</a>
+														<a href="javascript:deleteComment(${tmp.num })">삭제</a>
 													</c:when>
 													<c:otherwise>
 														<a href="javascript:">신고</a>
@@ -300,7 +300,8 @@ pre{
 												value="${tmp.comment_group }" />
 											<textarea name="content"><c:if test="${empty id }">로그인이 필요합니다.</c:if></textarea>
 											<button type="submit">등록</button>
-										</form> <!-- 로그인한 아이디와 댓글의 작성자와 같으면 수정폼 출력 --> 
+										</form> 
+										<!-- 로그인한 아이디와 댓글의 작성자와 같으면 수정폼 출력 --> 
 										<c:if test="${ admin eq 1 || id eq tmp.writer }">
 											<form class="comment-update-form" action="comment_update.do"
 												method="post">

@@ -200,7 +200,7 @@ public class ComServiceImpl implements ComService{
 		dto.setContent(content);
 		dto.setRef_group(ref_group);
 		
-		if(comment_group==null) { //원글의 댓글
+		if(comment_group==null||comment_group.equals("")) { //원글의 댓글
 			//댓글의 글번호가 댓글의 그룹번호가 된다.
 			dto.setComment_group(seq);
 		}else { //댓글의 댓글
