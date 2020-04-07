@@ -12,14 +12,29 @@
 @import url(//fonts.googleapis.com/earlyaccess/nanumpenscript.css);
 @import url(//fonts.googleapis.com/earlyaccess/jejugothic.css);
 	
-	#bread{
-		background-color: #bdbdbd;
-		color: #FFFFFF;
+	.sub-nav-left{
+		display:block;
+		position:relative;
+		font-size:15px;
+		float:none;
+		margin:10px 0 10px 0;
+		text-align:left;
+		border-bottom:1px solid #ddd;
+		padding:1px 0 5px;
+		font-family: "Noto Sans KR","맑은 고딕","Malgun Gothic",;
 	}
 	
 	h6{
 		font-size:16px;
 		font-family: 'Jeju Gothic', sans-serif;
+	}
+	
+	.row {
+		border: 1px solid blue;
+	}
+	
+	.row>div {
+		border: 1px dotted green;
 	}
 	
 
@@ -31,7 +46,6 @@
 	img {
 		height: auto;
 	}
-
 
 /* 댓글 css */
 /* 글 내용을 출력할 div 에 적용할 css */
@@ -121,10 +135,15 @@ pre{
 <body>
 	<jsp:include page="include/navbar.jsp"></jsp:include>
 	<div class="container">
-	<ol class="breadcrumb" id="bread">
-		<li><a href="${pageContext.request.contextPath }/list.do">목록</a></li>
-		<li>${exhibitionDto.title }</li>
-	</ol>		
+		<div class="sub-nav-left">
+			<a href="home.do" onclick="javascript:page_link('000000'); return false;">
+				<img src="resources/images/home.png" alt="홈" />
+			</a>
+			>
+			<a href="list.do" onclick="javascript:page_link('010000'); return false;">목록</a>
+			>
+			<a href="detail.do?seq=${exhibitionDto.seq }" onclick="javascript:page_link('010100'); return false;">${exhibitionDto.title }</a>
+		</div>	
 		<div class="row">
 			<div class="col-sm-4">
 				<img class="poster" src="${exhibitionDto.imgUrl }"alt="${exhibitionDto.title } 포스터">
@@ -346,7 +365,6 @@ pre{
 					var imgTag=$('.like').children('img');
 					var span=$('.like').children('span');
 					if(responseData.isSuccess==true){
-						//location.href="${pageContext.request.contextPath}/detail.do?seq=${dto.seq}";
 						imgTag.attr('src', '${pageContext.request.contextPath }/resources/images/red-heart.png');
 						span.text(responseData.likecount);
 						console.log(responseData.likecount);
@@ -384,7 +402,6 @@ pre{
 				dataType:"json",
 				success:function(responseData){
 					console.log(responseData);
-					//var imgTag=$('.num').children('img');
 					if(responseData.comisSuccess==true ){
 						imgTag.attr('src', '${pageContext.request.contextPath }/resources/images/comment_red-heart.png');
 						span.text(responseData.comlikecount);

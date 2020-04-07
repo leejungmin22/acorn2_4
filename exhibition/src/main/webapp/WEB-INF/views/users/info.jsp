@@ -5,14 +5,15 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>조이름 : 개인정보페이지</title>
+<title>개인정보 수정</title>
 <jsp:include page="../include/resource.jsp"></jsp:include>
 <style>
 	/* 프로필 이미지가 가로 세로 50px 인 원형으로 표시 될수 있도록  */
 	#profileLink img{
-		width: 50px;
-		height: 50px;
+		width: 200px;
+		height: auto;
 		border-radius: 50%;
+		margin: 30px;
 	}
 	
 	#profileForm{
@@ -21,9 +22,22 @@
 </style>
 </head>
 <body>
+<jsp:include page="../include/navbar.jsp" />
 <div class="container">
-	<h1>개인 정보 페이지</h1>
-	<table>
+	<h1>개인정보 수정</h1>
+	<div style="text-align: center;">
+		<a href="javascript:" id="profileLink">
+			<c:choose>
+				<c:when test="${ empty dto.profile }">
+					<img src="${pageContext.request.contextPath }/resources/images/default_user.jpeg"/>
+				</c:when>
+				<c:otherwise>
+					<img src="${pageContext.request.contextPath }${dto.profile}"/>
+				</c:otherwise>
+			</c:choose>
+		</a>
+	</div>
+	<table class="table">
 		<tr>
 			<th>아이디</th>
 			<td>${dto.id }</td>
@@ -33,23 +47,8 @@
 			<td>${dto.name }</td>
 		</tr>
 		<tr>
-			<th>프로필 이미지</th>
-			<td>
-				<a href="javascript:" id="profileLink">
-					<c:choose>
-						<c:when test="${ empty dto.profile }">
-							<img src="${pageContext.request.contextPath }/resources/images/default_user.jpeg"/>
-						</c:when>
-						<c:otherwise>
-							<img src="${pageContext.request.contextPath }${dto.profile}"/>
-						</c:otherwise>
-					</c:choose>
-				</a>
-			</td>
-		</tr>
-		<tr>
 			<th>비밀번호</th>
-			<td><a href="pwd_updateform.do">수정하기</a></td>
+			<td><a class="btn btn-info" href="pwd_updateform.do">수정하기</a></td>
 		</tr>
 		<tr>
 			<th>이메일</th>
@@ -61,12 +60,15 @@
 		</tr>
 		<tr>
 			<th>성별</th>
-			<td>${dto.gender }</td>
+			<td>
+				<c:if test="${dto.gender eq 'f' }">여</c:if>
+				<c:if test="${dto.gender eq 'm' }">남</c:if>
+			</td>
 		</tr>
 
 	</table>
-	<a href="updateform.do">개인 정보 수정하기</a>
-	<a href="javascript:deleteConfirm()">회원 탈퇴</a>
+	<a class="btn btn-info" href="updateform.do">개인 정보 수정하기</a>
+	<a class="btn btn-warning" href="javascript:deleteConfirm()">회원 탈퇴</a>
 </div>
 
 <form action="profile_upload.do" method="post" enctype="multipart/form-data" id="profileForm">

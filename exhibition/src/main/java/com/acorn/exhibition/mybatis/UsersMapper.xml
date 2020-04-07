@@ -20,7 +20,7 @@
 	</select>
 	
 	<select id="getData" parameterType="String" resultType="usersDto">
-		select id,pwd,email,regdate,profile,name,gender,birth
+		select id,pwd,email,regdate,profile,name,gender,TO_CHAR(birth,'YYYY-MM-DD') AS birth
 		from exhibition_users
 		where id=#{id}
 	
@@ -39,7 +39,7 @@
 	
 	<update id="updateUser" parameterType="usersDto">
 		update exhibition_users
-		set email=#{email,jdbcType=VARCHAR},name=#{name,jdbcType=VARCHAR},gender=#{gender,jdbcType=VARCHAR},birth=#{birth,jdbcType=VARCHAR}
+		set email=#{email,jdbcType=VARCHAR},name=#{name},gender=#{gender},birth=TO_DATE(#{birth,jdbcType=VARCHAR},'YYYYMMDD')
 		where id=#{id}
 	</update>
 	

@@ -48,8 +48,7 @@ public class UsersServiceImpl implements UsersService{
 				file.mkdir();//디렉토리를 만든다.
 			}
 			//파일 시스템에 저장할 파일명을 만든다. (겹치치 않게)
-			String saveFileName=
-					System.currentTimeMillis()+orgFileName;
+			String saveFileName=System.currentTimeMillis()+orgFileName;
 			try{
 				//upload 폴더에 파일을 저장한다.
 				mFile.transferTo(new File(filePath+saveFileName));
@@ -57,22 +56,10 @@ public class UsersServiceImpl implements UsersService{
 				e.printStackTrace();
 			}
 			
-			//UsersDao 객체를 이용해서 프로파일 이미지
-			//경로를 DB 에 저장하기
-			String path="/upload/"+saveFileName;			
-			//로그인된 아이디
-			//String id=(String)request.getSession().getAttribute("id");
-			//아이디와 프로파일 이미지 경로를 dto 에 담고 
-			//UsersDto dto=new UsersDto();
-			//dto.setId(id);
+			//UsersDao 객체를 이용해서 프로파일 이미지경로를 DB 에 저장하기
+			String path="/upload/"+saveFileName;
 			dto.setProfile(path);
-			// UsersDao 를 이용해서 DB 에 반영하기 
-			//dao.updateProfile(dto);
-			
-			//이미지 경로 리턴해주기 
-			//return path;
 		}
-		
 		
 		//비밀번호를 암호화 한다,
 		String encodePwd = new BCryptPasswordEncoder().encode(dto.getPwd());
@@ -162,6 +149,18 @@ public class UsersServiceImpl implements UsersService{
 	}
 	@Override
 	public void updateUser(UsersDto dto) {
+		String birth=dto.getBirth();
+		String birthFormat="";
+		
+		if(birth!=null){
+			String[] birtheArr=birth.split("-");
+			
+			for(int i=0; i<birtheArr.length; i++) {
+				birthFormat+=birtheArr[i];
+			}
+		}
+		
+		dto.setBirth(birthFormat);
 		dao.updateUser(dto);
 	}
 	@Override

@@ -37,12 +37,7 @@ public class UsersController {
 	public String sign_up_form() {
 		return "users/signup_form";
 	} 
-	/*
-	 * 	[JSON 문자열 응답하는 방법]
-	 * 	1. pom.xml 에 jackson-databind dependency 명시
-	 *  2. controller 의 메소드에 @ResponseBody 어노테이션 붙이기
-	 *  3. List, Map, Dto 중에 하나를 리턴한다.
-	 */
+	
 	@ResponseBody
 	@RequestMapping("/users/checkid")
 	public Map<String ,Object> checkid(@RequestParam String inputId){
@@ -89,7 +84,7 @@ public class UsersController {
 			return "users/loginform";
 		}
 	
-	//로그인 요청 처리 
+		//로그인 요청 처리 
 		@RequestMapping(value = "/users/login", method = RequestMethod.POST)
 		public ModelAndView login(@ModelAttribute UsersDto dto,
 				ModelAndView mView, 
@@ -199,9 +194,7 @@ public class UsersController {
 		}
 		@RequestMapping(value="/users/update", method=RequestMethod.POST)
 		public ModelAndView authUserUpdate(@ModelAttribute UsersDto dto, HttpServletRequest request) {
-		
-			service.updateUser(dto);
-			
+			service.updateUser(dto);		
 			return new ModelAndView("redirect:/users/info.do");
 		}
 		@RequestMapping("/users/delete")
