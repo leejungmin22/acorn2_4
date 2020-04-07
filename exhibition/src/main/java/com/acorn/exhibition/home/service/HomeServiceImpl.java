@@ -61,11 +61,10 @@ public class HomeServiceImpl implements HomeService{
 		FullCalendarDto dto=new FullCalendarDto();
 		dto.setSeq(seq);
 		
-		////////////////DB에 있는 데이터 갖고 오기/////////////////////////
-		//ExhibitionDto exhibitionDto=XmlParsing.getData(seq);
+		//DB에 있는 데이터 갖고 오기
 		ApiDto apiDto = XmlParsing.getData(seq);
 
-		////////////////댓글 페이징 처리/////////////////////////
+		//댓글 페이징 처리
 		//한 페이지에 나타낼 row 의 갯수
 		final int PAGE_ROW_COUNT=8;
 		//하단 디스플레이 페이지 갯수

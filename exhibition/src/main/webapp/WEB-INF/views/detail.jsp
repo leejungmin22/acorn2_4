@@ -29,6 +29,15 @@
 		font-family: 'Jeju Gothic', sans-serif;
 	}
 	
+	.row {
+		border: 1px solid blue;
+	}
+	
+	.row>div {
+		border: 1px dotted green;
+	}
+	
+
 	.poster {
 		max-width: 100%;
 		height: 560px;
@@ -37,7 +46,6 @@
 	img {
 		height: auto;
 	}
-
 
 /* 댓글 css */
 /* 글 내용을 출력할 div 에 적용할 css */
@@ -357,7 +365,6 @@ pre{
 					var imgTag=$('.like').children('img');
 					var span=$('.like').children('span');
 					if(responseData.isSuccess==true){
-						//location.href="${pageContext.request.contextPath}/detail.do?seq=${dto.seq}";
 						imgTag.attr('src', '${pageContext.request.contextPath }/resources/images/red-heart.png');
 						span.text(responseData.likecount);
 						console.log(responseData.likecount);
@@ -395,7 +402,6 @@ pre{
 				dataType:"json",
 				success:function(responseData){
 					console.log(responseData);
-					//var imgTag=$('.num').children('img');
 					if(responseData.comisSuccess==true ){
 						imgTag.attr('src', '${pageContext.request.contextPath }/resources/images/comment_red-heart.png');
 						span.text(responseData.comlikecount);

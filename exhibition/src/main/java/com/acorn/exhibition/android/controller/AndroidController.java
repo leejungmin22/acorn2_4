@@ -19,6 +19,6 @@ public class AndroidController {
 	public Map<String, Object> detail(@RequestParam int seq) {
 		return service.getData(seq);
 	}
-	
 
 }
+

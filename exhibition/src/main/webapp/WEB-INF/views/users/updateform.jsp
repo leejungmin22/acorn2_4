@@ -10,6 +10,7 @@
 </head>
 <body>
 <div class="container">
+<jsp:include page="../include/navbar.jsp" />
 	<h1>회원정보 수정폼</h1>
 	<form action="update.do" method="post">
 		<input type="hidden" name="id" value="${id }"/>
@@ -28,7 +29,7 @@
 		</div>
 		<div class="form-group">
 			<label for="birth">생년월일</label>
-			<input class="form-control" type="text" id="birth" name="birth" value="${dto.birth }"/>
+			<input class="form-control" type="text" id="birth" name="birth" value="${dto.birth }" readonly="readonly"/>
 		</div>
 		<div class="form-group">
 			<label for="gender">성별</label>

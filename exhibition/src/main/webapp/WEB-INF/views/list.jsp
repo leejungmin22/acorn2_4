@@ -50,7 +50,6 @@
 	/*.title{
 		background-color: #4682B4;
 	}*/
-	
     .condition{
    		margin: 10px 0 20px 0;
     }
@@ -61,9 +60,12 @@
 		width: 20px;
 		height: auto;
 	}
-	.arrow{
-		width: 15px;
-		height: auto;
+	button.img-button{
+		background:url("resources/images/button_search.png") no-repeat;
+		border:none;
+		width:38px;
+		height:38px;
+		cursor:pointer
 	}
 </style>
 <!-- jQuery UI Datepicker -->
@@ -108,6 +110,13 @@
 	});
 </script>
 <style type="text/css">
+
+	.ui-datepicker{font-size: 12px; width: 200px;}
+	.ui-datepicker select.ui-datepicker-month{width: 50%; font-size: 11px;}
+	.ui-datepicker select.ui-datepicker-year{width: 50%; font-size: 11px;}
+	.ui-datepicker-calendar > tbody td.ui-datepicker-week-end:first-child a {color:#f00;}
+	.ui-datepicker-calendar > tbody td.ui-datepicker-week-end:last-child a {color:#00f;}
+
 .ui-datepicker {
 	font-size: 12px;
 	width: 200px;
@@ -159,9 +168,6 @@
 ol, ul {
     list-style-type: none;
 }
-
-
-
 </style>
 
 </head>
@@ -172,7 +178,7 @@ ol, ul {
 <div class="container">
 	<div class="sub-nav-left">
 		<a href="home.do" onclick="javascript:page_link('000000'); return false;">
-			<img src="resources/images/home.png"" alt="홈" />
+			<img src="resources/images/home.png" alt="홈" />
 		</a>
 		>
 		<a href="list.do" onclick="javascript:page_link('010000'); return false;">목록</a>
@@ -199,7 +205,7 @@ ol, ul {
 			
 			<div class="form-group">
 				<input class="form-control date" type="text" name="endDate" class="date" id="endDate" value="${enddate }" autocomplete="off" readonly/>
-				<button class="btn btn-primary" type="submit" disabled="disabled">검색</button>
+				<button class="btn btn-primary img-button" type="submit" disabled="disabled"></button>
 			</div>
 		</form>
 		
@@ -252,11 +258,11 @@ ol, ul {
 				<c:when test="${startPageNum ne 1 }">
 					<li>
 						<c:choose>
-							<c:when test="${encodedKeyword ne null or sort ne null}">
-								<a href="list.do?pageNum=${startPageNum-1 }&sort=${sort}&condition=${condition }&keyword=${encodedKeyword }">&laquo;</a>
+							<c:when test="${encodedKeyword ne null }">
+								<a href="list.do?pageNum=${startPageNum-1 }&condition=${condition }&keyword=${encodedKeyword }">&laquo;</a>
 							</c:when>
 							<c:when test="${startdate ne null and enddate ne null or sort ne null  }">
-								<a href="list.do?pageNum=${startPageNum-1 }&sort=${sort}&condition=${condition }&startDate=${startdateFormat }&endDate=${enddateFormat }">&laquo;</a>
+								<a href="list.do?pageNum=${startPageNum-1 }&condition=${condition }&startDate=${startdateFormat }&endDate=${enddateFormat }">&laquo;</a>
 							</c:when>
 							<c:otherwise>
 								<a href="list.do?pageNum=${startPageNum-1 }">&laquo;</a>
@@ -276,11 +282,11 @@ ol, ul {
 					<c:when test="${i eq pageNum }">
 						<li class="active">
 							<c:choose>
-								<c:when test="${encodedKeyword ne null or sort ne null }">
-									<a href="list.do?pageNum=${i }&sort=${sort}&condition=${condition }&keyword=${encodedKeyword }">${i }</a>
+								<c:when test="${encodedKeyword ne null  }">
+									<a href="list.do?pageNum=${i }&condition=${condition }&keyword=${encodedKeyword }">${i }</a>
 								</c:when>
 								<c:when test="${startdate ne null and enddate ne null or sort ne null }">
-									<a href="list.do?pageNum=${i }&sort=${sort}&condition=${condition }&startDate=${startdateFormat }&endDate=${enddateFormat }">${i }</a>
+									<a href="list.do?pageNum=${i }&condition=${condition }&startDate=${startdateFormat }&endDate=${enddateFormat }">${i }</a>
 								</c:when>
 								<c:otherwise>
 									<a href="list.do?pageNum=${i }">${i }</a>
@@ -291,11 +297,11 @@ ol, ul {
 					<c:otherwise>
 						<li>
 							<c:choose>
-								<c:when test="${encodedKeyword ne null or sort ne null}">
-									<a href="list.do?pageNum=${i }&sort=${sort}&condition=${condition }&keyword=${encodedKeyword }">${i }</a>
+								<c:when test="${encodedKeyword ne null }">
+									<a href="list.do?pageNum=${i }&condition=${condition }&keyword=${encodedKeyword }">${i }</a>
 								</c:when>
-								<c:when test="${startdate ne null and enddate ne null or sort ne null}">
-									<a href="list.do?pageNum=${i }&sort=${sort}&condition=${condition }&startDate=${startdateFormat }&endDate=${enddateFormat }">${i }</a>
+								<c:when test="${startdate ne null and enddate ne null}">
+									<a href="list.do?pageNum=${i }&condition=${condition }&startDate=${startdateFormat }&endDate=${enddateFormat }">${i }</a>
 								</c:when>
 								<c:otherwise>
 									<a href="list.do?pageNum=${i }">${i }</a>
@@ -310,11 +316,11 @@ ol, ul {
 				<c:when test="${endPageNum < totalPageCount }">
 					<li>
 						<c:choose>
-							<c:when test="${encodedKeyword ne null or sort ne null}">
-								<a href="list.do?pageNum=${endPageNum+1 }&sort=${sort}&condition=${condition }&keyword=${encodedKeyword }">&raquo;</a>
+							<c:when test="${encodedKeyword ne null }">
+								<a href="list.do?pageNum=${endPageNum+1 }&condition=${condition }&keyword=${encodedKeyword }">&raquo;</a>
 							</c:when>
-							<c:when test="${startdate ne null and enddate ne null or sort ne null}">
-								<a href="list.do?pageNum=${endPageNum+1 }&sort=${sort}&condition=${condition }&startDate=${startdateFormat }&endDate=${enddateFormat }">&raquo;</a>
+							<c:when test="${startdate ne null and enddate ne null }">
+								<a href="list.do?pageNum=${endPageNum+1 }&condition=${condition }&startDate=${startdateFormat }&endDate=${enddateFormat }">&raquo;</a>
 							</c:when>
 							<c:otherwise>
 								<a href="list.do?pageNum=${endPageNum+1 }">&raquo;</a>
