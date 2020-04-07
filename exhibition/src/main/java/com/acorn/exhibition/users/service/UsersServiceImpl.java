@@ -68,6 +68,26 @@ public class UsersServiceImpl implements UsersService{
 		//UsersDao 객체를 통해서 DB에 저장하기
 		dao.insert(dto);
 	}
+	
+
+	@Override
+	public Map<String, Object> checkPwd(String inputPwd, HttpSession session) {
+		Map<String, Object> map=new HashMap<String, Object>();
+		String id=(String) session.getAttribute("id");
+		//아이디 비밀번호가 유효한지 여부
+		boolean isValid=false;
+		//아이디를 이용해서 저장된 비밀번호를 읽어온다.
+		String pwdHash=dao.getPwdHash(id);
+		if(pwdHash != null) { //비밀번호가 존재하고
+			//입력한 비밀번호와 일치 하다면 로그인 성공
+			isValid=BCrypt.checkpw(inputPwd, pwdHash);
+			map.put("isValid", isValid);
+		}
+		map.put("isValid", isValid);
+		return map;
+	}
+
+	
 	@Override
 	public void validUser(UsersDto dto, HttpSession session, ModelAndView mView) {
 		//아이디 비밀번호가 유효한지 여부

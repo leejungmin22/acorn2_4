@@ -5,6 +5,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -21,4 +22,5 @@ public interface UsersService {
 	public void updatePassword(UsersDto dto,ModelAndView mView);
 	public void updateUser(UsersDto dto);
 	public void delete(String id);
+	public Map<String, Object> checkPwd(String inputPwd, HttpSession session);
 }

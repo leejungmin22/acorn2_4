@@ -6,7 +6,6 @@
 <meta charset="UTF-8">
 <title>조이름 : 로그인</title>
 <jsp:include page="../include/resource.jsp"></jsp:include>
-<link rel="stylesheet" href="style.css">
 <style>
 	* {
     margin: 0;
@@ -103,7 +102,7 @@
 	<div class="form-wrap">		
 			<!-- 차후 이미지 변경(홈페이지명으로) -->
 			<button class="img-button" id="button"></button>		
-		<form class="form-signin" action="login.do" method="post" onsubmit="return checkValue()">
+		<form class="form-signin" action="login.do" method="post">
 			<%-- 폼 제출할때 목적지 정보도 같이 보내준다. --%>
 			<input type="hidden" name="url" value="${url }" />
 		
