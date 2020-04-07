@@ -545,7 +545,7 @@ pre{
 	// 마커가 지도 위에 표시되도록 설정합니다
 	marker.setMap(map);
 	
-	var iwContent = '<div style="padding:5px;">${exhibitionDto.place} <br><a href="https://map.kakao.com/link/to/${exhibitionDto.place},${exhibitionDto.gpsY}, ${exhibitionDto.gpsX}" style="color:blue" target="_blank">길찾기</a></div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+	var iwContent = '<div style="padding:5px;">${exhibitionDto.place}</div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
     iwPosition = new kakao.maps.LatLng(${exhibitionDto.gpsY }, ${exhibitionDto.gpsX }); //인포윈도우 표시 위치입니다
 
 	// 인포윈도우를 생성합니다
