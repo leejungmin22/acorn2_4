@@ -165,13 +165,30 @@
       cursor: default;
       color: #777;
    }
+   .sub-nav-left{
+		display:block;
+		position:relative;
+		font-size:15px;
+		float:none;
+		margin:10px 0 10px 0;
+		text-align:left;
+		border-bottom:1px solid #ddd;
+		padding:1px 0 5px;
+		font-family: "Noto Sans KR","맑은 고딕","Malgun Gothic",;
+	}
 </style>
 </head>
 <body>
  <jsp:include page="include/navbar.jsp" />
    <div class="container">
-      <h1>지역별 공연 </h1>
-
+   <div class="sub-nav-left">
+		<a href="home.do">
+			<img src="resources/images/home.png" alt="홈" />
+		</a>
+		> 
+		<a href="${pageContext.request.contextPath }/map.do">지도</a>
+	</div>	
+   <h1>지역별 공연 </h1>
       <div class="map_wrap">
          <div id="map" style="width: 100%; height: 100%; position: relative; overflow: hidden;"></div>
 

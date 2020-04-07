@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>/community/comDetail.jsp</title>
+<title>${dto.title }</title>
 <jsp:include page="../include/resource.jsp"></jsp:include>
 <style>
 
@@ -66,6 +66,17 @@
 		height: 20px;
 		border-radius: 50%;
 	}
+	.sub-nav-left{
+		display:block;
+		position:relative;
+		font-size:15px;
+		float:none;
+		margin:10px 0 10px 0;
+		text-align:left;
+		border-bottom:1px solid #ddd;
+		padding:1px 0 5px;
+		font-family: "Noto Sans KR","맑은 고딕","Malgun Gothic",;
+	}
 </style>
 </head>
 <body>
@@ -73,10 +84,15 @@
 	<jsp:param value="community" name="category"/>
 </jsp:include>
 <div class="container">
-	<ol class="breadcrumb" id="bread">
-		<li><a href="${pageContext.request.contextPath }/community/comList.do">목록</a></li>
-		<li>글 상세 보기</li>
-	</ol>
+	<div class="sub-nav-left">
+		<a href="${pageContext.request.contextPath }/home.do">
+			<img src="../resources/images/home.png" alt="홈" />
+		</a>
+		> 
+		<a href="${pageContext.request.contextPath }/community/comList.do">목록</a>
+		> 
+		<a href="${pageContext.request.contextPath }/community/comDetail.do?num=${dto.num}">${dto.title }</a>
+	</div>	
 	<c:if test="${not empty keyword }">
 		<p> <strong>${keyword }</strong> 검색어로 검색</p>
 	</c:if>

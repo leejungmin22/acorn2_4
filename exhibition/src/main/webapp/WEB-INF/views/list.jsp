@@ -124,6 +124,17 @@
 	ol, ul {
 	    list-style-type: none;
 	}
+	.sub-nav-left{
+		display:block;
+		position:relative;
+		font-size:15px;
+		float:none;
+		margin:10px 0 10px 0;
+		text-align:left;
+		border-bottom:1px solid #ddd;
+		padding:1px 0 5px;
+		font-family: "Noto Sans KR","맑은 고딕","Malgun Gothic",;
+	}
 </style>
 </head>
 <body>
@@ -131,10 +142,13 @@
 	<jsp:param value="list" name="category"/>
 </jsp:include>
 <div class="container">
-	<ol class="breadcrumb" id="bread">
-		<li>전체공연</li>
-		<li><a href="${pageContext.request.contextPath }/list.do">목록</a></li>
-	</ol>
+	<div class="sub-nav-left">
+		<a href="home.do">
+			<img src="resources/images/home.png" alt="홈" />
+		</a>
+		> 
+		<a href="${pageContext.request.contextPath }/list.do">목록</a>
+	</div>	
 	<div class="condition" align="right">
 		<form class="form-inline" action="list.do" method="get"> 
 			<div class="form-group">
@@ -157,15 +171,13 @@
 				<button class="btn btn-primary img-button" type="submit" disabled="disabled"></button>
 			</div>
 		</form>
-		
-		
-		</div>
-		<div class="option_tab _tabContainer" data-tab="sort">
+	</div>
+	<div class="option_tab _tabContainer" data-tab="sort">
 		<ul class="sub_option">
 			<li class="_tab" data-value role="tab" ><a class ="sort" href="javascript:" id="favorite" >인기순</a></li>
 			<li  class="_tab" data-value role="default.asc" ><a class ="sort" type="javascript:" id="pastdate">날짜순</a></li>
 		</ul>
-		</div>
+	</div>
 	<table class="table table-hover">
 
 		<colgroup>
