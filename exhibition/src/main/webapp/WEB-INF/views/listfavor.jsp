@@ -8,6 +8,43 @@
 <title>전체공연보기</title>
 <jsp:include page="include/resource.jsp" />
 <style type="text/css">
+@import url(//fonts.googleapis.com/earlyaccess/nanumpenscript.css);
+	p, .form-group{
+		font-size:20px;
+		font-family: 'Nanum Pen Script', cursive;
+	}
+	
+	button{
+		vertical-align:middle;
+	}
+	/*검색버튼*/
+	button.img-button{
+		background:url("resources/images/button_search.png") no-repeat;
+		border:none;
+		width:38px;
+		height:38px;
+		cursor:pointer;
+	}
+	
+	/*breadcrumb 색상변경 */
+	
+	#bread{
+		background-color: #bdbdbd;
+		color: #FFFFFF;
+	}
+	
+	/*표 색상 변경*/
+	.tr{
+		background-color: #FFFFFF;
+	}
+	
+	
+	/*thead 색상변경*/
+	
+	.title{
+		background-color: #4682B4;
+	}
+	
     .condition{
    		margin: 10px 0 20px 0;
     }
@@ -18,12 +55,9 @@
 		width: 20px;
 		height: auto;
 	}
-	button.img-button{
-		background:url("resources/images/button_search.png") no-repeat;
-		border:none;
-		width:38px;
-		height:38px;
-		cursor:pointer
+	.arrow{
+		width: 15px;
+		height: auto;
 	}
 </style>
 <!-- jQuery UI Datepicker -->
@@ -68,63 +102,62 @@
 	});
 </script>
 <style type="text/css">
-	.ui-datepicker{font-size: 12px; width: 200px;}
-	.ui-datepicker select.ui-datepicker-month{width: 50%; font-size: 11px;}
-	.ui-datepicker select.ui-datepicker-year{width: 50%; font-size: 11px;}
-	.ui-datepicker-calendar > tbody td.ui-datepicker-week-end:first-child a {color:#f00;}
-	.ui-datepicker-calendar > tbody td.ui-datepicker-week-end:last-child a {color:#00f;}
-	.ui-datepicker {
-		font-size: 12px;
-		width: 200px;
-	}
-	
-	.ui-datepicker select.ui-datepicker-month {
-		width: 50%;
-		font-size: 11px;
-	}
-	
-	.ui-datepicker select.ui-datepicker-year {
-		width: 50%;
-		font-size: 11px;
-	}
-	
-	.ui-datepicker-calendar>tbody td.ui-datepicker-week-end:first-child a {
-		color: #f00;
-	}
-	
-	.ui-datepicker-calendar>tbody td.ui-datepicker-week-end:last-child a {
-		color: #00f;
-	}
-	
-	.form-group {
-		max-width: 200px;
-	}
-	
-	.cs_nperformance .option_tab .sub_option li .btn_option .ico_select {
-	    overflow: hidden;
-	    display: inline-block;
-	    vertical-align: top;
-	    font-size: 0;
-	    line-height: 0;
-	    color: rgba(0, 0, 0, 0);
-	    background-position: -146px -115px;
-	    width: 4px;
-	    height: 4px;
-	    margin-top: -1px;
-	    margin-right: 5px;
-	    vertical-align: 3px;
-	    vertical-align: 5px;
-	    float:left;
-	}
-	.sub_option li{
-		float:right;
-	}
-	
-	
-	ol, ul {
-	    list-style-type: none;
-	}
+.ui-datepicker {
+	font-size: 12px;
+	width: 200px;
+}
+
+.ui-datepicker select.ui-datepicker-month {
+	width: 50%;
+	font-size: 11px;
+}
+
+.ui-datepicker select.ui-datepicker-year {
+	width: 50%;
+	font-size: 11px;
+}
+
+.ui-datepicker-calendar>tbody td.ui-datepicker-week-end:first-child a {
+	color: #f00;
+}
+
+.ui-datepicker-calendar>tbody td.ui-datepicker-week-end:last-child a {
+	color: #00f;
+}
+
+.form-group {
+	max-width: 200px;
+}
+
+.cs_nperformance .option_tab .sub_option li .btn_option .ico_select {
+    overflow: hidden;
+    display: inline-block;
+    vertical-align: top;
+    font-size: 0;
+    line-height: 0;
+    color: rgba(0, 0, 0, 0);
+    background-position: -146px -115px;
+    width: 4px;
+    height: 4px;
+    margin-top: -1px;
+    margin-right: 5px;
+    vertical-align: 3px;
+    vertical-align: 5px;
+    float:left;
+}
+.sub_option li{
+	float:right;
+}
+
+
+ol, ul {
+    list-style-type: none;
+}
+
+
+
 </style>
+
 </head>
 <body>
 <jsp:include page="include/navbar.jsp">
@@ -136,7 +169,7 @@
 		<li><a href="${pageContext.request.contextPath }/list.do">목록</a></li>
 	</ol>
 	<div class="condition" align="right">
-		<form class="form-inline" action="list.do" method="get"> 
+		<form class="form-inline" action="listfavor.do" method="get"> 
 			<div class="form-group">
 				<label for="condition">검색조건</label>
 				<select class="form-control" name="condition" id="condition">
@@ -154,7 +187,7 @@
 			
 			<div class="form-group">
 				<input class="form-control date" type="text" name="endDate" class="date" id="endDate" value="${enddate }" autocomplete="off" readonly/>
-				<button class="btn btn-primary img-button" type="submit" disabled="disabled"></button>
+				<button class="btn btn-primary" type="submit" disabled="disabled">검색</button>
 			</div>
 		</form>
 		
@@ -207,14 +240,14 @@
 				<c:when test="${startPageNum ne 1 }">
 					<li>
 						<c:choose>
-							<c:when test="${encodedKeyword ne null or sort ne null}">
-								<a href="list.do?pageNum=${startPageNum-1 }&sort=${sort}&condition=${condition }&keyword=${encodedKeyword }">&laquo;</a>
+							<c:when test="${encodedKeyword ne null }">
+								<a href="listfaovr.do?pageNum=${startPageNum-1 }&condition=${condition }&keyword=${encodedKeyword }">&laquo;</a>
 							</c:when>
-							<c:when test="${startdate ne null and enddate ne null or sort ne null  }">
-								<a href="list.do?pageNum=${startPageNum-1 }&sort=${sort}&condition=${condition }&startDate=${startdateFormat }&endDate=${enddateFormat }">&laquo;</a>
+							<c:when test="${startdate ne null and enddate ne null }">
+								<a href="listfaovr.do?pageNum=${startPageNum-1 }&condition=${condition }&startDate=${startdateFormat }&endDate=${enddateFormat }">&laquo;</a>
 							</c:when>
 							<c:otherwise>
-								<a href="list.do?pageNum=${startPageNum-1 }">&laquo;</a>
+								<a href="listfaovr.do?pageNum=${startPageNum-1 }">&laquo;</a>
 							</c:otherwise>
 						</c:choose>
 					</li>
@@ -231,14 +264,14 @@
 					<c:when test="${i eq pageNum }">
 						<li class="active">
 							<c:choose>
-								<c:when test="${encodedKeyword ne null or sort ne null }">
-									<a href="list.do?pageNum=${i }&sort=${sort}&condition=${condition }&keyword=${encodedKeyword }">${i }</a>
+								<c:when test="${encodedKeyword ne null }">
+									<a href="listfaovr.do?pageNum=${i }&condition=${condition }&keyword=${encodedKeyword }">${i }</a>
 								</c:when>
-								<c:when test="${startdate ne null and enddate ne null or sort ne null }">
-									<a href="list.do?pageNum=${i }&sort=${sort}&condition=${condition }&startDate=${startdateFormat }&endDate=${enddateFormat }">${i }</a>
+								<c:when test="${startdate ne null and enddate ne null }">
+									<a href="listfaovr.do?pageNum=${i }&condition=${condition }&startDate=${startdateFormat }&endDate=${enddateFormat }">${i }</a>
 								</c:when>
 								<c:otherwise>
-									<a href="list.do?pageNum=${i }">${i }</a>
+									<a href="listfaovr.do?pageNum=${i }">${i }</a>
 								</c:otherwise>
 							</c:choose>
 						</li>
@@ -246,14 +279,14 @@
 					<c:otherwise>
 						<li>
 							<c:choose>
-								<c:when test="${encodedKeyword ne null or sort ne null}">
-									<a href="list.do?pageNum=${i }&sort=${sort}&condition=${condition }&keyword=${encodedKeyword }">${i }</a>
+								<c:when test="${encodedKeyword ne null }">
+									<a href="listfaovr.do?pageNum=${i }&condition=${condition }&keyword=${encodedKeyword }">${i }</a>
 								</c:when>
-								<c:when test="${startdate ne null and enddate ne null or sort ne null}">
-									<a href="list.do?pageNum=${i }&sort=${sort}&condition=${condition }&startDate=${startdateFormat }&endDate=${enddateFormat }">${i }</a>
+								<c:when test="${startdate ne null and enddate ne null }">
+									<a href="listfaovr.do?pageNum=${i }&condition=${condition }&startDate=${startdateFormat }&endDate=${enddateFormat }">${i }</a>
 								</c:when>
 								<c:otherwise>
-									<a href="list.do?pageNum=${i }">${i }</a>
+									<a href="listfaovr.do?pageNum=${i }">${i }</a>
 								</c:otherwise>
 							</c:choose>
 						</li>
@@ -265,14 +298,14 @@
 				<c:when test="${endPageNum < totalPageCount }">
 					<li>
 						<c:choose>
-							<c:when test="${encodedKeyword ne null or sort ne null}">
-								<a href="list.do?pageNum=${endPageNum+1 }&sort=${sort}&condition=${condition }&keyword=${encodedKeyword }">&raquo;</a>
+							<c:when test="${encodedKeyword ne null }">
+								<a href="listfaovr.do?pageNum=${endPageNum+1 }&condition=${condition }&keyword=${encodedKeyword }">&raquo;</a>
 							</c:when>
 							<c:when test="${startdate ne null and enddate ne null or sort ne null}">
-								<a href="list.do?pageNum=${endPageNum+1 }&sort=${sort}&condition=${condition }&startDate=${startdateFormat }&endDate=${enddateFormat }">&raquo;</a>
+								<a href="listfaovr.do?pageNum=${endPageNum+1 }&condition=${condition }&startDate=${startdateFormat }&endDate=${enddateFormat }">&raquo;</a>
 							</c:when>
 							<c:otherwise>
-								<a href="list.do?pageNum=${endPageNum+1 }">&raquo;</a>
+								<a href="listfaovr.do?pageNum=${endPageNum+1 }">&raquo;</a>
 							</c:otherwise>
 						</c:choose>
 					</li>
@@ -293,13 +326,13 @@
 	checkeSelectBox(value);
 	var value=${sort}
 
-	
 	$("#favorite").click(function(){
 		location.href="listfavor.do"
 	});
 	$("#pastdate").click(function(){
 		location.href="list.do"
 	});
+	
 	//select 옵션이 변경된 경우 그에 맞는 input tag를 보여준다.
 	$("#condition").change(function(){
 		value=$(this).val();
