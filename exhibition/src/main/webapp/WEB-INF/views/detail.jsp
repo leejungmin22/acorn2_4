@@ -7,28 +7,13 @@
 <meta charset="UTF-8">
 <title>${exhibitionDto.title }</title>
 <jsp:include page="include/resource.jsp" />
-
 <style>
 @import url(//fonts.googleapis.com/earlyaccess/nanumpenscript.css);
 @import url(//fonts.googleapis.com/earlyaccess/jejugothic.css);
-	
-	#bread{
-		background-color: #FAEBD7;
-	}
-	
 	h6{
 		font-size:16px;
 		font-family: 'Jeju Gothic', sans-serif;
 	}
-	
-	.row {
-		border: 1px solid blue;
-	}
-	
-	.row>div {
-		border: 1px dotted green;
-	}
-	
 
 	.poster {
 		max-width: 100%;
@@ -141,11 +126,14 @@
 		position:relative;
 		font-size:15px;
 		float:none;
-		margin=top:10px;
+		margin-top:10px;
 		text-align:left;
 		border-bottom:1px solid #ddd;
 		padding:1px 0 5px;
 		font-family: "Noto Sans KR","맑은 고딕","Malgun Gothic",;
+	}
+	.row{
+		margin-top: 20px;
 	}
 </style>
 </head>
@@ -193,7 +181,7 @@
 				</div> 
 				<div >
 					<h6>지도</h6>
-						<div id="map" style="width: 100%; height: 400px;"></div>
+					<div id="map" style="width: 100%; height: 400px;"></div>
 				</div>
 			</div>
 		</div>	
@@ -362,11 +350,11 @@
 								</c:choose>
 							</c:forEach>
 						</ul>
-						<div class="clearfix"></div>
-					</div><!--  class="comments -->
-				</div><!-- class="col-sm-12" -->
-			</div><!-- class="row" -->
-		</div><!-- class="container" -->
+					<div class="clearfix"></div>
+				</div><!--  class="comments -->
+			</div><!-- class="col-sm-12" -->
+		</div><!-- class="row" -->
+	</div><!-- class="container" -->
 <script>
 	//좋아요 수 올리기
 	$(".like").on("click", function(){
