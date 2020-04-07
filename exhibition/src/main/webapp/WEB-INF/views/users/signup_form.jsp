@@ -161,7 +161,7 @@
 		</div>
 			<div class="form-group has-feedback">
 				<label class="control-label" for="birth">생년월일</label><br/>
-				<input class="form-control" type="text" id="birth" name="birth"/>
+				<input class="form-control" type="text" id="birth" name="birth" autocomplete="off"/>
 			</div>
 			<div class="form-group has-feedback">
 				<label class="control-label" for="gender">성별</label><br/>
