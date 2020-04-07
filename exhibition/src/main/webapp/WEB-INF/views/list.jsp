@@ -8,12 +8,6 @@
 <title>전체공연보기</title>
 <jsp:include page="include/resource.jsp" />
 <style type="text/css">
-@import url(//fonts.googleapis.com/earlyaccess/nanumpenscript.css);
-	p, .form-group{
-		font-size:20px;
-		font-family: 'Nanum Pen Script', cursive;
-	}
-	
 	.sub-nav-left{
 		display:block;
 		position:relative;

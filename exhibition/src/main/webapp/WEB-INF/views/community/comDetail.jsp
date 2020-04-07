@@ -16,6 +16,10 @@
 		margin-bottom:15px;
 		font-family: "Noto Sans KR","맑은 고딕","Malgun Gothic";
 	}
+	tr{
+		font-size:15px;
+		font-family: "Noto Sans KR","맑은 고딕","Malgun Gothic";
+	}
 	.sub-nav-left{
 		display:block;
 		position:relative;
@@ -35,9 +39,6 @@
 		float:right;
 		font-family: "Noto Sans KR","맑은 고딕","Malgun Gothic";
 	}
-	.comments{
-		margin-top:15px;
-	}
 	/* 댓글에 관련된 css */
 	.comments ul{
 		padding: 0;
@@ -55,6 +56,8 @@
 	}
 	.comments form textarea, .comments form button{
 		float: left;
+		font-size:15px;
+		font-family: "Noto Sans KR","맑은 고딕","Malgun Gothic";
 	}
 	.comments li{
 		clear: left;
@@ -66,6 +69,8 @@
 	.comments form button{
 		width: 15%;
 		height: 100px;
+		font-size:15px;
+		font-family: "Noto Sans KR","맑은 고딕","Malgun Gothic";
 	}
 	/* 댓글에 댓글을 다는 폼과 수정폼을 일단 숨긴다. */
 	.comment form{
@@ -73,6 +78,9 @@
 	}
 	.comment{
 		position: relative;
+		margin-top:15px;
+		font-size:15px;
+		font-family: "Noto Sans KR","맑은 고딕","Malgun Gothic";
 	}
 	.comment .reply_icon{
 		width: 8px;
@@ -86,6 +94,11 @@
 		height: 20px;
 		border-radius: 50%;
 	}
+	pre{
+	font-size:15px;
+	font-family: "Noto Sans KR","맑은 고딕","Malgun Gothic";
+	background-color:#FFFFFF;
+}
 </style>
 </head>
 <body>

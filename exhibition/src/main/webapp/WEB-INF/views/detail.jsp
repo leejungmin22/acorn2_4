@@ -9,9 +9,6 @@
 <jsp:include page="include/resource.jsp" />
 
 <style>
-@import url(//fonts.googleapis.com/earlyaccess/nanumpenscript.css);
-@import url(//fonts.googleapis.com/earlyaccess/jejugothic.css);
-	
 	.sub-nav-left{
 		display:block;
 		position:relative;
@@ -21,12 +18,12 @@
 		text-align:left;
 		border-bottom:1px solid #ddd;
 		padding:1px 0 5px;
-		font-family: "Noto Sans KR","맑은 고딕","Malgun Gothic",;
+		font-family: "Noto Sans KR","맑은 고딕","Malgun Gothic";
 	}
 	
 	h6{
-		font-size:16px;
-		font-family: 'Jeju Gothic', sans-serif;
+		font-size:15px;
+		font-family: "Noto Sans KR","맑은 고딕","Malgun Gothic";
 	}
 	
 	.row {
@@ -75,8 +72,8 @@
 
 .comments form textarea, .comments form button {
 	float: left;
-	font-size:20px;
-	font-family: 'Nanum Pen Script', cursive;
+	font-size:15px;
+	font-family: "Noto Sans KR","맑은 고딕","Malgun Gothic";
 }
 
 .comments li {
@@ -91,8 +88,8 @@
 .comments form button {
 	width: 15%;
 	height: 100px;
-	font-size:20px;
-	font-family: 'Nanum Pen Script', cursive;
+	font-size:15px;
+	font-family: "Noto Sans KR","맑은 고딕","Malgun Gothic";
 }
 /* 댓글에 댓글을 다는 폼과 수정폼을 일단 숨긴다. */
 .comment form {
@@ -101,8 +98,8 @@
 
 .comment {
 	position: relative;
-	font-size:20px;
-	font-family: 'Nanum Pen Script', cursive;
+	font-size:15px;
+	font-family: "Noto Sans KR","맑은 고딕","Malgun Gothic";
 }
 
 .comment .reply_icon {
@@ -120,8 +117,8 @@
 }
 /*쓰여진 댓글창*/
 pre{
-	font-size:20px;
-	font-family: 'Nanum Pen Script', cursive;
+	font-size:15px;
+	font-family: "Noto Sans KR","맑은 고딕","Malgun Gothic";
 	background-color:#FFFFFF;
 }
 

@@ -24,20 +24,16 @@
 
 body{
    background-color:#FFFFFF; /* 백그라운드 색상 */
-}
-
-@import url(//fonts.googleapis.com/earlyaccess/nanumpenscript.css);
-@import url(//fonts.googleapis.com/earlyaccess/nanumgothic.css);
-@import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
+  }
 
    .form-group{
-      font-size:25px;
+      font-size:15px;
       font-color:#FFFFFF;
-      font-family: 'Nanum Pen Script', cursive;
+      font-family: "Noto Sans KR","맑은 고딕","Malgun Gothic";
    }
    h3{
-      font-size:25px;
-      font-family: 'Nanum Pen Script', cursive;
+      font-size:15px;
+      font-family: "Noto Sans KR","맑은 고딕","Malgun Gothic";
    }
    
    button{

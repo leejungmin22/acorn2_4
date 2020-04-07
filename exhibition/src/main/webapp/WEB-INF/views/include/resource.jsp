@@ -7,10 +7,7 @@
 <script src="${pageContext.request.contextPath }/resources/js/jquery-3.3.1.js"></script>
 <script src="${pageContext.request.contextPath }/resources/js/bootstrap.js"></script>
 <style>
-@import url(//fonts.googleapis.com/earlyaccess/nanumpenscript.css);
-@import url(//fonts.googleapis.com/earlyaccess/nanumgothic.css);
-@import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
-	
+@import url(//fonts.googleapis.com/earlyaccess/nanumgothic.css);	
 
 	/* nav bar 메뉴 #bdbdbd;*/
 	#one a {
