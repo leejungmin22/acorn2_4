@@ -45,7 +45,7 @@
 </jsp:include>
 <div class="container">
 	<div class="sub-nav-left">
-			<a href="home.do" onclick="javascript:page_link('000000'); return false;">
+			<a href="${pageContext.request.contextPath }/home.do" onclick="javascript:page_link('000000'); return false;">
 				<img src="../resources/images/home.png" alt="홈" />
 			</a>
 			>
