@@ -176,7 +176,7 @@
 				
 			}//if ( navigator.platform ) end
 			
-	    } //eventClick end		
+	    } //eventClick end
    });//new FullCalendar end
 
    calendar.render();

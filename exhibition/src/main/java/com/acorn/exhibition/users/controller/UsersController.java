@@ -194,9 +194,7 @@ public class UsersController {
 		}
 		@RequestMapping(value="/users/update", method=RequestMethod.POST)
 		public ModelAndView authUserUpdate(@ModelAttribute UsersDto dto, HttpServletRequest request) {
-		
-			service.updateUser(dto);
-			
+			service.updateUser(dto);		
 			return new ModelAndView("redirect:/users/info.do");
 		}
 		@RequestMapping("/users/delete")
