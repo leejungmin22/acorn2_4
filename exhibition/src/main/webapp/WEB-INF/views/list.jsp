@@ -96,10 +96,6 @@
 		color: #00f;
 	}
 	
-	.form-group {
-		max-width: 200px;
-	}
-	
 	.cs_nperformance .option_tab .sub_option li .btn_option .ico_select {
 	    overflow: hidden;
 	    display: inline-block;

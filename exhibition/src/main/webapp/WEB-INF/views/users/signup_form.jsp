@@ -26,8 +26,6 @@
 		left: 50%;
 
 	}
-
-	
 	#bread{
 		background-color: #FAEBD7;		
 	}
@@ -41,8 +39,6 @@
 	#signupForm{
 		margin-top:10px;
 	}
-
-	
 	/*입력필드*/
 	.textbox{ 
 		border-radius: .5rem .5rem .5rem .5rem;
@@ -56,10 +52,7 @@
 		height:40px; /*칸 높이*/
 		border: 2px solid #F5F5F5;		
 	}
-	
-	
 	/*가입버튼 #DEB887 #CD853F*/
-
 	.signup {
     	width:300px;
     	height:60px;
@@ -75,9 +68,6 @@
 		left: 10%;
 		  	
    	}
-	
-	/*성별*/
-
 </style>
 <script src="${pageContext.request.contextPath }/resources/js/jquery-3.3.1.js"></script>
 <script src="${pageContext.request.contextPath }/resources/js/bootstrap.js"></script>
@@ -104,16 +94,30 @@
 	.ui-datepicker-calendar > tbody td.ui-datepicker-week-end:first-child a {color:#f00;}
 	.ui-datepicker-calendar > tbody td.ui-datepicker-week-end:last-child a {color:#00f;}
 </style>
-
+<style type="text/css">
+   .sub-nav-left{
+		display:block;
+		position:relative;
+		font-size:15px;
+		float:none;
+		margin:10px 0 10px 0;
+		text-align:left;
+		border-bottom:1px solid #ddd;
+		padding:1px 0 5px;
+		font-family: "Noto Sans KR","맑은 고딕","Malgun Gothic",;
+	}
+</style>
 </head>
 <body>
 <jsp:include page="../include/navbar.jsp"/>
 <div class="container">
-	<ol class="breadcrumb" id="bread">
-		<li><a href="${pageContext.request.contextPath }/community/comList.do">목록</a></li>
-		<li>회원가입</li>
-	</ol>
-	
+	<div class="sub-nav-left">
+		<a href="${pageContext.request.contextPath }/home.do">
+			<img src="../resources/images/home.png" alt="홈" />
+		</a>
+		> 
+		<a href="${pageContext.request.contextPath }/users/signup_form.do">회원가입</a>
+	</div>	
  	<div class="condition" > 
 	<form action="signup.do" method="post" id="signupForm" enctype="multipart/form-data">
 		<div class="form-group has-feedback"> 
@@ -165,21 +169,19 @@
 			</div>
 			<div class="form-group has-feedback">
 				<label class="control-label" for="gender">성별</label><br/>
-				<select class="textbox2" name="gender" id="gender">
+				<select class="form-control" class="textbox2" name="gender" id="gender">
 					<option value="f">여</option>
 					<option value="m">남</option>
 				</select>
 			</div>
 			<button disabled="disabled" class="signup" type="submit">가 입 하 기</button>
 		</form>
-		</div>
+	</div>
 </div>
 <%-- jquery form  플러그인 javascript 로딩 --%>
 <script src="${pageContext.request.contextPath }/resources/js/jquery.form.min.js"></script>
 <script>	
-	
 	var isNameInput=false; //이름을 입력했는지 여부
-	
 	//아이디를 사용할수 있는지 여부 
 	var isIdUsable=false;
 	//아이디를 입력 했는지 여부 
