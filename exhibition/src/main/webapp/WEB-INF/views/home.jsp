@@ -20,6 +20,13 @@
 <!-- jQuery UI Datepicker -->
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<!-- fullcalendar -->
+<style type="text/css">
+	.fc-sat {color:#1F618D; background-color:#A9CCE3;} /*토요일*/	
+	.fc-sun {color:#B03A2E; background-color:#F2D7D5;} /*일요일*/
+	
+</style>
+
 <style>
 
 body{
@@ -51,11 +58,6 @@ body{
       cursor:pointer
    }
 
-</style>
-<!-- fullcalendar -->
-<style type="text/css">
-	.fc-sat {color:#1F618D; background-color:#A9CCE3;} /*토요일*/	
-	.fc-sun {color:#B03A2E; background-color:#F2D7D5;} /*일요일*/
 </style>
 <script>
   document.addEventListener('DOMContentLoaded', function() {

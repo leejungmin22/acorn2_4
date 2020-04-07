@@ -110,12 +110,12 @@
 	});
 </script>
 <style type="text/css">
-
 	.ui-datepicker{font-size: 12px; width: 200px;}
 	.ui-datepicker select.ui-datepicker-month{width: 50%; font-size: 11px;}
 	.ui-datepicker select.ui-datepicker-year{width: 50%; font-size: 11px;}
 	.ui-datepicker-calendar > tbody td.ui-datepicker-week-end:first-child a {color:#f00;}
 	.ui-datepicker-calendar > tbody td.ui-datepicker-week-end:last-child a {color:#00f;}
+<<<<<<< HEAD
 
 .ui-datepicker {
 	font-size: 12px;
@@ -168,8 +168,8 @@
 ol, ul {
     list-style-type: none;
 }
-</style>
 
+</style>
 </head>
 <body>
 <jsp:include page="include/navbar.jsp">

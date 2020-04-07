@@ -56,25 +56,27 @@
 		height:40px; /*칸 높이*/
 		border: 2px solid #F5F5F5;
 	}
+		
+	/*가입버튼 #DEB887 #CD853F*/
+
+	.signup {
+    	width:300px;
+    	height:60px;
+    	font-size:30px;
+    	font-weight:bolder;
+    	background-color: #111111;
+    	margin-top: 0.8rem;
+    	cursor:pointer;
+    	letter-spacing: 0.4rem;
+    	color:#fff;
+    	border-radius: .5rem;  
+		position: absolute; 
+		left: 10%;
+		  	
+   	}
 	
-	.btn_area{
-		margin:30px 30px 0 30px;
-		display:block;
-	}
-	.btn_primary{
-		color:#FFFFFF;
-		background-color:#000000;
-	}
-	.btn_type{
-		font-weight:400;
-		display:block;
-		width:100%;
-		padding:21px 0 17px;
-		font-size:20px;
-		text-align:center;
-		box-sizing:border-box;
-	}
-	
+	/*성별*/
+
 </style>
 <script src="${pageContext.request.contextPath }/resources/js/jquery-3.3.1.js"></script>
 <script src="${pageContext.request.contextPath }/resources/js/bootstrap.js"></script>
@@ -163,7 +165,7 @@
 		</div>
 			<div class="form-group has-feedback">
 				<label class="control-label" for="birth">생년월일</label><br/>
-				<input class="form-control" type="text" id="birth" name="birth"/>
+				<input class="form-control" type="text" id="birth" name="birth" autocomplete="off"/>
 			</div>
 			<div class="form-group has-feedback">
 				<label class="control-label" for="gender">성별</label><br/>
@@ -178,9 +180,9 @@
 		</form>
 		</div>
 </div>
-	<%-- jquery form  플러그인 javascript 로딩 --%>
-	<script src="${pageContext.request.contextPath }/resources/js/jquery.form.min.js"></script>
-	<script>	
+<%-- jquery form  플러그인 javascript 로딩 --%>
+<script src="${pageContext.request.contextPath }/resources/js/jquery.form.min.js"></script>
+<script>	
 	
 	var isNameInput=false; //이름을 입력했는지 여부
 	
@@ -198,7 +200,8 @@
 	//비밀번호 형식에 맞게 입력했는지 여부
 	var isPwdMatch=false;
 	
-
+	var isPwd2Input=false;
+	
 	//이메일을 형식에 맞게 입력했는지 여부 
 	var isEmailMatch=false;
 	//이메일을 입력했는지 여부
@@ -213,11 +216,11 @@
 	var isPwd2Dirty=false;
 	
 	// id 체크 정규식 : 숫자, 영문(대문자, 소문자)만 1개이상 15개이하 입력 가능
-	var idCheck = /^[0-9a-zA-Z]{1,15}$/gi
+	var idCheck = /^[0-9a-zA-Z]{1,15}$/
 	// email 체크 정규식 
 	var emailCheck = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,3}))$/;
 	// pwd 체크 정규식 : 영어(대,소)와 특수문자를 포함한 8자리 이상 15자리 이하로 입력할것.
-	var pwdCheck=/^.*(?=^.{8,15}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=.]).*$/g
+	var pwdCheck=/^.*(?=^.{8,15}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=.]).*$/
 	
 	
 	//이름을 입력할때 실행할 함수 등록
@@ -301,8 +304,6 @@
 		//pwd 입력 여부 검증
 		if(pwd2.length == 0){
 			isPwd2Input=false;
-// 			var isError=true;
-// 			setState("#pwd2", isError);
 		}else{
 			isPwd2Input=true;
 			
