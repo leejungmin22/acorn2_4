@@ -26,16 +26,6 @@
 		left: 50%;
 
 	}
-	#bread{
-		background-color: #FAEBD7;		
-	}
-	/*화면 가운데정렬*/
-	.condition{
-		width: 400px; 
-		position: absolute; 
-		margin-left: -150;
-		left:38%;
-	}	
 	#signupForm{
 		margin-top:10px;
 	}
@@ -106,6 +96,20 @@
 		padding:1px 0 5px;
 		font-family: "Noto Sans KR","맑은 고딕","Malgun Gothic",;
 	}
+	/* 프로필 이미지가 가로 세로 50px 인 원형으로 표시 될수 있도록  */
+	#profileLink img{
+		width: 200px;
+		height: auto;
+		border-radius: 50%;
+		margin: 30px;
+	}
+	
+	#profileForm{
+		display: none;
+	}
+	#profileImage, #savePath{
+		display: none;
+	}
 </style>
 </head>
 <body>
@@ -119,50 +123,51 @@
 		<a href="${pageContext.request.contextPath }/users/signup_form.do">회원가입</a>
 	</div>	
  	<div class="condition" > 
-	<form action="signup.do" method="post" id="signupForm" enctype="multipart/form-data">
-		<div class="form-group has-feedback"> 
-			<label class="control-label" for="name">이름</label><br/>
-			<input class="form-control" type="text" id="name" name="name"/>
-			<p class="help-block" id="name_required">필수 정보입니다.</p>
-			<span class="glyphicon glyphicon-remove form-control-feedback"></span>
-			<span class="glyphicon glyphicon-ok form-control-feedback"></span>
-			
+	 	<div style="text-align: center;">
+			<a href="javascript:" id="profileLink">
+				<img src="${pageContext.request.contextPath }/resources/images/default_user.jpeg"/>
+			</a>
 		</div>
-		<div class="form-group">
-			<label class="control-label" for="profileLink">프로필 이미지</label>
-			<input type="file" id="profileImage" name="profileImage" accept=".jpg, .jpeg, .png, .JPG, .JPEG, .PNG">		
-		</div>
-		<div class="form-group has-feedback">
-			<label class="control-label" for="id">아이디</label>
-			<input class="form-control" type="text" id="id" name="id"/>
-			<p class="help-block" id="id_notusable">사용 불가능한 아이디 입니다.</p>
-			<p class="help-block" id="id_required">필수 정보입니다.</p>
-			<span class="glyphicon glyphicon-remove form-control-feedback"></span>
-			<span class="glyphicon glyphicon-ok form-control-feedback"></span>
-		</div>
-		<div class="form-group has-feedback">
-			<label class="control-label" for="pwd">비밀번호</label>
-			<input class="form-control" type="password" id="pwd" name="pwd"/>
-			<p class="help-block" id="pwd_required">필수 정보입니다.</p>
-			<p class="help-block" id="pwd_notmatch">비밀번호는 영어, 특수문자를 포함하여 8~15자리로 입력해야합니다.</p>
-			<span class="glyphicon glyphicon-remove form-control-feedback"></span>
-			<span class="glyphicon glyphicon-ok form-control-feedback"></span>
-		</div>
-		<div class="form-group has-feedback">
-			<label class="control-label" for="pwd2">비밀번호 확인</label>
-			<input class="form-control" type="password" id="pwd2" name="pwd2"/>
-			<p class="help-block" id="pwd2_required">필수 정보입니다.</p> 
-			<p class="help-block" id="pwd2_notequal">비밀번호와 동일하게 입력하세요</p>
-			<span class="glyphicon glyphicon-remove form-control-feedback"></span>
-			<span class="glyphicon glyphicon-ok form-control-feedback"></span>
-		</div>
-		<div class="form-group has-feedback">
-			<label class="control-label" for="email">이메일</label>
-			<input class="form-control" type="email" id="email" name="email" />
-			<p class="help-block" id="email_notmatch">이메일 형식에 맞게 입력하세요</p>
-			<span class="glyphicon glyphicon-remove form-control-feedback"></span>
-			<span class="glyphicon glyphicon-ok form-control-feedback"></span>
-		</div>
+		<form action="signup.do" method="post" id="signupForm" enctype="multipart/form-data">
+			<div class="form-group has-feedback"> 
+				<label class="control-label" for="name">이름</label><br/>
+				<input class="form-control" type="text" id="name" name="name"/>
+				<p class="help-block" id="name_required">필수 정보입니다.</p>
+				<span class="glyphicon glyphicon-remove form-control-feedback"></span>
+				<span class="glyphicon glyphicon-ok form-control-feedback"></span>
+				
+			</div>	
+			<div class="form-group has-feedback">
+				<label class="control-label" for="id">아이디</label>
+				<input class="form-control" type="text" id="id" name="id"/>
+				<p class="help-block" id="id_notusable">사용 불가능한 아이디 입니다.</p>
+				<p class="help-block" id="id_required">필수 정보입니다.</p>
+				<span class="glyphicon glyphicon-remove form-control-feedback"></span>
+				<span class="glyphicon glyphicon-ok form-control-feedback"></span>
+			</div>
+			<div class="form-group has-feedback">
+				<label class="control-label" for="pwd">비밀번호</label>
+				<input class="form-control" type="password" id="pwd" name="pwd"/>
+				<p class="help-block" id="pwd_required">필수 정보입니다.</p>
+				<p class="help-block" id="pwd_notmatch">비밀번호는 영어, 특수문자를 포함하여 8~15자리로 입력해야합니다.</p>
+				<span class="glyphicon glyphicon-remove form-control-feedback"></span>
+				<span class="glyphicon glyphicon-ok form-control-feedback"></span>
+			</div>
+			<div class="form-group has-feedback">
+				<label class="control-label" for="pwd2">비밀번호 확인</label>
+				<input class="form-control" type="password" id="pwd2" name="pwd2"/>
+				<p class="help-block" id="pwd2_required">필수 정보입니다.</p> 
+				<p class="help-block" id="pwd2_notequal">비밀번호와 동일하게 입력하세요</p>
+				<span class="glyphicon glyphicon-remove form-control-feedback"></span>
+				<span class="glyphicon glyphicon-ok form-control-feedback"></span>
+			</div>
+			<div class="form-group has-feedback">
+				<label class="control-label" for="email">이메일</label>
+				<input class="form-control" type="email" id="email" name="email" />
+				<p class="help-block" id="email_notmatch">이메일 형식에 맞게 입력하세요</p>
+				<span class="glyphicon glyphicon-remove form-control-feedback"></span>
+				<span class="glyphicon glyphicon-ok form-control-feedback"></span>
+			</div>
 			<div class="form-group has-feedback">
 				<label class="control-label" for="birth">생년월일</label><br/>
 				<input class="form-control" type="text" id="birth" name="birth" autocomplete="off"/>
@@ -174,13 +179,40 @@
 					<option value="m">남</option>
 				</select>
 			</div>
+			<input id="savePath" name="savePath">
 			<button disabled="disabled" class="signup" type="submit">가 입 하 기</button>
 		</form>
 	</div>
 </div>
+<form action="profile_upload.do" method="post" enctype="multipart/form-data" id="profileForm">
+	<label for="profileImage">프로필 이미지 선택</label>
+	<input type="file" name="profileImage" id="profileImage" accept=".jpg, .jpeg, .png, .JPG, .JPEG"/>
+</form>
 <%-- jquery form  플러그인 javascript 로딩 --%>
 <script src="${pageContext.request.contextPath }/resources/js/jquery.form.min.js"></script>
-<script>	
+<script>
+	//프로파일 이미지를 클릭하면 
+	$("#profileLink").click(function(){
+		//강제로 <input type="file" /> 을 클릭해서 파일 선택창을 띄우고
+		$("#profileImage").click();
+	});
+	//input type="file" 에 파일이 선택되면 
+	$("#profileImage").on("change", function(){
+		//폼을 강제 제출하고 
+		$("#profileForm").submit();
+	});
+	
+	// jquery form 플러그인의 동작을 이용해서 폼이 ajax 로 제출되도록 한다. 
+	$("#profileForm").ajaxForm(function(responseData){
+		//responseData 는 plain object 이다.
+		//{savedPath:"/upload/저장된이미지파일명"}
+		//savedPath 라는 방에 저장된 이미지의 경로가 들어 있다.
+		var src="${pageContext.request.contextPath }"+responseData.savePath;
+		// img 의 src 속성에 반영함으로써 이미지가 업데이트 되도록 한다.
+		$("#profileLink img").attr("src", src);
+		$("#savePath").val(responseData.savePath);
+	});
+	
 	var isNameInput=false; //이름을 입력했는지 여부
 	//아이디를 사용할수 있는지 여부 
 	var isIdUsable=false;

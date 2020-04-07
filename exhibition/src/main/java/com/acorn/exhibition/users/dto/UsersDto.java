@@ -14,11 +14,12 @@ public class UsersDto {
 	private String newPwd;
 	private MultipartFile uploadProfile;
 	private String admin;
+	private String savePath;
 
 	public UsersDto() {}
 
 	public UsersDto(String id, String name, String pwd, String email, String birth, String profile, String gender,
-			String newPwd, MultipartFile uploadProfile, String admin) {
+			String newPwd, MultipartFile uploadProfile, String admin, String savePath) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -30,6 +31,7 @@ public class UsersDto {
 		this.newPwd = newPwd;
 		this.uploadProfile = uploadProfile;
 		this.admin = admin;
+		this.savePath = savePath;
 	}
 
 	public String getId() {
@@ -111,5 +113,14 @@ public class UsersDto {
 	public void setAdmin(String admin) {
 		this.admin = admin;
 	}
+
+	public String getSavePath() {
+		return savePath;
+	}
+
+	public void setSavePath(String savePath) {
+		this.savePath = savePath;
+	}
+
 
 }
