@@ -56,8 +56,8 @@
 		<div class="form-group">
 			<label for="gender">성별</label>
 			<select class="form-control" name="gender" id="gender">
-				<option value="f" <c:if test="${gender eq 'f' }">selected</c:if>>여</option>
-				<option value="m" <c:if test="${gender eq 'm' }">selected</c:if>>남</option>
+				<option value="f" <c:if test="${dto.gender eq 'f' }">selected</c:if>>여</option>
+				<option value="m" <c:if test="${dto.gender eq 'm' }">selected</c:if>>남</option>
 			</select>
 		</div>
 		<button class="btn btn-primary" type="submit">수정확인</button>
