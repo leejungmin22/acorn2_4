@@ -8,7 +8,8 @@
 <title>전체공연보기</title>
 <jsp:include page="include/resource.jsp" />
 <style type="text/css">
-@import url(//fonts.googleapis.com/earlyaccess/nanumpenscript.css);
+ @import url(//fonts.googleapis.com/earlyaccess/nanumpenscript.css);
+
 	.sub-nav-left{
 		display:block;
 		position:relative;
@@ -101,74 +102,6 @@ ol, ul {
 
 	});
 </script>
-<<<<<<< HEAD
-=======
-<style type="text/css">
-	.ui-datepicker{font-size: 12px; width: 200px;}
-	.ui-datepicker select.ui-datepicker-month{width: 50%; font-size: 11px;}
-	.ui-datepicker select.ui-datepicker-year{width: 50%; font-size: 11px;}
-	.ui-datepicker-calendar > tbody td.ui-datepicker-week-end:first-child a {color:#f00;}
-	.ui-datepicker-calendar > tbody td.ui-datepicker-week-end:last-child a {color:#00f;}
-	.ui-datepicker {
-		font-size: 12px;
-		width: 200px;
-	}
-	
-	.ui-datepicker select.ui-datepicker-month {
-		width: 50%;
-		font-size: 11px;
-	}
-	
-	.ui-datepicker select.ui-datepicker-year {
-		width: 50%;
-		font-size: 11px;
-	}
-	
-	.ui-datepicker-calendar>tbody td.ui-datepicker-week-end:first-child a {
-		color: #f00;
-	}
-	
-	.ui-datepicker-calendar>tbody td.ui-datepicker-week-end:last-child a {
-		color: #00f;
-	}
-	
-	.cs_nperformance .option_tab .sub_option li .btn_option .ico_select {
-	    overflow: hidden;
-	    display: inline-block;
-	    vertical-align: top;
-	    font-size: 0;
-	    line-height: 0;
-	    color: rgba(0, 0, 0, 0);
-	    background-position: -146px -115px;
-	    width: 4px;
-	    height: 4px;
-	    margin-top: -1px;
-	    margin-right: 5px;
-	    vertical-align: 3px;
-	    vertical-align: 5px;
-	    float:left;
-	}
-	.sub_option li{
-		float:right;
-	}
-	
-	
-	ol, ul {
-	    list-style-type: none;
-	}
-	.sub-nav-left{
-		display:block;
-		position:relative;
-		font-size:15px;
-		float:none;
-		margin:10px 0 10px 0;
-		text-align:left;
-		border-bottom:1px solid #ddd;
-		padding:1px 0 5px;
-		font-family: "Noto Sans KR","맑은 고딕","Malgun Gothic",;
-	}
-</style>
->>>>>>> refs/remotes/origin/hyeonkyung
 </head>
 <body>
 <jsp:include page="include/navbar.jsp">
