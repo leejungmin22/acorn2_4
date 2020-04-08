@@ -8,7 +8,7 @@
 <title>/community/comDetail.jsp</title>
 <jsp:include page="../include/resource.jsp"></jsp:include>
 <style>
-	img{
+	#profileLink{
 		width: 30px;
 		height: auto;
 		border-radius: 50%;
