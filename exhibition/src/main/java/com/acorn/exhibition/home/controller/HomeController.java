@@ -20,6 +20,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import com.acorn.exhibition.home.dto.ApiDto;
+import com.acorn.exhibition.home.dto.FullCalendarDto;
 import com.acorn.exhibition.home.dto.mapDto;
 import com.acorn.exhibition.home.service.HomeService;
 
@@ -209,14 +210,23 @@ public class HomeController {
 		Map<String, Object> result= service.updateLikeCount(request);
 		return result;
 	}
+	
 	@ResponseBody
 	@RequestMapping("/map")
 	public ModelAndView map(ModelAndView mView, HttpServletRequest request) {
-		List<mapDto> maplist =service.maplist(request);
+		List<mapDto> maplist =service.maplistplace(request);
 		mView.setViewName("map");
 		mView.addObject("maplist", maplist);
-		System.out.println(maplist);
 		return mView;
 	}
+	
+	@ResponseBody
+	@RequestMapping("/maplist")
+	public ModelAndView  maplist(ModelAndView mView, HttpServletRequest request) {
+		service.maplist(request);
+		mView.setViewName("maplist");
+		return mView;
+	}
+	
 
 }

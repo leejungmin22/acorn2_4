@@ -117,7 +117,13 @@ public class HomeDaoImpl implements HomeDao{
 
 	@Override
 	public List<mapDto> mapList(mapDto dto) {
-		List<mapDto> maplist=session.selectList("event.mapList",dto);
+		List<mapDto> maplistplace=session.selectList("event.mapList",dto);
+		return maplistplace;
+	}
+
+	@Override
+	public List<FullCalendarDto> getListmap(FullCalendarDto dto) {
+		List<FullCalendarDto> maplist=session.selectList("event.getmapList",dto);
 		return maplist;
 	}
 

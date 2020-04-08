@@ -29,20 +29,7 @@
       width: 100%;
       height: 500px;
    }
-   #menu_wrap {
-      position: absolute;
-      top: 0;
-      left: 0;
-      bottom: 0;
-      width: 250px;
-      margin: 10px 0 30px 10px;
-      padding: 5px;
-      overflow-y: auto;
-      background: rgba(255, 255, 255, 0.7);
-      z-index: 1;
-      font-size: 12px;
-      border-radius: 10px;
-   }
+  
    .bg_white {
       background: #fff;
    }
@@ -175,11 +162,15 @@
 		padding:1px 0 5px;
 		font-family: "Noto Sans KR","맑은 고딕","Malgun Gothic",;
 	}
->>>>>>> refs/remotes/origin/hyeonkyung
+	.heart{
+	width: 20px;
+	height: auto;
+}
 </style>
 </head>
 <body>
    <jsp:include page="include/navbar.jsp" />
+   <div class="container">
    <div class="sub-nav-left">
 		<a href="home.do">
 			<img src="resources/images/home.png" alt="홈" />
@@ -192,8 +183,9 @@
          <div id="map"
             style="width: 100%; height: 100%; position: relative; overflow: hidden;"></div>
       </div>
-
-      <script type="text/javascript"
+</div>
+</body>
+<script type="text/javascript"
          src="//dapi.kakao.com/v2/maps/sdk.js?appkey=9493bea6d98de2e126bef936b4f25a8d&libraries=services"></script>
       <script>
          var mapContainer = document.getElementById('map'), // 지도를 표시할 div  
@@ -259,11 +251,6 @@
              map.setCenter(locPosition);      
          }   
 
-         
-         
-         
-         
-		 
          var places=[];     
          
          <c:forEach items="${maplist}" var="item1">
@@ -278,7 +265,7 @@
          	for(var i=0; i<places.length; i++){
 	        	 var tmp=places[i];
 	        	 var obj={
-	        			 content:'<div>'+tmp.place+'</div>',
+	        			 content:tmp.place,
 	        			 latlng: new kakao.maps.LatLng(tmp.gpsy, tmp.gpsx)
 	        	 };
 	        	 positions.push(obj);
@@ -305,8 +292,25 @@
                   makeOverListener(map, marker, infowindow));
             kakao.maps.event.addListener(marker, 'mouseout',
                   makeOutListener(infowindow));
+            kakao.maps.event.addListener(marker, 'click',
+                  makeClickListener(infowindow));
          }
-
+		
+         function makeClickListener(infowindow) {
+             return function() {
+            	 
+            	 $.ajax({
+         			url:"maplist.do",
+         			method:"post",
+         			data:{"keyword":infowindow.getContent()}, //data : 파라미터로 전달할 문자열 
+         			success:function(responseData){
+         				$(".maplist").remove();
+         				$(".map_wrap").append(responseData);
+         					
+         			}
+         		});
+             };
+          }
          // 인포윈도우를 표시하는 클로저를 만드는 함수입니다 
          function makeOverListener(map, marker, infowindow) {
             return function() {
@@ -352,127 +356,4 @@
           */
       </script>
 
-   <div class="container">
-   <table class="table table-hover">
-
-		<colgroup>
-			<col class="col-xs-6"/>
-			<col class="col-xs-1"/>
-			<col class="col-xs-2"/>
-			<col class="col-xs-3"/>
-		</colgroup>
-		<thead>
-			<tr class="title">
-				<th>공연명 </th>
-				<th>좋아요</th>
-				<th>장소</th>
-				<th>공연기간</th>
-			</tr>
-		</thead>
-		<tbody>
-			<c:forEach var="tmp" items="${requestScope.list }">
-				<tr class="tr">
-					<td>
-						<a href="detail.do?seq=${tmp.seq }">
-							${tmp.title }
-						</a>				
-					</td>				
-					<td>
-						<img class="heart" src="${pageContext.request.contextPath }/resources/images/red-heart.png" alt="" />
-						${tmp.likeCount }
-					</td>				
-					<td>${tmp.place }</td>
-					<td>${tmp.startdate } ~ ${tmp.enddate }</td>
-				</tr>	
-			</c:forEach>
-		</tbody>	
-	</table>
-	
-	<div class="page-display" style="text-align: center;">
-		<ul class="pagination pagination-sm">
-			<c:choose>
-				<c:when test="${startPageNum ne 1 }">
-					<li>
-						<c:choose>
-							<c:when test="${encodedKeyword ne null }">
-								<a href="list.do?pageNum=${startPageNum-1 }&condition=${condition }&keyword=${encodedKeyword }">&laquo;</a>
-							</c:when>
-							<c:when test="${startdate ne null and enddate ne null or sort ne null  }">
-								<a href="list.do?pageNum=${startPageNum-1 }&condition=${condition }&startDate=${startdateFormat }&endDate=${enddateFormat }">&laquo;</a>
-							</c:when>
-							<c:otherwise>
-								<a href="list.do?pageNum=${startPageNum-1 }">&laquo;</a>
-							</c:otherwise>
-						</c:choose>
-					</li>
-				</c:when>
-				<c:otherwise>
-					<li class="disabled">
-						<a href="javascript:">&laquo;</a>
-					</li>
-				</c:otherwise>
-			</c:choose>
-			
-			<c:forEach var="i" begin="${requestScope.startPageNum }" end="${requestScope.endPageNum }" step="1">
-				<c:choose>
-					<c:when test="${i eq pageNum }">
-						<li class="active">
-							<c:choose>
-								<c:when test="${encodedKeyword ne null  }">
-									<a href="list.do?pageNum=${i }&condition=${condition }&keyword=${encodedKeyword }">${i }</a>
-								</c:when>
-								<c:when test="${startdate ne null and enddate ne null or sort ne null }">
-									<a href="list.do?pageNum=${i }&condition=${condition }&startDate=${startdateFormat }&endDate=${enddateFormat }">${i }</a>
-								</c:when>
-								<c:otherwise>
-									<a href="list.do?pageNum=${i }">${i }</a>
-								</c:otherwise>
-							</c:choose>
-						</li>
-					</c:when>
-					<c:otherwise>
-						<li>
-							<c:choose>
-								<c:when test="${encodedKeyword ne null }">
-									<a href="list.do?pageNum=${i }&condition=${condition }&keyword=${encodedKeyword }">${i }</a>
-								</c:when>
-								<c:when test="${startdate ne null and enddate ne null}">
-									<a href="list.do?pageNum=${i }&condition=${condition }&startDate=${startdateFormat }&endDate=${enddateFormat }">${i }</a>
-								</c:when>
-								<c:otherwise>
-									<a href="list.do?pageNum=${i }">${i }</a>
-								</c:otherwise>
-							</c:choose>
-						</li>
-					</c:otherwise>
-				</c:choose>
-			</c:forEach>
-			
-			<c:choose>
-				<c:when test="${endPageNum < totalPageCount }">
-					<li>
-						<c:choose>
-							<c:when test="${encodedKeyword ne null }">
-								<a href="list.do?pageNum=${endPageNum+1 }&condition=${condition }&keyword=${encodedKeyword }">&raquo;</a>
-							</c:when>
-							<c:when test="${startdate ne null and enddate ne null }">
-								<a href="list.do?pageNum=${endPageNum+1 }&condition=${condition }&startDate=${startdateFormat }&endDate=${enddateFormat }">&raquo;</a>
-							</c:when>
-							<c:otherwise>
-								<a href="list.do?pageNum=${endPageNum+1 }">&raquo;</a>
-							</c:otherwise>
-						</c:choose>
-					</li>
-				</c:when>
-				<c:otherwise>
-					<li class="disabled">
-						<a href="javascript:">&raquo;</a>
-					</li>
-				</c:otherwise>
-			</c:choose>
-		</ul>
-	</div>
-</div>
-   
-</body>
 </html>

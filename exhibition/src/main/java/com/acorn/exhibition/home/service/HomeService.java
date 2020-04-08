@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import com.acorn.exhibition.home.dto.ApiDto;
 import com.acorn.exhibition.home.dto.CommentDto;
+import com.acorn.exhibition.home.dto.FullCalendarDto;
 import com.acorn.exhibition.home.dto.mapDto;
 
 
@@ -15,7 +16,8 @@ public interface HomeService {
 	public void getPopularEvents(HttpServletRequest request);
 	public void getData(HttpServletRequest request);
 	public void addExhibition(ApiDto dto);
-	public List<mapDto> maplist(HttpServletRequest request);
+	public List<mapDto> maplistplace(HttpServletRequest request);
+	public void maplist(HttpServletRequest request);
 	//전체 공연 list
 	public void list(HttpServletRequest request);
 	public void listfavor(HttpServletRequest request);
