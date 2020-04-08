@@ -1,16 +1,20 @@
 package com.acorn.exhibition.home.service;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.web.servlet.ModelAndView;
+
 import com.acorn.exhibition.home.dto.ApiDto;
 import com.acorn.exhibition.home.dto.CommentDto;
+import com.acorn.exhibition.home.dto.FullCalendarDto;
 
 
 public interface HomeService {
-	public String getEvent();
-	public void getPopularEvents(HttpServletRequest request);
+	public List<FullCalendarDto> getEvent();
+	public void getPopularEvents(ModelAndView mView);
 	public void getData(HttpServletRequest request);
 	public void addExhibition(ApiDto dto);
 

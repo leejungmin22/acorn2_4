@@ -155,7 +155,7 @@
 			</c:if>
 			<c:if test="${not empty startdate and not empty enddate }">
 				<p>
-					<strong>${startdateFormat }~${enddateFormat }</strong> 에는 
+					<strong>${startdate }~${enddate }</strong> 에는 
 					<strong>${totalRow }</strong> 개의 공연이 있습니다.
 				</p>
 			</c:if>
@@ -232,7 +232,7 @@
 							<c:when test="${encodedKeyword ne null or sort ne null}">
 								<a href="list.do?pageNum=${startPageNum-1 }&sort=${sort}&condition=${condition }&keyword=${encodedKeyword }">&laquo;</a>
 							</c:when>
-							<c:when test="${startdate ne null and enddate ne null or sort ne null  }">
+							<c:when test="${(startdate ne null and enddate ne null) or sort ne null  }">
 								<a href="list.do?pageNum=${startPageNum-1 }&sort=${sort}&condition=${condition }&startDate=${startdateFormat }&endDate=${enddateFormat }">&laquo;</a>
 							</c:when>
 							<c:otherwise>
@@ -256,7 +256,7 @@
 								<c:when test="${encodedKeyword ne null or sort ne null }">
 									<a href="list.do?pageNum=${i }&sort=${sort}&condition=${condition }&keyword=${encodedKeyword }">${i }</a>
 								</c:when>
-								<c:when test="${startdate ne null and enddate ne null or sort ne null }">
+								<c:when test="${(startdate ne null and enddate ne null) or sort ne null }">
 									<a href="list.do?pageNum=${i }&sort=${sort}&condition=${condition }&startDate=${startdateFormat }&endDate=${enddateFormat }">${i }</a>
 								</c:when>
 								<c:otherwise>
@@ -271,7 +271,7 @@
 								<c:when test="${encodedKeyword ne null or sort ne null}">
 									<a href="list.do?pageNum=${i }&sort=${sort}&condition=${condition }&keyword=${encodedKeyword }">${i }</a>
 								</c:when>
-								<c:when test="${startdate ne null and enddate ne null or sort ne null}">
+								<c:when test="${(startdate ne null and enddate ne null) or sort ne null}">
 									<a href="list.do?pageNum=${i }&sort=${sort}&condition=${condition }&startDate=${startdateFormat }&endDate=${enddateFormat }">${i }</a>
 								</c:when>
 								<c:otherwise>
@@ -290,7 +290,7 @@
 							<c:when test="${encodedKeyword ne null or sort ne null}">
 								<a href="list.do?pageNum=${endPageNum+1 }&sort=${sort}&condition=${condition }&keyword=${encodedKeyword }">&raquo;</a>
 							</c:when>
-							<c:when test="${startdate ne null and enddate ne null or sort ne null}">
+							<c:when test="${(startdate ne null and enddate) ne null or sort ne null}">
 								<a href="list.do?pageNum=${endPageNum+1 }&sort=${sort}&condition=${condition }&startDate=${startdateFormat }&endDate=${enddateFormat }">&raquo;</a>
 							</c:when>
 							<c:otherwise>
@@ -322,6 +322,7 @@
 	$("#pastdate").click(function(){
 		location.href="list.do"
 	});
+	
 	//select 옵션이 변경된 경우 그에 맞는 input tag를 보여준다.
 	$("#condition").change(function(){
 		value=$(this).val();
