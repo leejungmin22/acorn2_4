@@ -3,6 +3,7 @@ package com.acorn.exhibition.home.controller;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.xml.parsers.DocumentBuilder;
@@ -19,6 +20,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import com.acorn.exhibition.home.dto.ApiDto;
+import com.acorn.exhibition.home.dto.mapDto;
 import com.acorn.exhibition.home.service.HomeService;
 
 
@@ -207,10 +209,14 @@ public class HomeController {
 		Map<String, Object> result= service.updateLikeCount(request);
 		return result;
 	}
-	
+	@ResponseBody
 	@RequestMapping("/map")
-	public String map(ModelAndView mView, HttpServletRequest request) {
-		return "map";
+	public ModelAndView map(ModelAndView mView, HttpServletRequest request) {
+		List<mapDto> maplist =service.maplist(request);
+		mView.setViewName("map");
+		mView.addObject("maplist", maplist);
+		System.out.println(maplist);
+		return mView;
 	}
 
 }

@@ -9,11 +9,6 @@
 <jsp:include page="include/resource.jsp" />
 <style type="text/css">
 @import url(//fonts.googleapis.com/earlyaccess/nanumpenscript.css);
-	p, .form-group{
-		font-size:20px;
-		font-family: 'Nanum Pen Script', cursive;
-	}
-	
 	.sub-nav-left{
 		display:block;
 		position:relative;
@@ -25,10 +20,6 @@
 		padding:1px 0 5px;
 		font-family: "Noto Sans KR","맑은 고딕","Malgun Gothic",;
 	}
-	
-	button{
-		vertical-align:middle;
-	}
 	/*검색버튼*/
 	button.img-button{
 		background:url("resources/images/button_search.png") no-repeat;
@@ -37,19 +28,7 @@
 		height:38px;
 		cursor:pointer;
 	}
-	
-	
-	/*표 색상 변경*/
-	.tr{
-		background-color: #FFFFFF;
-	}
-	
-	
 	/*thead 색상변경*/
-	
-	/*.title{
-		background-color: #4682B4;
-	}*/
     .condition{
    		margin: 10px 0 20px 0;
     }
@@ -67,6 +46,19 @@
 		height:38px;
 		cursor:pointer
 	}
+.ui-datepicker{font-size: 12px; width: 200px;}
+.ui-datepicker select.ui-datepicker-month{width: 50%; font-size: 11px;}
+.ui-datepicker select.ui-datepicker-year{width: 50%; font-size: 11px;}
+.ui-datepicker-calendar > tbody td.ui-datepicker-week-end:first-child a {color:#f00;}
+.ui-datepicker-calendar > tbody td.ui-datepicker-week-end:last-child a {color:#00f;}
+
+.sub_option li{
+	float:right;
+}
+
+ol, ul {
+    list-style-type: none;
+}
 </style>
 <!-- jQuery UI Datepicker -->
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
@@ -109,67 +101,6 @@
 
 	});
 </script>
-<style type="text/css">
-
-	.ui-datepicker{font-size: 12px; width: 200px;}
-	.ui-datepicker select.ui-datepicker-month{width: 50%; font-size: 11px;}
-	.ui-datepicker select.ui-datepicker-year{width: 50%; font-size: 11px;}
-	.ui-datepicker-calendar > tbody td.ui-datepicker-week-end:first-child a {color:#f00;}
-	.ui-datepicker-calendar > tbody td.ui-datepicker-week-end:last-child a {color:#00f;}
-
-.ui-datepicker {
-	font-size: 12px;
-	width: 200px;
-}
-
-.ui-datepicker select.ui-datepicker-month {
-	width: 50%;
-	font-size: 11px;
-}
-
-.ui-datepicker select.ui-datepicker-year {
-	width: 50%;
-	font-size: 11px;
-}
-
-.ui-datepicker-calendar>tbody td.ui-datepicker-week-end:first-child a {
-	color: #f00;
-}
-
-.ui-datepicker-calendar>tbody td.ui-datepicker-week-end:last-child a {
-	color: #00f;
-}
-
-.form-group {
-	max-width: 200px;
-}
-
-.cs_nperformance .option_tab .sub_option li .btn_option .ico_select {
-    overflow: hidden;
-    display: inline-block;
-    vertical-align: top;
-    font-size: 0;
-    line-height: 0;
-    color: rgba(0, 0, 0, 0);
-    background-position: -146px -115px;
-    width: 4px;
-    height: 4px;
-    margin-top: -1px;
-    margin-right: 5px;
-    vertical-align: 3px;
-    vertical-align: 5px;
-    float:left;
-}
-.sub_option li{
-	float:right;
-}
-
-
-ol, ul {
-    list-style-type: none;
-}
-</style>
-
 </head>
 <body>
 <jsp:include page="include/navbar.jsp">
@@ -183,7 +114,7 @@ ol, ul {
 		>
 		<a href="list.do" onclick="javascript:page_link('010000'); return false;">목록</a>
 		>
-		<a href="list.do" onclick="javascript:page_link('010000'); return false;">목록</a>
+		<a href="list.do" onclick="javascript:page_link('010000'); return false;">날짜별 목록</a>
 	</div>
 	
 	<div class="condition" align="right">
@@ -205,7 +136,7 @@ ol, ul {
 			
 			<div class="form-group">
 				<input class="form-control date" type="text" name="endDate" class="date" id="endDate" value="${enddate }" autocomplete="off" readonly/>
-				<button class="btn btn-primary img-button" type="submit" disabled="disabled"></button>
+				<button class="btn img-button" type="submit" disabled="disabled"></button>
 			</div>
 		</form>
 		
