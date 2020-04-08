@@ -207,7 +207,9 @@
 </style>
 </head>
 <body>
-   <jsp:include page="include/navbar.jsp" />
+<jsp:include page="include/navbar.jsp">
+	<jsp:param value="map" name="category"/>
+</jsp:include>
    <div class="container">
       <h1>지역별 공연</h1>
 
