@@ -9,6 +9,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.json.simple.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,7 +21,7 @@ import com.acorn.exhibition.home.dto.CommentDto;
 import com.acorn.exhibition.home.dto.FullCalendarDto;
 
 import com.acorn.exhibition.home.dto.LikeDto;
-
+import com.acorn.exhibition.home.dto.mapDto;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -443,6 +444,14 @@ public class HomeServiceImpl implements HomeService{
 		request.setAttribute("totalRow", totalRow);
 		
 		
+	}
+
+	@Override
+	public void maplist(HttpServletRequest request) {
+		mapDto dto = new mapDto();
+		List<mapDto> maplist=dao.mapList(dto);
+		request.setAttribute("maplist", maplist);
+		//request.setAttribute("jsonmap",JSONArray.fromObject(maplist));
 	}
 
 	

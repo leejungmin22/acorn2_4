@@ -207,10 +207,12 @@ public class HomeController {
 		Map<String, Object> result= service.updateLikeCount(request);
 		return result;
 	}
-	
+	@ResponseBody
 	@RequestMapping("/map")
-	public String map(ModelAndView mView, HttpServletRequest request) {
-		return "map";
+	public ModelAndView map(ModelAndView mView, HttpServletRequest request) {
+		service.maplist(request);
+		mView.setViewName("map");
+		return mView;
 	}
 
 }

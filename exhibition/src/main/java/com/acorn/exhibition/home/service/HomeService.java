@@ -13,7 +13,7 @@ public interface HomeService {
 	public void getPopularEvents(HttpServletRequest request);
 	public void getData(HttpServletRequest request);
 	public void addExhibition(ApiDto dto);
-
+	public void maplist(HttpServletRequest request);
 	//전체 공연 list
 	public void list(HttpServletRequest request);
 	public void listfavor(HttpServletRequest request);

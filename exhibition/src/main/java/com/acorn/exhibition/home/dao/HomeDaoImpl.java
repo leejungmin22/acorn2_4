@@ -11,6 +11,7 @@ import com.acorn.exhibition.home.dto.ApiDto;
 
 import com.acorn.exhibition.home.dto.FullCalendarDto;
 import com.acorn.exhibition.home.dto.LikeDto;
+import com.acorn.exhibition.home.dto.mapDto;
 
 @Repository
 public class HomeDaoImpl implements HomeDao{
@@ -112,6 +113,12 @@ public class HomeDaoImpl implements HomeDao{
 	public List<FullCalendarDto> getListfavor(FullCalendarDto dto) {
 		List<FullCalendarDto> list=session.selectList("event.getListfavor", dto);
 		return list;
+	}
+
+	@Override
+	public List<mapDto> mapList(mapDto dto) {
+		List<mapDto> maplist=session.selectList("event.mapList",dto);
+		return maplist;
 	}
 
 	

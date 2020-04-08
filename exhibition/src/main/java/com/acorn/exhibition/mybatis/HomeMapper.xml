@@ -161,5 +161,7 @@
 		FROM exhibition_like
 		WHERE seq=#{seq} AND id=#{id}
 	</select>
-	
+	<select id="mapList" resultType="com.acorn.exhibition.home.dto.mapDto">
+		SELECT place, gpsx, gpsy FROM tb_api_date GROUP BY place, gpsx, gpsy
+	</select>
 </mapper>
