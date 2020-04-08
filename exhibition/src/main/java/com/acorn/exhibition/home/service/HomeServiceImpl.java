@@ -447,11 +447,12 @@ public class HomeServiceImpl implements HomeService{
 	}
 
 	@Override
-	public void maplist(HttpServletRequest request) {
+	public List<mapDto> maplist(HttpServletRequest request) {
 		mapDto dto = new mapDto();
 		List<mapDto> maplist=dao.mapList(dto);
-		request.setAttribute("maplist", maplist);
-		//request.setAttribute("jsonmap",JSONArray.fromObject(maplist));
+		//request.setAttribute("maplist", maplist);
+		//request.setAttribute("jsonmap",JSONArray.toJSONString(maplist));
+		return maplist;
 	}
 
 	

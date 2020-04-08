@@ -223,24 +223,31 @@
       <script>
          var mapContainer = document.getElementById('map'), // 지도를 표시할 div  
          mapOption = {
-            center : new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+            center : new kakao.maps.LatLng(37.49795,127.027637), // 지도의 중심좌표
             level : 3
          // 지도의 확대 레벨
          };
 
          var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
 		 
-         var places= new Array();
-       
-         // 마커를 표시할 위치와 내용을 가지고 있는 객체 배열입니다 
-         var positions=[];    
-         for(var i=0; i<places.length; i++){
-        	 var tmp=places[i];
-        	 var obj={
-        			 content:'<div>'+tmp.place+'</div>',
-        			 latlng: new kakao.maps.LatLng(tmp.gpsX, tmp.gpsY)
-        	 };
-        	 positions.push(obj);
+         var places=[];     
+         
+         <c:forEach items="${maplist}" var="item1">
+         	var objplaces={
+         			place:"${item1.place}",
+         			gpsx:"${item1.gpsx}",
+         			gpsy:"${item1.gpsy}"
+         	}
+	         places.push(objplaces);
+    	 </c:forEach>
+    	 var positions=[]; 
+         	for(var i=0; i<places.length; i++){
+	        	 var tmp=places[i];
+	        	 var obj={
+	        			 content:'<div>'+tmp.place+'</div>',
+	        			 latlng: new kakao.maps.LatLng(tmp.gpsy, tmp.gpsx)
+	        	 };
+	        	 positions.push(obj);
          }
 
          for (var i = 0; i < positions.length; i++) {
@@ -311,6 +318,127 @@
           */
       </script>
 
-   </div>
+   <div class="container">
+   <table class="table table-hover">
+
+		<colgroup>
+			<col class="col-xs-6"/>
+			<col class="col-xs-1"/>
+			<col class="col-xs-2"/>
+			<col class="col-xs-3"/>
+		</colgroup>
+		<thead>
+			<tr class="title">
+				<th>공연명 </th>
+				<th>좋아요</th>
+				<th>장소</th>
+				<th>공연기간</th>
+			</tr>
+		</thead>
+		<tbody>
+			<c:forEach var="tmp" items="${requestScope.list }">
+				<tr class="tr">
+					<td>
+						<a href="detail.do?seq=${tmp.seq }">
+							${tmp.title }
+						</a>				
+					</td>				
+					<td>
+						<img class="heart" src="${pageContext.request.contextPath }/resources/images/red-heart.png" alt="" />
+						${tmp.likeCount }
+					</td>				
+					<td>${tmp.place }</td>
+					<td>${tmp.startdate } ~ ${tmp.enddate }</td>
+				</tr>	
+			</c:forEach>
+		</tbody>	
+	</table>
+	
+	<div class="page-display" style="text-align: center;">
+		<ul class="pagination pagination-sm">
+			<c:choose>
+				<c:when test="${startPageNum ne 1 }">
+					<li>
+						<c:choose>
+							<c:when test="${encodedKeyword ne null }">
+								<a href="list.do?pageNum=${startPageNum-1 }&condition=${condition }&keyword=${encodedKeyword }">&laquo;</a>
+							</c:when>
+							<c:when test="${startdate ne null and enddate ne null or sort ne null  }">
+								<a href="list.do?pageNum=${startPageNum-1 }&condition=${condition }&startDate=${startdateFormat }&endDate=${enddateFormat }">&laquo;</a>
+							</c:when>
+							<c:otherwise>
+								<a href="list.do?pageNum=${startPageNum-1 }">&laquo;</a>
+							</c:otherwise>
+						</c:choose>
+					</li>
+				</c:when>
+				<c:otherwise>
+					<li class="disabled">
+						<a href="javascript:">&laquo;</a>
+					</li>
+				</c:otherwise>
+			</c:choose>
+			
+			<c:forEach var="i" begin="${requestScope.startPageNum }" end="${requestScope.endPageNum }" step="1">
+				<c:choose>
+					<c:when test="${i eq pageNum }">
+						<li class="active">
+							<c:choose>
+								<c:when test="${encodedKeyword ne null  }">
+									<a href="list.do?pageNum=${i }&condition=${condition }&keyword=${encodedKeyword }">${i }</a>
+								</c:when>
+								<c:when test="${startdate ne null and enddate ne null or sort ne null }">
+									<a href="list.do?pageNum=${i }&condition=${condition }&startDate=${startdateFormat }&endDate=${enddateFormat }">${i }</a>
+								</c:when>
+								<c:otherwise>
+									<a href="list.do?pageNum=${i }">${i }</a>
+								</c:otherwise>
+							</c:choose>
+						</li>
+					</c:when>
+					<c:otherwise>
+						<li>
+							<c:choose>
+								<c:when test="${encodedKeyword ne null }">
+									<a href="list.do?pageNum=${i }&condition=${condition }&keyword=${encodedKeyword }">${i }</a>
+								</c:when>
+								<c:when test="${startdate ne null and enddate ne null}">
+									<a href="list.do?pageNum=${i }&condition=${condition }&startDate=${startdateFormat }&endDate=${enddateFormat }">${i }</a>
+								</c:when>
+								<c:otherwise>
+									<a href="list.do?pageNum=${i }">${i }</a>
+								</c:otherwise>
+							</c:choose>
+						</li>
+					</c:otherwise>
+				</c:choose>
+			</c:forEach>
+			
+			<c:choose>
+				<c:when test="${endPageNum < totalPageCount }">
+					<li>
+						<c:choose>
+							<c:when test="${encodedKeyword ne null }">
+								<a href="list.do?pageNum=${endPageNum+1 }&condition=${condition }&keyword=${encodedKeyword }">&raquo;</a>
+							</c:when>
+							<c:when test="${startdate ne null and enddate ne null }">
+								<a href="list.do?pageNum=${endPageNum+1 }&condition=${condition }&startDate=${startdateFormat }&endDate=${enddateFormat }">&raquo;</a>
+							</c:when>
+							<c:otherwise>
+								<a href="list.do?pageNum=${endPageNum+1 }">&raquo;</a>
+							</c:otherwise>
+						</c:choose>
+					</li>
+				</c:when>
+				<c:otherwise>
+					<li class="disabled">
+						<a href="javascript:">&raquo;</a>
+					</li>
+				</c:otherwise>
+			</c:choose>
+		</ul>
+	</div>
+</div>
+   
 </body>
 </html>
