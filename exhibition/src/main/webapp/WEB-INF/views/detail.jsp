@@ -7,27 +7,15 @@
 <meta charset="UTF-8">
 <title>${exhibitionDto.title }</title>
 <jsp:include page="include/resource.jsp" />
-
 <style>
 @import url(//fonts.googleapis.com/earlyaccess/nanumpenscript.css);
 @import url(//fonts.googleapis.com/earlyaccess/jejugothic.css);
-	
-	.sub-nav-left{
-		display:block;
-		position:relative;
-		font-size:15px;
-		float:none;
-		margin:10px 0 10px 0;
-		text-align:left;
-		border-bottom:1px solid #ddd;
-		padding:1px 0 5px;
-		font-family: "Noto Sans KR","맑은 고딕","Malgun Gothic",;
-	}
-	
 	h6{
 		font-size:16px;
 		font-family: 'Jeju Gothic', sans-serif;
 	}
+	
+
 	.poster {
 		max-width: 100%;
 		height: 560px;
@@ -37,103 +25,117 @@
 		height: auto;
 	}
 
-/* 댓글 css */
-/* 글 내용을 출력할 div 에 적용할 css */
-.contents, table {
-	width: 100%;
-	border: 1px dotted #cecece;
-	box-shadow: 3px 3px 5px 6px #ccc;
-}
-/* 댓글에 관련된 css */
-.comments ul {
-	padding: 0;
-	margin: 0;
-	list-style-type: none;
-}
-
-.comments ul li {
-	border-top: 1px solid #888; /* li 의 윗쪽 경계선 */
-}
-
-.comments dt {
-	margin-top: 5px;
-}
-
-.comments dd {
-	margin-left: 26px;
-}
-
-.comments form textarea, .comments form button {
-	float: left;
-	font-size:20px;
-	font-family: 'Nanum Pen Script', cursive;
-}
-
-.comments li {
-	clear: left;
-}
-
-.comments form textarea {
-	width: 85%;
-	height: 100px;
-}
-
-.comments form button {
-	width: 15%;
-	height: 100px;
-	font-size:20px;
-	font-family: 'Nanum Pen Script', cursive;
-}
-/* 댓글에 댓글을 다는 폼과 수정폼을 일단 숨긴다. */
-.comment form {
-	display: none;
-}
-
-.comment {
-	position: relative;
-	font-size:20px;
-	font-family: 'Nanum Pen Script', cursive;
-}
-
-.comment .reply_icon {
-	width: 8px;
-	height: 8px;
-	position: absolute;
-	top: 10px;
-	left: 30px;
-}
-
-.comments .user-img {
-	width: 20px;
-	height: 20px;
-	border-radius: 50%;
-}
-/*쓰여진 댓글창*/
-pre{
-	font-size:20px;
-	font-family: 'Nanum Pen Script', cursive;
-	background-color:#FFFFFF;
-}
-
-.heart{
-	width: 20px;
-	height: auto;
-}
+	/* 댓글 css */
+	/* 글 내용을 출력할 div 에 적용할 css */
+	.contents, table {
+		width: 100%;
+		border: 1px dotted #cecece;
+		box-shadow: 3px 3px 5px 6px #ccc;
+	}
+	/* 댓글에 관련된 css */
+	.comments ul {
+		padding: 0;
+		margin: 0;
+		list-style-type: none;
+	}
+	
+	.comments ul li {
+		border-top: 1px solid #888; /* li 의 윗쪽 경계선 */
+	}
+	
+	.comments dt {
+		margin-top: 5px;
+	}
+	
+	.comments dd {
+		margin-left: 26px;
+	}
+	
+	.comments form textarea, .comments form button {
+		float: left;
+		font-size:20px;
+		font-family: 'Nanum Pen Script', cursive;
+	}
+	
+	.comments li {
+		clear: left;
+	}
+	
+	.comments form textarea {
+		width: 85%;
+		height: 100px;
+	}
+	
+	.comments form button {
+		width: 15%;
+		height: 100px;
+		font-size:20px;
+		font-family: 'Nanum Pen Script', cursive;
+	}
+	/* 댓글에 댓글을 다는 폼과 수정폼을 일단 숨긴다. */
+	.comment form {
+		display: none;
+	}
+	
+	.comment {
+		position: relative;
+		font-size:20px;
+		font-family: 'Nanum Pen Script', cursive;
+	}
+	
+	.comment .reply_icon {
+		width: 8px;
+		height: 8px;
+		position: absolute;
+		top: 10px;
+		left: 30px;
+	}
+	
+	.comments .user-img {
+		width: 20px;
+		height: 20px;
+		border-radius: 50%;
+	}
+	/*쓰여진 댓글창*/
+	pre{
+		font-size:20px;
+		font-family: 'Nanum Pen Script', cursive;
+		background-color:#FFFFFF;
+	}
+	
+	.heart{
+		width: 20px;
+		height: auto;
+	}
+	.sub-nav-left{
+		display:block;
+		position:relative;
+		font-size:15px;
+		float:none;
+		margin-top:10px;
+		text-align:left;
+		border-bottom:1px solid #ddd;
+		padding:1px 0 5px;
+		font-family: "Noto Sans KR","맑은 고딕","Malgun Gothic",;
+	}
+	.row{
+		margin-top: 20px;
+	}
 </style>
-
 </head>
 <body>
-	<jsp:include page="include/navbar.jsp"></jsp:include>
-	<div class="container">
+
+	<jsp:include page="include/navbar.jsp"></jsp:include>	
+	<div class="container">	
 		<div class="sub-nav-left">
-			<a href="home.do" onclick="javascript:page_link('000000'); return false;">
+			<a href="home.do">
 				<img src="resources/images/home.png" alt="홈" />
 			</a>
-			>
-			<a href="list.do" onclick="javascript:page_link('010000'); return false;">목록</a>
-			>
-			<a href="detail.do?seq=${exhibitionDto.seq }" onclick="javascript:page_link('010100'); return false;">${exhibitionDto.title }</a>
-		</div>	
+			> 
+			<a href="${pageContext.request.contextPath }/list.do">목록</a>
+			> 
+			<a href="${pageContext.request.contextPath }/detail.do?seq=${dto.seq }">${exhibitionDto.title }</a>
+		</div>
 		<div class="row">
 			<div class="col-sm-4">
 				<img class="poster" src="${exhibitionDto.imgUrl }"alt="${exhibitionDto.title } 포스터">
@@ -166,7 +168,7 @@ pre{
 				</div> 
 				<div >
 					<h6>지도</h6>
-						<div id="map" style="width: 100%; height: 400px;"></div>
+					<div id="map" style="width: 100%; height: 400px;"></div>
 				</div>
 			</div>
 		</div>	
@@ -335,11 +337,11 @@ pre{
 								</c:choose>
 							</c:forEach>
 						</ul>
-						<div class="clearfix"></div>
-					</div><!--  class="comments -->
-				</div><!-- class="col-sm-12" -->
-			</div><!-- class="row" -->
-		</div><!-- class="container" -->
+					<div class="clearfix"></div>
+				</div><!--  class="comments -->
+			</div><!-- class="col-sm-12" -->
+		</div><!-- class="row" -->
+	</div><!-- class="container" -->
 <script>
 	//좋아요 수 올리기
 	$(".like").on("click", function(){

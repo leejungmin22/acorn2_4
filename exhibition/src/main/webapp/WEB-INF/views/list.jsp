@@ -101,6 +101,74 @@ ol, ul {
 
 	});
 </script>
+<<<<<<< HEAD
+=======
+<style type="text/css">
+	.ui-datepicker{font-size: 12px; width: 200px;}
+	.ui-datepicker select.ui-datepicker-month{width: 50%; font-size: 11px;}
+	.ui-datepicker select.ui-datepicker-year{width: 50%; font-size: 11px;}
+	.ui-datepicker-calendar > tbody td.ui-datepicker-week-end:first-child a {color:#f00;}
+	.ui-datepicker-calendar > tbody td.ui-datepicker-week-end:last-child a {color:#00f;}
+	.ui-datepicker {
+		font-size: 12px;
+		width: 200px;
+	}
+	
+	.ui-datepicker select.ui-datepicker-month {
+		width: 50%;
+		font-size: 11px;
+	}
+	
+	.ui-datepicker select.ui-datepicker-year {
+		width: 50%;
+		font-size: 11px;
+	}
+	
+	.ui-datepicker-calendar>tbody td.ui-datepicker-week-end:first-child a {
+		color: #f00;
+	}
+	
+	.ui-datepicker-calendar>tbody td.ui-datepicker-week-end:last-child a {
+		color: #00f;
+	}
+	
+	.cs_nperformance .option_tab .sub_option li .btn_option .ico_select {
+	    overflow: hidden;
+	    display: inline-block;
+	    vertical-align: top;
+	    font-size: 0;
+	    line-height: 0;
+	    color: rgba(0, 0, 0, 0);
+	    background-position: -146px -115px;
+	    width: 4px;
+	    height: 4px;
+	    margin-top: -1px;
+	    margin-right: 5px;
+	    vertical-align: 3px;
+	    vertical-align: 5px;
+	    float:left;
+	}
+	.sub_option li{
+		float:right;
+	}
+	
+	
+	ol, ul {
+	    list-style-type: none;
+	}
+	.sub-nav-left{
+		display:block;
+		position:relative;
+		font-size:15px;
+		float:none;
+		margin:10px 0 10px 0;
+		text-align:left;
+		border-bottom:1px solid #ddd;
+		padding:1px 0 5px;
+		font-family: "Noto Sans KR","맑은 고딕","Malgun Gothic",;
+	}
+</style>
+>>>>>>> refs/remotes/origin/hyeonkyung
 </head>
 <body>
 <jsp:include page="include/navbar.jsp">
@@ -116,8 +184,22 @@ ol, ul {
 		>
 		<a href="list.do" onclick="javascript:page_link('010000'); return false;">날짜별 목록</a>
 	</div>
-	
+
 	<div class="condition" align="right">
+		<div>
+			<c:if test="${not empty keyword }">
+				<p>
+					<strong>${keyword }</strong> 라는 검색어로 
+					<strong>${totalRow }</strong> 개의 공연을 찾았습니다.
+				</p>
+			</c:if>
+			<c:if test="${not empty startdate and not empty enddate }">
+				<p>
+					<strong>${startdateFormat }~${enddateFormat }</strong> 에는 
+					<strong>${totalRow }</strong> 개의 공연이 있습니다.
+				</p>
+			</c:if>
+		</div>
 		<form class="form-inline" action="list.do" method="get"> 
 			<div class="form-group">
 				<label for="condition">검색조건</label>
@@ -139,15 +221,13 @@ ol, ul {
 				<button class="btn img-button" type="submit" disabled="disabled"></button>
 			</div>
 		</form>
-		
-		
-		</div>
-		<div class="option_tab _tabContainer" data-tab="sort">
+	</div>
+	<div class="option_tab _tabContainer" data-tab="sort">
 		<ul class="sub_option">
 			<li class="_tab" data-value role="tab" ><a class ="sort" href="javascript:" id="favorite" >인기순</a></li>
 			<li  class="_tab" data-value role="default.asc" ><a class ="sort" type="javascript:" id="pastdate">날짜순</a></li>
 		</ul>
-		</div>
+	</div>
 	<table class="table table-hover">
 
 		<colgroup>

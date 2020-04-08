@@ -36,7 +36,17 @@
 		padding:1px 0 5px;
 		font-family: "Noto Sans KR","맑은 고딕","Malgun Gothic",;
 	}
-	
+	.sub-nav-left{
+		display:block;
+		position:relative;
+		font-size:15px;
+		float:none;
+		margin:10px 0 10px 0;
+		text-align:left;
+		border-bottom:1px solid #ddd;
+		padding:1px 0 5px;
+		font-family: "Noto Sans KR","맑은 고딕","Malgun Gothic",;
+	}
 </style>
 </head>
 <body>
@@ -45,15 +55,12 @@
 </jsp:include>
 <div class="container">
 	<div class="sub-nav-left">
-			<a href="home.do" onclick="javascript:page_link('000000'); return false;">
-				<img src="../resources/images/home.png" alt="홈" />
-			</a>
-			>
-			<a href="${pageContext.request.contextPath }/community/comList.do" onclick="javascript:page_link('010000'); return false;">목록</a>
-			>
-			<a href="${pageContext.request.contextPath }/community/comList.do" onclick="javascript:page_link('010000'); return false;">목록</a>
-		</div>	
-	
+		<a href="${pageContext.request.contextPath }/home.do">
+			<img src="../resources/images/home.png" alt="홈" />
+		</a>
+		> 
+		<a href="${pageContext.request.contextPath }/community/comList.do">목록</a>
+	</div>	
 	<%-- 글 검색 기능 폼 --%>	
 	<div class="condition" align="right">
 		<form class="form-inline" action="comList.do" method="get"> 

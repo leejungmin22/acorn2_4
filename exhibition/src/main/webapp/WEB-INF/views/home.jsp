@@ -169,36 +169,6 @@ body{
 			           }//success: function end						  
 			}); //ajax end
 		}, //events:function end
-		//이벤트를 클릭하면 요청 주소를 받아와서 ajax로 요청을 보내고 dtail page의 내용의 JSON 문자열로 전달한다.(bridge 사용)
-		eventClick: function sendData(data) {
-			data.jsEvent.preventDefault();
-			// seq 번호 갖고 오기
-			var search=data.el.search;
-			var seq=search.substr(5,6);
-			//mobile 접속인지 pc 접속인지 검증
-			var filter = "win16|win32|win64|mac|macintel"; 
-			if ( navigator.platform ) { 
-				if ( filter.indexOf( navigator.platform.toLowerCase() ) < 0 ) {
-					//1.mobile 에서 접속했으면
-					//1-1.ajax로 detail 페이지의 내용을 갖고오고
-					$.ajax({
-						url:"android/detail.do",
-						method:"get",
-						data:{"seq":seq}, //158709
-						dataType:"json",
-						success:function(responseData){
-							Android.getDetailData(JSON.stringify(responseData));
-						}
-					});
-
-				} else { 
-					//2. pc 에서 접속했으면(새로운 창에서 detail 페이지로 이동)
-					window.open(data.el.href);
-				} 
-				
-			}//if ( navigator.platform ) end
-			
-	    } //eventClick end
    });//new FullCalendar end
 
    calendar.render();

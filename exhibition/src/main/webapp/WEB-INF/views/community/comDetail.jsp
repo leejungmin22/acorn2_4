@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>/community/comDetail.jsp</title>
+<title>${dto.title }</title>
 <jsp:include page="../include/resource.jsp"></jsp:include>
 <style>
 
@@ -74,6 +74,17 @@
 		width: 20px;
 		height: 20px;
 		border-radius: 50%;
+	}
+	.sub-nav-left{
+		display:block;
+		position:relative;
+		font-size:15px;
+		float:none;
+		margin:10px 0 10px 0;
+		text-align:left;
+		border-bottom:1px solid #ddd;
+		padding:1px 0 5px;
+		font-family: "Noto Sans KR","맑은 고딕","Malgun Gothic",;
 	}
 </style>
 </head>
