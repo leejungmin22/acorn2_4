@@ -7,7 +7,28 @@
 <meta charset="UTF-8">
 <title>/users/private/updateform.jsp</title>
 <jsp:include page="../include/resource.jsp"></jsp:include>
+<!-- jQuery UI Datepicker -->
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script type="text/javascript">
+	$(function() {
+		$( "#birth" ).datepicker({
+			dateFormat: 'yymmdd', //input에 입력되는 날짜 형식.
+			prevText: '이전달', //prev 아이콘의 툴팁.
+			nextText: '다음달', //next 아이콘의 툴팁.
+			changeMonth: true, //월을 바꿀 수 있는 셀렉트 박스를 표시한다.
+			changeYear: true, //년을 바꿀 수 있는 셀렉트 박스를 표시한다.
+			showMonthAfterYear: true, //월, 년순의 셀렉트 박스를 년,월 순으로 바꿔준다.
+			yearRange: 'c-100:c' // 년도 선택 셀렉트박스를 현재 년도에서 이전, 이후로 얼마의 범위를 표시할 것인다.
+		});
+	});
+</script>
 <style type="text/css">
+	.ui-datepicker{font-size: 12px; width: 200px;}
+	.ui-datepicker select.ui-datepicker-month{width: 50%; font-size: 11px;}
+	.ui-datepicker select.ui-datepicker-year{width: 50%; font-size: 11px;}
+	.ui-datepicker-calendar > tbody td.ui-datepicker-week-end:first-child a {color:#f00;}
+	.ui-datepicker-calendar > tbody td.ui-datepicker-week-end:last-child a {color:#00f;}
 	.sub-nav-left{
 		display:block;
 		position:relative;
@@ -51,7 +72,7 @@
 		</div>
 		<div class="form-group">
 			<label for="birth">생년월일</label>
-			<input class="form-control" type="text" id="birth" name="birth" value="${dto.birth }" readonly="readonly"/>
+			<input class="form-control date" type="text" id="birth" name="birth" value="${dto.birth }" readonly="readonly"/>
 		</div>
 		<div class="form-group">
 			<label for="gender">성별</label>
