@@ -7,11 +7,7 @@
 <meta charset="UTF-8">
 <title>${exhibitionDto.title }</title>
 <jsp:include page="include/resource.jsp" />
-
 <style>
-@import url(//fonts.googleapis.com/earlyaccess/nanumpenscript.css);
-@import url(//fonts.googleapis.com/earlyaccess/jejugothic.css);
-	
 	.sub-nav-left{
 		display:block;
 		position:relative;
@@ -21,13 +17,14 @@
 		text-align:left;
 		border-bottom:1px solid #ddd;
 		padding:1px 0 5px;
-		font-family: "Noto Sans KR","맑은 고딕","Malgun Gothic",;
+		font-family: "Noto Sans KR","맑은 고딕","Malgun Gothic";
+	}
+	h6{
+		font-size:15px;
+		font-family: "Noto Sans KR","맑은 고딕","Malgun Gothic";
 	}
 	
-	h6{
-		font-size:16px;
-		font-family: 'Jeju Gothic', sans-serif;
-	}
+
 	.poster {
 		max-width: 100%;
 		height: 560px;
@@ -65,8 +62,8 @@
 
 .comments form textarea, .comments form button {
 	float: left;
-	font-size:20px;
-	font-family: 'Nanum Pen Script', cursive;
+	font-size:15px;
+	font-family: "Noto Sans KR","맑은 고딕","Malgun Gothic";
 }
 
 .comments li {
@@ -81,8 +78,8 @@
 .comments form button {
 	width: 15%;
 	height: 100px;
-	font-size:20px;
-	font-family: 'Nanum Pen Script', cursive;
+	font-size:15px;
+	font-family: "Noto Sans KR","맑은 고딕","Malgun Gothic";
 }
 /* 댓글에 댓글을 다는 폼과 수정폼을 일단 숨긴다. */
 .comment form {
@@ -91,8 +88,8 @@
 
 .comment {
 	position: relative;
-	font-size:20px;
-	font-family: 'Nanum Pen Script', cursive;
+	font-size:15px;
+	font-family: "Noto Sans KR","맑은 고딕","Malgun Gothic";
 }
 
 .comment .reply_icon {
@@ -110,8 +107,8 @@
 }
 /*쓰여진 댓글창*/
 pre{
-	font-size:20px;
-	font-family: 'Nanum Pen Script', cursive;
+	font-size:15px;
+	font-family: "Noto Sans KR","맑은 고딕","Malgun Gothic";
 	background-color:#FFFFFF;
 }
 
@@ -120,20 +117,21 @@ pre{
 	height: auto;
 }
 </style>
-
 </head>
 <body>
-	<jsp:include page="include/navbar.jsp"></jsp:include>
-	<div class="container">
+	<jsp:include page="include/navbar.jsp">
+  	 	<jsp:param value="list" name="category"/>
+	</jsp:include>
+	<div class="container">	
 		<div class="sub-nav-left">
-			<a href="home.do" onclick="javascript:page_link('000000'); return false;">
+			<a href="home.do">
 				<img src="resources/images/home.png" alt="홈" />
 			</a>
-			>
-			<a href="list.do" onclick="javascript:page_link('010000'); return false;">목록</a>
-			>
-			<a href="detail.do?seq=${exhibitionDto.seq }" onclick="javascript:page_link('010100'); return false;">${exhibitionDto.title }</a>
-		</div>	
+			> 
+			<a href="${pageContext.request.contextPath }/list.do">목록</a>
+			> 
+			<a href="${pageContext.request.contextPath }/detail.do?seq=${dto.seq }">${exhibitionDto.title }</a>
+		</div>
 		<div class="row">
 			<div class="col-sm-4">
 				<img class="poster" src="${exhibitionDto.imgUrl }"alt="${exhibitionDto.title } 포스터">
@@ -166,7 +164,7 @@ pre{
 				</div> 
 				<div >
 					<h6>지도</h6>
-						<div id="map" style="width: 100%; height: 400px;"></div>
+					<div id="map" style="width: 100%; height: 400px;"></div>
 				</div>
 			</div>
 		</div>	
@@ -241,7 +239,7 @@ pre{
 													<%-- 로그인된 아이디와 댓글의 작성자가 같으면 --%>
 													<c:when test="${ admin eq 1 || id eq tmp.writer }">
 														<a href="javascript:" class="comment-update-link">수정</a>&nbsp;&nbsp;
-													<a href="javascript:deleteComment(${tmp.num })">삭제</a>
+														<a href="javascript:deleteComment(${tmp.num })">삭제</a>
 													</c:when>
 													<c:otherwise>
 														<a href="javascript:">신고</a>
@@ -290,7 +288,8 @@ pre{
 												value="${tmp.comment_group }" />
 											<textarea name="content"><c:if test="${empty id }">로그인이 필요합니다.</c:if></textarea>
 											<button type="submit">등록</button>
-										</form> <!-- 로그인한 아이디와 댓글의 작성자와 같으면 수정폼 출력 --> 
+										</form> 
+										<!-- 로그인한 아이디와 댓글의 작성자와 같으면 수정폼 출력 --> 
 										<c:if test="${ admin eq 1 || id eq tmp.writer }">
 											<form class="comment-update-form" action="comment_update.do"
 												method="post">
@@ -335,11 +334,11 @@ pre{
 								</c:choose>
 							</c:forEach>
 						</ul>
-						<div class="clearfix"></div>
-					</div><!--  class="comments -->
-				</div><!-- class="col-sm-12" -->
-			</div><!-- class="row" -->
-		</div><!-- class="container" -->
+					<div class="clearfix"></div>
+				</div><!--  class="comments -->
+			</div><!-- class="col-sm-12" -->
+		</div><!-- class="row" -->
+	</div><!-- class="container" -->
 <script>
 	//좋아요 수 올리기
 	$(".like").on("click", function(){
