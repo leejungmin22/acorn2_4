@@ -146,6 +146,20 @@
 		<a href="${pageContext.request.contextPath }/list.do">목록</a>
 	</div>	
 	<div class="condition" align="right">
+		<div>
+			<c:if test="${not empty keyword }">
+				<p>
+					<strong>${keyword }</strong> 라는 검색어로 
+					<strong>${totalRow }</strong> 개의 공연을 찾았습니다.
+				</p>
+			</c:if>
+			<c:if test="${not empty startdate and not empty enddate }">
+				<p>
+					<strong>${startdateFormat }~${enddateFormat }</strong> 에는 
+					<strong>${totalRow }</strong> 개의 공연이 있습니다.
+				</p>
+			</c:if>
+		</div>
 		<form class="form-inline" action="list.do" method="get"> 
 			<div class="form-group">
 				<label for="condition">검색조건</label>
