@@ -150,6 +150,8 @@ public class ComServiceImpl implements ComService{
 		ComDto dto2=comDao.getData(dto);
 		//request 에 글정보를 담고 
 		request.setAttribute("dto", dto2);
+		ComDto dto3=comDao.profile(num);
+		request.setAttribute("dto3", dto3);
 		//댓글 목록 얻어와서 request에 담아준다.
 		List<ComCommentDto> comCommentList=comCommentDao.getList(num);
 		request.setAttribute("comCommentList", comCommentList);

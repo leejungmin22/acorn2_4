@@ -172,11 +172,11 @@
 		<tr>
 			<td>
 				<c:choose>
-				<c:when test="${ empty UsersDto.profile }">
+				<c:when test="${empty dto3.profile }">
 					<img id="profileLink" src="${pageContext.request.contextPath }/resources/images/default_user.jpeg"/>
 				</c:when>
 				<c:otherwise>
-					<img id="profileLink" src="${pageContext.request.contextPath }${UsersDto.profile}"/>
+					<img id="profileLink" src="${pageContext.request.contextPath }${dto3.profile}"/>
 				</c:otherwise>
 				</c:choose>
 			</td>			
@@ -217,7 +217,7 @@
 			<div class="comment_form">
 				<form class="comment-insert-form" action="comment_insert.do" method="post">
 					<!-- 덧글 그룹 -->
-					<input type="hidden" name="ref_group" value="${dto.num }" />
+					<input type="hidden" name="ref_group" value="${tmp.num }" />
 					<!-- 덧글 대상 -->
 					<input type="hidden" name="target_id" value="${tmp.writer }" />
 					<input type="hidden" name="comment_group" value="${tmp.comment_group }" />
@@ -238,13 +238,13 @@
 							<dl>
 								<dt>
 									<c:choose>
-										<c:when test="${empty tmp.profile }">
+										<c:when test="${empty dto3.profile }">
 											<img class="user-img" 
 												src="${pageContext.request.contextPath}/resources/images/default_user.jpeg"/>
 										</c:when>
 										<c:otherwise>
 											<img class="user-img" 
-												src="${pageContext.request.contextPath}${tmp.profile}"/>
+												src="${pageContext.request.contextPath}${dto3.profile}"/>
 										</c:otherwise>
 									</c:choose>	
 									<span>${tmp.writer }</span>

@@ -85,3 +85,8 @@ CREATE TABLE community_comment(
 );
 
 CREATE SEQUENCE community_comment_seq;
+
+--comDetail 에서 UsersDto에 있는 profile 받아볼 수 있게 join 하기
+select num,writer,title,content, exhibition_users.profile
+from community
+INNER JOIN exhibition_users ON community.writer=exhibition_users.id

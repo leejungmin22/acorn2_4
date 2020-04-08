@@ -56,4 +56,9 @@ public class ComDaoImpl implements ComDao{
 	public void update(ComDto dto) {
 		session.update("community.update", dto);
 	}
+
+	@Override
+	public ComDto profile(int num) {
+		return session.selectOne("community.profile", num);
+	}
 }

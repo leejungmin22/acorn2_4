@@ -13,4 +13,5 @@ public interface ComDao {
 	public void delete(int num);
 	public ComDto getData(int num); //글 하나의 정보
 	public void update(ComDto dto);
+	public ComDto profile(int num);
 }
