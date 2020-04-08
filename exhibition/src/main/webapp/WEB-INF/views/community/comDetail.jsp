@@ -8,18 +8,54 @@
 <title>/community/comDetail.jsp</title>
 <jsp:include page="../include/resource.jsp"></jsp:include>
 <style>
+	img{
+		width: 30px;
+		height: auto;
+		border-radius: 50%;
+		margin-left: 10px;
+		cursor:default;
+	}
+	#profileForm{
+		display: none;
+	}
 
 	/* 글 내용을 출력할 div 에 적용할 css */
-	.contents, table{
+	.contents{
 		width: 100%;
-		border: 1.5px groove #cecece;
+		border: 1.5px groove rgb(17, 46, 70);
+		opacity: .5;
+		margin-top:15px;
 		margin-bottom:15px;
 		font-family: "Noto Sans KR","맑은 고딕","Malgun Gothic";
 	}
-	tr{
-		font-size:15px;
+	.table,  th{
+		border:none;
+		margin-bottom:60px;
+	}
+	td, tr{
+		border-top:hidden;		
+		border-bottom:1px solid #ddd;
+	}
+	.num{
+		font-size:20px;
+		color: rgb(17, 46, 70);
+		opacity: .5;
+		font-family: "Noto Sans KR","맑은 고딕","Malgun Gothic";
+		font-weight:lighter;
+		
+	}
+	.title{
+		font-size:30px;
+		color: rgb(17, 46, 70);
 		font-family: "Noto Sans KR","맑은 고딕","Malgun Gothic";
 	}
+	.writer{
+		font-size:22px;
+		color: rgb(17, 46, 70);
+		cursor:pointer;
+		font-family: "Noto Sans KR","맑은 고딕","Malgun Gothic";
+	}
+	
 	.sub-nav-left{
 		display:block;
 		position:relative;
@@ -31,14 +67,15 @@
 		padding:1px 0 5px;
 		font-family: "Noto Sans KR","맑은 고딕","Malgun Gothic";
 	}
-	#insert, #delete{
+	#insert, #delete, #prevNum, #nextNum{
 		display:inline;
-		border:1px dashed #bcbcbc;
+		border:1px solid #bcbcbc;
 		padding:10px;
-		mardin:10px 10px 20px 10px;
+		margin:10px 5px 20px 5px;
 		float:right;
 		font-family: "Noto Sans KR","맑은 고딕","Malgun Gothic";
 	}
+	
 	/* 댓글에 관련된 css */
 	.comments ul{
 		padding: 0;
@@ -78,7 +115,7 @@
 	}
 	.comment{
 		position: relative;
-		margin-top:15px;
+		margin-top:20px;
 		font-size:15px;
 		font-family: "Noto Sans KR","맑은 고딕","Malgun Gothic";
 	}
@@ -113,42 +150,59 @@
 		>
 		<a href="${pageContext.request.contextPath }/community/comList.do" onclick="javascript:page_link('010000'); return false;">목록</a>
 		>
-		<a href="${pageContext.request.contextPath }/community/comDetail.do?seq=${dto.num }" onclick="javascript:page_link('010100'); return false;">${dto.title }</a>
+		<a href="${pageContext.request.contextPath }/community/comDetail.do?num=${dto.num }" onclick="javascript:page_link('010100'); return false;">${dto.title }</a>
 	</div>	
 	<c:if test="${not empty keyword }">
 		<p> <strong>${keyword }</strong> 검색어로 검색</p>
 	</c:if>
-
+	<table class="table">
+		<colgroup>
+			<col class="col-xs-1"/>
+			<col class="col-xs-1"/>
+		</colgroup>
+		<tr>
+			<td class="num">${dto.num }</td>
+		</tr>
+		<tr>
+			<td class="title">${dto.title }</td>
+		</tr>
+		<tr>
+			<td></td>
+		</tr>
+		<tr>
+			<td>
+				<c:choose>
+				<c:when test="${ empty UsersDto.profile }">
+					<img id="profileLink" src="${pageContext.request.contextPath }/resources/images/default_user.jpeg"/>
+				</c:when>
+				<c:otherwise>
+					<img id="profileLink" src="${pageContext.request.contextPath }${UsersDto.profile}"/>
+				</c:otherwise>
+				</c:choose>
+			</td>			
+			<td class="writer">
+				<c:choose>
+					<c:when test="${admin eq 1 || dto.writer eq id }">
+						<a href="/exhibition/users/info.do">${dto.writer}</a>
+					</c:when>
+					<c:otherwise>
+						${dto.writer}
+					</c:otherwise>
+				</c:choose>				
+			</td>
+			<td class="num">${dto.regdate }</td>
+		</tr>
+		
+	</table>
+	
+	<div class="contents">${dto.content }</div>
 	<c:if test="${dto.prevNum ne 0 }">
-		<a href="comDetail.do?num=${dto.prevNum }&condition=${condition}&keyword=${encodedKeyword}">이전글</a>
+		<a href="comDetail.do?num=${dto.prevNum }&condition=${condition}&keyword=${encodedKeyword}" id="prevNum">이전글</a>
 	</c:if>
 
 	<c:if test="${dto.nextNum ne 0 }">
-		<a href="comDetail.do?num=${dto.nextNum }&condition=${condition}&keyword=${encodedKeyword}">다음글</a>
+		<a href="comDetail.do?num=${dto.nextNum }&condition=${condition}&keyword=${encodedKeyword}" id="nextNum">다음글</a>
 	</c:if>	
-	<table class="table table-bordered table-condensed">
-		<colgroup>
-			<col class="col-xs-1"/>
-			<col class="col-xs-6"/>
-		</colgroup>
-		<tr>
-			<th>글번호</th>
-			<td>${dto.num }</td>
-		</tr>
-		<tr>
-			<th>작성자</th>
-			<td>${dto.writer }</td>
-		</tr>
-		<tr>
-			<th>제목</th>
-			<td>${dto.title }</td>
-		</tr>
-		<tr>
-			<th>등록일</th>
-			<td>${dto.regdate }</td>
-		</tr>
-	</table>
-	<div class="contents">${dto.content }</div>
 	<%-- 
 		글 작성자와 로그인 된 아이디가 같을때만 기능을 제공해 준다. 
 		즉, 본인이 작성한 글만 수정할수 있도록 하기 위해
