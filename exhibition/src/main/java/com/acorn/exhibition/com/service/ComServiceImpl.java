@@ -1,6 +1,6 @@
 package com.acorn.exhibition.com.service;
 
-import java.io.File;
+
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.List;
@@ -9,14 +9,12 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.acorn.exhibition.com.dao.ComCommentDao;
 import com.acorn.exhibition.com.dao.ComDao;
 import com.acorn.exhibition.com.dto.ComCommentDto;
 import com.acorn.exhibition.com.dto.ComDto;
-import com.acorn.exhibition.users.dto.UsersDto;
 
 
 @Service
