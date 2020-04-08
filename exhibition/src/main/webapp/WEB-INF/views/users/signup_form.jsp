@@ -176,14 +176,8 @@
 					<option value="m">남</option>
 				</select>
 			</div>
-<<<<<<< HEAD
-			<div class="btn_area">
-				<button disabled="disabled" class="btn_type btn_primary" type="submit">가 입 하 기</button>
-			</div>
-=======
 			<input id="savePath" name="savePath">
 			<button disabled="disabled" class="signup" type="submit">가 입 하 기</button>
->>>>>>> refs/remotes/origin/hyeonkyung
 		</form>
 	</div>
 </div>
