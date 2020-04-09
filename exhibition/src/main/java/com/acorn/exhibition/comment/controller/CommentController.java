@@ -30,7 +30,7 @@ public class CommentController {
 		@RequestMapping(value = "/comment_insert")
 		public ModelAndView authCommentInsert(HttpServletRequest request, @RequestParam int ref_group) {
 			commentservice.saveComment(request);
-			return new ModelAndView("redirect:/detail.do?seq=" + ref_group);
+			return new ModelAndView("redirect:/detail.do?num=" + ref_group);
 		}
 
 		@ResponseBody

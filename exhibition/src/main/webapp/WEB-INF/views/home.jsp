@@ -115,7 +115,7 @@ body{
 						                       start: startdate,
 						                       end: enddate,
 						           			   url: "${pageContext.request.contextPath }/detail.do?seq="+element.seq,
-						           			   color:"#f7e600"						           				
+						           			   color:"#dc143c"						           				
 						                    }); //.push()
 									}
 									

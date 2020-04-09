@@ -11,12 +11,12 @@ public class ComDto {
 	private int endRowNum;
 	private int prevNum;
 	private int nextNum;
-	
+	private String profile;
 	
 	public ComDto() {}
 
 	public ComDto(int num, String writer, String title, String content, int viewCount, String regdate, int startRowNum,
-			int endRowNum, int prevNum, int nextNum) {
+			int endRowNum, int prevNum, int nextNum, String profile) {
 		super();
 		this.num = num;
 		this.writer = writer;
@@ -28,6 +28,7 @@ public class ComDto {
 		this.endRowNum = endRowNum;
 		this.prevNum = prevNum;
 		this.nextNum = nextNum;
+		this.profile = profile;
 	}
 
 	public int getNum() {
@@ -110,6 +111,11 @@ public class ComDto {
 		this.nextNum = nextNum;
 	}
 
-	
-	
+	public String getProfile() {
+		return profile;
+	}
+
+	public void setProfile(String profile) {
+		this.profile = profile;
+	}
 }

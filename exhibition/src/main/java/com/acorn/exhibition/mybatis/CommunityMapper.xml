@@ -100,4 +100,10 @@
 		SET title=#{title}, content=#{content}
 		WHERE num=#{num}
 	</update>
+	<select id="profile" parameterType="int" resultType="comDto">
+	select community.num, community.writer, exhibition_users.profile
+	from community
+	INNER JOIN exhibition_users ON community.writer=exhibition_users.id
+	where num=#{num, jdbcType=VARCHAR}
+	</select>
 </mapper>
