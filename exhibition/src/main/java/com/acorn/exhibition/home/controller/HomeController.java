@@ -32,8 +32,8 @@ public class HomeController {
 	  
 
 	@RequestMapping(value = "/home")
-	public ModelAndView home(HttpServletRequest request, @ModelAttribute("dto") ApiDto dto, ModelAndView mView) {
-		service.getPopularEvents(request);
+	public ModelAndView home(@ModelAttribute("dto") ApiDto dto, ModelAndView mView) {
+		service.getPopularEvents(mView);
 		
 		// 데이터 검색 기간( 현재시간 ~ 현재시간 +1년 ) 검색하기 위한 부분
 		Date todate = new Date();
@@ -180,9 +180,8 @@ public class HomeController {
 
 	@ResponseBody
 	@RequestMapping(value = "/getEvents")
-	public String getEvents() {
-		String jsonStr = service.getEvent();
-		return jsonStr;
+	public List<FullCalendarDto> getEvents() {
+		return service.getEvent();
 	}
 
 	@RequestMapping(value = "/detail")

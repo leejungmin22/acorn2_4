@@ -35,9 +35,10 @@ public class XmlParsing {
 			
 			DocumentBuilderFactory dbFactoty = DocumentBuilderFactory.newInstance();
 			DocumentBuilder dBuilder = dbFactoty.newDocumentBuilder();
+			//Parse the content of the given URI as an XML documentand return a new DOM Document object. 
 			Document doc = dBuilder.parse(url);
 			
-			// root tag 
+			// DOM Tree가 XML 문서의 구조대로 완성될 수 있게 한다.
 			doc.getDocumentElement().normalize();
 			System.out.println("Root element :" + doc.getDocumentElement().getNodeName());
 			

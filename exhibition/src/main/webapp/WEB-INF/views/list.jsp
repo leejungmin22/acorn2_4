@@ -118,6 +118,20 @@ ol, ul {
 	</div>
 	
 	<div class="condition" align="right">
+		<div>
+			<c:if test="${not empty keyword }">
+				<p>
+					<strong>${keyword }</strong> 라는 검색어로 
+					<strong>${totalRow }</strong> 개의 공연을 찾았습니다.
+				</p>
+			</c:if>
+			<c:if test="${not empty startdate and not empty enddate }">
+				<p>
+					<strong>${startdate }~${enddate }</strong> 에는 
+					<strong>${totalRow }</strong> 개의 공연이 있습니다.
+				</p>
+			</c:if>
+		</div>
 		<form class="form-inline" action="list.do" method="get"> 
 			<div class="form-group">
 				<label for="condition">검색조건</label>
@@ -192,7 +206,7 @@ ol, ul {
 							<c:when test="${encodedKeyword ne null }">
 								<a href="list.do?pageNum=${startPageNum-1 }&condition=${condition }&keyword=${encodedKeyword }">&laquo;</a>
 							</c:when>
-							<c:when test="${startdate ne null and enddate ne null or sort ne null  }">
+							<c:when test="${startdate ne null and enddate ne null   }">
 								<a href="list.do?pageNum=${startPageNum-1 }&condition=${condition }&startDate=${startdateFormat }&endDate=${enddateFormat }">&laquo;</a>
 							</c:when>
 							<c:otherwise>
@@ -216,8 +230,9 @@ ol, ul {
 								<c:when test="${encodedKeyword ne null  }">
 									<a href="list.do?pageNum=${i }&condition=${condition }&keyword=${encodedKeyword }">${i }</a>
 								</c:when>
-								<c:when test="${startdate ne null and enddate ne null or sort ne null }">
+								<c:when test="${startdate ne null and enddate ne null  }">
 									<a href="list.do?pageNum=${i }&condition=${condition }&startDate=${startdateFormat }&endDate=${enddateFormat }">${i }</a>
+
 								</c:when>
 								<c:otherwise>
 									<a href="list.do?pageNum=${i }">${i }</a>
@@ -233,6 +248,7 @@ ol, ul {
 								</c:when>
 								<c:when test="${startdate ne null and enddate ne null}">
 									<a href="list.do?pageNum=${i }&condition=${condition }&startDate=${startdateFormat }&endDate=${enddateFormat }">${i }</a>
+
 								</c:when>
 								<c:otherwise>
 									<a href="list.do?pageNum=${i }">${i }</a>
@@ -282,6 +298,7 @@ ol, ul {
 	$("#pastdate").click(function(){
 		location.href="list.do"
 	});
+	
 	//select 옵션이 변경된 경우 그에 맞는 input tag를 보여준다.
 	$("#condition").change(function(){
 		value=$(this).val();

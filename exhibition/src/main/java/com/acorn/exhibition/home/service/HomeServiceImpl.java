@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.json.simple.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.acorn.exhibition.comment.dao.CommentDao;
 import com.acorn.exhibition.home.dao.HomeDao;
@@ -33,23 +34,14 @@ public class HomeServiceImpl implements HomeService{
 	private CommentDao commentDao;
 	
 	@Override
-	public String getEvent() {
-		List<FullCalendarDto> list=dao.getEvent();
-		String jsonStr=null;
-		try {
-			ObjectMapper mapper=new ObjectMapper();
-			jsonStr=mapper.writeValueAsString(list);
-		} catch (JsonProcessingException e) {
-			e.printStackTrace();
-		}
-		
-		return jsonStr;
+	public List<FullCalendarDto> getEvent() {
+		return dao.getEvent();
 	}
 
 	@Override
-	public void getPopularEvents(HttpServletRequest request) {
+	public void getPopularEvents(ModelAndView mView) {
 		List<FullCalendarDto> list=dao.getEvent();
-		request.setAttribute("list", list);
+		mView.addObject("list", list);
 	}
 
 	@Override
@@ -254,13 +246,11 @@ public class HomeServiceImpl implements HomeService{
 		dto.setEndRowNum(endRowNum);
 		
 		String sort=request.getParameter("sort");
-		System.out.println(sort+"11");
 		//1. DB 에서 글 목록을 얻어온다.
 	
 
 		
 		List<FullCalendarDto> list=dao.getList(dto);
-
 		request.setAttribute("list", list);
 		
 		//EL, JSTL 을 활용하기 위해 필요한 모델을 request 에 담는다.
