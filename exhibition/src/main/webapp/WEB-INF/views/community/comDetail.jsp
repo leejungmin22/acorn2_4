@@ -22,10 +22,9 @@
 	/* 글 내용을 출력할 div 에 적용할 css */
 	.contents{
 		width: 100%;
-		border: 1.5px groove rgb(17, 46, 70);
-		opacity: .5;
 		margin-top:15px;
 		margin-bottom:15px;
+		margin-left:15px;
 		font-family: "Noto Sans KR","맑은 고딕","Malgun Gothic";
 	}
 	.table,  th{
@@ -77,11 +76,7 @@
 	}
 	
 	/* 댓글에 관련된 css */
-	.contents, table {
-		width: 100%;
-		border: 1px dotted #cecece;
-		box-shadow: 3px 3px 5px 6px #ccc;
-	}
+	
 	.comments ul{
 		padding: 0;
 		margin: 0;
@@ -104,9 +99,13 @@
 	.comments li{
 		clear: left;
 	}
-	.comments form textarea{
-		width: 85%;
+	.comments form {
+		width: 100%;
 		height: 60px;
+	}
+	.comments textarea{
+		width: 80%;
+		height: 100px;
 	}
 	.comments form button{
 		width: 15%;
