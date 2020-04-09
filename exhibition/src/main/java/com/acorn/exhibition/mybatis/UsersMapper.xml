@@ -45,6 +45,10 @@
 		delete from exhibition_users
 		where id=#{id}
 	</delete>
+	<delete id="deletelike" parameterType="String">
+		delete from exhibition_like
+		where id=#{id}
+	</delete>
 	
 	<select id="getAdminAuth" parameterType="String" resultType="String">
 		SELECT admin
