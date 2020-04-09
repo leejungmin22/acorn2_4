@@ -70,7 +70,7 @@ public class UsersServiceImpl implements UsersService{
 
 	
 	@Override
-	public void validUser(UsersDto dto, HttpSession session, ModelAndView mView) {
+	public boolean validUser(UsersDto dto, HttpSession session, ModelAndView mView) {
 		//아이디 비밀번호가 유효한지 여부
 		boolean isValid=false;
 		//아이디를 이용해서 저장된 비밀번호를 읽어온다.
@@ -84,9 +84,13 @@ public class UsersServiceImpl implements UsersService{
 			//로그인성공
 			session.setAttribute("id", dto.getId());	
 			session.setAttribute("admin", getAdminAuth);
+			return isValid;
 		}
 		
+		return isValid;
+		
 	}
+	
 	@Override
 	public void showInfo(String id, ModelAndView mView) {
 		UsersDto dto = dao.getData(id);

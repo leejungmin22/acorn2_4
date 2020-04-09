@@ -16,7 +16,7 @@ import com.acorn.exhibition.users.dto.UsersDto;
 public interface UsersService {
 	public Map<String,Object> isExistId(String inputId);
 	public Map<String, Object> addUser(UsersDto dto);
-	public void validUser(UsersDto dto, HttpSession session, ModelAndView mView);
+	public boolean validUser(UsersDto dto, HttpSession session, ModelAndView mView);
 	public void showInfo(String id, ModelAndView mView);
 	public String saveProfileImage(HttpServletRequest request, MultipartFile mFile);
 	public void updatePassword(UsersDto dto,ModelAndView mView);

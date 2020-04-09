@@ -85,11 +85,13 @@ public class UsersController {
 	}
 
 	//로그인 요청 처리 
+	@ResponseBody
 	@RequestMapping(value = "/users/login", method = RequestMethod.POST)
-	public ModelAndView login(@ModelAttribute UsersDto dto,
+	public Map<String, Object> login(@ModelAttribute UsersDto dto,
 			ModelAndView mView, 
 			HttpServletRequest request,
 			HttpServletResponse response) {
+		Map<String, Object> map=new HashMap<String, Object>();
 		//목적지 정보
 		String url=request.getParameter("url");
 		if(url==null){
@@ -97,9 +99,8 @@ public class UsersController {
 		}
 		//목적지 정보를 미리 인코딩 해 놓는다.
 		String encodedUrl=URLEncoder.encode(url);
-		// view page 에 전달하기 
-		mView.addObject("url", url);
-		mView.addObject("encodedUrl", encodedUrl);
+		map.put("url", url);
+		map.put("encodedUrl", encodedUrl);
 		
 		//아이디 비밀번호 저장 체크박스를 체크 했는지 읽어와 본다.
 		String isSave=request.getParameter("isSave");	
@@ -118,11 +119,9 @@ public class UsersController {
 		//응답할때 쿠키도 심어 지도록 
 		response.addCookie(idCook);
 		response.addCookie(pwdCook);
-		
-		service.validUser(dto, request.getSession(), mView);
-		
-		mView.setViewName("home");
-		return mView;
+		boolean isSuccess=service.validUser(dto, request.getSession(), mView);
+		map.put("isSuccess", isSuccess);
+		return map;
 	}
 
 	//로그아웃 처리
