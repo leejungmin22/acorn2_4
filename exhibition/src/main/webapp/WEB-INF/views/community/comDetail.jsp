@@ -77,6 +77,11 @@
 	}
 	
 	/* 댓글에 관련된 css */
+	.contents, table {
+		width: 100%;
+		border: 1px dotted #cecece;
+		box-shadow: 3px 3px 5px 6px #ccc;
+	}
 	.comments ul{
 		padding: 0;
 		margin: 0;
@@ -101,7 +106,7 @@
 	}
 	.comments form textarea{
 		width: 85%;
-		height: 100px;
+		height: 60px;
 	}
 	.comments form button{
 		width: 15%;
@@ -132,6 +137,8 @@
 		border-radius: 50%;
 	}
 	pre{
+	width: 85%;
+	height: 60px;
 	font-size:15px;
 	font-family: "Noto Sans KR","맑은 고딕","Malgun Gothic";
 	background-color:#FFFFFF;
