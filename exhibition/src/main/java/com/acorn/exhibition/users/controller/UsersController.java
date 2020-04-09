@@ -46,11 +46,11 @@ public class UsersController {
 	}
 	
 	// 회원가입 컨트롤
-	@RequestMapping(value = "/users/signup",method = RequestMethod.POST) //get방식 요청을 하면 처리 하지 않는다
-	public ModelAndView signup(@ModelAttribute("dto") UsersDto dto, ModelAndView mView, HttpServletRequest request) {
-		service.addUser(dto, request);
-		mView.setViewName("users/insert");
-		return mView;
+	@ResponseBody
+	@RequestMapping(value = "/users/signup",method = RequestMethod.POST)
+	public Map<String, Object> signup(@ModelAttribute("dto") UsersDto dto) {
+		Map<String, Object> map=service.addUser(dto);
+		return map;
 	}
 	
 	
@@ -121,7 +121,7 @@ public class UsersController {
 		
 		service.validUser(dto, request.getSession(), mView);
 		
-		mView.setViewName("users/login");
+		mView.setViewName("home");
 		return mView;
 	}
 

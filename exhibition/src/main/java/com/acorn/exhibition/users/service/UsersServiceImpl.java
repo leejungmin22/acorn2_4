@@ -33,13 +33,21 @@ public class UsersServiceImpl implements UsersService{
 	}
 	
 	@Override
-	public void addUser(UsersDto dto, HttpServletRequest request) {
+	public Map<String, Object> addUser(UsersDto dto) {
 		//비밀번호를 암호화 한다,
 		String encodePwd = new BCryptPasswordEncoder().encode(dto.getPwd());
 		//암호화된 비밀번호를 UsersDto 에 다시 넣어준다
 		dto.setPwd(encodePwd);
+		Map<String, Object> map = new HashMap<String, Object>();
 		//UsersDao 객체를 통해서 DB에 저장하기
-		dao.insert(dto);
+		int isSuccess = dao.insert(dto);
+		if(isSuccess==1) {
+			map.put("isSuccess", true);
+		}else {
+			map.put("isSuccess", false);
+		}
+		
+		return map;
 	}
 	
 

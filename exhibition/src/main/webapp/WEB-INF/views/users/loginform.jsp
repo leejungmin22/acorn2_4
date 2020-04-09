@@ -94,10 +94,8 @@
 	}
 
 </style>
-
 </head>
 <body>
-
 <div class="wrap">
 	<div class="form-wrap">		
 			<!-- 차후 이미지 변경(홈페이지명으로) -->

@@ -135,7 +135,6 @@
 				<p class="help-block" id="name_required">필수 정보입니다.</p>
 				<span class="glyphicon glyphicon-remove form-control-feedback"></span>
 				<span class="glyphicon glyphicon-ok form-control-feedback"></span>
-				
 			</div>	
 			<div class="form-group has-feedback">
 				<label class="control-label" for="id">아이디</label>
@@ -180,7 +179,7 @@
 				</select>
 			</div>
 			<input id="savePath" name="savePath">
-			<button disabled="disabled" class="signup" type="submit">가 입 하 기</button>
+			<button disabled="disabled" class="signup" type="button">가 입 하 기</button>
 		</form>
 	</div>
 </div>
@@ -191,6 +190,32 @@
 <%-- jquery form  플러그인 javascript 로딩 --%>
 <script src="${pageContext.request.contextPath }/resources/js/jquery.form.min.js"></script>
 <script>
+	
+	$(".signup").on("click", function(){
+		console.log($("#name").val());
+		$.ajax({
+			url:"signup.do",
+			method:"post", 
+			data:{
+				"name":$("#name").val(), 
+				"id":$("#id").val(), 
+				"pwd":$("#pwd").val(), 
+				"email":$("#email").val(), 
+				"birth":$("#birth").val(), 
+				"gender":$("#gender").val(),
+				"savePath":$("#savePath").val()
+				},
+			dataType:"json",
+			success:function(responseData){
+				console.log(responseData);
+				if(responseData.isSuccess==true){
+					alert("회원가입되었습니다.");
+					location.href="${pageContext.request.contextPath}/users/loginform.do";
+				}
+			}
+		});
+	});
+	
 	//프로파일 이미지를 클릭하면 
 	$("#profileLink").click(function(){
 		//강제로 <input type="file" /> 을 클릭해서 파일 선택창을 띄우고
@@ -462,9 +487,9 @@
 		//버튼의 상태 바꾸기 
 		if(isIdUsable && isIdInput && isPwdEqual && 
 				isPwdInput && isPwdMatch && isPwd2Input && (!isEmailInput || isEmailMatch) ){
-			$("button[type=submit]").removeAttr("disabled");
+			$("button[type=button]").removeAttr("disabled");
 		}else{
-			$("button[type=submit]").attr("disabled","disabled");
+			$("button[type=button]").attr("disabled","disabled");
 		}
 	}
 		

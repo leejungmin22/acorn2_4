@@ -38,15 +38,12 @@
 	img {
 		height: auto;
 	}
-
 	/* 댓글 css */
-	/* 글 내용을 출력할 div 에 적용할 css */
 	.contents, table {
 		width: 100%;
 		border: 1px dotted #cecece;
 		box-shadow: 3px 3px 5px 6px #ccc;
 	}
-	/* 댓글에 관련된 css */
 	.comments ul {
 		padding: 0;
 		margin: 0;
@@ -54,7 +51,7 @@
 	}
 	
 	.comments ul li {
-		border-top: 1px solid #888; /* li 의 윗쪽 경계선 */
+		border-top: 1px solid #888;
 	}
 	
 	.comments dt {
@@ -86,7 +83,6 @@
 		font-size:20px;
 		font-family: 'Nanum Pen Script', cursive;
 	}
-	/* 댓글에 댓글을 다는 폼과 수정폼을 일단 숨긴다. */
 	.comment form {
 		display: none;
 	}
@@ -110,7 +106,6 @@
 		height: 20px;
 		border-radius: 50%;
 	}
-	/*쓰여진 댓글창*/
 	pre{
 		font-size:20px;
 		font-family: 'Nanum Pen Script', cursive;
@@ -151,7 +146,7 @@
 		</div>
 		<div class="row">
 			<div class="col-sm-4">
-				<img class="poster" src="${exhibitionDto.imgUrl }"alt="${exhibitionDto.title } 포스터">
+				<img class="poster" src="${exhibitionDto.imgUrl }" alt="${exhibitionDto.title } 포스터">
 			</div>
 			<div class="col-sm-8">
 				<div>
@@ -176,7 +171,6 @@
 						</c:choose>
 						좋아요
 						<span>${dto.likeCount }</span>
-
 					</button>
 				</div> 
 				<div >
@@ -190,7 +184,6 @@
 				<h3>줄거리</h3>
 				<c:choose>
 					<c:when test="${exhibitionDto.contents1 ne null }">
-
 						${exhibitionDto.contents1 }
 					</c:when>
 						<c:when test="${exhibitionDto.contents2 ne null }">
@@ -211,9 +204,6 @@
 							<form class="comment-insert-form" action="comment_insert.do"
 								method="post">
 								<input type="hidden" name="ref_group" value="${dto.seq }" />
-								<!-- 몇번 글의 글번호인지(댓글의 그룹번호) -->
-								<%-- <input type="hidden" name="target_id" value="${tmp.writer }" />--%>
-								<!-- 원글의 작성자 id(댓글의 대상자) -->
 								<textarea name="content"><c:if test="${empty id }">로그인이 필요합니다.</c:if></textarea>
 								<!-- 로그인을 하지않았을 때 '로그인이 필요합니다' 출력 -->
 								<button type="submit">등록</button>
@@ -297,15 +287,13 @@
 											</dd>
 										</dl>
 										<form class="comment-insert-form" action="comment_insert.do" method="post">
-											<!-- 덧글 그룹 -->
 											<input type="hidden" name="ref_group" value="${dto.seq }" />
-											<!-- 덧글 대상 -->
 											<input type="hidden" name="target_id" value="${tmp.writer }" />
 											<input type="hidden" name="comment_group"
 												value="${tmp.comment_group }" />
 											<textarea name="content"><c:if test="${empty id }">로그인이 필요합니다.</c:if></textarea>
 											<button type="submit">등록</button>
-										</form> <!-- 로그인한 아이디와 댓글의 작성자와 같으면 수정폼 출력 --> 
+										</form>
 										<c:if test="${ admin eq 1 || id eq tmp.writer }">
 											<form class="comment-update-form" action="comment_update.do"
 												method="post">
@@ -356,14 +344,14 @@
 		</div><!-- class="row" -->
 	</div><!-- class="container" -->
 <script>
-	//좋아요 수 올리기
+	//공연 좋아요
 	$(".like").on("click", function(){
 		var isLogin=${not empty id};
 		if(isLogin==true){
 			$.ajax({
 				url:"updateLikeCount.do",
 				method:"post", 
-				data:{"seq":${dto.seq}}, //data : 파라미터로 전달할 문자열 
+				data:{"seq":${dto.seq}},
 				dataType:"json",
 				success:function(responseData){
 					console.log(responseData);
@@ -378,22 +366,19 @@
 						span.text(responseData.likecount);
 					}
 				}
-		});
-		//폼 제출 막기 
-		return false; 
-	}
-
-	if(isLogin==false){
-		var goLoginPage=confirm("로그인이 필요합니다. 로그인 하시겠습니까?");
-		if(goLoginPage==true){
-			location.href="${pageContext.request.contextPath}/users/loginform.do?url=${pageContext.request.contextPath}/detail.do?seq=${dto.seq}";
-			imgLike=false;
+			});
 		}
-		return false;//폼 전송 막기 
-	}
+	
+		if(isLogin==false){
+			var goLoginPage=confirm("로그인이 필요합니다. 로그인 하시겠습니까?");
+			if(goLoginPage==true){
+				location.href="${pageContext.request.contextPath}/users/loginform.do?url=${pageContext.request.contextPath}/detail.do?seq=${dto.seq}";
+				imgLike=false;
+			}
+		}
 	});
 	
-	//댓글좋아요 수 올리기
+	//댓글 좋아요
 	$(".comlike").on("click",function(){
 		var num = $(this).attr('value');
 		var isLogin=${not empty id};
@@ -417,8 +402,6 @@
 					}
 				} 
 			});
-			//폼 제출 막기 
-			return false; 
 		}
 		
 		if(isLogin==false){
@@ -427,7 +410,6 @@
 				location.href="${pageContext.request.contextPath}/users/loginform.do?url=${pageContext.request.contextPath}/detail.do?seq=${dto.seq}";
 				imgLike=false;
 			}
-			return false;//폼 전송 막기 
 		}
 	});
 
