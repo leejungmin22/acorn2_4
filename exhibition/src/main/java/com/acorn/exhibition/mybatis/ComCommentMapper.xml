@@ -4,7 +4,7 @@
 	<select id="getList" parameterType="int" resultType="comCommentDto">
 			SELECT *
 		 FROM (SELECT result1.*, ROWNUM AS rnum
-				FROM (SELECT num, writer, content, target_id, ref_group, comment_group, deleted, community_comment.regdate, profile
+				FROM (SELECT num, writer, content, target_id, ref_group, comment_group, deleted, community_comment.regdate, exhibition_users.profile
 						FROM community_comment
 						INNER JOIN exhibition_users ON community_comment.writer=exhibition_users.id
 						WHERE ref_group=#{num}

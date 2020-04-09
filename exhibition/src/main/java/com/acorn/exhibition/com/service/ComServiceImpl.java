@@ -106,8 +106,7 @@ public class ComServiceImpl implements ComService{
 
 	@Override
 	public void getDetail(HttpServletRequest request) {
-		int num=Integer.parseInt(request.getParameter("num"));
-		
+		int num=Integer.parseInt(request.getParameter("num"));		
 		String keyword=request.getParameter("keyword");
 		String condition=request.getParameter("condition");
 
