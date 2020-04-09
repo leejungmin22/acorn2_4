@@ -30,7 +30,7 @@
 		width:300px;
 		height:110px;
 		margin:-300px 0px 160px -160px;
-		opacity: 0.9; /*투명도*/
+		opacity: 0.8; /*투명도*/
 	}
 		
 	/*로그인창 크기,가운데 정렬*/
@@ -44,7 +44,7 @@
 		margin-top:-150px;
 		overflow:hidden;
 		background-color: #ffffff;
-        background-color: rgba( 255, 255, 255, 0.9 );
+        background-color: rgba( 255, 255, 255, 0.8 );
 		
 	}	
 	
@@ -52,7 +52,7 @@
 	.input-field {
 		width: 100%;
 		padding: 10px 10px;
-		margin: 20px 10px 10px 10px;
+		margin: 10px 10px 10px 10px;
 		border: none;
 		border-bottom: 1px solid #999;
 		outline: none;
@@ -65,7 +65,7 @@
 		padding: 10px 30px;
 		cursor: pointer;
 		display: block;
-		margin: 165px 10px 50px 25px;
+		margin: 180px 10px 50px 25px;
 		background: linear-gradient(to right, #ffde38, #1d4163);
 		border: 0;
 		outline: none;
@@ -73,7 +73,6 @@
 		zoom: 1;
 		filter: alpha(opacity=80); 
 		opacity: 0.8;
-		font-weight:bold;
 	}
 		
 	.checkbox {

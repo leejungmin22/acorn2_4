@@ -8,8 +8,7 @@
 <title>전체공연보기</title>
 <jsp:include page="include/resource.jsp" />
 <style type="text/css">
- @import url(//fonts.googleapis.com/earlyaccess/nanumpenscript.css);
-
+@import url(//fonts.googleapis.com/earlyaccess/nanumpenscript.css);
 	.sub-nav-left{
 		display:block;
 		position:relative;
@@ -117,22 +116,8 @@ ol, ul {
 		>
 		<a href="list.do" onclick="javascript:page_link('010000'); return false;">날짜별 목록</a>
 	</div>
-
+	
 	<div class="condition" align="right">
-		<div>
-			<c:if test="${not empty keyword }">
-				<p>
-					<strong>${keyword }</strong> 라는 검색어로 
-					<strong>${totalRow }</strong> 개의 공연을 찾았습니다.
-				</p>
-			</c:if>
-			<c:if test="${not empty startdate and not empty enddate }">
-				<p>
-					<strong>${startdateFormat }~${enddateFormat }</strong> 에는 
-					<strong>${totalRow }</strong> 개의 공연이 있습니다.
-				</p>
-			</c:if>
-		</div>
 		<form class="form-inline" action="list.do" method="get"> 
 			<div class="form-group">
 				<label for="condition">검색조건</label>
@@ -154,13 +139,15 @@ ol, ul {
 				<button class="btn img-button" type="submit" disabled="disabled"></button>
 			</div>
 		</form>
-	</div>
-	<div class="option_tab _tabContainer" data-tab="sort">
+		
+		
+		</div>
+		<div class="option_tab _tabContainer" data-tab="sort">
 		<ul class="sub_option">
 			<li class="_tab" data-value role="tab" ><a class ="sort" href="javascript:" id="favorite" >인기순</a></li>
 			<li  class="_tab" data-value role="default.asc" ><a class ="sort" type="javascript:" id="pastdate">날짜순</a></li>
 		</ul>
-	</div>
+		</div>
 	<table class="table table-hover">
 
 		<colgroup>

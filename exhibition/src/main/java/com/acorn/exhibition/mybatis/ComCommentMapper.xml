@@ -8,7 +8,7 @@
 		INNER JOIN users
 		ON community_comment.writer = users.id
 		WHERE ref_group=#{ref_group}
-		ORDER BY comment_group DESC, num ASC
+		ORDER BY comment_group ASC, num ASC
 	</select>
 	<update id="delete" parameterType="int">
 		UPDATE community_comment

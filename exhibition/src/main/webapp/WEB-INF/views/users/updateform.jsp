@@ -7,32 +7,10 @@
 <meta charset="UTF-8">
 <title>/users/private/updateform.jsp</title>
 <jsp:include page="../include/resource.jsp"></jsp:include>
-<style type="text/css">
-	.sub-nav-left{
-		display:block;
-		position:relative;
-		font-size:15px;
-		float:none;
-		margin:10px 0 10px 0;
-		text-align:left;
-		border-bottom:1px solid #ddd;
-		padding:1px 0 5px;
-		font-family: "Noto Sans KR","맑은 고딕","Malgun Gothic",;
-	}
-</style>
 </head>
 <body>
 <div class="container">
 <jsp:include page="../include/navbar.jsp" />
-	<div class="sub-nav-left">
-		<a href="${pageContext.request.contextPath }/home.do">
-			<img src="../resources/images/home.png" alt="홈" />
-		</a>
-		> 
-		<a href="${pageContext.request.contextPath }/users/info.do">개인정보 수정</a>
-		> 
-		<a href="${pageContext.request.contextPath }/users/updateform.do">회원정보 수정</a>
-	</div>
 	<h1>회원정보 수정폼</h1>
 	<form action="update.do" method="post">
 		<input type="hidden" name="id" value="${id }"/>
@@ -56,10 +34,12 @@
 		<div class="form-group">
 			<label for="gender">성별</label>
 			<select class="form-control" name="gender" id="gender">
-				<option value="f" <c:if test="${dto.gender eq 'f' }">selected</c:if>>여</option>
-				<option value="m" <c:if test="${dto.gender eq 'm' }">selected</c:if>>남</option>
+				<option value="f" <c:if test="${gender eq 'f' }">selected</c:if>>여</option>
+				<option value="m" <c:if test="${gender eq 'm' }">selected</c:if>>남</option>
 			</select>
 		</div>
+		
+	
 		<button class="btn btn-primary" type="submit">수정확인</button>
 		<button class="btn btn-warning" type="reset">취소</button>
 	</form>

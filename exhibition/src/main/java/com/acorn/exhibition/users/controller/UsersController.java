@@ -47,8 +47,8 @@ public class UsersController {
 	
 	// 회원가입 컨트롤
 	@RequestMapping(value = "/users/signup",method = RequestMethod.POST) //get방식 요청을 하면 처리 하지 않는다
-	public ModelAndView signup(@ModelAttribute("dto") UsersDto dto, ModelAndView mView, HttpServletRequest request) {
-		service.addUser(dto, request);
+	public ModelAndView signup(@ModelAttribute("dto") UsersDto dto, ModelAndView mView, HttpServletRequest request, @RequestParam MultipartFile profileImage) {
+		service.addUser(dto, request, profileImage);
 		mView.setViewName("users/insert");
 		return mView;
 	}
@@ -150,7 +150,7 @@ public class UsersController {
 	 * 4.upload 폴더 만들기
 	 */
 	@ResponseBody
-	@RequestMapping(value="/users/profile_upload", method=RequestMethod.POST)
+	@RequestMapping(value="/users/profile_upload",method=RequestMethod.POST)
 	public Map<String,Object> profileUpload(HttpServletRequest request, @RequestParam MultipartFile profileImage){
 		String path= service.saveProfileImage(request, profileImage);
 		/*
@@ -161,7 +161,6 @@ public class UsersController {
 		map.put("savePath", path);
 		return map;
 	}
-	
 	@RequestMapping("/users/pwd_updateform")
 	public ModelAndView authPwdForm(HttpServletRequest request, ModelAndView mView) {
 		mView.setViewName("users/pwd_updateform");
