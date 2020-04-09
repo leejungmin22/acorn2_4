@@ -257,11 +257,10 @@ public class HomeServiceImpl implements HomeService{
 		System.out.println(sort+"11");
 		//1. DB 에서 글 목록을 얻어온다.
 	
-		dto.setSort(sort);
-		String dtosort=dto.getSort();
+
 		
 		List<FullCalendarDto> list=dao.getList(dto);
-		System.out.println(dtosort+"22");
+
 		request.setAttribute("list", list);
 		
 		//EL, JSTL 을 활용하기 위해 필요한 모델을 request 에 담는다.

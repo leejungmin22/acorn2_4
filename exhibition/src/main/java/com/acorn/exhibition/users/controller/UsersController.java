@@ -216,5 +216,12 @@ public class UsersController {
 		mView.setViewName("users/delete");
 		return mView;
 	}
+	@ResponseBody
+	@RequestMapping("/users/likelist")
+	public ModelAndView list(ModelAndView mView, HttpServletRequest request,HttpSession session) {
+		service.likelist(request,session);
+		mView.setViewName("users/likelist");
+		return mView;
+	}
 }
      

@@ -22,5 +22,6 @@ public interface UsersService {
 	public void updatePassword(UsersDto dto,ModelAndView mView);
 	public void updateUser(UsersDto dto);
 	public void delete(String id);
+	public void likelist(HttpServletRequest request,HttpSession session);
 	public Map<String, Object> checkPwd(String inputPwd, HttpSession session);
 }

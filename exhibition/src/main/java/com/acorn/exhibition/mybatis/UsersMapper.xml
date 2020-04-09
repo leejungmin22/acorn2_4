@@ -53,4 +53,61 @@
 		FROM exhibition_users
 		WHERE id=#{inputId}
 	</select>
+	
+		<!-- 전체 공연 list -->
+	<select id="getCount" parameterType="fullCalendarDto" resultType="int">
+		SELECT NVL(MAX(ROWNUM), 0)
+		<choose>
+			<when test="startdate != null and enddate != null">
+				FROM (SELECT stb_api_date.seq, title, startdate, enddate, place, thumbnail, likecount
+					FROM tb_api_date,exhibition_like
+						<![CDATA[
+						WHERE startdate>=to_date(${startdate},'yyyymmdd') AND startdate<=to_date(${enddate},'yyyymmdd'))
+						AND tb_api_date.seq = exhibition_like.seq AND exhibition_like.id = #{id} result2
+						]]>
+			</when>
+			<otherwise>
+				FROM tb_api_date,exhibition_like WHERE tb_api_date.seq = exhibition_like.seq AND exhibition_like.id = #{id}
+			</otherwise>
+		</choose>
+		<choose>
+			<when test="title != null">
+				WHERE title LIKE '%${title}%'
+			</when>
+			<when test="place != null">
+				WHERE place LIKE '%${place}%'
+			</when>
+		</choose>
+	</select>
+	
+	<select id="getLikeList" resultType="fullCalendarDto">
+		SELECT *
+		 FROM (SELECT result1.*, ROWNUM AS rnum
+				FROM (SELECT tb_api_date.seq, title, TO_CHAR(startdate,'YYYY/MM/DD') AS startdate, TO_CHAR(enddate,'YYYY/MM/DD') AS enddate, place, thumbnail, likecount
+						<choose>
+							<when test="startdate != null and enddate != null">
+								FROM (SELECT stb_api_date.seq, title, startdate, enddate, place, thumbnail, likecount
+										FROM tb_api_date,exhibition_like
+										<![CDATA[
+										WHERE startdate>=to_date(${startdate},'yyyymmdd') AND startdate<=to_date(${enddate},'yyyymmdd'))
+										AND tb_api_date.seq = exhibition_like.seq AND exhibition_like.id = #{id} result2
+										]]>
+							</when>
+							<otherwise>
+								FROM tb_api_date,exhibition_like WHERE tb_api_date.seq = exhibition_like.seq AND exhibition_like.id = #{id}
+							</otherwise>
+						</choose>
+						<choose>
+							<when test="title != null">
+								WHERE title LIKE '%${title}%'
+							</when>
+							<when test="place != null">
+								WHERE place LIKE '%${place}%'
+							</when>
+						</choose>
+						order by
+							startdate DESC
+						) result1)
+ 		WHERE rnum BETWEEN #{startRowNum} AND #{endRowNum}
+	</select>
 </mapper>

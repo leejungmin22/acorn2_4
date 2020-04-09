@@ -1,10 +1,13 @@
 package com.acorn.exhibition.users.dao;
 
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.acorn.exhibition.home.dto.FullCalendarDto;
 import com.acorn.exhibition.users.dto.UsersDto;
 
 
@@ -69,6 +72,18 @@ public class UsersDaoImpl implements UsersDao{
 	public String getAdminAuth(String inputId) {
 		String getAdminAuth = session.selectOne("users.getAdminAuth",inputId);
 		return getAdminAuth;
+	}
+	
+	@Override
+	public List<FullCalendarDto> getlikeList(FullCalendarDto dto) {
+		List<FullCalendarDto> likelist=session.selectList("users.getLikeList", dto);
+		return likelist;
+	}
+	
+	@Override
+	public int getCount(FullCalendarDto dto) {
+		int count=session.selectOne("users.getCount", dto);
+		return count;
 	}
 
 	

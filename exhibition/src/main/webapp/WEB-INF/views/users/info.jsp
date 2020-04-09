@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>개인정보 수정</title>
+<title>개인정보</title>
 <jsp:include page="../include/resource.jsp"></jsp:include>
 <style>
 	/* 프로필 이미지가 가로 세로 50px 인 원형으로 표시 될수 있도록  */
@@ -40,9 +40,10 @@
 			<img src="../resources/images/home.png" alt="홈" />
 		</a>
 		> 
-		<a href="${pageContext.request.contextPath }/users/info.do">개인정보 수정</a>
+		<a href="${pageContext.request.contextPath }/users/info.do">개인정보 </a>
 	</div>	
-	<h1>개인정보 수정</h1>
+	<h1>개인정보 </h1>
+
 	<div style="text-align: center;">
 		<a href="javascript:" id="profileLink">
 			<c:choose>
@@ -81,6 +82,12 @@
 			<td>
 				<c:if test="${dto.gender eq 'f' }">여</c:if>
 				<c:if test="${dto.gender eq 'm' }">남</c:if>
+			</td>
+		</tr>
+		<tr>
+			<th>좋아요한 글목록</th>
+			<td>
+				<a class="btn btn-info" href="likelist.do">좋아요한 글 목록보기</a>
 			</td>
 		</tr>
 
