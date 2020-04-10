@@ -334,7 +334,9 @@ $(document).ready(function(){
 			<div class="owl-carousel owl-theme">
 				<c:forEach var="tmp" items="${list }" end="9">
 					<div class="item">
-						<img alt="${tmp.title }" src="${tmp.thumbnail }">
+						<a href="detail.do?seq=${tmp.seq }">
+							<img alt="${tmp.title }" src="${tmp.thumbnail }">
+						</a>
 				    </div>
 				</c:forEach>
 			</div>
