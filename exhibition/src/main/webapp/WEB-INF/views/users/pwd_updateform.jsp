@@ -25,6 +25,8 @@
 			<input class="form-control" type="password" name="pwd" id="pwd"/>
 			<p class="help-block" id="oldPwd_required">필수 정보입니다.</p>
 			<p class="help-block" id="oldPwd_notmatch">기존의 비밀번호와 맞지 않습니다.</p>
+			<span class="glyphicon glyphicon-remove form-control-feedback"></span>
+            <span class="glyphicon glyphicon-ok form-control-feedback"></span>
 		</div>
 		<div class="form-group has-feedback">
 			<label class="control-label" for="newPwd">새 비밀번호</label>
