@@ -123,6 +123,7 @@
          <a href="javascript:" id="profileLink">
             <img src="${pageContext.request.contextPath }/resources/images/default_user.jpeg"/>
          </a>
+         <h6>이미지를 클릭하여 프로필 사진을 선택하세요</h6>
       </div>
       <form action="signup.do" method="post" id="signupForm" enctype="multipart/form-data">
          <div class="form-group has-feedback"> 
