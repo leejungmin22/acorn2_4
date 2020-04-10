@@ -22,15 +22,17 @@
 	}
 
 	.img-button{
-		background:url("../resources/images/google.png");
 		border:none;		
 		position: absolute;
 		top:50%;
-		left:50%;
-		width:300px;
-		height:110px;
+		left:55%;
+		width:150px;
+		height:auto;
 		margin:-300px 0px 160px -160px;
 		opacity: 0.8; /*투명도*/
+	}
+	.img-button:hover{
+		cursor: pointer;
 	}
 		
 	/*로그인창 크기,가운데 정렬*/
@@ -50,7 +52,7 @@
 	
 	/*아이디, 비밀번호 입력*/
 	.input-field {
-		width: 100%;
+		width: 90%;
 		padding: 10px 10px;
 		margin: 10px 10px 10px 10px;
 		border: none;
@@ -92,14 +94,13 @@
 		color: #777;
 		cursor: pointer;
 	}
-
 </style>
 </head>
 <body>
 <div class="wrap">
 	<div class="form-wrap">		
-			<!-- 차후 이미지 변경(홈페이지명으로) -->
-			<button class="img-button" id="button"></button>		
+		<!-- 차후 이미지 변경(홈페이지명으로) -->
+		<img class="img-button" id="button" src="${pageContext.request.contextPath }/resources/images/main_logo.png"></button>		
 		<form class="form-signin">
 			<%-- 폼 제출할때 목적지 정보도 같이 보내준다. --%>
 			<input type="hidden" id="url" name="url" value="${url }" />
@@ -116,7 +117,7 @@
 					<input type="checkbox" name="isSave" value="yes"/>아이디, 비밀번호 저장
 				</label>
 			</div>
-			<button type="button">Login</button>
+			<button type="button" class="submit">Login</button>
 			<div class="signup">
 				<a href="signup_form.do">회원가입</a>
 			</div>
