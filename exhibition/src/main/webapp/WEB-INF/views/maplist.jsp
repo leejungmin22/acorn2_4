@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <div class="maplist">
-   <table class="table table-hover">
+   <table class="table table-hover text-center">
 		<colgroup>
 			<col class="col-xs-6"/>
 			<col class="col-xs-1"/>
@@ -36,7 +36,7 @@
 		</tbody>	
 	</table>
 	
-	<div class="page-display" style="text-align: center;">
+	<div class="page-display text-center">
 		<ul class="pagination pagination-sm">
 			<c:choose>
 				<c:when test="${startPageNum ne 1 }">

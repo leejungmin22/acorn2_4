@@ -79,8 +79,16 @@
 	.heart{
 	width: 20px;
 	height: auto;
-}
-
+	}
+	.maplist, .page-display{
+		padding-top: 20px;
+	}
+	.maplist{
+		padding-bottom: 40px;
+	}
+	.table-hover > thead > tr >  th {
+		text-align: center;
+	}
 </style>
 </head>
 <body>
