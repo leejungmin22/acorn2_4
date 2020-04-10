@@ -11,7 +11,7 @@
 	/* 프로필 이미지가 가로 세로 50px 인 원형으로 표시 될수 있도록  */
 	#profileLink img{
 		width: 200px;
-		height: auto;
+		height: 200px;
 		border-radius: 50%;
 		margin: 30px;
 	}
@@ -59,7 +59,7 @@
 	<table class="table">
 		<tr>
 			<th>아이디</th>
-			<td>${dto.id }</td>
+			<td id="id">${dto.id }</td>
 		</tr>
 		<tr>
 			<th>이름</th>
@@ -99,6 +99,8 @@
 <form action="profile_upload.do" method="post" enctype="multipart/form-data" id="profileForm">
 	<label for="profileImage">프로필 이미지 선택</label>
 	<input type="file" name="profileImage" id="profileImage" accept=".jpg, .jpeg, .png, .JPG, .JPEG"/>
+	<input id="checkReqPage" name="checkReqPage" value="1"/>
+	<input id="id" name="id" value="${dto.id }"/>
 </form>
 <%-- jquery form  플러그인 javascript 로딩 --%>
 <script src="${pageContext.request.contextPath }/resources/js/jquery.form.min.js"></script>
@@ -119,12 +121,15 @@
 		//responseData 는 plain object 이다.
 		//{savedPath:"/upload/저장된이미지파일명"}
 		//savedPath 라는 방에 저장된 이미지의 경로가 들어 있다.
-		console.log(responseData);
-		var src="${pageContext.request.contextPath }"+responseData.savePath;
+		console.log(responseData.saveSuccess);
 		// img 의 src 속성에 반영함으로써 이미지가 업데이트 되도록 한다.
-		$("#profileLink img").attr("src", src);
+		if(responseData.saveSuccess){
+			alert("프로필 수정에 성공하였습니다.");
+			location.href="${pageContext.request.contextPath}/users/info.do";
+		}else {
+			alert("프로필 수정에 실패하였습니다.");
+		}
 	});
-	
 
 	function deleteConfirm(){
 		var isDelete=confirm("${id} 님 탈퇴 하시겠습니까?");

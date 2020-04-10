@@ -18,6 +18,7 @@ public interface UsersService {
 	public boolean validUser(UsersDto dto, HttpSession session, ModelAndView mView);
 	public void showInfo(String id, ModelAndView mView);
 	public String saveProfileImage(HttpServletRequest request, MultipartFile mFile);
+	public boolean updateProfile(UsersDto dto);
 	public void updatePassword(UsersDto dto,ModelAndView mView);
 	public void updateUser(UsersDto dto);
 	public void delete(String id);

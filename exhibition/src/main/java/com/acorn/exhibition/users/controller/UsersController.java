@@ -150,17 +150,26 @@ public class UsersController {
 	 */
 	@ResponseBody
 	@RequestMapping(value="/users/profile_upload",method=RequestMethod.POST)
-	public Map<String,Object> profileUpload(HttpServletRequest request, @RequestParam MultipartFile profileImage){
-		String path= service.saveProfileImage(request, profileImage);
-		/*
-		 * {"savedPath":"/upload/xxxx.jpg"}형식의 JSON 문자열을 리턴해 주도록
-		 * Map 객체를 구성해서 리턴해준다.
-		 */
+	public Map<String,Object> profileUpload(HttpServletRequest request, 
+			@RequestParam MultipartFile profileImage,
+			@ModelAttribute UsersDto dto,
+			@RequestParam int checkReqPage){
 		Map<String,Object> map = new HashMap<>();
-		map.put("savePath", path);
-		System.out.println(map.get("savePath"));
+		if(checkReqPage==2) {
+			//{"savedPath":"/upload/xxxx.jpg"}형식의 JSON 문자열을 리턴해 주도록
+			String path= service.saveProfileImage(request, profileImage);
+			map.put("savePath", path);
+		}else if(checkReqPage==1) {
+			String path= service.saveProfileImage(request, profileImage);
+			dto.setProfile(path);
+			boolean saveSuccess=service.updateProfile(dto);
+			map.put("savePath", path);
+			map.put("saveSuccess", saveSuccess);
+		}
+
 		return map;
 	}
+		
 	@RequestMapping("/users/pwd_updateform")
 	public ModelAndView authPwdForm(HttpServletRequest request, ModelAndView mView) {
 		mView.setViewName("users/pwd_updateform");

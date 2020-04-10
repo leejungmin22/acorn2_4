@@ -26,7 +26,7 @@
    /* 프로필 이미지가 가로 세로 50px 인 원형으로 표시 될수 있도록  */
    #profileLink img{
       width: 200px;
-      height: auto;
+      height: 200px;
       border-radius: 50%;
       margin: 30px;
    }
@@ -119,7 +119,7 @@
       <a href="${pageContext.request.contextPath }/users/signup_form.do">회원가입</a>
    </div>   
     <div class="condition" > 
-       <div style="text-align: center;">
+       <div class="text-center">
          <a href="javascript:" id="profileLink">
             <img src="${pageContext.request.contextPath }/resources/images/default_user.jpeg"/>
          </a>
@@ -182,6 +182,7 @@
 <form action="profile_upload.do" method="post" enctype="multipart/form-data" id="profileForm">
    <label for="profileImage">프로필 이미지 선택</label>
    <input type="file" name="profileImage" id="profileImage" accept=".jpg, .jpeg, .png, .JPG, .JPEG"/>
+   <input id="checkReqPage" name="checkReqPage" value="2"/>
 </form>
 <%-- jquery form  플러그인 javascript 로딩 --%>
 <script src="${pageContext.request.contextPath }/resources/js/jquery.form.min.js"></script>
