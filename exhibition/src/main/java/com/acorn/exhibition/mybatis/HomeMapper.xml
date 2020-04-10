@@ -40,7 +40,7 @@
 		<choose>
 			<when test="startdate != null and enddate != null">
 				<![CDATA[
-				WHERE startdate>=to_date(${startdate},'yyyymmdd') AND startdate<=to_date(${enddate},'yyyymmdd')) result2
+				WHERE startdate>=to_date(${startdate},'yyyymmdd') AND startdate<=to_date(${enddate},'yyyymmdd')
 				]]>
 			</when>
 			<when test="title != null">

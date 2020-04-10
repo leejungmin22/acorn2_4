@@ -174,7 +174,7 @@ public class HomeServiceImpl implements HomeService{
 			}
 			
 		}
-		
+
 		FullCalendarDto dto=new FullCalendarDto();
 		if(keyword!=null || (startdate!=null && startdate!=null)) {
 			if (condition.equals("title")) {//제목 검색
@@ -199,7 +199,6 @@ public class HomeServiceImpl implements HomeService{
 					e.printStackTrace();
 				}
 			}
-
 			//키워드와 검색조건을 request 에 담는다. 
 			request.setAttribute("keyword", keyword);
 			request.setAttribute("encodedKeyword", encodedKeyword);
