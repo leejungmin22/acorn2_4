@@ -136,7 +136,8 @@
             <label class="control-label" for="id">아이디</label>
             <input class="form-control" type="text" id="id" name="id"/>
             <p class="help-block" id="id_notusable">사용 불가능한 아이디 입니다.</p>
-            <p class="help-block" id="id_required">필수 정보입니다.</p>
+            <p class="help-block" id="id_required">반드시 입력하세요</p>
+            <p class="help-block" id="id_notmatch">아이디는 숫자,영문 15자 내로 입력 할 수 있습니다.</p>
             <span class="glyphicon glyphicon-remove form-control-feedback"></span>
             <span class="glyphicon glyphicon-ok form-control-feedback"></span>
          </div>
@@ -151,10 +152,10 @@
          <div class="form-group has-feedback">
             <label class="control-label" for="pwd2">비밀번호 확인</label>
             <input class="form-control" type="password" id="pwd2" name="pwd2"/>
-            <p class="help-block" id="pwd2_required">필수 정보입니다.</p> 
-            <p class="help-block" id="pwd2_notequal">비밀번호와 동일하게 입력하세요</p>
-            <span class="glyphicon glyphicon-remove form-control-feedback"></span>
-            <span class="glyphicon glyphicon-ok form-control-feedback"></span>
+			<p class="help-block" id="pwd_required2">반드시 입력하세요</p>
+			<p class="help-block" id="pwd_notequal">비밀번호 입력란과 동일하게 입력하세요</p>
+			<span class="glyphicon glyphicon-remove form-control-feedback"></span>
+			<span class="glyphicon glyphicon-ok form-control-feedback"></span>
          </div>
          <div class="form-group has-feedback">
             <label class="control-label" for="email">이메일</label>
@@ -280,15 +281,15 @@
       //띄어쓰기 불가
       var a=inputName.replace(/ /gi, '');
       $("#name").val(a);
-      if(inputName.length == 0){ //이메일을 입력하지 않았다면
+      if(inputName.length == 0){ //이름을 입력하지 않았다면
          isNameInput=false;
       }else{//이메일을 입력 했다면 
          isNameInput=true;
       }
       //이메일 에러 여부 
-      var isError=isNameDirty && !isNameInput;
+      var isErrorReult=isNameDirty && !isNameInput;
       //이메일 상태 바꾸기 
-      setState("#name", isError);
+      setState("#name", isErrorReult);
    });
    
    
@@ -307,9 +308,9 @@
          isEmailInput=true;
       }
       //이메일 에러 여부 
-      var isError=isEmailInput && !isEmailMatch;
+      var isErrorReult=isEmailInput && !isEmailMatch;
       //이메일 상태 바꾸기 
-      setState("#email", isError);
+      setState("#email", isErrorReult);
    });
    
    //비밀번호를 입력할때 실행할 함수 등록
@@ -328,46 +329,51 @@
          isPwdInput=true;
          
       }
-      //비밀번호 형식에 맞게 입력 했는지 검증
-      if(pwd.match(pwdCheck)){ //비밀번호 형식에 맞게 입력했다면
-         isPwdMatch=true;
-      }else{//형식에 맞지 않다면
-         isPwdMatch=false;
-      }
-
-      var isError=!isPwdMatch || !isPwdInput;
-      //비밀번호 상태 바꾸기 
-      setState("#pwd", isError);
+		//비밀번호 형식에 맞게 입력 했는지 검증
+		if(pwd.match(pwdCheck)){ //비밀번호 형식에 맞게 입력했다면
+			isPwdMatch=true;
+		}else{//형식에 맞지 않다면
+			isPwdMatch=false;
+		}
+		
+		//아이디 에러 여부
+		var isErrorReult= !isPwdInput || !isPwdMatch ;
+		
+		//아이디 상태 바꾸기 
+		setState("#pwd", isErrorReult );
    });
    
-   $("#pwd2").on("input", function(){
-      
-      isPwd2Dirty=true; //입력이 한번이라도 되었을 경우
-
-      //입력한 비밀번호를 읽어온다.
-      var pwd=$("#pwd").val();
-      var pwd2=$("#pwd2").val();
-      var b=pwd2.replace(/ /gi, '');
-      
-      $("#pwd2").val(b);
-
-      //pwd 입력 여부 검증
-      if(pwd2.length == 0){
-         isPwd2Input=false;
-      }else{
-         isPwd2Input=true;
-         
-         if(pwd != pwd2){//두 비밀번호를 동일하게 입력하지 않았다면
-            isPwdEqual=false;
-         }else{
-            isPwdEqual=true;
-         }
-         
-         var isError=!isPwdEqual && isPwd2Input ;
-         setState("#pwd2", isError);
-      }
-      
-   });
+	//비밀번호를 입력할때 실행할 함수 등록
+	$("#pwd2").on("input", function(){
+		//상태값을 바꿔준다. 
+		isPwd2Dirty=true;
+		
+		//입력한 비밀번호를 읽어온다.
+		var pwd=$("#pwd").val();
+		var pwd2=$("#pwd2").val();
+		//띄어쓰기 불가
+		var b=pwd2.replace(/ /gi, '');
+		$("#pwd2").val(b);
+		
+		//pwd 입력 여부 검증
+		if(pwd2.length == 0){
+			isPwd2Input=false;
+		}else{
+			isPwd2Input=true;
+		}
+		console.log("isPwd2Input:"+isPwd2Input);
+		//pwd과 pwd2 일치 여부 검증
+		isPwdEqual = pwd != pwd2 ? false : true;
+		console.log("isPwdEqual:"+isPwdEqual);
+		//아이디 에러 여부 
+		var isErrorReult= !isPwd2Input || !isPwdEqual ;
+		
+		//아이디 상태 바꾸기 
+		setState("#pwd2", isErrorReult );
+		console.log("pwd2isErrorReult:"+isErrorReult);
+		
+		
+	});
    
    //아이디를 입력할때 실행할 함수 등록 
    $("#id").on("input", function(){
@@ -377,46 +383,51 @@
       //띄어쓰기 불가
       var a=inputId.replace(/ /gi, '');
       $("#id").val(a);
-      $.ajax({
-         url:"${pageContext.request.contextPath }/users/checkid.do",
-         method:"GET",
-         data:{inputId:inputId},
-         success:function(responseData){
-            if(responseData.isExist){//이미 존재하는 아이디라면 
-               isIdUsable=false;
-            }else{
-               isIdUsable=true;
-            }
-            //아이디 에러 여부 
-
-            var isError= !isIdUsable || !isIdInput ;
-            //아이디 상태 바꾸기 
-            setState("#id", isError );
-         }
-      });
-      //id 입력여부 검증
-      if(inputId.length == 0){
-         isIdInput=false;
-      }else{
-         isIdInput=true;
-         //아이디 형식에 맞게 입력 했는지 검증
-         if(inputId.match(idCheck)){//아이디 형식에 맞게 입력 했다면
-            isIdMatch=true;
-         }else{//형식에 맞지 않게 입력했다면 
-            isIdMatch=false;
-      }
-      
-      //아이디 에러 여부 
-      var isError= !isIdUsable || !isIdInput;
-      //아이디 상태 바꾸기 
-      setState("#id", isError );
-      
-      }
-      
+		//id 입력여부 검증
+		if(inputId.length == 0){
+			isIdInput=false;
+		}else{
+			isIdInput=true;
+		}
+		//아이디 형식에 맞게 입력 했는지 검증
+		if(inputId.match(idCheck)){//아이디 형식에 맞게 입력 했다면
+			isIdMatch=true;
+		}else{//형식에 맞지 않게 입력했다면 
+			isIdMatch=false;
+		}
+		
+		$.ajax({
+			url:"${pageContext.request.contextPath }/users/checkid.do",
+			method:"GET",
+			data:{inputId:inputId},
+			success:function(responseData){
+				if(responseData.isExist){//이미 존재하는 아이디라면 
+					isIdUsable=false;
+				}else{
+					isIdUsable=true;
+				}
+				//아이디 에러 여부 
+				var isError1= !isIdUsable || !isIdInput ;
+				var isError2= !isIdUsable || !isIdMatch ;
+				
+				var isErrorReult= isError1 || isError2 ;
+				
+				//아이디 상태 바꾸기 
+				setState("#id", isErrorReult );
+			}
+		});
+		//아이디 에러 여부 
+		var isError1= !isIdUsable || !isIdInput ;
+		var isError2= !isIdUsable || !isIdMatch ;
+		
+		var isErrorReult= isError1 || isError2 ;
+		
+		//아이디 상태 바꾸기 
+		setState("#id", isErrorReult );
    });
    
    //입력란의 상태를 바꾸는 함수 
-   function setState(sel, isError){
+   function setState(sel, isErrorReult){
       //일단 UI 를 초기 상태로 바꿔준다.
       $(sel)
       .parent()
@@ -425,7 +436,7 @@
       .hide();
       
       //입력란의 색상과 아이콘을 바꿔주는 작업 
-      if(isError){
+      if(isErrorReult){
          //입력란이 error 인 상태
          $(sel)
          .parent()
@@ -440,50 +451,46 @@
          .find(".glyphicon-ok")
          .show();
       }
-      
-      if(isNameDirty && !isNameInput){
-         $("#name_required").show();
-      }
-      //에러가 있다면 에러 메세지 띄우기
-      if(isEmailInput && !isEmailMatch){
-         $("#email_notmatch").show();
-      }
-      
-       //pwd 에러가 있다면 에러 메세지 띄우기
-      /* 
-         [pwd 입력란 에러 메세지 조건]
-          1. pwd를 입력 했는데 조건에 맞지 않은 경우
-          2. pwd를 입력하지 않은 경우 
-          3. pwd2를 입력하지 않은 경우
-          4. pwd2를 입력했는데 같지 않은 경우
-      */
-      if(!isPwdMatch && isPwdDirty && isPwdInput){ //pwd를 입력 했는데 조건에 맞지 않는 경우
-         $("#pwd_notmatch").show();
-      }
-      if(!isPwdInput && isPwdDirty){ // pwd를 입력하지 않은 경우
-         $("#pwd_required").show();
-      }
-      if(!isPwd2Input && isPwd2Dirty){ //pwd2 입력하지 않은 경우
-         $("#pwd2_required").show();
-      }
-      if(!isPwdEqual && isPwdInput && isPwd2Input){ //pwd 같지 않은 경우
-         $("#pwd2_notequal").show();
-      }
-   
-      //id 에러가 있다면 에러 메세지 띄우기
-      if(!isIdMatch && isIdDirty && isIdInput){ //id를 입력했는데 조건에 맞지 않는 경우
-         $("#id_notmatch").show();
-      }
-      if(!isIdUsable && isIdDirty ){ //id를 입력했는데 DB에 이미 등록된 ID인 경우
-         $("#id_notusable").show();
-      }
-      if(!isIdInput && isIdDirty){ //id를 입력하지 않은 경우
-         $("#id_required").show();
-      }
-      
+      	
+		//에러가 있다면 에러 메세지 띄우기
+		if(!isNameInput && isNameDirty){
+			$("#name_required").show();
+		}      
+		if(isEmailInput && !isEmailMatch){
+			$("#email_notmatch").show();
+		}
+		
+		if(!isPwdMatch && isPwdDirty && isPwdInput){ //pwd를 입력 했는데 조건에 맞지 않는 경우
+			$("#pwd_notmatch").show();
+		}
+		if(!isPwdInput && isPwdDirty){ // pwd를 입력하지 않은 경우
+			$("#pwd_required").show();
+		}
+		
+		/* 
+		[pwd 확인 입력란 에러 메세지 조건]
+		1. pwd 확인란 입력하지 않고, pwd와 pwd2가 동일하게 입력되지 않은 경우
+		*/
+		if(isPwd2Input && !isPwdEqual){ //pwd와 pwd2가 동일하게 입력되지 않은 경우
+			$("#pwd_notequal").show();
+		}
+		if(!isPwd2Input && isPwd2Dirty){ // pwd2를 입력하지 않은 경우
+			$("#pwd_required2").show();
+		}
+		//id 에러가 있다면 에러 메세지 띄우기
+		if(!isIdMatch && isIdDirty && isIdInput){ //id를 입력했는데 조건에 맞지 않는 경우
+			$("#id_notmatch").show();
+		}
+		if(!isIdUsable && isIdDirty && isIdInput){ //id를 입력했는데 DB에 이미 등록된 ID인 경우
+			$("#id_notusable").show();
+		}
+		if(!isIdInput && isIdDirty){ //id를 입력하지 않은 경우
+			$("#id_required").show();
+		}
+ 
       //버튼의 상태 바꾸기 
-      if(isIdUsable && isIdInput && isPwdEqual && 
-            isPwdInput && isPwdMatch && isPwd2Input && (!isEmailInput || isEmailMatch) ){
+      if(isNameInput && isIdUsable && isIdInput && isPwdEqual && 
+    		  isPwdInput && isPwdMatch && isPwd2Input && (!isEmailInput || isEmailMatch)){
          $("button[type=button]").removeAttr("disabled");
       }else{
          $("button[type=button]").attr("disabled","disabled");
