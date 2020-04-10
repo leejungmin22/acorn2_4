@@ -33,6 +33,9 @@
 		border: 1px dotted #cecece;
 		box-shadow: 3px 3px 5px 6px #ccc;
 	}
+	.comments{
+		padding-bottom: 40px;
+	}
 	.comments ul {
 		padding: 0;
 		margin: 0;
