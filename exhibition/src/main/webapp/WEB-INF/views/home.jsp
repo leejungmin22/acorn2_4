@@ -81,6 +81,9 @@ body{
 			$.ajax({
 		           url: '${pageContext.request.contextPath}/getEvents.do',
 		           dataType: 'json',
+		           error : function( error ) {
+		        	   alert( "데이터를 불러올 수 없습니다." );
+		           },
 		           success: 
 		        	   function(result) {
  
