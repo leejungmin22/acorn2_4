@@ -40,6 +40,10 @@
 		padding:1px 0 5px;
 		font-family: "Noto Sans KR","맑은 고딕","Malgun Gothic",;
 	}
+	.help-block, .form-control-feedback{
+	   display: none;
+	
+	}
 </style>
 </head>
 <body>
@@ -60,6 +64,9 @@
 		<div class="form-group">
 			<label for="email">이메일</label>
 			<input class="form-control" type="text" id="email" name="email" value="${dto.email }"/>
+			<p class="help-block" id="email_notmatch">이메일 형식에 맞게 입력하세요</p>
+            <span class="glyphicon glyphicon-remove form-control-feedback"></span>
+            <span class="glyphicon glyphicon-ok form-control-feedback"></span>
 		</div>
 		<div class="form-group">
 			<label for="birth">생년월일</label>
@@ -79,6 +86,74 @@
 	</form>
 		
 </div>
+<script type="text/javascript">
+var isEmailMatch=false;
+var isEmailInput=false;
+
+var emailCheck = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,3}))$/;
+
+//이메일을 입력할때 실행할 함수 등록
+$("#email").on("input", function(){
+   var email=$("#email").val();    
+   var removeSpace=email.replace(/ /gi, '');
+   $("#email").val(removeSpace);
+   
+   if(email.length == 0){ //이메일을 입력하지 않았다면
+      isEmailInput=false;
+   }else{//이메일을 입력 했다면 
+      isEmailInput=true;
+   }
+   
+   if(email.match(emailCheck)){//이메일 형식에 맞게 입력 했다면
+      isEmailMatch=true;
+   }else{//형식에 맞지 않게 입력했다면 
+      isEmailMatch=false;
+   }
+   
+   //이메일 에러 여부 
+   var isErrorReult=isEmailInput && !isEmailMatch;
+   //이메일 상태 바꾸기 
+   setState("#email", isErrorReult);
+});
+
+//입력란의 상태를 바꾸는 함수 
+function setState(sel, isErrorReult){
+   //일단 UI 를 초기 상태로 바꿔준다.
+   $(sel)
+   .parent()
+   .removeClass("has-success has-error")
+   .find(".help-block, .form-control-feedback")
+   .hide();
+   
+   //입력란의 색상과 아이콘을 바꿔주는 작업 
+   if(isErrorReult){
+      //입력란이 error 인 상태
+      $(sel)
+      .parent()
+      .addClass("has-error")
+      .find(".glyphicon-remove")
+      .show();
+   }else{
+      //입력란이 success 인 상태
+      $(sel)
+      .parent()
+      .addClass("has-success")
+      .find(".glyphicon-ok")
+      .show();
+   }
+   
+	if(isEmailInput && !isEmailMatch){
+		$("#email_notmatch").show();
+	}
+		
+   //버튼의 상태 바꾸기 
+   if(!isEmailInput || isEmailMatch){
+      $("button[type=submit]").removeAttr("disabled");
+   }else{
+      $("button[type=submit]").attr("disabled","disabled");
+   }
+}
+</script>
 </body>
 </html>
 
