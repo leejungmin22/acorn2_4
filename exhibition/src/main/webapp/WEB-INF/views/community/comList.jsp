@@ -44,8 +44,6 @@
 			</a>
 			>
 			<a href="${pageContext.request.contextPath }/community/comList.do" onclick="javascript:page_link('010000'); return false;">목록</a>
-			>
-			<a href="${pageContext.request.contextPath }/community/comList.do" onclick="javascript:page_link('010000'); return false;">목록</a>
 		</div>	
 	
 	<%-- 글 검색 기능 폼 --%>	
