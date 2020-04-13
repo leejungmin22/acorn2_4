@@ -31,6 +31,9 @@
       border:none;
       margin-bottom:60px;
    }
+   #table{
+   		border-bottom:none
+   }
    td, tr{
       border-top:hidden;      
       border-bottom:1px solid #ddd;
@@ -163,16 +166,22 @@
       <p> <strong>${keyword }</strong> 검색어로 검색</p>
    </c:if>
    <table class="table">
-      <colgroup>
+	<colgroup>
          <col class="col-xs-1"/>
          <col class="col-xs-1"/>
-      </colgroup>
-      <tr>
-         <td class="num">${dto.num }</td>
-      </tr>
-      <tr>
-         <td class="title">${dto.title }</td>
-      </tr>
+	</colgroup>
+		<tr>
+			<td class="num">${dto.num }</td>
+		</tr>
+     	<tr>
+     		<td class="title" style="border-bottom:hidden">${dto.title }</td>
+     	</tr>
+	</table>
+	<table class="table" id="table">
+	<colgroup>
+         <col class="col-xs-1"/>
+         <col class="col-xs-1"/>
+	</colgroup>    
       <tr>
          <td></td>
       </tr>

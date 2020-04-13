@@ -21,16 +21,18 @@
 		background-size: cover;
 	}
 
-	.img-button{
-		background:url("../resources/images/google.png");
-		border:none;		
-		position: absolute;
-		top:50%;
-		left:50%;
-		width:300px;
-		height:110px;
-		margin:-300px 0px 160px -160px;
-		opacity: 0.8; /*투명도*/
+	#button{		
+		background-color: transparent !important;
+		background-image: none !important;
+		border-color: transparent;
+		border: none;		
+		color: #FFFFFF;
+		font-size:80px;
+		cursor:pointer;
+	}
+	div.button{
+		margin-top:100px;
+		margin-right:20px;
 	}
 		
 	/*로그인창 크기,가운데 정렬*/
@@ -97,9 +99,12 @@
 </head>
 <body>
 <div class="wrap">
-	<div class="form-wrap">		
+	<div class="form-wrap">	
+		<div class="button" align="center">
 			<!-- 차후 이미지 변경(홈페이지명으로) -->
-			<button class="img-button" id="button"></button>		
+			<button class="button" id="button">TREND</button>
+		</div>	
+					
 		<form class="form-signin">
 			<%-- 폼 제출할때 목적지 정보도 같이 보내준다. --%>
 			<input type="hidden" id="url" name="url" value="${url }" />
@@ -116,7 +121,7 @@
 					<input type="checkbox" name="isSave" value="yes"/>아이디, 비밀번호 저장
 				</label>
 			</div>
-			<button type="button">Login</button>
+			<button type="button" class="submit">Login</button>
 			<div class="signup">
 				<a href="signup_form.do">회원가입</a>
 			</div>
