@@ -36,11 +36,7 @@ body{
 @import url(//fonts.googleapis.com/earlyaccess/nanumgothic.css);
 @import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
 
-   .form-group{
-      font-size:25px;
-      font-color:#FFFFFF;
-      font-family: 'Nanum Pen Script', cursive;
-   }
+   
    h3{
       font-size:25px;
       font-family: 'Nanum Pen Script', cursive;
