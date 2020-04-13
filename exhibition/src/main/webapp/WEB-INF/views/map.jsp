@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>/myPage/lunch.jsp</title>
+<title>지역별 공연</title>
 <link rel="stylesheet"
    href="${pageContext.request.contextPath }/resources/css/bootstrap.css" />
 <jsp:include page="include/resource.jsp" />

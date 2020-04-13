@@ -5,7 +5,7 @@
 <html>
 <head> 
 <meta charset="UTF-8">
-<title>홈페이지명</title>
+<title>TREND</title>
 <jsp:include page="include/resource.jsp" />
 <!-- fullcalendar -->
 <link rel='stylesheet' type='text/css' href='${pageContext.request.contextPath }/resources/css/fullcalendar/main.css'/>
