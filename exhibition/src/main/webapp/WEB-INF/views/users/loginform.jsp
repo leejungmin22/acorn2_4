@@ -28,6 +28,7 @@
 		color: #FFFFFF;
 		font-size:80px;
 		cursor:pointer;
+		font-weight: 800;
 	}
 	div.button{
 		margin-top:100px;
@@ -103,7 +104,7 @@
 	<div class="form-wrap">	
 		<div class="button" align="center">
 			<!-- 차후 이미지 변경(홈페이지명으로) -->
-			<button class="button" id="button">TREND</button>
+			<p class="button" id="button" >TREND</p>
 		</div>
 		<form class="form-signin">
 			<%-- 폼 제출할때 목적지 정보도 같이 보내준다. --%>
@@ -170,7 +171,7 @@ $("button[type=button]").on("click", function(){
 	}
 });//on("click")end
 
-$(".img-button").on("click", function(){
+$(".button").on("click", function(){
 	location.href="${pageContext.request.contextPath }/home.do";
 });
 </script>
