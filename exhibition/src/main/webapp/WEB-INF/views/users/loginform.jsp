@@ -20,16 +20,18 @@
 		-o-background-size: cover;
 		background-size: cover;
 	}
-
-	.img-button{
-		border:none;		
-		position: absolute;
-		top:50%;
-		left:55%;
-		width:150px;
-		height:auto;
-		margin:-300px 0px 160px -160px;
-		opacity: 0.8; /*투명도*/
+	#button{		
+		background-color: transparent !important;
+		background-image: none !important;
+		border-color: transparent;
+		border: none;		
+		color: #FFFFFF;
+		font-size:80px;
+		cursor:pointer;
+	}
+	div.button{
+		margin-top:100px;
+		margin-right:20px;
 	}
 	.img-button:hover{
 		cursor: pointer;
@@ -98,9 +100,11 @@
 </head>
 <body>
 <div class="wrap">
-	<div class="form-wrap">		
-		<!-- 차후 이미지 변경(홈페이지명으로) -->
-		<img class="img-button" id="button" src="${pageContext.request.contextPath }/resources/images/main_logo.png"></button>		
+	<div class="form-wrap">	
+		<div class="button" align="center">
+			<!-- 차후 이미지 변경(홈페이지명으로) -->
+			<button class="button" id="button">TREND</button>
+		</div>
 		<form class="form-signin">
 			<%-- 폼 제출할때 목적지 정보도 같이 보내준다. --%>
 			<input type="hidden" id="url" name="url" value="${url }" />

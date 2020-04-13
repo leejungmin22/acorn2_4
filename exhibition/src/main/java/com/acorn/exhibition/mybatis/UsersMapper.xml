@@ -49,7 +49,14 @@
 		delete from exhibition_like
 		where id=#{id}
 	</delete>
-	
+	<delete id="deletecomment" parameterType="String">
+		delete from board_cafe_comment
+		where id=#{id}
+	</delete>
+	<delete id="deletecomcomment" parameterType="String">
+		delete from community_comment
+		where id=#{id}
+	</delete>
 	<select id="getAdminAuth" parameterType="String" resultType="String">
 		SELECT admin
 		FROM exhibition_users
