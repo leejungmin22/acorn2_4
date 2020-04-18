@@ -6,25 +6,18 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
-
-import org.json.simple.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.ModelAndView;
-
 import com.acorn.exhibition.comment.dao.CommentDao;
 import com.acorn.exhibition.home.dao.HomeDao;
 import com.acorn.exhibition.home.dto.ApiDto;
 import com.acorn.exhibition.home.dto.Com_LikeDto;
 import com.acorn.exhibition.home.dto.CommentDto;
 import com.acorn.exhibition.home.dto.FullCalendarDto;
-
 import com.acorn.exhibition.home.dto.LikeDto;
 import com.acorn.exhibition.home.dto.mapDto;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Service
 public class HomeServiceImpl implements HomeService{
@@ -33,14 +26,56 @@ public class HomeServiceImpl implements HomeService{
 	@Autowired
 	private CommentDao commentDao;
 	
+	/*
+	  	- 작성자 : 김현경
+	  	- 작성일 : 2020-02-27
+	  	- 수정일 : 2020-04-19
+	  	- Method 설명 : fullcalendar의 getEvents.do 요청에 대해 jsonObject(event 1개의 정보)가 담겨 있는 jsonArray(event들)로 응답.
+  	*/
 	@Override
-	public List<FullCalendarDto> getEvent() {
-		return dao.getEvent();
+	public List<Map<String, Object>> getEvent(HttpServletRequest request) {
+		// 작성자:김현경, fullcalendar 출력할 data list
+		List<FullCalendarDto> list=dao.getEvent();
+		List<Map<String, Object>> events = new ArrayList<Map<String, Object>>();
+		// 작성자:김현경, FullCalendarDto에 담겨 있는 데이터를 Map객체에 담고, ArrayList에 추가하기
+		for(FullCalendarDto tmp:list) {
+			String realMname=tmp.getRealmname();
+			Map<String, Object> event=new HashMap<String, Object>();
+			event.put("title", tmp.getTitle());
+			event.put("start", tmp.getStartdate());
+			event.put("end", tmp.getEnddate());
+			event.put("url", request.getContextPath()+"/detail.do?seq="+tmp.getSeq());		
+			switch (realMname) {
+				case "음악":
+					event.put("color", "#6937a1");
+					break;
+				case "연극":
+					event.put("color", "#008d62");
+					break;
+				case "미술":
+					event.put("color", "#2a67b7");
+					break;
+				case "무용":
+					event.put("color", "#dc143c");
+					break;
+				case "기타":
+					event.put("color", "#6937a1");
+					break;
+				default:
+					event.put("color", "#ff3399");
+					break;
+			}
+			
+			events.add(event);
+			
+		}
+		
+		return events;
 	}
 
 	@Override
 	public void getPopularEvents(ModelAndView mView) {
-		List<FullCalendarDto> list=dao.getEvent();
+		List<FullCalendarDto> list=dao.getPopularEvents();
 		mView.addObject("list", list);
 	}
 

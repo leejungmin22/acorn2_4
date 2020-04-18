@@ -14,7 +14,7 @@ import com.acorn.exhibition.home.dto.mapDto;
 
 
 public interface HomeService {
-	public List<FullCalendarDto> getEvent();
+	public List<Map<String, Object>> getEvent(HttpServletRequest request);
 	public void getPopularEvents(ModelAndView mView);
 	public void getData(HttpServletRequest request);
 	public void addExhibition(ApiDto dto);

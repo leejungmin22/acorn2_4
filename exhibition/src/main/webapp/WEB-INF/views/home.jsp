@@ -59,6 +59,13 @@ body{
 
 </style>
 <script>
+  /*
+  	- 작성자 : 김현경
+  	- 작성일 : 2020-02-27
+  	- 수정일 : 2020-04-19
+  	- 설명 : fullcalendar를 load하고 ajax 요청으로 events를 추가함
+  	- 출처 : https://fullcalendar.io/docs
+  */
   document.addEventListener('DOMContentLoaded', function() {
     var calendarEl = document.getElementById('calendar');   
     var calendar = new FullCalendar.Calendar(calendarEl, {
@@ -77,100 +84,7 @@ body{
 		editable: false,
 		droppable: false,
 		dayPopoverFormat: { year: 'numeric', month: 'long', day: 'numeric' },
-		events:function(info, successCallback, failureCallback){
-			$.ajax({
-		           url: '${pageContext.request.contextPath}/getEvents.do',
-		           dataType: 'json',
-		           error : function( error ) {
-		        	   alert( "데이터를 불러올 수 없습니다." );
-		           },
-		           success: 
-		        	   function(result) {
- 
-			               var events = [];
-			              
-			               if(result!=null){
-			            	   
-				            	   $.each(result, function(index, element) {
-			            		   var enddate=element.enddate;
-									if(enddate==null){
-										enddate=element.startdate;
-									}
-									
-									var startdate=moment(element.startdate).format('YYYY-MM-DD');
-									var enddate=moment(enddate).format('YYYY-MM-DD');
-									var realmname = element.realmname;
-									
-									// realmname (분야) 분야별로 color 설정
-									if (realmname == "기타"){
-										events.push({
-											   title: element.title,
-						                       start: startdate,
-						                       end: enddate,
-						           			   url: "${pageContext.request.contextPath }/detail.do?seq="+element.seq,
-						           			   color:"#6937a1"						           				
-						                    }); //.push()
-									}
-																		
-									else if (realmname == "무용"){
-										events.push({
-											   title: element.title,
-						                       start: startdate,
-						                       end: enddate,
-						           			   url: "${pageContext.request.contextPath }/detail.do?seq="+element.seq,
-						           			   color:"#dc143c"						           				
-						                    }); //.push()
-									}
-									
-									else if (realmname == "미술"){
-										events.push({
-											   title: element.title,
-						                       start: startdate,
-						                       end: enddate,
-						           			   url: "${pageContext.request.contextPath }/detail.do?seq="+element.seq,
-						           			   color:"#2a67b7"						           				
-						                    }); //.push()
-									}
-									
-									else if (realmname == "연극"){
-										events.push({
-											   title: element.title,
-						                       start: startdate,
-						                       end: enddate,
-						           			   url: "${pageContext.request.contextPath }/detail.do?seq="+element.seq,
-						           			   color:"#008d62"						           				
-						                    }); //.push()
-									}
-									
-									else if (realmname == "음악"){
-										events.push({
-											   title: element.title,
-						                       start: startdate,
-						                       end: enddate,
-						           			   url: "${pageContext.request.contextPath }/detail.do?seq="+element.seq,
-						           			   color:"#6937a1"						           				
-						                    }); //.push()
-									}
-									
-									else{
-										events.push({
-											   title: element.title,
-						                       start: startdate,
-						                       end: enddate,
-						           			   url: "${pageContext.request.contextPath }/detail.do?seq="+element.seq,
-						           			   color:"#ff3399"						           				
-						                    }); //.push()
-									}
-									
-				               }); //.each()
-				               
-			            	   console.log(events);
-				               
-			               }//if end			               
-			               successCallback(events);				               
-			           }//success: function end						  
-			}); //ajax end
-		} //events:function end
+		events:'${pageContext.request.contextPath}/getEvents.do'
    });//new FullCalendar end
 
    calendar.render();

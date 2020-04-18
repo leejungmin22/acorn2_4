@@ -23,6 +23,12 @@ public class HomeDaoImpl implements HomeDao{
 		List<FullCalendarDto> list=session.selectList("event.getevent");
 		return list;
 	}
+	
+	@Override
+	public List<FullCalendarDto> getPopularEvents() {
+		List<FullCalendarDto> list=session.selectList("event.getPopularEvents");
+		return list;
+	}
 
 	@Override
 	public FullCalendarDto getData(int seq) {

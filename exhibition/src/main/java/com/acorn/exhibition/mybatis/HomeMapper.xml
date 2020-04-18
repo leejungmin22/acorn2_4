@@ -3,12 +3,17 @@
 <mapper namespace="event">
 
 	<select id="getevent" resultType="fullCalendarDto">
-		SELECT seq, title, startdate, enddate, thumbnail, likecount, realmname
+		SELECT seq, title, TO_CHAR(startdate,'YYYY-MM-DD') AS startdate, TO_CHAR(enddate,'YYYY-MM-DD"T23:59:59"') AS enddate, realmname
+		FROM tb_api_date
+	</select>
+	
+	<select id="getPopularEvents" resultType="fullCalendarDto">
+		SELECT seq, title, thumbnail
 		FROM tb_api_date
 		<![CDATA[
 		WHERE enddate>=SYSDATE
 		]]>
-		ORDER BY likecount DESC, enddate ASC
+		ORDER BY likecount DESC
 	</select>
 	
 	<select id="getdata" parameterType="int" resultType="fullCalendarDto">

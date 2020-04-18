@@ -180,8 +180,8 @@ public class HomeController {
 
 	@ResponseBody
 	@RequestMapping(value = "/getEvents")
-	public List<FullCalendarDto> getEvents() {
-		return service.getEvent();
+	public List<Map<String, Object>> getEvents(HttpServletRequest request) {
+		return service.getEvent(request);
 	}
 
 	@RequestMapping(value = "/detail")
