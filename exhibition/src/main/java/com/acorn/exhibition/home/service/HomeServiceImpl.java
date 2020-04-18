@@ -34,10 +34,18 @@ public class HomeServiceImpl implements HomeService{
   	*/
 	@Override
 	public List<Map<String, Object>> getEvent(HttpServletRequest request) {
+		
 		// 작성자:김현경, fullcalendar 출력할 data list
 		List<FullCalendarDto> list=dao.getEvent();
+		
+		// 작성자:김현경, event들을 담을 ArrayList객체
 		List<Map<String, Object>> events = new ArrayList<Map<String, Object>>();
-		// 작성자:김현경, FullCalendarDto에 담겨 있는 데이터를 Map객체에 담고, ArrayList에 추가하기
+		
+		/*
+		 * 작성자:김현경, FullCalendarDto에 담겨 있는 데이터를 Map객체에 담고, ArrayList에 추가하기
+		 * Key값이 fullcalendar의 EventObject의 속성명과 같아야 렌더링가능.
+		 * 참고 문서 : https://fullcalendar.io/docs/event-object
+		 */
 		for(FullCalendarDto tmp:list) {
 			String realMname=tmp.getRealmname();
 			Map<String, Object> event=new HashMap<String, Object>();
